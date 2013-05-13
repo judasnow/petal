@@ -1,0 +1,87 @@
+@panel_width: 21em;
+@panel_padding_left: 21px;
+//重写 jqm panel 样式
+//{{{
+.ui-panel-position-left {
+    left: @panel_width;
+}
+.ui-panel-inner {
+    padding: 0;
+}
+.ui-panel {
+    padding: 0;
+    text-shadow: none;
+    width: @panel_width;
+}
+.dismiss-position-left.ui-panel-dismiss-open {
+    left: @panel_width;
+    right: @panel_width;
+}
+.ui-panel-animate.ui-panel-content-fixed-toolbar-position-left.ui-panel-content-fixed-toolbar-open.ui-panel-content-fixed-toolbar-display-reveal, .ui-panel-animate.ui-panel-content-fixed-toolbar-position-left.ui-panel-content-fixed-toolbar-open.ui-panel-content-fixed-toolbar-display-push, .ui-panel-animate.ui-panel-content-wrap-position-left.ui-panel-content-wrap-open.ui-panel-content-wrap-display-reveal, .ui-panel-animate.ui-panel-content-wrap-position-left.ui-panel-content-wrap-open.ui-panel-content-wrap-display-push {
+   -webkit-transform: translate3d(@panel_width,0,0); 
+}
+.ui-panel-display-reveal {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.ui-panel-content-fixed-toolbar-position-left.ui-panel-content-fixed-toolbar-open, .ui-panel-content-wrap-position-left.ui-panel-content-wrap-open, 
+.ui-panel-dismiss-position-left.ui-panel-dismiss-open {
+    left: @panel_width;
+    right: -@panel_width;
+}
+//}}}
+#main_panel {
+    background: #2f2f2f;
+}
+#object_user_info {
+    @gravatar_size: 48px;
+    height: @gravatar_size;
+    vertical-align: middle;
+    padding-left: @panel_padding_left;
+    padding-bottom: 18px;
+    padding-top: 18px;
+    border-bottom: 1px dashed #393939;
+    .gravatar {
+        width: @gravatar_size;
+        height: @gravatar_size;
+        float: left;
+    }
+    .nickname {
+        @font_size: 16px;
+        font-size: @font_size;
+        font-weight: bolder;
+        float: left;
+        display: inline-block;
+        position: relative;
+        left: 24px;
+        top: 50%;
+        margin-top: -( ( @font_size + 4 ) / 2 );
+        border-radius: 4px;
+        color: #bcbcbc;
+    }
+}
+
+#menu_list {
+    @padding: 8px;
+    background: #212425;
+    .item_set {
+
+    }
+    .item {
+        font-size: 120%;
+        font-weight: bolder;
+        padding: @padding @padding @padding (@padding * 2);
+        color: #afaf9a;
+        border-bottom: 1px solid #1f1f1f;
+    }
+    .sub {
+        &:active {
+            background: #292929;
+        }
+    }
+    .main {
+        padding-left: (@padding / 2);
+        background: #171717;
+        color: #ada892;
+    }
+}

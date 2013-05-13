@@ -1,0 +1,69 @@
+//用户信息列表
+.stream {
+    @image_size: 64px;
+    @item_margin: 4px;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    .item {
+        float: left;
+        clear: both;
+        width: 100%;
+        padding: 0 2px;
+        padding-top: @item_margin;
+        min-height: @image_size + @item_margin;
+        border-bottom: 1px solid #ddd;
+        background: #f9f8f1;
+    }
+//    .item:nth-child(odd) {
+//        background: #e4e5dd;
+//    }
+//    .item:nth-child(even) {
+//        background: #eeefe6;
+//    }
+    .gravatar {
+        float: left;
+        border-radius: 4px;
+        width: @image_size;
+        height: @image_size;
+    }
+    .info {
+        float: left;
+        padding: 0 8px;
+    }
+    //info 中每一条单独的信息
+    .sub_item {
+        display: inline-block;
+        clear: both;
+        float: left;
+        color: #666;
+    }
+    .nickname {
+        font-weight: bolder;
+        font-size: 110%;
+        color: #333;
+        margin-bottom: 8px;
+    }
+    .detail {
+        margin-bottom: 4px;
+    }
+    .sex {
+        
+    }
+    .func {
+        width: 100%;
+        float: right;
+        height: 100%;
+        .btn {
+            background: #e5e3d3;
+            float: right;
+            display: inline-block;
+            font-size: 90%;
+            display: block;
+            padding: 5px;
+            margin-left: 5px;
+            color: #a5a08a;
+        }
+    }
+}
+

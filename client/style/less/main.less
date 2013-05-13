@@ -1,0 +1,18 @@
+@import "main_panel";
+@import "login";
+@import "stream";
+
+body{
+    font-size: 13px;
+    font-family: 'Helvetica Neue', Arial, 'Liberation Sans', FreeSans, 'Hiragino Sans GB', sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+.blurry_text(@px: 5px, @opacty: 0.5) {
+    color: transparent;
+    text-shadow: 0 0 @px rgba(0,0,0,@opacty);
+}
+
+.none_padding {
+    padding: 0;
+}
