@@ -26,12 +26,13 @@ function(
 
     var Search = MainPanelView.extend({
         template: searchTpl ,
-        initialize: function( route ) {
-            this.baseInitialize( route );
+        initialize: function() {
+            this.baseInitialize();
+
             this.events = $.extend({
                 
-            }, this.baseEvents );
-            this.route = route;
+            } , this.baseEvents );
+
             this.$el.append(
                 Mustache.to_html(
                     this.template ,
@@ -42,7 +43,9 @@ function(
                     }
                 )
             );
+
         },
+
         render: function(){
             return this;
         }

@@ -16,25 +16,20 @@ function(
 
     var MainPanel = Backbone.View.extend({
         baseEvents: {
-            "click .stream_same_city": "streamSameCityHandler",
-            "click .search": "searchHandler"
+            "tap .stream_same_city": "streamSameCityHandler",
+            "tap .search": "searchHandler"
         },
 
-        baseInitialize: function( route ) {
-            this.route = route;
+        baseInitialize: function() {
             _.bindAll( this , "streamSameCityHandler" , "searchHandler" );
         },
 
-        before: function(){
-            $( "trigger_main_panel" ).click();
-        },
-
         streamSameCityHandler: function() {
-            this.route.navigate( "#stream" , {trigger: true} );
+            window.route.navigate( "#stream" , {trigger: true} );
         },
 
         searchHandler: function() {
-            this.route.navigate( "#search" , {trigger: true} );
+            window.route.navigate( "#search" , {trigger: true} );
         },
 
         render: function() {

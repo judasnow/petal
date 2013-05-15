@@ -31,18 +31,42 @@ io.sockets.on( 'connection', function( socket ) {
 
     //获取用户列表
     //{{{
-    socket.on( "users:read" , function( data , callback ){
-        request.get(
-            huaban123Server + 'about=user&action=search&p=1&q={"location":"北京"}' ,
-            function( res ) {
-                var res = JSON.parse( res.text );
-                //The model should be a JSON representation of the client-side model's attributes.
-                //难道是我理解有误?
-                if( res.code === "200" ) {
-                    callback( null , JSON.parse( res.users_info ) );
+    socket.on( "users:read" , function( data , callback ) {
+        var pageNo = data.p;
+        if( !isNaN( pageNo ) ) {
+            request.get(
+                huaban123Server + 'about=user&action=search&p=' + pageNo + '&q={"location":"北京"}' ,
+                function( res ) {
+                    var res = JSON.parse( res.text );
+                    //The model should be a JSON representation of the client-side model's attributes.
+                    //难道是我理解有误?
+                    if( res.code === "200" ) {
+                        callback( null , JSON.parse( res.users_info ) );
+                    }
                 }
-            }
-        )
+            );
+        } else {
+            console.log( "try fetch users , but pages No is not set or invalid." );
+        }
+    });//}}}
+
+    //获取礼物列表
+    socket.on( "gifts:read" , function( data , callback ) {
+    //{{{
+        var pageNo = data.p;
+        if( !isNaN( pageNo ) ) {
+            request.get(
+                huaban123Server + 'about=gift&action=get_all&p=' + pageNo ,
+                function( res ) {
+                    var res = JSON.parse( res.text );
+                    if( res.code === "200" ) {
+                        callback( null , JSON.parse( res.users_info ) );
+                    }
+                }
+            );
+        } else {
+            console.log( "try fetch gift list , but pages No is not set or invalid." );
+        }
     });//}}}
 });
 

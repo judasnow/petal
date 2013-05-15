@@ -25,8 +25,7 @@ function(
             "click #do_login": "doLogin"
         },
 
-        initialize: function( route ) {
-            this.route = route;
+        initialize: function() {
             this.$el.append( this.template );
             this.$alertPositionHolder = this.$el.find( ".alert_position_holder" );
 
@@ -65,7 +64,7 @@ function(
             
             //直接保存 json string 
             window.localStorage.setItem( "petal:object_user_info" , data.object_user_info );
-            this.route.navigate( "stream" , {trigger : true} );
+            window.route.navigate( "stream" , {trigger : true} );
         },
 
         loginFail: function( data ) {

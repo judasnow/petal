@@ -1,6 +1,8 @@
 @import "main_panel";
+@import "gift_list_panel";
 @import "login";
 @import "stream";
+@import "user_detail";
 
 body{
     font-size: 13px;
@@ -15,4 +17,19 @@ body{
 
 .none_padding {
     padding: 0;
+}
+
+.fixed {
+    position: fixed;
+    height: 100%;
+    overflow: scroll; 
+}
+
+//一些全局元素的样式
+#globle_notice_sys {
+    padding: 12px;
+    background: #1f1f1f;
+    color: #e1e1e1;
+    text-shadow: none;
+    opacity: 0.7;
 }

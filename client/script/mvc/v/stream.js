@@ -10,9 +10,11 @@ define([
     "text!tpl/div/header.html" ,
     "text!tpl/div/footer.html" ,
     "text!tpl/stream_show_more.html" ,
+    "text!tpl/gift_list_panel.html" ,
 
-    "v/main_panel",
-    "c/users",
+    "v/main_panel" ,
+    "c/users" ,
+    "v/gift_list_panel" ,
     "v/stream_item"
 ] ,
 function(
@@ -27,10 +29,13 @@ function(
     headerTpl ,
     footerTpl ,
     streamShowMoreTpl ,
+    giftListPanelTpl ,
 
     MainPanelView ,
-    Users,
-    StreamItemView
+    Users ,
+    GiftListPanelView ,
+    StreamItemView ,
+    ClickGetMore
 ){
     "use strict";
 
@@ -39,55 +44,103 @@ function(
     var Stream = MainPanelView.extend({
         template: streamTpl ,
 
-        initialize: function( route ) {
-            this.baseInitialize( route );
+        initialize: function() {
+        //{{{
+            this.baseInitialize();
 
             this.events = $.extend({
-                
+                "tap .stream_show_more": "showMore"
             }, this.baseEvents );
 
-            _.bindAll( this , "addOne" , "addAll" );
-
-            this.route = route;
+            _.bindAll( this , "addOne" , "addAll" , "showMore" , "fetchOk" , "fetchFail" );
 
             this.$el.append(
                 Mustache.to_html(
                     this.template ,
                     {
-                        header: headerTpl,
-                        footer: footerTpl,
-                        main_panel: mainPanelTpl
+                        header: headerTpl ,
+                        footer: footerTpl ,
+                        main_panel: mainPanelTpl ,
+                        gift_list_panel: giftListPanelTpl
                     }
                 )
             );
 
-            this.$streamEl = this.$el.find( ".stream" );
+            //初始化 gift list 
+            this.giftListPanelView = new GiftListPanelView(
+                    {
+                        el: this.$el.find( "#gift_list_panel" )
+                    }
+                );
+            this.giftListPanelView.render();
 
-            var users = new Users();
-            users.fetch({
-                success: function( coll , res ){
-                    
+            this.$streamEl = this.$el.find( ".stream" );
+            this.$itemsEl = this.$streamEl.find( ".items" );
+            this.$showMoreEl = this.$streamEl.find( ".stream_show_more" );
+
+            //初始化用户列表
+            this.p = 1;
+            this.users = new Users();
+            this.users.bind( "add" , this.addOne );
+            this.users.bind( "reset" , this.addAll );
+            this.users.fetch({
+                data: {
+                    p: 1
                 },
-                error: function( coll , res ) {
-                    console.log( "fetch users error" + res );
-                }
+                success: this.fetchOk,
+                error: this.fatchFail
             });
-            users.bind( "add" , this.addOne );
-            users.bind( "reset" , this.addAll );
+        },//}}}
+
+        addAll: function() {
+            this.users.each( this.addOne );
         },
 
         addOne: function( item ) {
-            var streamItemView = new StreamItemView( {model: item} );
-            this.$streamEl.append( streamItemView.render().el );
+            var itemView = new StreamItemView({ model: item });
+            this.$itemsEl.append( itemView.render().el );
         },
 
-        addAll: function() {
-            users.each( this.addOne );
-        },
+        fetchOk: function( coll , res ){
+        //{{{
+            //@todo 这里需要进行正确性的判断
+            //返回值不一定有效
+            if( coll.length > 0 ) {
+                this.isFetching = false;
+                this.$showMoreEl.text( "查看更多" );
+            } else {
+                this.$showMoreEl.text( "没有更多了" );
+            }
+        },//}}}
 
-        render: function(){
+        fetchFail: function( coll , res ) {
+        //{{{
+            this.$showMoreEl.text( "查看更多" );
+        },//}}}
+
+        showMore: function() {
+        //{{{
+            //避免用户重复点击
+            if( this.isFetching === true ) {
+                return false;
+            }
+
+            this.isFetching = true;
+            this.$showMoreEl.text( "正在加载" );
+            this.p = this.p + 1;
+            this.users.fetch({
+                data: {
+                    p: this.p
+                },
+                success: this.fetchOk,
+                error: this.fatchFail
+            });
+        },//}}}
+
+        render: function() {
+        //{{{
             return this;
-        }
+        }//}}}
     });
 
     return Stream;

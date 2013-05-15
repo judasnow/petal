@@ -4,23 +4,29 @@
     @item_margin: 4px;
     padding: 0;
     margin: 0;
-    list-style-type: none;
+    .items {
+        width: 100%;
+        display: inline-block;
+    }
     .item {
         float: left;
         clear: both;
-        width: 100%;
         padding: 0 2px;
+        width: 100%;
         padding-top: @item_margin;
         min-height: @image_size + @item_margin;
         border-bottom: 1px solid #ddd;
         background: #f9f8f1;
+        &:active {
+            background: #e4e5dd;
+        }
     }
-//    .item:nth-child(odd) {
-//        background: #e4e5dd;
-//    }
-//    .item:nth-child(even) {
-//        background: #eeefe6;
-//    }
+   // .item:nth-child(odd) {
+   //     background: #e4e5dd;
+   // }
+   // .item:nth-child(even) {
+   //     background: #eeefe6;
+   // }
     .gravatar {
         float: left;
         border-radius: 4px;
@@ -63,6 +69,23 @@
             padding: 5px;
             margin-left: 5px;
             color: #a5a08a;
+        }
+    }
+    .stream_show_more {
+        @font-size: 14px;
+        @padding: @font-size / 2;
+        margin: @padding;
+        padding: @padding 0;
+        background: #f7f6ed;
+        color: #696969;
+        border-radius: 6px;
+        border: 1px solid #c9c9c9;
+        line-height: @font-size * 2;
+        text-align: center;
+        font-size: @font-size;
+        font-weight: bolder;
+        &:active {
+            background: #d7d3c4;
         }
     }
 }
