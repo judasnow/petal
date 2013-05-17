@@ -143,13 +143,13 @@ function(
             //@todo 此处的 $el 同 $el.html() 传入 append 有何区别?
             $( "body" ).append( page.$el );
 
-            $.mobile.changePage(
-                page.$el ,
-                {
-                    changeHash: false
-                }
-            );
-            }//}}}
+           // $.mobile.changePage(
+           //     page.$el ,
+           //     {
+           //         changeHash: false
+           //     }
+           // );
+        }//}}}
     });
     return Router;
 });

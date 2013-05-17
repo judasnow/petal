@@ -15,7 +15,8 @@ define([
 
     "v/main_panel" ,
     "c/users" ,
-    "v/stream_item"
+    "v/stream_item" ,
+    "jqmobi"
 ] ,
 function(
     $ ,
