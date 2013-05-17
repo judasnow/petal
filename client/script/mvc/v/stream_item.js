@@ -45,12 +45,13 @@ function(
 
         sendMsg: function( event ) {
             event.stopImmediatePropagation();
+            window.route.navigate( "#talk" , {trigger: true} );
         },
 
         sendGift: function( event ) {
             event.stopImmediatePropagation();
-            this.$giftListPanelEl.panel( "open" );
-            this.$pageContentEl.addClass( "fixed" );
+            //跳转到礼品选择页面
+            window.route.navigate( "#gift_list" , {trigger: true} );
         },
 
         goDetailPage: function( event ) {

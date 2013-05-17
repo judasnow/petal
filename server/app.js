@@ -37,6 +37,7 @@ io.sockets.on( 'connection', function( socket ) {
             request.get(
                 huaban123Server + 'about=user&action=search&p=' + pageNo + '&q={"location":"北京"}' ,
                 function( res ) {
+                    console.log( res.text )
                     var res = JSON.parse( res.text );
                     //The model should be a JSON representation of the client-side model's attributes.
                     //难道是我理解有误?

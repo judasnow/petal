@@ -6,7 +6,9 @@ define([
     "v/login" ,
     "v/stream" ,
     "v/search" ,
-    'v/user_detail' ,
+    "v/user_detail" ,
+    "v/gift_list" ,
+    "v/talk_list" ,
     "jqm" 
 ],
 function( 
@@ -17,7 +19,9 @@ function(
     LoginView ,
     StreamView ,
     SearchView ,
-    UserDetailView
+    UserDetailView ,
+    GiftListView ,
+    TalkListView
 ) {
     "use strict";
 
@@ -26,11 +30,16 @@ function(
         routes: {
         //{{{
             //默认页面
-            "": "showStream",
-            login: "showLogin",
-            stream: "showStream",
-            search: "showSearch",
-            "user_detail/:userName": "showUserDetail"
+            "": "showStream" ,
+            login: "showLogin" ,
+            stream: "showStream" ,
+            search: "showSearch" ,
+            "gift_list/:gift_class": "showGiftList" ,
+            gift_list: "showGiftList" ,
+            "user_detail/:userName": "showUserDetail" ,
+            //不通过链接显示聊天对方信息比较好
+            talk: "showTalkList" ,
+            ":whatever"  : "notFound" ,
         },//}}}
 
         initialize: function () {
@@ -51,6 +60,10 @@ function(
 
 
         },//}}}
+
+        notFound: function() {
+            alert( "404" );
+        },
 
         //判断用户是否已经登录系统 
         //@todo 方案还有改进的余地
@@ -104,6 +117,16 @@ function(
         showUserDetail: function( userName ) {
         //{{{
             this.changePage( new UserDetailView( { userName: userName } ) );
+        },//}}}
+
+        showGiftList: function( gift_class ) {
+        //{{{
+            this.changePage( new GiftListView( { giftClass: gift_class } ) );
+        },//}}}
+
+        showTalkList: function() {
+        //{{{
+            this.changePage( new TalkListView() );
         },//}}}
 
         //载入指定的 page 并按照 jqm 的要求添加

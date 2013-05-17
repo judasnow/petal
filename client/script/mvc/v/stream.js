@@ -1,3 +1,5 @@
+// 用户列表 
+// 承载了多个 url 
 define([
     "jquery" ,
     "underscore" ,
@@ -10,11 +12,9 @@ define([
     "text!tpl/div/header.html" ,
     "text!tpl/div/footer.html" ,
     "text!tpl/stream_show_more.html" ,
-    "text!tpl/gift_list_panel.html" ,
 
     "v/main_panel" ,
     "c/users" ,
-    "v/gift_list_panel" ,
     "v/stream_item"
 ] ,
 function(
@@ -29,13 +29,10 @@ function(
     headerTpl ,
     footerTpl ,
     streamShowMoreTpl ,
-    giftListPanelTpl ,
 
     MainPanelView ,
     Users ,
-    GiftListPanelView ,
-    StreamItemView ,
-    ClickGetMore
+    StreamItemView 
 ){
     "use strict";
 
@@ -60,19 +57,17 @@ function(
                     {
                         header: headerTpl ,
                         footer: footerTpl ,
-                        main_panel: mainPanelTpl ,
-                        gift_list_panel: giftListPanelTpl
+                        main_panel: mainPanelTpl
                     }
                 )
             );
 
-            //初始化 gift list 
-            this.giftListPanelView = new GiftListPanelView(
-                    {
-                        el: this.$el.find( "#gift_list_panel" )
-                    }
-                );
-            this.giftListPanelView.render();
+            //初始化 header 上的按钮
+            this.$el.find( "#head_left_btn" ).click( 
+                    function() {
+                        $( "#main_panel" ).panel( "toggle" );
+                    });
+            this.$el.find( "#head_right_btn" ).hide();
 
             this.$streamEl = this.$el.find( ".stream" );
             this.$itemsEl = this.$streamEl.find( ".items" );

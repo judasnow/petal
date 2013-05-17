@@ -5,7 +5,12 @@ define([
     "mustache" ,
     "socketioinit" ,
     "c/gifts" ,
-    "v/gift_item" 
+    "v/gift_item" ,
+    "v/get_more" ,
+
+    "text!tpl/gift_list.html" ,
+    "text!tpl/div/header.html" ,
+    "text!tpl/div/footer.html"
 ],
 function( 
     $ ,
@@ -14,15 +19,31 @@ function(
     Mustache ,
     socket ,
     Gifts ,
-    GiftItemView 
+    GiftItemView ,
+    GetMoreView ,
+
+    giftListTpl ,
+    headerTpl ,
+    footerTpl 
 ){
     "use strict";
 
-    //需要完成的工作就是渲染完成之后 添加到 gift_list_panel 
-    //容器中
-    var GiftListPanel = Backbone.View.extend({
+    var GiftList = Backbone.View.extend({
+        template: giftListTpl ,
+
+        //目前的这种情况(也就是不直接指定el)是因为所有的页面
+        //都是动态获取的 似乎没有办法事前的将占位符写到 dom 中
         initialize: function() {
-            this.$giftListEl = this.$el.find( ".gift_list" );
+            this.$el.html(
+                Mustache.to_html( 
+                    this.template ,
+                    {
+                        header: headerTpl ,
+                        footer: footerTpl
+                    }
+                )
+            );
+            this.$itemsEl = this.$el.find( ".items" );
             this.gifts = new Gifts();
 
             _.bindAll( this , "addOne" , "addAll" , "render" , "showMore" );
@@ -36,7 +57,7 @@ function(
                     p: this.pageNo
                 },
                 success: function( coll , res ) {
-                    
+                     
                 },
                 error: function() {
                     alert( "获取礼物列表失败" )
@@ -45,6 +66,14 @@ function(
 
             this.$showMoreEl = this.$el.find( ".show_more" );
             this.$showMoreEl.bind( "click" , this.showMore );
+
+            this.$el.find( "#head_left_btn" )
+                .attr( "data-icon" , "arrow-l" )
+                .click( 
+                    function() {
+                        window.history.back();
+                    });
+            this.$el.find( "#head_right_btn" ).hide();
         },
 
         addAll: function() {
@@ -53,7 +82,7 @@ function(
 
         addOne: function( gift ) {
             var giftView = new GiftItemView({ model: gift });
-            this.$giftListEl.append( giftView.render().el );
+            this.$itemsEl.append( giftView.render().el );
         },
 
         showMore: function() {
@@ -76,6 +105,6 @@ function(
         }
     });
 
-    return GiftListPanel;
+    return GiftList;
 });
 

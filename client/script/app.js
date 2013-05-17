@@ -14,7 +14,6 @@ function(
     "use strict";
 
     var init = function() {
-
         var router = new Router();
         Backbone.history.start();
     };

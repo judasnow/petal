@@ -1,0 +1,73 @@
+#talk_list {
+    @image_size: 64px;
+    .item {
+        display: inline-block;
+        min-height: @image_size;
+        margin-bottom: 8px;
+        width: 100%;
+    }
+    .obj {
+        @float: left;
+        .talk_content {
+            float: @float;
+            background: #fee;
+            border: 1px solid #f99;
+        }
+        .gravatar {
+            float: @float;
+        }
+    }
+    .subj {
+        @float: right;
+        .talk_content {
+            float: @float;
+            background: #efe;
+            border: 1px solid #9f9;
+        }
+        .gravatar {
+            float: @float;
+        }
+
+    }
+    .talk_content {
+        max-width: 200px;
+        display: inline-block;
+        margin: 0 8px;
+        padding: 8px;
+        color: #000;
+        word-break: break-all;
+        border-radius: 10px;
+    }
+    .gravatar {
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        display: inline-block;
+        width: @image_size;
+        height: @image_size;
+    }
+    .input_are_box {
+        width: 100%;
+        position: fixed;
+    }
+    .input_area {
+        bottom: 0;
+     }
+    .func_btn {
+        display: inline-block;
+        height: 32px;
+        width: 32px;
+        background: #f99;
+        text-align: center;
+    }
+    .send_gift {
+        .func_btn;
+    }
+    .send_emotion {
+        .func_btn;
+    }
+    .submit {
+        .func_btn;
+    }
+    .talk_input {
+    }
+}
