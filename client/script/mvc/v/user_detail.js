@@ -1,19 +1,15 @@
 define([
-    "jquery" ,
     "underscore" ,
     "backbone" ,
     "mustache" ,
-    "socketioinit" ,
     "text!tpl/user_detail.html" ,
     "text!tpl/div/header.html" ,
     "text!tpl/div/footer.html" ,
 ] ,
 function(
-    $ ,
     _ ,
     Backbone ,
     Mustache ,
-    socket ,
     userDetailTpl ,
     headerTpl ,
     footerTpl 

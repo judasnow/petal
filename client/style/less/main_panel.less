@@ -1,44 +1,13 @@
 @panel_width: 21em;
 @panel_padding_left: 21px;
-//重写 jqm panel 样式
-//{{{
-.ui-panel-position-left {
-    left: @panel_width;
-}
-.ui-panel-inner {
-    padding: 0;
-}
-.ui-panel {
-    padding: 0;
-    text-shadow: none;
-    width: @panel_width;
-}
-.dismiss-position-left.ui-panel-dismiss-open {
-    left: @panel_width;
-    right: @panel_width;
-}
-.ui-panel-animate.ui-panel-content-fixed-toolbar-position-left.ui-panel-content-fixed-toolbar-open.ui-panel-content-fixed-toolbar-display-reveal, .ui-panel-animate.ui-panel-content-fixed-toolbar-position-left.ui-panel-content-fixed-toolbar-open.ui-panel-content-fixed-toolbar-display-push, .ui-panel-animate.ui-panel-content-wrap-position-left.ui-panel-content-wrap-open.ui-panel-content-wrap-display-reveal, .ui-panel-animate.ui-panel-content-wrap-position-left.ui-panel-content-wrap-open.ui-panel-content-wrap-display-push {
-   -webkit-transform: translate3d(@panel_width,0,0); 
-}
-.ui-panel-display-reveal {
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
-.ui-panel-content-fixed-toolbar-position-left.ui-panel-content-fixed-toolbar-open, .ui-panel-content-wrap-position-left.ui-panel-content-wrap-open, 
-.ui-panel-dismiss-position-left.ui-panel-dismiss-open {
-    left: @panel_width;
-    right: -@panel_width;
-}
-//}}}
 #main_panel {
     background: #2f2f2f;
 }
 #object_user_info {
     @gravatar_size: 48px;
-    height: @gravatar_size;
+    height: 96px;
     vertical-align: middle;
     padding-left: @panel_padding_left;
-    padding-bottom: 18px;
     padding-top: 18px;
     border-bottom: 1px dashed #393939;
     .gravatar {
@@ -55,7 +24,7 @@
         position: relative;
         left: 24px;
         top: 50%;
-        margin-top: -( ( @font_size + 4 ) / 2 );
+        margin-top: -25px; 
         border-radius: 4px;
         color: #bcbcbc;
     }

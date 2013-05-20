@@ -1,10 +1,9 @@
 //可以理解为最近联系人
 define([ 
-    "jquery" ,
     "underscore" ,
     "backbone" ,
     "mustache" ,
-    "socketioinit" ,
+
     "c/talk_items" ,
     "v/talk_item" ,
 
@@ -13,11 +12,9 @@ define([
     "text!tpl/div/footer.html"
 ],
 function( 
-    $ ,
     _ ,
     Backbone ,
     Mustache ,
-    socket ,
     TalkItems ,
     TalkItemView ,
 

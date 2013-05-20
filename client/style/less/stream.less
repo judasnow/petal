@@ -1,9 +1,11 @@
 //用户信息列表
-.stream {
+#stream {
     @image_size: 64px;
     @item_margin: 4px;
     padding: 0;
     margin: 0;
+    height: 100%;
+    overflow: auto;
     .items {
         width: 100%;
         display: inline-block;
@@ -16,9 +18,9 @@
         padding-top: @item_margin;
         min-height: @image_size + @item_margin;
         border-bottom: 1px solid #ddd;
-        background: #f9f8f1;
+        background: #fff;
         &:active {
-            background: #e4e5dd;
+            //background: #e4e5dd;
         }
     }
    // .item:nth-child(odd) {

@@ -1,11 +1,9 @@
 // 当前登录用户的信息
 define([
-    "jquery" ,
     "underscore" ,
     "backbone"
 ],
 function( 
-    $ ,
     _ ,
     Backbone
 ){

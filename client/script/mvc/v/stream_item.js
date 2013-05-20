@@ -1,18 +1,16 @@
 //用户信息流中的一条信息
 define([
-    "jquery" ,
     "underscore" ,
     "backbone" ,
     "mustache" ,
-    "socketioinit" ,
+
     "text!tpl/stream_item.html"
 ] ,
 function(
-    $ ,
     _ ,
     Backbone ,
     Mustache ,
-    socket ,
+
     streamTpl
 ){
     "use strict";
@@ -30,11 +28,6 @@ function(
         template: streamTpl ,
 
         initialize: function() {
-            //礼物列表
-            this.$giftListPanelEl = $( "#gift_list_panel" );
-            //找到这个元素 content 应该有更好的办法
-            //主 content
-            this.$pageContentEl = $( ".stream" ).parent();
             _.bindAll( this , "checkContactInfo" , "sendMsg" , "sendGift" , "goDetailPage" );
             this.listenTo( this.model , "change" , this.render );
         },

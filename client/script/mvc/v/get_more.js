@@ -1,17 +1,13 @@
 //将通用的点击显示更多功能予以封装
 define([ 
-    "jquery" ,
     "underscore" ,
     "backbone" ,
-    "mustache" ,
-    "socketioinit" 
+    "mustache" 
 ],
 function( 
-    $ , 
     _ , 
     Backbone ,
-    Mustache ,
-    socket 
+    Mustache 
 ){
     "use strict";
     var GetMore = {

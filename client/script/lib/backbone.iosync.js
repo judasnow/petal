@@ -2,7 +2,8 @@
   // Common JS // require JS
   var _, $, Backbone, exports;
   if (typeof window === 'undefined' || typeof require === 'function') {
-    $ = require('jquery');
+    //$ = require('jquery');
+    $ = window.$;
     _ = require('underscore');
     Backbone = require('backbone');
     exports = Backbone;

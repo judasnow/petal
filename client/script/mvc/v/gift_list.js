@@ -1,9 +1,7 @@
 define([ 
-    "jquery" ,
     "underscore" ,
     "backbone" ,
     "mustache" ,
-    "socketioinit" ,
     "c/gifts" ,
     "v/gift_item" ,
     "v/get_more" ,
@@ -13,11 +11,9 @@ define([
     "text!tpl/div/footer.html"
 ],
 function( 
-    $ ,
     _ ,
     Backbone ,
     Mustache ,
-    socket ,
     Gifts ,
     GiftItemView ,
     GetMoreView ,

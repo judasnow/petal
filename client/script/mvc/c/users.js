@@ -1,27 +1,20 @@
 define([
-    "jquery" ,
     "underscore" ,
     "backbone" ,
-    "m/user",
-    "socketioinit",
-    "backboneiosync",
-    "backboneiobind"
+    "m/user"
+
 ],
 function( 
-    $ ,
     _ ,
     Backbone,
-    UserModel,
-    socket
+    UserModel
 ){
     "use strict";
 
     var Users = Backbone.Collection.extend({
         model: UserModel,
 
-        url: "users",
-
-        socket: socket,
+        url: "/api/users/",
 
         initialize: function() {
             

@@ -1,18 +1,14 @@
 define([
-    "jquery" ,
     "underscore" ,
     "backbone" ,
-    "m/talk_item",
-    "socketioinit",
-    "backboneiosync",
-    "backboneiobind"
+
+    "m/talk_item"
+
 ],
 function( 
-    $ ,
     _ ,
-    Backbone,
-    TalkItemModel,
-    socket
+    Backbone ,
+    TalkItemModel
 ){
     "use strict";
 
@@ -20,8 +16,6 @@ function(
         model: TalkItemModel ,
 
         url: "talk_items" ,
-
-        socket: socket ,
 
         initialize: function() {
             

@@ -1,18 +1,12 @@
 define([
-    "jquery" ,
     "underscore" ,
     "backbone" ,
-    "m/gift",
-    "socketioinit",
-    "backboneiosync",
-    "backboneiobind"
+    "m/gift"
 ],
 function( 
-    $ ,
     _ ,
     Backbone,
-    GiftModel,
-    socket
+    GiftModel
 ){
     "use strict";
 
@@ -20,8 +14,6 @@ function(
         model: GiftModel,
 
         url: "gifts",
-
-        socket: socket,
 
         initialize: function() {
             

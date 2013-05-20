@@ -1,30 +1,24 @@
 define([
-    "jquery" ,
     "underscore" ,
     "backbone" ,
     "mustache" ,
-    "socketioinit" ,
+
     "text!tpl/search.html" ,
-    "text!tpl/main_panel.html" ,
     "text!tpl/div/header.html" ,
-    "text!tpl/div/footer.html" ,
-    "v/main_panel",
+    "text!tpl/div/footer.html" 
 ] ,
 function(
-    $ ,
     _ ,
     Backbone ,
     Mustache ,
-    socket ,
+
     searchTpl ,
-    mainPanelTpl ,
     headerTpl ,
-    footerTpl ,
-    MainPanelView
+    footerTpl 
 ){
     "use strict";
 
-    var Search = MainPanelView.extend({
+    var Search = Backbone.View.extend({
         template: searchTpl ,
         initialize: function() {
             this.baseInitialize();

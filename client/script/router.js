@@ -1,5 +1,4 @@
 define([ 
-    "jquery" ,
     "underscore" ,
     "backbone" ,
     "m/object_user" ,
@@ -8,11 +7,9 @@ define([
     "v/search" ,
     "v/user_detail" ,
     "v/gift_list" ,
-    "v/talk_list" ,
-    "jqm" 
+    "v/talk_list"
 ],
-function( 
-    $ ,
+function(
     _ ,
     Backbone ,
     ObjectUserModel ,
@@ -46,7 +43,6 @@ function(
         //{{{
             $( document ).bind( "pageinit" , function(){
                 return;
-                //解决滑动截断问题
                 var maxHeight = $(window).height();
                 $("div[data-role=content]")
                     .attr( "style" , "min-height:" + maxHeight + "px" );
@@ -57,8 +53,6 @@ function(
             });
 
             _.bindAll( this , "showLogin" , "showStream" , "showSearch" );
-
-
         },//}}}
 
         notFound: function() {
@@ -89,25 +83,29 @@ function(
                 return;
             }
 
-            this.changePage( new LoginView() );
+            var loginView = new LoginView();
+            loginView.render();
+            $.ui.loadContent( '#login' , false , false , 'fade' );
         },//}}}
 
         showStream: function() {
         //{{{
             if( !this.haveLoggedIn() ) {
-                // 没有登录还
+                // 没有登录
                 this.navigate( "login" , {trigger: true} );
                 return;
             }
 
-            this.changePage( new StreamView() );
+            var streamView = new StreamView();
+            streamView.render();
+            $.ui.loadContent( '#stream' , false , false , 'fade' );
         },//}}}
 
         showSearch: function() {
         //{{{
             if( !this.haveLoggedIn() ) {
                 // 没有登录还
-                this.navigate( "login" , {trigger: true} );
+                this.navigate( "#login" , {trigger: true} );
                 return;
             }
 
@@ -127,28 +125,6 @@ function(
         showTalkList: function() {
         //{{{
             this.changePage( new TalkListView() );
-        },//}}}
-
-        //载入指定的 page 并按照 jqm 的要求添加
-        //相应的属性 并初始化之
-        changePage: function( page ) {
-        //{{{
-            //暴露 route 到 window
-            window.route = this;
-
-            page.render();
-            page.$el.attr( "data-role" , "page" )
-                .attr( "data-theme" , "a" );
-
-            //@todo 此处的 $el 同 $el.html() 传入 append 有何区别?
-            $( "body" ).append( page.$el );
-
-           // $.mobile.changePage(
-           //     page.$el ,
-           //     {
-           //         changeHash: false
-           //     }
-           // );
         }//}}}
     });
     return Router;

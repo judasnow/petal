@@ -1,17 +1,13 @@
 define([
-    "jquery" ,
     "underscore" ,
     "backbone" ,
     "mustache" ,
-    "socketioinit" ,
     "text!tpl/gift_item.html"
 ] ,
 function(
-    $ ,
     _ ,
     Backbone ,
     Mustache ,
-    socket ,
     giftItemTpl
 ){
     "use strict";

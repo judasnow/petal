@@ -1,14 +1,11 @@
 define([ 
-    "jquery" ,
     "underscore" ,
     "backbone" ,
     "mustache" ,
-    "socketioinit" ,
     "m/object_user" ,
     "text!tpl/login.html" 
 ],
 function( 
-    $ , 
     _ , 
     Backbone ,
     Mustache ,
@@ -26,9 +23,7 @@ function(
         },
 
         initialize: function() {
-            this.$el.append( this.template );
-            this.$alertPositionHolder = this.$el.find( ".alert_position_holder" );
-
+            $.ui.toggleHeaderMenu(false); //force hide
             _.bindAll( this , "doLogin" , "loginOk" , "loginFail" );
 
             socket.on( "login_ok" , this.loginOk );
@@ -61,7 +56,7 @@ function(
         loginOk: function( data ) {
             //@todo 返回的就一定是 json ? 
             //另外 是否需要保存该信息
-            
+
             //直接保存 json string 
             window.localStorage.setItem( "petal:object_user_info" , data.object_user_info );
             window.route.navigate( "stream" , {trigger : true} );
@@ -72,6 +67,8 @@ function(
         },
 
         render: function() {
+            this.$el.append( this.template );
+            $.ui.addContentDiv( "login" , this.$el.html() );
             return this;
         }
     });
