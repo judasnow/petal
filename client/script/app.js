@@ -11,8 +11,9 @@ function(
 
         var init = function() {
 
-        var router = new Router();
-        Backbone.history.start();
+            var router = new Router();
+            window.router = router;
+            Backbone.history.start();
         };
 
         return {

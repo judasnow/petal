@@ -1,54 +1,36 @@
-.gift_list {
+#gift_list {
     text-shadow: none;
     text-align: center;
-    @image_size: 64px;
+    @image_size: 128px;
     .item {
-        width: @image_size;
-        display: inline-block;
-        margin: 8px;
-
-        border: 1px solid #d1d1d1;
-        background: #ddd;
-        color: #4245427;
-        border-radius: 4px;
-
-        &:active {
-            border: 1px solid #c1c1c1;
-        }
+        height: @image_size + 8px;
+        width: 100%;
+        padding: 4px 0;
+        border-bottom: 1px solid #333;
     }
     .gift_img {
+        margin-left: 8px;
+        float: left;
         height: @image_size;
         width: @image_size;
-        margin-bottom: 8px;
         display: inline-block;
-        border-radius: 4px;
     }
     //商品描述容器
     .gift_desc {
+        text-align: left;
+        float: left;
         display: inline-block;
-        margin-bottom: 4px;
         //单条商品描述
        .desc_item {
-            clear: both;
-            display: inline-block;
-            width: 100%;
-            margin-bottom: 4px;
-        }
-        .gift_name {
-            font-weight: bolder;
-        }
-        .gift_pric {
-        }
-    }
-}
-
-.show_more {
-    text-align: center;
-    color: #fff;
-    background: #777;
-    padding: 18px 0;
-    margin: 0 4px;
-    &:active {
-        background: #666;
-    }
+           font-size: 16px;
+           clear: both;
+           display: inline-block;
+           width: 100%;
+           margin-bottom: 4px;
+       }
+       .gift_name {
+       }
+       .gift_pric {
+       }
+   }
 }

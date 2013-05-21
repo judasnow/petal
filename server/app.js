@@ -61,7 +61,7 @@ io.sockets.on( 'connection', function( socket ) {
                 function( res ) {
                     var res = JSON.parse( res.text );
                     if( res.code === "200" ) {
-                        callback( null , JSON.parse( res.users_info ) );
+                        callback( null , JSON.parse( res.gifts_info ) );
                     }
                 }
             );

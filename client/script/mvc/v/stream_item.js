@@ -16,13 +16,13 @@ function(
     "use strict";
 
     var StreamItem = Backbone.View.extend({
-        className: "item",
+        className: "item" ,
 
         events: {
-            "tap .check_contact_info": "checkContactInfo",
-            "tap .send_msg": "sendMsg",
-            "tap .send_gift": "sendGift",
-            "tap": "goDetailPage"
+            "click .check_contact_info": "checkContactInfo" ,
+            "click .send_msg": "sendMsg" ,
+            "click .send_gift": "sendGift" ,
+            "click": "goDetailPage"
         },
 
         template: streamTpl ,
@@ -38,13 +38,14 @@ function(
 
         sendMsg: function( event ) {
             event.stopImmediatePropagation();
-            window.route.navigate( "#talk" , {trigger: true} );
+            window.router.navigate( "#talk" , {trigger: true} );
         },
 
         sendGift: function( event ) {
             event.stopImmediatePropagation();
+
             //跳转到礼品选择页面
-            window.route.navigate( "#gift_list" , {trigger: true} );
+            window.router.navigate( "#gift_list" , {trigger: true} );
         },
 
         goDetailPage: function( event ) {

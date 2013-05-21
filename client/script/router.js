@@ -119,7 +119,9 @@ function(
 
         showGiftList: function( gift_class ) {
         //{{{
-            this.changePage( new GiftListView( { giftClass: gift_class } ) );
+            var giftList = new GiftListView( { /*giftClass: gift_class*/ } );
+            giftList.render();
+            $.ui.loadContent( '#gift_list' , false , false , 'fade' );
         },//}}}
 
         showTalkList: function() {

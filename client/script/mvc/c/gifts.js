@@ -13,7 +13,7 @@ function(
     var Gifts = Backbone.Collection.extend({
         model: GiftModel,
 
-        url: "gifts",
+        url: "/api/gifts",
 
         initialize: function() {
             

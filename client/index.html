@@ -15,7 +15,7 @@
         <script src="/script/lib/jqmobi/ui/jq.ui.min.js"></script>
         <script src="/script/lib/jqmobi/plugins/jq.scroller.js"></script>
         <script>
-            // jqmobi init
+            //jqmobi init
             //{{{
             $.ui.isAjaxApp=true;
             $.ui.openLinksNewTab = false;
@@ -26,12 +26,35 @@
             $.ui.customClickHandler=function(){ return true;}
             //}}}
 
+            //加载 main.js 
+            //{{{
+            $.ui.ready( function() {
+                var oHead = document.getElementsByTagName( "HEAD" ).item( 0 ); 
+                var oScript= document.createElement( "script" ); 
+                oScript.setAttribute( "data-main" , "/script/main.js" )
+                oScript.src = "/script/lib/require.js";
+                oHead.appendChild( oScript );
+            });//}}}
+
+            //jqmobi 初始化完成之后的操作
+            var onDeviceReady = function() {
+            //{{{
+                AppMobi.device.setRotateOrientation( "portrait" );
+                AppMobi.device.setAutoRotate( false );
+                webRoot = AppMobi.webRoot + "/";
+                AppMobi.device.hideSplashScreen();
+                $.ui.blockPageScroll();
+            };//}}}
+            document.addEventListener( "appMobi.device.ready" , onDeviceReady , false );
+
             var init = function() {
             //{{{
                 //初始化  socketio 
                 //此处对于 js 的异步事件模型有一个疑问 connection 事件我是在 connent 调用之后进行的绑定
                 //connection 事件如何会成功的执行呢？也就是说 绑定事件的时候其可能已经触发了该事件
-                window.socketServer = "http://icket.us:8800";
+                //window.socketServer = "http://icket.us:8800";
+                //window.socketServer = "http://io.icket.us:8800";
+                window.socketServer = "http://172.17.0.47:8800";
                 window.socket = io.connect( window.socketServer );
 
                 socket.on( "error" , function() {
@@ -64,7 +87,7 @@
                             }
                             logging = true;
                             $.post( 
-                                "http://icket.us/api/do_login" ,
+                                "http://172.17.0.46/api/do_login" ,
                                 {
                                     username: $usernameEl.val() ,
                                     password: $passwordEl.val()
@@ -74,8 +97,10 @@
                                         //登录成功
                                         window.localStorage.setItem( "petal:object_user_info" , res[1] );
                                         $.ui.launch();
-                                        $loginEl.remove();
+                                        //还需要跳转到 #stream
+                                        //$loginEl.hide();
                                     } else {
+                                        logging = false;
                                         alert( "登录失败" );
                                     }
                                 } ,
@@ -83,36 +108,10 @@
                              );
                         });
                         return false;
+                    } else {
+                        window.objectUserInfo = objectUserInfo;
+                        $.ui.launch()
                     }//}}}
-
-                    //加载 main.js 
-                    //{{{
-                    $.ui.ready( function() {
-                        var oHead = document.getElementsByTagName('HEAD').item(0); 
-                        var oScript= document.createElement("script"); 
-                        oScript.setAttribute( "data-main" , "/script/main.js" )
-                        oScript.src="/script/lib/require.js";
-                        oHead.appendChild( oScript);
-                    });//}}}
-
-                    //初始化整个 jqmobi
-                    window.setTimeout( 
-                        function(){ 
-                            $.ui.launch()
-                        } , 10
-                    );
-
-                    //jqmobi 初始化完成之后的操作
-                    var onDeviceReady = function() {
-                    //{{{
-                        AppMobi.device.setRotateOrientation( "portrait" );
-                        AppMobi.device.setAutoRotate( false );
-                        webRoot = AppMobi.webRoot + "/";
-                        AppMobi.device.hideSplashScreen();
-                        $.ui.blockPageScroll();
-                    };
-                    //}}}
-                    document.addEventListener( "appMobi.device.ready" , onDeviceReady , false );
                 });
             }
             //}}}
@@ -143,39 +142,9 @@
                     <button class="do_login">登录</button>
                     </p>
                 </div>
-
                 <nav>
-                <div id="main_panel">
-                    <div id="object_user_info">
-                        <img class="gravatar" src="http://www.huaban123.com/UploadFiles/UHP/MIN/{{UserHead}}" alt="gravatar" />
-                        <span class="nickname">{{NickName}}</span>
-                    </div>
-                    <div id="menu_list">
-                        <div class="item_set">
-                            <div class="item main">
-                                <span>找朋友</span>
-                            </div>
-                            <div class="item sub stream_same_city">
-                                <span>同城用户</span>
-                            </div>
-                            <div class="item sub search">
-                                <span>高级搜索</span>
-                            </div>
-                        </div>
-                        <div class="item_set">
-                            <div class="item main">
-                                <span>联系</span>
-                            </div>
-                        </div>
-                        <div class="item_set">
-                            <div class="item main">
-                                <span>财富</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 </nav>
-            </div>
-        </body>
-    </html>
+        </div>
+    </body>
+</html>
 

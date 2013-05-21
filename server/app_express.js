@@ -35,6 +35,8 @@ app.post( "/api/do_login" , function( req , res ) {
         });
 });//}}}
 
+//获取用户信息
+//{{{
 app.get( "/api/users/" , function( req , res ) {
     var page = req.param( "p" , 1 );
      request.get(
@@ -42,11 +44,31 @@ app.get( "/api/users/" , function( req , res ) {
          function( data ) {
             var dataObj = JSON.parse( data.text );
             if( dataObj.code === "200" ) {
-                console.log( typeof JSON.parse(dataObj.users_info) )
                 res.json( JSON.parse(dataObj.users_info) );
             }
          });
 });
+//}}}
+
+//获取礼物列表
+//{{{
+app.get( "/api/gifts" , function( req , res ) {
+    var page = req.param( "p" , 1 );
+    if( !isNaN( page ) ) {
+        request.get(
+            HB123_SERVER + 'about=gift&action=get_all&p=' + page ,
+            function( data ) {
+                var dataObj = JSON.parse( data.text );
+                if( dataObj.code === "200" ) {
+                    res.json( JSON.parse( dataObj.gifts_info ) );
+                }
+            }
+            );
+    } else {
+        console.log( "try fetch gift list , but pages No is not set or invalid." );
+    }
+});
+//}}}
 
 //socket event
 io.sockets.on('connection', function (socket) {
