@@ -2,12 +2,14 @@ define([
     "underscore" ,
     "backbone" ,
     "mustache" ,
+
     "text!tpl/gift_item.html"
 ] ,
 function(
     _ ,
     Backbone ,
     Mustache ,
+
     giftItemTpl
 ){
     "use strict";
@@ -23,13 +25,24 @@ function(
         initialize: function() {
             _.bindAll( this , "sendGift" );
         },
-        
+
         sendGift: function() {
-            $( "#globle_notice" ).popup( "open" );
+            var sendGiftTo = window.localStorage.getItem( "send_gift_to" );
+            if( sendGiftTo === null ) {
+                alert( "没有选择目标用户" )
+            } else {
+                var giftId = this.model.get( "GId" );
+                alert( "将送给" + sendGiftTo + giftId )
+            }
         },
 
         render: function() {
-            this.$el.html( Mustache.to_html( this.template , this.model.toJSON() ) );
+            this.$el.html( 
+                Mustache.to_html( 
+                    this.template , 
+                    this.model.toJSON() 
+                ) 
+            );
             return this;
         }
     });

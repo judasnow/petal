@@ -18,7 +18,7 @@ function(
         template: menuTpl ,
         events: {
 
-        },
+        } ,
 
         initialize: function() {
             //使用 object_user_info 渲染之
@@ -26,7 +26,7 @@ function(
             //window.object_user_info 应该是已经设置了的
             var objUserInfo = window.objectUserInfo;
             if( objUserInfo === null ) {
-                //弹出登录窗口
+                //@todo 弹出登录窗口
                 window.route.navigate( "#login" , {trigger: true} );
                 return false;
             } else {
@@ -34,8 +34,8 @@ function(
                     Mustache.to_html( 
                         this.template ,
                         JSON.parse( objUserInfo )
-                        ) 
-                    );
+                    ) 
+                );
             }
         },
 

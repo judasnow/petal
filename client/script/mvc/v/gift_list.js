@@ -24,10 +24,6 @@ function(
         initialize: function() {
             var gifts = new Gifts();
             this.baseInitialize( "gift_list" , giftListTpl , GiftItemView , gifts );
-        },
-
-        render: function() {
-            return this;
         }
     });
 

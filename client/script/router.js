@@ -28,12 +28,11 @@ function(
         //{{{
             //默认页面
             "": "showStream" ,
-            login: "showLogin" ,
             stream: "showStream" ,
             search: "showSearch" ,
             "gift_list/:gift_class": "showGiftList" ,
             gift_list: "showGiftList" ,
-            "user_detail/:userName": "showUserDetail" ,
+            "user_detail/:userId": "showUserDetail" ,
             //不通过链接显示聊天对方信息比较好
             talk: "showTalkList" ,
             ":whatever"  : "notFound" ,
@@ -56,7 +55,7 @@ function(
         },//}}}
 
         notFound: function() {
-            alert( "404" );
+            console.log( "404" )
         },
 
         //判断用户是否已经登录系统 
@@ -95,10 +94,7 @@ function(
                 this.navigate( "login" , {trigger: true} );
                 return;
             }
-
             var streamView = new StreamView();
-            streamView.render();
-            $.ui.loadContent( '#stream' , false , false , 'fade' );
         },//}}}
 
         showSearch: function() {
@@ -112,16 +108,16 @@ function(
             this.changePage( new SearchView() );
         },//}}}
 
-        showUserDetail: function( userName ) {
+        showUserDetail: function( userId ) {
         //{{{
-            this.changePage( new UserDetailView( { userName: userName } ) );
+            var userDetailView = new UserDetailView( { userId: userId } );
         },//}}}
 
         showGiftList: function( gift_class ) {
         //{{{
             var giftList = new GiftListView( { /*giftClass: gift_class*/ } );
             giftList.render();
-            $.ui.loadContent( '#gift_list' , false , false , 'fade' );
+            $.ui.loadContent( "#gift_list" , false , false , "fade" );
         },//}}}
 
         showTalkList: function() {

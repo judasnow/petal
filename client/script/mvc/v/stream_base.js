@@ -20,7 +20,6 @@ function(
         //@param title 需要渲染的模板的标题
         baseInitialize: function( streamId , tpl , ItemView , coll ) {
         //{{{
-            //var menuView = new MenuView();
 
             this.coll = coll;
             this.ItemView = ItemView;
@@ -28,6 +27,7 @@ function(
 
             //生成 panel
             $.ui.addContentDiv( streamId , tpl );
+            $.ui.loadContent( "#" + streamId , false , false , "fade" );
             this.$el = $( "#" + streamId );
 
             //每一个 streamTpl 都必须包含一个 .items 元素 
@@ -43,6 +43,7 @@ function(
             var scroll = this.$el.scroller();
             scroll.addInfinite();
             scroll.addPullToRefresh();
+
             //刷新
             $.bind( scroll , "refresh-trigger" , function() {
                 this.setRefreshContent( "松吧" );
@@ -85,7 +86,7 @@ function(
         },
 
         fetchOk: function( coll , res ){
-            //{{{
+        //{{{
             //@todo 这里需要进行正确性的判断
             //返回值不一定有效
             if( coll.length > 0 ) {
@@ -124,11 +125,6 @@ function(
                 success: this.fetchOk,
                 error: this.fatchFail
             });
-        },//}}}
-
-        render: function() {
-        //{{{
-            return this;
         }//}}}
     });
 

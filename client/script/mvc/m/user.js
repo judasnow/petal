@@ -10,10 +10,12 @@ function(
 
     var User = Backbone.Model.extend({
 
-        url: "user",
+        url: "/api/user/",
 
-        initialize: function(){
-            
+        initialize: function() {
+            var birthday = new Date( this.get( "CSRQ" ) );
+            var today = new Date();
+            this.set( "Age" , today.getYear() - birthday.getYear() );
         }
     });
 

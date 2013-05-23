@@ -1,15 +1,20 @@
+//用户详细信息页面
 define([
     "underscore" ,
     "backbone" ,
     "mustache" ,
+    "m/user" ,
+
     "text!tpl/user_detail.html" ,
     "text!tpl/div/header.html" ,
-    "text!tpl/div/footer.html" ,
+    "text!tpl/div/footer.html"
 ] ,
 function(
     _ ,
     Backbone ,
     Mustache ,
+    User ,
+
     userDetailTpl ,
     headerTpl ,
     footerTpl 
@@ -20,35 +25,38 @@ function(
         template: userDetailTpl ,
 
         initialize: function( data ) {
-            //此处要考虑到本页面在其他情况下的访问
-            //是否存在可能行
-            var subjectUserName = data.userName;
-            var subjectUserInfoJson = window.localStorage.getItem( "user_info:" + subjectUserName );
-            var subjectUserInfo = {};
-            if( subjectUserInfoJson !== null ) {
-                subjectUserInfo = JSON.parse( subjectUserInfoJson );
-            } else {
-                //@todo 尝试重新获取?
-                //还是显示错误信息?
-                alert( "subject user info is empty" );
-                return;
+            //通过 ajax 获取相应的用户数据
+            //@todo  此处是否需要设置 user model 的 idAttribute 为 UserId ?
+            var subjectUserId = data.userId;
+            this.model = new User();
+
+            _.bindAll( this , "render" );
+            this.model.on( "change" , this.render );
+            this.model.fetch({
+                data: {
+                    user_id: subjectUserId
+                }
+            });
+        } ,
+
+        render: function() {
+            //不能使用 add 这一点很重要!
+            var funcName = "addContentDiv";
+            if( $( "#user_detail" ).length !== 0 ) {
+                funcName = "updateContentDiv";
             }
-            this.$el.append(
+            $.ui[funcName](
+                "user_detail" ,
                 Mustache.to_html(
                     this.template ,
-                    {
-                        header: headerTpl,
-                        footer: footerTpl,
-                        userInfo: subjectUserInfo
-                    }
+                    this.model.toJSON()
                 )
             );
-        },
-
-        render: function(){
+            $.ui.loadContent( "#user_detail/" + this.model.get( "UserId" ) , false , false , "fade" );
             return this;
         }
     });
+
     return UserDetail;
 });
 

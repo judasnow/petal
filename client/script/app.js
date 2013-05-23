@@ -13,7 +13,7 @@ function(
 
             var router = new Router();
             window.router = router;
-            Backbone.history.start();
+            Backbone.history.start({pushState: true,hashChange: true});
         };
 
         return {
