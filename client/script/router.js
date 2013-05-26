@@ -29,33 +29,23 @@ function(
             //默认页面
             "": "showStream" ,
             stream: "showStream" ,
+            "stream/search": "showSearchResultStream" ,
             search: "showSearch" ,
-            "gift_list/:gift_class": "showGiftList" ,
+            "gift_list/:giftClass": "showGiftList" ,
             gift_list: "showGiftList" ,
             "user_detail/:userId": "showUserDetail" ,
             //不通过链接显示聊天对方信息比较好
             talk: "showTalkList" ,
-            ":whatever"  : "notFound" ,
+            ":whatever"  : "notFound" 
         },//}}}
 
         initialize: function () {
         //{{{
-            $( document ).bind( "pageinit" , function(){
-                return;
-                var maxHeight = $(window).height();
-                $("div[data-role=content]")
-                    .attr( "style" , "min-height:" + maxHeight + "px" );
-
-                if ( $.mobile.activePage.jqmData( "panel" ) !== "open" ) {
-                    $( "#main_panel" ).panel( "open" );
-                }
-            });
-
-            _.bindAll( this , "showLogin" , "showStream" , "showSearch" );
+            _.bindAll( this , "showStream" , "showSearch" , "showSearchResultStream" );
         },//}}}
 
         notFound: function() {
-            console.log( "404" )
+            alert( 404 )
         },
 
         //判断用户是否已经登录系统 
@@ -74,57 +64,49 @@ function(
             }
         },//}}}
 
-        showLogin: function() {
-        //{{{
-            if( this.haveLoggedIn() ) {
-                //已经登录
-                this.navigate( "" , {trigger: true} );
-                return;
-            }
-
-            var loginView = new LoginView();
-            loginView.render();
-            $.ui.loadContent( '#login' , false , false , 'fade' );
-        },//}}}
-
+        //默认显示附近的人 也就是以用户当前所在地作为查询条件
         showStream: function() {
         //{{{
-            if( !this.haveLoggedIn() ) {
-                // 没有登录
-                this.navigate( "login" , {trigger: true} );
-                return;
-            }
-            var streamView = new StreamView();
+            var q = JSON.stringify( {location: ""} );
+            new StreamView({
+                q: q ,
+                hash: "#stream"
+            });
         },//}}}
 
         showSearch: function() {
         //{{{
-            if( !this.haveLoggedIn() ) {
-                // 没有登录还
-                this.navigate( "#login" , {trigger: true} );
-                return;
-            }
-
-            this.changePage( new SearchView() );
+            new SearchView();
         },//}}}
+
+        //显示查询结果 在 localstore 中读取
+        showSearchResultStream: function() {
+            var q = window.localStorage.getItem( "q:users" );
+            if( q === null ) {
+                q = "{}";
+            }
+            new StreamView({
+                q: q ,
+                hash: "#stream/search"
+            });
+        },
 
         showUserDetail: function( userId ) {
         //{{{
-            var userDetailView = new UserDetailView( { userId: userId } );
+            new UserDetailView( {userId: userId} );
         },//}}}
 
-        showGiftList: function( gift_class ) {
+        showGiftList: function( giftClass ) {
         //{{{
-            var giftList = new GiftListView( { /*giftClass: gift_class*/ } );
-            giftList.render();
-            $.ui.loadContent( "#gift_list" , false , false , "fade" );
+            new GiftListView( { /*giftClass: gift_class*/ } );
         },//}}}
 
         showTalkList: function() {
         //{{{
-            this.changePage( new TalkListView() );
+            new TalkListView();
         }//}}}
     });
+
     return Router;
 });
 

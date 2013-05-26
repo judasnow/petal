@@ -36,8 +36,13 @@ function(
             this.model.on( "change" , this.render );
         },
 
+        //@todo 此处其实是有 bug 的, 用户的信息其实已经被加载到
+        //了页面中
         checkContactInfo: function( event ) {
             event.stopImmediatePropagation();
+            //需要先判断当前登录用户是否已经购买联系方式
+            //如果没有购买则尝试购买 如过已经购买则显示之
+            
         },
 
         sendMsg: function( event ) {
@@ -47,6 +52,7 @@ function(
 
         sendGift: function( event ) {
             event.stopImmediatePropagation();
+
             //跳转到礼品选择页面 并且要保存当前用户的 id 以确定送礼的对象
             window.localStorage.setItem( "send_gift_to" , this.model.get( "UserId" ) );
             window.router.navigate( "#gift_list" , {trigger: true} );

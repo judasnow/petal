@@ -18,9 +18,7 @@ function(
         initialize: function() {
             
         }
-
     });
-
     return Gifts;
 });
 

@@ -23,7 +23,8 @@ var req_to_hb123 = function( method , param , ok , error ) {
                     console.log( "request error" );
                 }
             }
-         });
+         }
+     );
 }
 
 app.use( express.bodyParser() );
@@ -53,10 +54,12 @@ app.post( "/api/do_login" , function( req , res ) {
 //{{{
 app.get( "/api/users/" , function( req , res ) {
     var page = req.param( "p" , 1 );
+    var q = req.param( "q" , {} );
+    console.dir( q );
     var ok = function( dataObj ) {
         res.json( JSON.parse( dataObj.users_info ) );
     };
-    req_to_hb123( "get" , "about=user&action=search&p=" + page + '&q={"location":"北京"}' , ok );
+    req_to_hb123( "get" , "about=user&action=search&p=" + page + '&q=' + q , ok );
 });
 //}}}
 
@@ -78,7 +81,7 @@ app.get( "/api/gifts/" , function( req , res ) {
     var page = req.param( "p" , 1 );
 
     var ok = function( dataObj ) {
-        res.json( JSON.parse(dataObj.gifts_info) );
+        res.json( JSON.parse( dataObj.gifts_info ) );
     };
     req_to_hb123( "get" , "about=gift&action=get_all&p=" + page , ok );
 });

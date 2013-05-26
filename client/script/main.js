@@ -34,6 +34,22 @@ require.config({
     }
 });
 
+//根据当前是否存在本 panel 来决定是
+//插入还是 更新相应的元素
+$.ui.addOrUpdateDiv = function( id , content ) {
+    //不能使用 add 这一点很重要!
+    var funcName = "addContentDiv";
+
+    if( $( "#" + id ).length !== 0 ) {
+        funcName = "updateContentDiv";
+    }
+    $.ui[funcName](
+        id ,
+        content
+    );
+}
+
+//远程 console.dir
 
 require([
     "app" ,

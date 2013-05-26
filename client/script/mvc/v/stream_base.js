@@ -18,16 +18,17 @@ function(
         //@param streamId 需要渲染的流 dom id
         //@param tpl 需要渲染的流的模板
         //@param title 需要渲染的模板的标题
-        baseInitialize: function( streamId , tpl , ItemView , coll ) {
+        //@param q 查询条件
+        //@param hash 需要跳转的 history hash 
+        baseInitialize: function( streamId , tpl , ItemView , coll , q , hash ) {
         //{{{
-
+            this.q = q;
             this.coll = coll;
             this.ItemView = ItemView;
             _.bindAll( this , "addOne" , "addAll" , "fetchOk" , "fetchFail" );
 
-            //生成 panel
             $.ui.addContentDiv( streamId , tpl );
-            $.ui.loadContent( "#" + streamId , false , false , "fade" );
+            $.ui.loadContent( hash , false , false , "fade" );
             this.$el = $( "#" + streamId );
 
             //每一个 streamTpl 都必须包含一个 .items 元素 
@@ -37,12 +38,12 @@ function(
             this.p = 1;
             this.coll.bind( "add" , this.addOne );
             this.coll.bind( "reset" , this.addAll );
-            this.coll.fetch();
+            this.fetchMore();
 
             var streamView = this;
             var scroll = this.$el.scroller();
             scroll.addInfinite();
-            scroll.addPullToRefresh();
+            //scroll.addPullToRefresh();
 
             //刷新
             $.bind( scroll , "refresh-trigger" , function() {
@@ -52,7 +53,7 @@ function(
             $.bind( scroll , "refresh-release" , function(){
                 var that = this;
                 //目前只刷新第一页
-                coll.fetch();
+                //streamView.fetchMore();
                 this.setRefreshContent( "刷新中..." );
                 clearTimeout( hideClose );
                 hideClose=setTimeout( function(){
@@ -62,7 +63,7 @@ function(
             });
             //获取更多
             $.bind( scroll , "infinite-scroll" , function() {
-                streamView.showMore();
+                streamView.fetchMore();
                 var self = this;
                 $( this.el ).append( "<div class='infinite'>读取中...</div>" );
                 $.bind( scroll , "infinite-scroll-end" , function() {
@@ -87,17 +88,18 @@ function(
 
         fetchOk: function( coll , res ){
         //{{{
-            //@todo 这里需要进行正确性的判断
+            //@todo 这里需要进行正确性的判断hash
             //返回值不一定有效
             if( coll.length > 0 ) {
                 this.isFetching = false;
             } else {
+
             }
         },//}}}
 
         fetchFail: function( coll , res ) {
-            //{{{
-            this.$showMoreEl.text( "查看更多" );
+        //{{{
+        
         },//}}}
 
         //刷新当前的列表
@@ -109,19 +111,19 @@ function(
             
         },
 
-        showMore: function() {
+        fetchMore: function() {
         //{{{
             //避免用户重复点击
             if( this.isFetching === true ) {
                 return false;
             }
-
             this.isFetching = true;
-            this.p = this.p + 1;StreamBase
+            this.p = this.p + 1;
             this.coll.fetch({
                 data: {
-                    p: this.p
-                },
+                    p: this.p ,
+                    q: this.q
+                } ,
                 success: this.fetchOk,
                 error: this.fatchFail
             });
