@@ -1,31 +1,12 @@
 var express = require( "express" )
 var app = express();
+var crypto = require( "crypto" );
 var server = require( "http" ).createServer( app );
 var io = require( "socket.io" ).listen( server );
-var request = require( "superagent" );
-var crypto = require( "crypto" );
-var redis = require( "redis" );
 
-var redisClient = client = redis.createClient( "6380" , "172.17.0.46" );
-var HB123_SERVER = "http://172.17.0.20:1979/Mobile/Api.aspx?";
+var req_to_hb123 = require( "./helper.js" ).req_to_hb123;
+
 server.listen( 8800 );
-
-var req_to_hb123 = function( method , param , ok , error ) {
-     request[method](
-         HB123_SERVER + param,
-         function( data ) {
-            console.dir( data.text );
-            var dataObj = JSON.parse( data.text );
-            if( dataObj.code === "200" ) {
-                ok( dataObj );
-            } else {
-                if( typeof error === "undefined" ) {
-                    console.log( "request error" );
-                }
-            }
-         }
-     );
-}
 
 app.use( express.bodyParser() );
 //ajax event
@@ -55,8 +36,8 @@ app.post( "/api/do_login" , function( req , res ) {
 app.get( "/api/users/" , function( req , res ) {
     var page = req.param( "p" , 1 );
     var q = req.param( "q" , {} );
-    console.dir( q );
     var ok = function( dataObj ) {
+        console.dir( dataObj )
         res.json( JSON.parse( dataObj.users_info ) );
     };
     req_to_hb123( "get" , "about=user&action=search&p=" + page + '&q=' + q , ok );
@@ -75,6 +56,25 @@ app.get( "/api/user/" , function( req , res ) {
     req_to_hb123( "get" , "about=user&action=get_info&user_id=" + userId , ok );
 });
 
+app.get( "/api/should_display_contact_info/" , function( req , res ) {
+    var type = req.param( "type" );
+    var objUserId = req.param( "object_user_id" );
+    var subUserId = req.param( "subject_user_id" );
+
+    var ok = function( dataObj ) {
+        console.dir( dataObj )
+        res.json( dataObj );
+    };
+    req_to_hb123( 
+        "get" , 
+        "about=user&action=should_display_contact_info&type=" + type + 
+        "&object_user_id=" + objUserId + 
+        "&subject_user_id=" + subUserId ,
+
+        ok
+    );
+});
+
 //获取礼物列表
 //{{{
 app.get( "/api/gifts/" , function( req , res ) {
@@ -87,7 +87,26 @@ app.get( "/api/gifts/" , function( req , res ) {
 });
 //}}}
 
-//socket event
-io.sockets.on('connection', function( socket ) {
+//送礼物给指定的用户
+app.post( "/api/send_gift/" , function( req , res ) {
+    var giftId = req.param( "gift_id" );
+    var targetUserId = req.param( "target_user_id" );
+    var fromUserId = req.param( "from_user_id" );
 
+    var ok = function( dataObj ) {
+        res.json( "ok" );
+    };
+    req_to_hb123( 
+        "get" , 
+        "about=gift&action=send&gift_id=" + giftId + 
+        "&target_user_id=" + targetUserId + 
+        "&from_user_id=" + fromUserId , 
+
+        ok 
+    );
+});
+//购买指定的礼物
+
+//socket events
+io.sockets.on('connection', function( socket ) {
 });

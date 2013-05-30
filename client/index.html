@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta http-equiv="expires" content ="FRI,1 JUN 2013 00 00 00 GMT"> 
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <meta name="apple-mobile-web-app-capable" content="yes" >
@@ -53,8 +54,8 @@
                 //初始化  socketio 
                 //此处对于 js 的异步事件模型有一个疑问 connection 事件我是在 connent 调用之后进行的绑定
                 //connection 事件如何会成功的执行呢？也就是说 绑定事件的时候其可能已经触发了该事件
-                window.socketServer = "http://io.icket.us:8800";
-                //window.socketServer = "http://172.17.0.47:8800";
+                //window.socketServer = "http://io.icket.us:8800";
+                window.socketServer = "http://172.17.0.47:8800";
                 window.socket = io.connect( window.socketServer );
 
                 socket.on( "error" , function() {
@@ -87,7 +88,7 @@
                             }
                             logging = true;
                             $.post( 
-                                "http://icket.us/api/do_login" ,
+                                "http://172.17.0.46/api/do_login" ,
                                 {
                                     username: $usernameEl.val() ,
                                     password: $passwordEl.val()
@@ -140,7 +141,7 @@
                 </p>
                 <p>
                     <button class="do_login">登录</button>
-                    </p>
+                </p>
                 </div>
                 <nav>
                 </nav>

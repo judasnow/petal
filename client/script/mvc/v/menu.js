@@ -19,40 +19,39 @@ function(
 
     var MenuView = Backbone.View.extend({
         template: menuTpl ,
-        
+
         el: $( "#menu" ) ,
 
         events: {
+            "tap #object_user_info>.gravatar": "showObjectUserHome" ,
             "tap .stream_same_city": "showSameCityStream" ,
-            "tap .search": "showSearch"
+            "tap .search": "showSearch" 
         } ,
 
         initialize: function() {
 
-            _.bindAll( this , "render" , "showSameCityStream" , "showSearch" );
+            _.bindAll( 
+                this , 
+                "render" , "showObjectUserHome" , "showSameCityStream" , "showSearch" );
             this.model = new User();
             this.model.on( "change" , this.render );
 
             //使用 object_user_info 渲染之
-            //可以执行到此处 应该是断言已经登录的了 因此 
-            //window.object_user_info 应该是已经设置了的
-            var objUserInfo = window.objectUserInfo;
-            if( objUserInfo === null ) {
-                //@todo 弹出登录窗口
-                alert( "还没有登录系统" );
-                return false;
-            } else {
-                this.model.set( JSON.parse( objUserInfo ) );
-            }
+            this.model.set( window.objectUser.toJSON() );
+        } ,
+
+        showObjectUserHome: function() {
+            window.router.navigate( "#user_detail/self" , {trigger: true} );
         } ,
 
         showSearch: function() {
             window.router.navigate( "#search" , {trigger: true} );
-        },
+        } ,
 
         showSameCityStream: function() {
             window.router.navigate( "#stream" , {trigger: true} );
         } ,
+
 
         render: function() {
             $.ui.updateSideMenu(

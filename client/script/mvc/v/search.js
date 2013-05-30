@@ -75,7 +75,7 @@ function(
                 "q:users" ,
                 JSON.stringify(
                     {
-                        nickname: nickName ,
+                        nickName: nickName ,
                         sex: sex ,
                         ageMin: ageMin ,
                         ageMax: ageMax ,

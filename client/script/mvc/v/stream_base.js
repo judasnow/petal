@@ -27,7 +27,7 @@ function(
             this.ItemView = ItemView;
             _.bindAll( this , "addOne" , "addAll" , "fetchOk" , "fetchFail" );
 
-            $.ui.addContentDiv( streamId , tpl );
+            $.ui.addOrUpdateDiv( streamId , tpl );
             $.ui.loadContent( hash , false , false , "fade" );
             this.$el = $( "#" + streamId );
 
@@ -42,6 +42,7 @@ function(
 
             var streamView = this;
             var scroll = this.$el.scroller();
+            this.scroll = scroll;
             scroll.addInfinite();
             //scroll.addPullToRefresh();
 
@@ -63,9 +64,9 @@ function(
             });
             //获取更多
             $.bind( scroll , "infinite-scroll" , function() {
-                streamView.fetchMore();
                 var self = this;
                 $( this.el ).append( "<div class='infinite'>读取中...</div>" );
+                streamView.fetchMore();
                 $.bind( scroll , "infinite-scroll-end" , function() {
                     //获取完毕
                     $.unbind( scroll , "infinite-scroll-end" );
@@ -93,7 +94,7 @@ function(
             if( coll.length > 0 ) {
                 this.isFetching = false;
             } else {
-
+                $.unbind( this.scroll , "infinite-scroll" );
             }
         },//}}}
 
@@ -118,7 +119,6 @@ function(
                 return false;
             }
             this.isFetching = true;
-            this.p = this.p + 1;
             this.coll.fetch({
                 data: {
                     p: this.p ,
@@ -127,6 +127,7 @@ function(
                 success: this.fetchOk,
                 error: this.fatchFail
             });
+            this.p = this.p + 1;
         }//}}}
     });
 

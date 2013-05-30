@@ -21,9 +21,10 @@ function(
     "use strict";
 
     var GiftList = StreamBase.extend({
-        initialize: function() {
+        initialize: function( args ) {
             var gifts = new Gifts();
-            this.baseInitialize( "gift_list" , giftListTpl , GiftItemView , gifts );
+
+            this.baseInitialize( "gift_list" , giftListTpl , GiftItemView , gifts , args.q , args.hash );
         }
     });
 

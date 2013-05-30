@@ -1,11 +1,14 @@
 define([ 
     "underscore" ,
     "backbone" ,
+
     "m/object_user" ,
+
     "v/login" ,
     "v/stream" ,
     "v/search" ,
     "v/user_detail" ,
+    "v/update_self_profile" ,
     "v/gift_list" ,
     "v/talk_list"
 ],
@@ -17,6 +20,7 @@ function(
     StreamView ,
     SearchView ,
     UserDetailView ,
+    UpdateSelfProfileView ,
     GiftListView ,
     TalkListView
 ) {
@@ -30,10 +34,16 @@ function(
             "": "showStream" ,
             stream: "showStream" ,
             "stream/search": "showSearchResultStream" ,
+
             search: "showSearch" ,
+
             "gift_list/:giftClass": "showGiftList" ,
             gift_list: "showGiftList" ,
+
+            "user_detail/self": "showObjectUserDetail" ,
             "user_detail/:userId": "showUserDetail" ,
+            "update_self_profile": "showUpdateSelfProfile" ,
+
             //不通过链接显示聊天对方信息比较好
             talk: "showTalkList" ,
             ":whatever"  : "notFound" 
@@ -48,26 +58,10 @@ function(
             alert( 404 )
         },
 
-        //判断用户是否已经登录系统 
-        //@todo 方案还有改进的余地
-        haveLoggedIn: function() {
-        //{{{
-            var objectUserInfo = window.localStorage.getItem( "petal:object_user_info" );
-
-            if( objectUserInfo !== null ) {
-                //已登录
-                window.objectUserModel = new ObjectUserModel( JSON.parse( objectUserInfo ) );
-                return true;
-            } else {
-                //未登录
-                return false;
-            }
-        },//}}}
-
         //默认显示附近的人 也就是以用户当前所在地作为查询条件
         showStream: function() {
         //{{{
-            var q = JSON.stringify( {location: ""} );
+            var q = JSON.stringify( {location: window.objectUser.get( "AreaDes" )} );
             new StreamView({
                 q: q ,
                 hash: "#stream"
@@ -91,6 +85,15 @@ function(
             });
         },
 
+        showObjectUserDetail: function() {
+            new UserDetailView( {userId: window.objectUser.get( "UserId" ) , objectUserPage: true} );
+        } ,
+
+        //当前登录用户修改资料页面
+        showUpdateSelfProfile: function() {
+            new UpdateSelfProfileView();
+        } ,
+
         showUserDetail: function( userId ) {
         //{{{
             new UserDetailView( {userId: userId} );
@@ -98,7 +101,11 @@ function(
 
         showGiftList: function( giftClass ) {
         //{{{
-            new GiftListView( { /*giftClass: gift_class*/ } );
+            new GiftListView(
+            {
+                q: "" ,
+                hash: "#gift_list"
+            });
         },//}}}
 
         showTalkList: function() {

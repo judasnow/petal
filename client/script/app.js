@@ -10,6 +10,8 @@ function(
         "use strict";
 
         var init = function() {
+            //objectUserInfo -> objectUserModel 
+            window.objectUser = new Backbone.Model( JSON.parse( window.objectUserInfo ) );
 
             var router = new Router();
             window.router = router;

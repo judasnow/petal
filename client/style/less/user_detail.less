@@ -1,9 +1,12 @@
 #user_detail {
+    @padding: 8px;
+    @image_size: 128px;
     .head_img {
+        min-height: @image_size + (@padding * 2);
         text-align: center;
     }
     .item {
-        padding: 8px;
+        padding: @padding;
         border-bottom: 1px solid #c5c5c5;
         font-size: 14px;
         color: #616159;
@@ -20,8 +23,8 @@
         border: 1px solid #ddd;
         border-radius: 5px;
         padding: 1px;
-        @image_size: 128px;
         width: @image_size;
         height: @image_size;
     }
 }
+

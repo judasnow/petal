@@ -1,0 +1,49 @@
+#update_self_profile {
+    @img_size: 96px;
+    .item {
+        padding: 8px;
+        border-bottom: 1px solid #c5c5c5;
+        font-size: 14px;
+        color: #616159;
+        .title {
+            font-size: 110%;
+            color: #53534b;
+        }
+    }
+    .user_album {
+        @padding: 8px;
+        width: 100%;
+        display: inline-block;
+        height: auto;
+        min-height: @img_size + (@padding * 2);
+        background: #eee;
+        border-bottom: 1px solid #c5c5c5;
+        padding: 8px;
+        .user_picture_box {
+            text-align: center;
+            margin: 8px;
+            float: left;
+            width: @img_size + 2px;
+            height: @img_size + 2px;
+            border: 1px solid #ddd;
+        }
+        .user_picture {
+            display: inline-block;
+            max-width:  @img_size;
+            max-height: @img_size;
+        }
+        .add_picture { 
+            .user_picture_box;
+            background: #ddd;
+            .text {
+                @font-size: 14px;
+                display: inline-block;
+                top: -( @font-size / 2);
+                position: relative;
+                margin-top: 50%;
+                font-size: @font-size;
+                line-height: @font-size;
+            }
+        }
+    }
+}

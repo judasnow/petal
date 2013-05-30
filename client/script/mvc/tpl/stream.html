@@ -3,4 +3,15 @@
 <h1>用户列表</h1>
 <a class="button" style="float:left;" onclick="jq.ui.toggleSideMenu()" class="">导航</a>
 </header>
-
+<script type="text/template" id="offline_contact_info_tpl">
+<p class="contact_info">
+<span class="item"<b>邮箱:</b> {{EMail}}</span>
+<span class="item"><b>QQ:</b> {{QQ}}</span>
+<span class="item"><b>微信:</b> {{MSN}}</span>
+</p>
+</script>
+<script type="text/template" id="online_contact_info_tpl">
+<p class="contact_info">
+<span class="item"><b>电话:</b> {{Phone}}</span>
+</p>
+</script>

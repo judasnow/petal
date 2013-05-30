@@ -1,81 +1,80 @@
-<div id="user_detail">
-    <div class="item head_img">
-        <img class="gravatar" src="http://www.huaban123.com/UploadFiles/UHP/MIN/{{userInfo.HeadPic}}" />
-    </div>
-
-    <div class="user_info item">
-        {{NickName}} , {{Age}} 岁 , {{Sex}}
-    </div>
-
-    <div class="item">
-        <p>
-            <span>举报</span>
-        </p>
-    </div>
-
-    <div class="item twitte_box">
-        <b class="title">最新说说</b>
-        <p class="twitte">{{ToSay}}</p>
-    </div>
-
-    <div class="item">
-        <b class="title">交友宣言</b>
-        <p>{{ZWMS}}</p>
-    </div>
-
-    <div class="item">
-        <b class="title">交友原因</b>
-        <p>{{YY}}</p>
-    </div>
-
-    <div class="item">
-        <b class="title">我能提供</b>
-        <p>{{TG}}</p>
-    </div>
-
-    <div class="item">
-        <b class="title">期望获得</b>
-        <p>{{HD1}}</p>
-    </div>
-
-    <div class="item">
-        <b class="title">期望的情人</b>
-        <p>{{WXZ}}</p>
-    </div>
-
-    <div class="item">
-        <b class="title">情爱观念</b>
-        <p>{{XA}}</p>
-    </div>
-
-    <div class="item">
-        <b class="title">我的外貌</b>
-        <p>{{WM}}</p>
-    </div>
-
-    <div class="item">
-        <b class="title">我的个性</b>
-        <p>{{GX}}</p>
-    </div>
-
-    <div class="item">
-        <b class="title">我的兴趣</b>
-        <p>{{XQ}}</p>
-    </div>
-
-    <div class="item">
-        <b class="title">期望收到的礼物</b>
-        <p></p>
-    </div>
-
-    <div class="item">
-        <b class="title">最近收到的礼物</b>
-        <p></p>
-    </div>
-
+<div class="item head_img">
+    <img class="gravatar" src="http://www.huaban123.com/UploadFiles/UHP/MIN/{{userInfo.HeadPic}}" />
 </div>
+
+<div class="user_info item">
+    {{NickName}} , {{Age}} 岁 , {{UserSex}} , {{AreaDes}}
+</div>
+
+<div class="item">
+    <p>
+    <span>举报</span>
+    </p>
+</div>
+
+<div class="item twitte_box">
+    <b class="title">最新说说</b>
+    <p class="twitte">{{ToSay}}</p>
+</div>
+
+<div class="item">
+    <b class="title">交友宣言</b>
+    <p>{{ZWMS}}</p>
+</div>
+
+<div class="item">
+    <b class="title">交友原因</b>
+    <p>{{YY}}</p>
+</div>
+
+<div class="item">
+    <b class="title">我能提供</b>
+    <p>{{TG}}</p>
+</div>
+
+<div class="item">
+    <b class="title">期望获得</b>
+    <p>{{HD1}}</p>
+</div>
+
+<div class="item">
+    <b class="title">期望的情人</b>
+    <p>{{WXZ}}</p>
+</div>
+
+<div class="item">
+    <b class="title">情爱观念</b>
+    <p>{{XA}}</p>
+</div>
+
+<div class="item">
+    <b class="title">我的外貌</b>
+    <p>{{WM}}</p>
+</div>
+
+<div class="item">
+    <b class="title">我的个性</b>
+    <p>{{GX}}</p>
+</div>
+
+<div class="item">
+    <b class="title">我的兴趣</b>
+    <p>{{XQ}}</p>
+</div>
+
+<div class="item">
+    <b class="title">期望收到的礼物</b>
+    <p></p>
+</div>
+
+<div class="item">
+    <b class="title">最近收到的礼物</b>
+    <p></p>
+</div>
+
 <header>
-<h1>用户列表</h1>
+<h1>用户详细信息</h1>
 <a class="button" style="float:left;" onclick="$.ui.goBack()" class="">返回</a>
+<a class="button update_self_profile" style="float:right;display:none;" onclick="window.router.navigate( '#update_self_profile' , {trigger: true});" class="">修改资料</a>
 </header>
 
