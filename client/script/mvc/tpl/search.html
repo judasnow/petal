@@ -6,16 +6,15 @@
     <select class="age_min" name="age_min">
         <option value="0">不限</option>
         {{#ageRange}}
-        <option>{{age}}</option>
+            <option>{{age}}</option>
         {{/ageRange}}
-    </select> 
+    </select>
     <select class="age_max" name="age_max">
         <option value="0">不限</option>
         {{#ageRange}}
-        <option>{{age}}</option>
+            <option>{{age}}</option>
         {{/ageRange}}
-    </select> 
-
+    </select>
 </p>
 <p class="item">
     <span class="title">按性别</span>
@@ -30,7 +29,7 @@
     <select class="province" name="province">
         <option value="">不限</option>
         {{#areaList}}
-        <option class="{{classname}}" value="{{province}}">{{province}}</option>
+            <option class="{{classname}}" value="{{province}}">{{province}}</option>
         {{/areaList}}
     </select>
 
@@ -45,9 +44,8 @@
             {{/cities}}
         </div>
         {{/areaList}}
-    </div> 
+    </div>
 </p>
-
 <header>
 <h1>搜索</h1>
 <a class="button" style="float:left;" onclick="$.ui.goBack();" class="">返回</a>

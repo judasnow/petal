@@ -7,9 +7,7 @@ define([
     "c/talk_items" ,
     "v/talk_item" ,
 
-    "text!tpl/talk_list.html" ,
-    "text!tpl/div/header.html" ,
-    "text!tpl/div/footer.html"
+    "text!tpl/talk_list.html" 
 ],
 function( 
     _ ,
@@ -18,9 +16,7 @@ function(
     TalkItems ,
     TalkItemView ,
 
-    talkListTpl ,
-    headerTpl ,
-    footerTpl 
+    talkListTpl 
 ){
     "use strict";
 
@@ -55,7 +51,7 @@ function(
                     p: this.pageNo
                 },
                 success: function() {
-                    
+
                 },
                 error: function() {
 

@@ -1,37 +1,20 @@
 define([
     "underscore" ,
-    "backbone"
+    "backbone" ,
+
+    "m/user_profile_base_info"
 ],
 function( 
     _ ,
-    Backbone
+    Backbone ,
+
+    userProfileBaseInfo
 ){
     "use strict";
 
     var Search = Backbone.Model.extend({
 
-        defaults: {
-            minAge: 18 ,
-            maxAge: 60 ,
-            areaList: [
-            //{{{
-                {
-                    province: "四川" ,
-                    classname: "sichuan" ,
-                    cities: [
-                        {cityname: "成都"} ,
-                        {cityname: "自贡"}
-                    ]
-                } ,
-                {
-                    province: "吉林",
-                    classname: "hunan" ,
-                    cities: [
-                        {cityname: "长春"} 
-                    ]
-                }
-            ]//}}}
-        } ,
+        defaults: userProfileBaseInfo ,
 
         initialize: function() {
             this.set( "ageRange" , (function( minAge , maxAge ) {

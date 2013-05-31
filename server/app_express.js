@@ -35,12 +35,24 @@ app.post( "/api/do_login" , function( req , res ) {
 //{{{
 app.get( "/api/users/" , function( req , res ) {
     var page = req.param( "p" , 1 );
-    var q = req.param( "q" , {} );
+    var q = req.param( "q" , "{}" );
+
+    var qObj = JSON.parse( q );
+    var what = (typeof qObj.what !== "undefined" ? qObj.what : "search");
+    var object_user_id = (typeof qObj.object_user_id !== "undefined" ?  qObj.object_user_id  : null);
+    var _case = (typeof qObj._case !== "undefined" ?  qObj._case  : null);
+
+    var what2url = {
+        //@todo 去除 what 
+        search: "about=user&action=search&p=" + page + '&q=' + q ,
+        visitors: "about=user&action=visitors_list&p=" + page + "&user_id=" + object_user_id ,
+        had_bought_contact_info: "about=user&action=had_bought_contact_info_list&p=" + page + "&user_id=" + object_user_id ,
+        contacts: "about=user&action=contacts_" + _case + "&p=" + page + "&user_id=" + object_user_id 
+    }
     var ok = function( dataObj ) {
-        console.dir( dataObj )
-        res.json( JSON.parse( dataObj.users_info ) );
+        res.json( JSON.parse( dataObj.user_list ) );
     };
-    req_to_hb123( "get" , "about=user&action=search&p=" + page + '&q=' + q , ok );
+    req_to_hb123( "get" , what2url[what] , ok );
 });
 //}}}
 
@@ -51,9 +63,26 @@ app.get( "/api/user/" , function( req , res ) {
     var userId = req.param( "user_id" , 0 );
 
     var ok = function( dataObj ) {
-        res.json( JSON.parse(dataObj.user_info) );
+        resjson( JSON.parse(dataObj.user_info) );
     };
     req_to_hb123( "get" , "about=user&action=get_info&user_id=" + userId , ok );
+});
+
+//@todo should be put, but I hava not enought time .... so sad I am.
+app.post( "/api/tweet_it/" , function( req , res ) {
+    var userId = req.param( "user_id" );
+    var tweetContent = req.param( "content" );
+
+    var ok = function( dataObj ) {
+        res.json( ["ok"] );
+    }
+    req_to_hb123( 
+        "post" , 
+        "about=user&action=update_to_say&content=" + tweetContent + 
+        "&user_id=" + userId ,
+
+        ok
+    );
 });
 
 app.get( "/api/should_display_contact_info/" , function( req , res ) {
@@ -79,11 +108,23 @@ app.get( "/api/should_display_contact_info/" , function( req , res ) {
 //{{{
 app.get( "/api/gifts/" , function( req , res ) {
     var page = req.param( "p" , 1 );
+    var q = req.param( "q" , "{}" );
+
+    //解析 q
+    var qObj = JSON.parse( q );
+    var what = (typeof qObj.what !== "undefined" ? qObj.what : "all");
+    var object_user_id = (typeof qObj.object_user_id !== "undefined" ?  qObj.object_user_id  : null);
 
     var ok = function( dataObj ) {
-        res.json( JSON.parse( dataObj.gifts_info ) );
+        res.json( JSON.parse( dataObj.gift_list ) );
     };
-    req_to_hb123( "get" , "about=gift&action=get_all&p=" + page , ok );
+    //根据不同的 what 访问不同的 api
+    var what2url = {
+        all: "about=gift&action=get_all&p=" + page ,
+        sended: "about=gift&action=sended_list&p=" + page + "&user_id=" + object_user_id ,
+        received: "about=gift&action=received_list&p=" + page + "&user_id=" + object_user_id 
+    };
+    req_to_hb123( "get" , what2url[what] , ok );
 });
 //}}}
 
@@ -94,7 +135,7 @@ app.post( "/api/send_gift/" , function( req , res ) {
     var fromUserId = req.param( "from_user_id" );
 
     var ok = function( dataObj ) {
-        res.json( "ok" );
+        res.json( [ "ok" ] );
     };
     req_to_hb123( 
         "get" , 
@@ -105,8 +146,27 @@ app.post( "/api/send_gift/" , function( req , res ) {
         ok 
     );
 });
-//购买指定的礼物
+
+//交易记录
+app.get( "/api/payment_recoreds/" , function( req , res ) {
+    var page = req.param( "p" , 1 );
+    var q = req.param( "q" , "{}" );
+
+    var qObj = JSON.parse( q );
+    var object_user_id = (typeof qObj.object_user_id !== "undefined" ?  qObj.object_user_id  : null);
+
+    var ok = function( dataObj ) {
+        res.json( JSON.parse( dataObj.record_list ) );
+    }
+    req_to_hb123( 
+        "get" , 
+        "about=user&action=payment_record&p=" + page + "&user_id=" + object_user_id ,
+
+        ok 
+    );
+});
 
 //socket events
 io.sockets.on('connection', function( socket ) {
+
 });

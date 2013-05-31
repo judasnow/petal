@@ -26,7 +26,6 @@ function(
             this.coll = coll;
             this.ItemView = ItemView;
             _.bindAll( this , "addOne" , "addAll" , "fetchOk" , "fetchFail" );
-
             $.ui.addOrUpdateDiv( streamId , tpl );
             $.ui.loadContent( hash , false , false , "fade" );
             this.$el = $( "#" + streamId );
@@ -79,7 +78,7 @@ function(
         },//}}}
 
         addAll: function() {
-            this.users.each( this.addOne );
+            this.coll.each( this.addOne );
         },
 
         addOne: function( item ) {
@@ -122,7 +121,7 @@ function(
             this.coll.fetch({
                 data: {
                     p: this.p ,
-                    q: this.q
+                    q: (typeof this.q === "undefined" || this.q === "" ? {} : this.q)
                 } ,
                 success: this.fetchOk,
                 error: this.fatchFail

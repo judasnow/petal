@@ -5,9 +5,7 @@ define([
     "mustache" ,
     "m/user" ,
 
-    "text!tpl/user_detail.html" ,
-    "text!tpl/div/header.html" ,
-    "text!tpl/div/footer.html"
+    "text!tpl/user_detail.html" 
 ] ,
 function(
     _ ,
@@ -15,9 +13,7 @@ function(
     Mustache ,
     User ,
 
-    userDetailTpl ,
-    headerTpl ,
-    footerTpl 
+    userDetailTpl 
 ) {
     "use strict";
 

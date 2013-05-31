@@ -35,7 +35,8 @@ require.config({
 });
 
 //根据当前是否存在本 panel 来决定是
-//插入还是 更新相应的元素
+//插入还是 更新相应的元素 并返回当前
+//panel 的引用
 $.ui.addOrUpdateDiv = function( id , content ) {
     //不能使用 add 这一点很重要!
     var funcName = "addContentDiv";
@@ -47,6 +48,7 @@ $.ui.addOrUpdateDiv = function( id , content ) {
         id ,
         content
     );
+    return $( "#" + id );
 }
 
 //远程 console.dir

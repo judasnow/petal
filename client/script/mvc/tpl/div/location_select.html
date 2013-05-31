@@ -1,0 +1,20 @@
+<select class="province" name="province">
+    <option value="">不限</option>
+    {{#areaList}}
+    <option class="{{classname}}" value="{{province}}">{{province}}</option>
+    {{/areaList}}
+</select>
+
+<select class="cityname" name="cityname">
+</select>
+
+<div class="citylist" style="display:none;">
+    {{#areaList}}
+    <div class="{{classname}}">
+        {{#cities}}
+        <option value="{{cityname}}">{{cityname}}</option>
+        {{/cities}}
+    </div>
+    {{/areaList}}
+</div>
+

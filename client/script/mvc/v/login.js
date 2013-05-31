@@ -23,7 +23,7 @@ function(
         },
 
         initialize: function() {
-            $.ui.toggleHeaderMenu(false); //force hide
+            $.ui.toggleHeaderMenu( false ); 
             _.bindAll( this , "doLogin" , "loginOk" , "loginFail" );
 
             socket.on( "login_ok" , this.loginOk );

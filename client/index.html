@@ -147,5 +147,25 @@
                 </nav>
         </div>
     </body>
+
+    <!--tpls 不可以放到 tpl 文件中 会被提前渲染-->
+    <script type="text/template" id="offline_contact_info_tpl">
+        <p class="contact_info">
+        <span class="item"<b>邮箱:</b> {{EMail}}</span>
+        <span class="item"><b>QQ:</b> {{QQ}}</span>
+        <span class="item"><b>微信:</b> {{MSN}}</span>
+        </p>
+    </script>
+    <script type="text/template" id="online_contact_info_tpl">
+        <p class="contact_info">
+        <span class="item"><b>电话:</b> {{Phone}}</span>
+        </p>
+    </script>
+    <script type="text/template" id="user_picture_box_tpl">
+        <div class="user_picture_box">
+            <img id="user_picture_{{uid}}" class="user_picture" src="{{image}}" alt="user picture" />
+        </div>
+    </script>
+
 </html>
 

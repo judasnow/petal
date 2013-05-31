@@ -1,18 +1,19 @@
 <div class="user_album">
-    <div class="user_picture_box">
-        <img class="user_picture" src="/image/init.jpg" alt="user picture" />
-    </div>
     <div class="add_picture">
         <span class="text">添加照片</span>
     </div>
+    <input type="file" class="user_upload_picture_input" name="user_upload_picture" 
+        accept="image/*" multiple />
 </div>
 
 <div class="item">
     <b class="title">地区</b>
+    {{> location_select}}
 </div>
 
 <div class="item">
-    <b class="title">年龄</b>
+    <b class="title">出生日期</b>
+    <input type="date" name="birthday" />
 </div>
 
 <div class="item">
@@ -22,11 +23,13 @@
 
 <div class="item">
     <b class="title">我的外貌</b>
+    {{> looks_select}}
     <p>{{WM}}</p>
 </div>
 
 <header>
 <h1>修改资料</h1>
 <a class="button" style="float:left;" onclick="$.ui.goBack()" class="">返回</a>
+<a class="button" style="float:right;" onclick="" class="">保存</a>
 </header>
 
