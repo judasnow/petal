@@ -19,7 +19,7 @@ define([
     "v/coupons" ,
     "v/visitors" ,
     "v/had_bought_contact_info" ,
-    "v/contaces"
+    "v/contaces" 
 ] ,
 function(
     _ ,
@@ -40,7 +40,7 @@ function(
     CouponsView ,
     VisitorsView ,
     HadBoughtContactInfoView ,
-    ContacesView
+    ContacesView 
 ) {
     "use strict";
 
@@ -90,7 +90,7 @@ function(
         },//}}}
 
         notFound: function() {
-            alert( 404 )
+            $.ui.loadContent( "404.html" , false , false , "fade" );
         },
 
         //默认显示附近的人 也就是以用户当前所在地作为查询条件
@@ -121,6 +121,15 @@ function(
             });
         },//}}}
 
+        //用户主页
+        showUserDetail: function( userId ) {
+        //{{
+            new UserDetailView({
+                subjectUserId: userId
+            });
+        },//}}}
+
+        //当前登录用户的主页
         showObjectUserDetail: function() {
         //{{{
             new UserDetailView( {userId: window.objectUser.get( "UserId" ) , objectUserPage: true} );
@@ -151,11 +160,6 @@ function(
                     hash: ("#gifts/self" + (typeof what !== "undefined" ? "/" + what : "") )
                 }
             );
-        },//}}}
-
-        showUserDetail: function( userId ) {
-        //{{{
-            new UserDetailView( {userId: userId} );
         },//}}}
 
         showGiftList: function( giftClass ) {

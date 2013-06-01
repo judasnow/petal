@@ -51,10 +51,16 @@ $.ui.addOrUpdateDiv = function( id , content ) {
     return $( "#" + id );
 }
 
-//远程 console.dir
+$.ui.goBackWithDefault = function() {
+    if( $.ui.history.length === 1 ) {
+        window.router.navigate( "#stream" , {trigger: true} );
+    } else {
+        $.ui.goBack();
+    }
+};
 
 require([
-    "app" ,
+    "app" 
 ] ,
 function( app ) {
     app.initialize();

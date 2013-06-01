@@ -20,10 +20,11 @@ function(
     var MenuView = Backbone.View.extend({
         template: menuTpl ,
 
-        el: $( "#menu" ) ,
+        el: "#menu" ,
 
         events: {
             "tap #object_user_info>.gravatar": "showObjectUserHome" ,
+
             "tap .stream_same_city": "showSameCityStream" ,
             "tap .search": "showSearch" ,
             "tap .tweet": "showTweet" ,

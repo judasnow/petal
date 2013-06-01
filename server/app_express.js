@@ -3,14 +3,16 @@ var app = express();
 var crypto = require( "crypto" );
 var server = require( "http" ).createServer( app );
 var io = require( "socket.io" ).listen( server );
+var redis = require( "redis" );
 
-var req_to_hb123 = require( "./helper.js" ).req_to_hb123;
+var client = redis.createClient( "6380" , "172.17.0.46" );
+
+var req2hb123 = require( "./helper.js" ).req2hb123;
 
 server.listen( 8800 );
-
 app.use( express.bodyParser() );
-//ajax event
-//login
+
+//ajax events
 //{{{
 app.post( "/api/do_login" , function( req , res ) {
     var username = req.param( "username" , null );
@@ -22,12 +24,14 @@ app.post( "/api/do_login" , function( req , res ) {
     var error = function() {
         res.json( ["fail"] );
     }
-    req_to_hb123( 
-        "post" , 
+    req2hb123( 
+        "post" ,
          "about=user&action=login&username=" 
             + username + "&password="
             + crypto.createHash( "md5" ).update( password ).digest( "hex" ) ,
-        ok 
+
+        ok ,
+        error
     );
 });//}}}
 
@@ -52,20 +56,54 @@ app.get( "/api/users/" , function( req , res ) {
     var ok = function( dataObj ) {
         res.json( JSON.parse( dataObj.user_list ) );
     };
-    req_to_hb123( "get" , what2url[what] , ok );
+    req2hb123( "get" , what2url[what] , ok );
 });
 //}}}
 
-//获取单条的用户信息 相比批量获取的用户信息来说 
-//添加了一些只有在 详细页面上才用的到的信息
-//@todo 但是这样以来岂不是会多次获取相同的信息(比如用户信息的共用部分)
+//修改用户信息
+app.post( "/api/user/" , function( req , res ) {
+    var area = req.param( "area" , "" );
+    var birthday = req.param( "birthday" , "" );
+    var zwms = req.param( "zwms" , "" );
+    var looks = req.param( "looks" , "" );
+});
+
+//获取单条用户信息
 app.get( "/api/user/" , function( req , res ) {
-    var userId = req.param( "user_id" , 0 );
+    var userId = req.param( "user_id" , null );
 
     var ok = function( dataObj ) {
-        resjson( JSON.parse(dataObj.user_info) );
+        //发送来的 json 是一个数组 现在需要合并之 (到 userInfo 中)
+        var userInfo = JSON.parse(dataObj.user_info);
+        userInfo.wantedGiftList = JSON.parse(dataObj.wanted_gift_list);
+        userInfo.receivedGiftList = JSON.parse(dataObj.received_gift_list);
+        res.json( userInfo );
     };
-    req_to_hb123( "get" , "about=user&action=get_info&user_id=" + userId , ok );
+    req2hb123( "get" , "about=user&action=get_info&user_id=" + userId , ok );
+});
+
+//举报某用户
+app.post( "/api/report_user/" , function( req , res ) {
+    var objectUserId = req.param( "object_user_id" , 0 );
+    var subjectUserId = req.param( "subject_user_id" , 0 );
+    var reasonNo = req.param( "reason_no" , "" );
+    var reasonDetail = req.param( "reason_detail" , "" );
+
+    var ok = function( dataObj ) {
+        res.json( '["ok"]' );
+    };
+    var error = function() {
+        
+    } 
+    req2hb123(
+        "post" , 
+        "about=user&action=report&object_user_id=" + objectUserId + 
+            "&subject_user_id=" + subjectUserId  + 
+            "&reason_no=" + reasonNo + 
+            "&reason_detail=" + reasonDetail ,
+            
+        ok
+    );
 });
 
 //@todo should be put, but I hava not enought time .... so sad I am.
@@ -76,7 +114,7 @@ app.post( "/api/tweet_it/" , function( req , res ) {
     var ok = function( dataObj ) {
         res.json( ["ok"] );
     }
-    req_to_hb123( 
+    req2hb123( 
         "post" , 
         "about=user&action=update_to_say&content=" + tweetContent + 
         "&user_id=" + userId ,
@@ -94,7 +132,7 @@ app.get( "/api/should_display_contact_info/" , function( req , res ) {
         console.dir( dataObj )
         res.json( dataObj );
     };
-    req_to_hb123( 
+    req2hb123( 
         "get" , 
         "about=user&action=should_display_contact_info&type=" + type + 
         "&object_user_id=" + objUserId + 
@@ -124,7 +162,7 @@ app.get( "/api/gifts/" , function( req , res ) {
         sended: "about=gift&action=sended_list&p=" + page + "&user_id=" + object_user_id ,
         received: "about=gift&action=received_list&p=" + page + "&user_id=" + object_user_id 
     };
-    req_to_hb123( "get" , what2url[what] , ok );
+    req2hb123( "get" , what2url[what] , ok );
 });
 //}}}
 
@@ -137,7 +175,7 @@ app.post( "/api/send_gift/" , function( req , res ) {
     var ok = function( dataObj ) {
         res.json( [ "ok" ] );
     };
-    req_to_hb123( 
+    req2hb123( 
         "get" , 
         "about=gift&action=send&gift_id=" + giftId + 
         "&target_user_id=" + targetUserId + 
@@ -158,7 +196,7 @@ app.get( "/api/payment_recoreds/" , function( req , res ) {
     var ok = function( dataObj ) {
         res.json( JSON.parse( dataObj.record_list ) );
     }
-    req_to_hb123( 
+    req2hb123( 
         "get" , 
         "about=user&action=payment_record&p=" + page + "&user_id=" + object_user_id ,
 

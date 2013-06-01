@@ -19,13 +19,13 @@
         <script>
             //jqmobi init
             //{{{
-            $.ui.isAjaxApp=true;
+            $.ui.isAjaxApp = true;
             $.ui.openLinksNewTab = false;
             $.ui.resetScrollers = false;
             $.ui.nativeTouchScroll = false;
             $.ui.autoLaunch = false;
-            $.ui.showBackbutton=false;
-            $.ui.customClickHandler=function(){ return true;}
+            $.ui.showBackbutton = false;
+            $.ui.customClickHandler = function() { return true;}
             //}}}
 
             //加载 main.js 
@@ -51,31 +51,30 @@
 
             var init = function() {
             //{{{
-                //初始化  socketio 
+                //初始化  socketio
                 //此处对于 js 的异步事件模型有一个疑问 connection 事件我是在 connent 调用之后进行的绑定
                 //connection 事件如何会成功的执行呢？也就是说 绑定事件的时候其可能已经触发了该事件
                 //window.socketServer = "http://io.icket.us:8800";
                 window.socketServer = "http://172.17.0.47:8800";
                 window.socket = io.connect( window.socketServer );
 
+                window.petalServer = "172.17.0.46";
+
                 socket.on( "error" , function() {
+                    alert( "网络链接不可用" )
                     console.log( "socket connect fail" );
                 });
 
                 socket.on( "disconnect" , function() {
+                    alert( "网络链接已断开" )
                     console.log( "socket disconnected" );
                 });
 
                 socket.on( "connect" , function() {
                     console.log( "socket connected" );
-
                     //判断当前用户是否已经登录系统
                     //{{{
-                    var objectUserInfo = window.localStorage.getItem( "petal:object_user_info" );
-                    if( objectUserInfo === null ) {
-                        //还没有登录系统 将显示登录界面
-                        console.log( "未登录" )
-
+                    if( window.localStorage.getItem( "petal:object_user_info" ) === null ) {
                         //隐藏 splashscreen 显示登录界面
                         var $splashscreenEl = $( "#splashscreen" ).hide();
                         var $loginEl = $( "#login" ).show();
@@ -88,7 +87,7 @@
                             }
                             logging = true;
                             $.post( 
-                                "http://172.17.0.46/api/do_login" ,
+                                "/api/do_login" ,
                                 {
                                     username: $usernameEl.val() ,
                                     password: $passwordEl.val()
@@ -98,11 +97,9 @@
                                         //登录成功
                                         window.localStorage.setItem( "petal:object_user_info" , res[1] );
                                         $.ui.launch();
-                                        //还需要跳转到 #stream
-                                        //$loginEl.hide();
                                     } else {
                                         logging = false;
-                                        alert( "登录失败" );
+                                        alert( "登录失败,用户名或密码错误" );
                                     }
                                 } ,
                                 "json"
@@ -110,7 +107,7 @@
                         });
                         return false;
                     } else {
-                        window.objectUserInfo = objectUserInfo;
+                        //已经处于登录状态
                         $.ui.launch()
                     }//}}}
                 });
@@ -166,6 +163,5 @@
             <img id="user_picture_{{uid}}" class="user_picture" src="{{image}}" alt="user picture" />
         </div>
     </script>
-
 </html>
 

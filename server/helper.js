@@ -1,11 +1,7 @@
 var request = require( "superagent" );
-var redis = require( "redis" );
 
-// config
-//var redisClient = client = redis.createClient( "6380" , "172.17.0.46" );
-
-var req_to_hb123 = function( method , param , ok , error ) {
-    //@todo 多余的问好也会导致错误
+var req2hb123 = function( method , param , ok , error ) {
+    //@todo 多余的问号也会导致错误
     var HB123_SERVER = "http://172.17.0.20:1979/Mobile/Api.aspx?";
     request[method](
         HB123_SERVER + param,
@@ -14,7 +10,6 @@ var req_to_hb123 = function( method , param , ok , error ) {
             try {
                 //判断是否为非法的 json 串
                 var dataObj = JSON.parse( data.text );
-                console.dir( dataObj )
                 if( dataObj.code === "200" ) {
                     ok( dataObj );
                 } else {
@@ -30,5 +25,5 @@ var req_to_hb123 = function( method , param , ok , error ) {
     );
 }
 
-exports.req_to_hb123 = req_to_hb123;
+exports.req2hb123 = req2hb123;
 

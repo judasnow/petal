@@ -19,12 +19,26 @@
             margin: 2px 0;
         }
     }
-    .gravatar {
+    .gift_list {
+        .item {
+            float: left;
+            display: inline-block;
+        }
+        .gift_pic {
+            max-height: 64px;
+            min-width: 64px;
+        }
+    }
+    .gravatar_box {
+        display: inline-block;
         border: 1px solid #ddd;
         border-radius: 5px;
-        padding: 1px;
-        width: @image_size;
-        height: @image_size;
+        width: @image_size + 2px;
+        height: @image_size + 2px;
+    }
+    .gravatar {
+        max-width: @image_size;
+        max-height: @image_size;
     }
 }
 

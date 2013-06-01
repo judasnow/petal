@@ -1,5 +1,7 @@
 <div class="item head_img">
-    <img class="gravatar" src="http://www.huaban123.com/UploadFiles/UHP/MIN/{{userInfo.HeadPic}}" />
+    <div class="gravatar_box">
+        <img class="gravatar" src="http://www.huaban123.com/UploadFiles/UHP/{{HeadPic}}" />
+    </div>
 </div>
 
 <div class="user_info item">
@@ -8,7 +10,7 @@
 
 <div class="item">
     <p>
-    <span>举报</span>
+        <span class="button report_is_user">举报</span>
     </p>
 </div>
 
@@ -62,19 +64,59 @@
     <p>{{XQ}}</p>
 </div>
 
-<div class="item">
+<div class="item gift_list">
     <b class="title">期望收到的礼物</b>
-    <p></p>
+    <ul>
+    {{#wantedGiftList}}
+    <li>
+    <span class="title">{{GTitle}}</span>
+    <img class="gift_pic" src="http://www.huaban123.com/UploadFiles/GPP/MIN/{{GPicName}}" alt="" />
+    <span class="price">价格: {{Gprice}} 金币</span>
+    </li>
+    {{/wantedGiftList}}
+    </ul>
 </div>
 
-<div class="item">
+<div class="item gift_list">
     <b class="title">最近收到的礼物</b>
-    <p></p>
+    <ul>
+    {{#receivedGiftList}}
+    <li>
+    <span class="title">{{GTitle}}</span>
+    <img class="gift_pic" src="http://www.huaban123.com/UploadFiles/GPP/MIN/{{GPicName}}" alt="" />
+    <span class="price">价格: {{Gprice}} 金币</span>
+    </li>
+    {{/receivedGiftList}}
+    </ul>
 </div>
 
 <header>
 <h1>用户详细信息</h1>
-<a class="button" style="float:left;" onclick="$.ui.goBack()" class="">返回</a>
+<a class="button" style="float:left;" onclick="$.ui.goBackWithDefault();" class="">返回</a>
 <a class="button update_self_profile" style="float:right;display:none;" onclick="window.router.navigate( '#update_self_profile' , {trigger: true});" class="">修改资料</a>
 </header>
+
+<script type="text/template" id="report_select_tpl">
+    <p>
+    <span>性别不符</span>
+    <input type="radio" name="report_reason" value="30">
+    </p>
+
+    <p>
+    <span>QQ,MSN 不真实</span>
+    <input type="radio" name="report_reason" value="31">
+    </p>
+
+    <p>
+    <span>手机号码,Email不真实</span>
+    <input type="radio" name="report_reason" value="32">
+    </p>
+
+    <p>
+    <span>其他</span>
+    <input type="radio" name="report_reason" value="33">
+    </p>
+
+    <p><input type="text" name="report_detail" placeholder="详细描述"/></p>
+</script>
 
