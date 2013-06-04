@@ -96,7 +96,7 @@ function(
         },
 
         showCoupons: function() {
-                window.router.navigate( "#coupons/self" , {trigger: true} );
+            window.router.navigate( "#coupons/self" , {trigger: true} );
         },
 
         showBuyCoin: function() {

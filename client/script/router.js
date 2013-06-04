@@ -50,13 +50,13 @@ function(
         //{{{
             //默认页面
             "": "showStream" ,
-            stream: "showStream" ,
+            "stream": "showStream" ,
             "stream/search": "showSearchResultStream" ,
 
-            search: "showSearch" ,
+            "search": "showSearch" ,
 
             "gift_list/:giftClass": "showSelfGifts" ,
-            gift_list: "showGiftList" ,
+            "gift_list": "showGiftList" ,
 
             //self = ObjectUser
             "user_detail/self": "showObjectUserDetail" ,
@@ -79,7 +79,7 @@ function(
             "buy_coin": "showBuyCoin" ,
 
             //不通过链接显示聊天对方信息比较好
-            talk: "showTalkList" ,
+            "talk_list": "showTalkList" ,
 
             ":whatever"  : "notFound" 
         },//}}}
@@ -132,7 +132,10 @@ function(
         //当前登录用户的主页
         showObjectUserDetail: function() {
         //{{{
-            new UserDetailView( {userId: window.objectUser.get( "UserId" ) , objectUserPage: true} );
+            new UserDetailView({
+                subjectUserId: window.objectUser.get( "UserId" ) , 
+                objectUserPage: true
+            });
         } ,//}}}
 
         //当前登录用户修改资料页面
@@ -230,6 +233,7 @@ function(
         },//}}}
 
         showSelfContacts: function( _case ) {
+        //{{{
             new ContacesView({
                 q: JSON.stringify(
                     {
@@ -240,7 +244,7 @@ function(
                 ) ,
                 hash: "#stream/contacts/self/" + _case
             });
-        }
+        }//}}}
     });
 
     return Router;

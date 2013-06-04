@@ -1,4 +1,4 @@
-//可以理解为最近联系人
+//最近联系人的信息记录
 define([ 
     "underscore" ,
     "backbone" ,
@@ -19,51 +19,23 @@ function(
     talkListTpl 
 ){
     "use strict";
+    $.ui.addContentDiv( "#talk_list" , "" );
 
-    var MsgList = Backbone.View.extend({
+    var TalkList = Backbone.View.extend({
         template: talkListTpl ,
 
+        el: "#talk_list" ,
+
         initialize: function() {
-            this.$el.html(
-                Mustache.to_html( 
-                    this.template ,
-                    {
-                        header: headerTpl ,
-                        footer: footerTpl
-                    }
-                )
-            );
+            this.render();
         },
-
-        addAll: function() {
-            this.gifts.each( this.addOne );
-        },
-
-        addOne: function( gift ) {
-            var giftView = new GiftItemView({ model: gift });
-            this.$itemsEl.append( giftView.render().el );
-        },
-
-        showMore: function() {
-            this.pageNo = this.pageNo + 1;
-            this.gifts.fetch({
-                data: {
-                    p: this.pageNo
-                },
-                success: function() {
-
-                },
-                error: function() {
-
-                }
-            });
-        },
-
         render: function() {
+            $.ui.updateContentDiv( "talk_list" , this.template );
+            $.ui.loadContent( "#talk_list" , false , false , "fade" );
             return this;
         }
     });
 
-    return MsgList;
+    return TalkList;
 });
 

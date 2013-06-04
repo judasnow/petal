@@ -1,5 +1,8 @@
 #talk_list {
     @image_size: 64px;
+    .items {
+        padding-top: 16px;
+    }
     .item {
         display: inline-block;
         min-height: @image_size;
@@ -10,8 +13,8 @@
         @float: left;
         .talk_content {
             float: @float;
-            background: #fee;
-            border: 1px solid #f99;
+            background: #eee;
+            border: 1px solid #ccc;
         }
         .gravatar {
             float: @float;
@@ -21,13 +24,12 @@
         @float: right;
         .talk_content {
             float: @float;
-            background: #efe;
-            border: 1px solid #9f9;
+            background: #eee;
+            border: 1px solid #ccc;
         }
         .gravatar {
             float: @float;
         }
-
     }
     .talk_content {
         max-width: 200px;
@@ -45,18 +47,16 @@
         width: @image_size;
         height: @image_size;
     }
-    .input_are_box {
-        width: 100%;
-        position: fixed;
-    }
+}
+#input_area_box {
     .input_area {
         bottom: 0;
-     }
+    }
     .func_btn {
         display: inline-block;
         height: 32px;
         width: 32px;
-        background: #f99;
+        background: #eee;
         text-align: center;
     }
     .send_gift {
@@ -69,5 +69,11 @@
         .func_btn;
     }
     .talk_input {
+        position: absolute;
+        top: 50%;
+        margin: -16px;
+        line-height: 24px;
+        font-size: 24px;
     }
 }
+

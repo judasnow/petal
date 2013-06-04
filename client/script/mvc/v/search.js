@@ -2,9 +2,13 @@ define([
     "underscore" ,
     "backbone" ,
     "mustache" ,
-    "m/search" ,
 
-    "text!tpl/search.html"
+    "m/search" ,
+    "m/user_profile_base_info" ,
+
+    "text!tpl/search.html" ,
+    "text!tpl/div/location_select.html" ,
+    "text!tpl/div/looks_select.html"
 ] ,
 function(
     _ ,
@@ -12,21 +16,32 @@ function(
     Mustache ,
     SearchModel ,
 
-    searchTpl 
+    UserProfileBaseInfo ,
+
+    searchTpl ,
+    locationSelectTpl ,
+    looksSelectTpl
 ){
     "use strict";
+
+    $.ui.addContentDiv( "search" );
 
     var Search = Backbone.View.extend({
         template: searchTpl ,
 
+        el: "#search" ,
+
+        events: {
+            "change .province": "provinceChange"
+        } ,
+
         initialize: function() {
+        //{{{
             this.model = new SearchModel();
             _.bindAll( this , "render" , "provinceChange" , "doSearch" );
 
             //因为对应的 model 是静态的 因此需要手动触发 render
             this.render();
-
-            this.$el = $( "#search" );
 
             //area 选择下拉菜单
             this.$province = this.$el.find( ".province" );
@@ -42,22 +57,23 @@ function(
 
             //手动调用一次
             this.provinceChange();
-            this.$province.change( this.provinceChange );
 
-            //权宜之计 
+            //权宜之计
             window.doSearch = this.doSearch;
-        } ,
+        } ,//}}}
 
-        //每次都删除全部 option 之后添加合适的新的元素 
-        provinceChange: function( event ) {
+        //每次都删除全部 option 之后添加合适的新的元素
+        provinceChange: function() {
+        //{{{
             var classname =
                 $( this.$province.find( "option" )[ this.$province.get(0).selectedIndex ] ).attr( "class" );
             this.$cityname.find( "option" ).remove();
 
             this.$cityname.html( this.$citylist.find( "." + classname ).html() );
-        } ,
+        } ,//}}}
 
         doSearch: function() {
+        //{{{
             var nickName = this.$nickName.val();
             var sex = this.$sex.val();
             var ageMin = this.$ageMin.val();
@@ -79,6 +95,7 @@ function(
                         sex: sex ,
                         ageMin: ageMin ,
                         ageMax: ageMax ,
+
                         location: cityname
                     }
                 )
@@ -86,19 +103,23 @@ function(
 
             //转到 #stream 显示之
             window.router.navigate( "#stream/search" , {trigger: true} );
-        },
+        },//}}}
 
         render: function() {
-            $.ui.addOrUpdateDiv(
+        //{{{
+            $.ui.updateContentDiv(
                 "search" ,
                 Mustache.to_html(
                     this.template ,
-                    this.model.toJSON()
+                    this.model.toJSON() ,
+                    {
+                        location_select: Mustache.to_html( locationSelectTpl , UserProfileBaseInfo ) 
+                    }
                 )
             );
             $.ui.loadContent( "#search" , false , false , "fade" );
             return this;
-        }
+        }//}}}
     });
     return Search;
 });

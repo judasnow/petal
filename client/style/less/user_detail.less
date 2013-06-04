@@ -20,13 +20,24 @@
         }
     }
     .gift_list {
-        .item {
+        @img_size: 64px;
+        display: inline-block;
+        width: 100%;
+        min-height: 192px;
+        ul {
+            clear: both;
+        }
+        li {
+            margin-right: 8px;
+            width: 64px;
+            padding: 0;
+            background: #fff;
             float: left;
             display: inline-block;
         }
         .gift_pic {
-            max-height: 64px;
-            min-width: 64px;
+            max-height: @img_size;
+            min-width:  @img_size;
         }
     }
     .gravatar_box {
