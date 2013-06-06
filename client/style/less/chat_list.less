@@ -1,4 +1,4 @@
-#talk_list {
+#chat_list {
     @image_size: 64px;
     .items {
         padding-top: 16px;
@@ -11,7 +11,7 @@
     }
     .obj {
         @float: left;
-        .talk_content {
+        .chat_content {
             float: @float;
             background: #eee;
             border: 1px solid #ccc;
@@ -22,7 +22,7 @@
     }
     .subj {
         @float: right;
-        .talk_content {
+        .chat_content {
             float: @float;
             background: #eee;
             border: 1px solid #ccc;
@@ -31,7 +31,7 @@
             float: @float;
         }
     }
-    .talk_content {
+    .chat_content {
         max-width: 200px;
         display: inline-block;
         margin: 0 8px;
@@ -49,31 +49,34 @@
     }
 }
 #input_area_box {
+    @height: 48px;
+    float: left;
+    position: absolute;
+    height: @height;
+    margin-top: -(@height/2);
+    top: 50%;
     .input_area {
-        bottom: 0;
+        height: @height;
+    }
+    .chat_input {
+        float: left;
+        height: @height;
+        font-size: @height/3;
+        color: #999;
+        border: 1px solid #ddd;
     }
     .func_btn {
+        background: #096;
+        float: left;
         display: inline-block;
-        height: 32px;
-        width: 32px;
-        background: #eee;
-        text-align: center;
+        height: @height;
+        width: @height;
     }
     .send_gift {
         .func_btn;
     }
-    .send_emotion {
-        .func_btn;
-    }
     .submit {
         .func_btn;
-    }
-    .talk_input {
-        position: absolute;
-        top: 50%;
-        margin: -16px;
-        line-height: 24px;
-        font-size: 24px;
     }
 }
 

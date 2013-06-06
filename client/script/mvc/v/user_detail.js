@@ -6,13 +6,18 @@ define([
 
     "m/user" ,
 
+    "v/menu" ,
+
     "text!tpl/user_detail.html" 
 ] ,
 function(
     _ ,
     Backbone ,
     Mustache ,
+
     User ,
+
+    MenuView ,
 
     userDetailTpl 
 ) {
@@ -23,12 +28,18 @@ function(
     var UserDetail = Backbone.View.extend({
         template: userDetailTpl ,
         el: "#user_detail" ,
+
         events: {
-            "click .report_is_user": "showReportSelect"
+            "click .get_contaces_info": "getContacesInfo" ,
+            "click .send_gift": "sendGift" ,
+            "click .send_msg": "sendMsg"
         } ,
 
         initialize: function( data ) {
-            _.bindAll( this , "doReport" , "showReportSelect" );
+            new MenuView();
+            _.bindAll( 
+                this , 
+                "doReport" , "showReportSelect" , "sendMsg" , "sendGift" , "getContacesInfo" );
 
             var subjectUserId = data.subjectUserId;
 
@@ -54,7 +65,20 @@ function(
                 doneText: "提交",
                 doneCallback: this.doReport
             });
-        },
+        } ,
+
+        sendMsg: function() {
+            
+        } ,
+
+        sendGift: function() {
+            window.localStorage.setItem( "send_gift_target_user_id" , this.model.get( "UserId" ) );
+            window.router.navigate( "#gift_list" , {trigger: true} );
+        } ,
+
+        getContacesInfo: function() {
+            
+        } ,
 
         doReport: function() {
             //利用同一时间只能有一个 .jqPopup 可以由此来获取

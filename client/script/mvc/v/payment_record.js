@@ -7,6 +7,7 @@ define([
 
     "v/payment_recored_item" ,
     "v/stream_base" ,
+    "v/menu" ,
 
     "text!tpl/payment_record.html" 
 ],
@@ -19,6 +20,7 @@ function(
 
     PaymentRecoredItemView ,
     StreamBase ,
+    MenuView ,
 
     paymentRecordTpl
 ){
@@ -26,6 +28,8 @@ function(
 
     var PaymentRecord = StreamBase.extend({
         initialize: function( args ) {
+            new MenuView();
+
             var paymentRecoreds = new PaymentRecoreds();
             this.baseInitialize( "payment_record" , paymentRecordTpl , PaymentRecoredItemView , paymentRecoreds , args.q , args.hash );
         } 

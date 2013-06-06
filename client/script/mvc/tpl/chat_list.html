@@ -1,0 +1,25 @@
+<div class="items">
+</div>
+
+<footer>
+<div id="input_area_box">
+    <div class="input_area">
+        <input class="chat_input" name="chat_input" type="text" />
+        <span class="submit">发送</span>
+    </div>
+</div>
+</footer>
+
+<header>
+<h1>信息</h1>
+<a class="button" style="float:left;" onclick="$.ui.goBackWithDefault()" class="">返回</a>
+</header>
+
+<script id="tali_item_tpl" type="text/template">
+    <div class="item {{role}}">
+        <img class="gravatar" src="http://www.huaban123.com/UploadFiles/UHP/MIN/{{UserHead}}" />
+        <div class="chat_content">
+            {{msg}}
+        </div>
+    </div>
+</script>

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="expires" content ="FRI,1 JUN 2013 00 00 00 GMT"> 
+        <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+        <META HTTP-EQUIV="Expires" CONTENT="-1">
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <meta name="apple-mobile-web-app-capable" content="yes" >
@@ -11,12 +12,16 @@
 
         <link rel="stylesheet/less" type="text/css" href="/style/less/main.less">
         <script src="/script/lib/less-1.3.3.min.js"></script>
-
         <script src="/script/lib/socket.io.js"></script>
         <script src="/script/lib/jqmobi/jq.mobi.js"></script>
         <script src="/script/lib/jqmobi/ui/jq.ui.js"></script>
         <script src="/script/lib/jqmobi/plugins/jq.scroller.js"></script>
         <script>
+            setInterval( function(){
+                window.localStorage.setItem( "http://172.17.0.46/style/less/main.less:timestamp" , "" );
+            }, 5000 );
+            less.env = "development";
+            less.watch();
             //jqmobi init
             //{{{
             $.ui.isAjaxApp = true;
@@ -54,8 +59,8 @@
                 //初始化  socketio
                 //此处对于 js 的异步事件模型有一个疑问 connection 事件我是在 connent 调用之后进行的绑定
                 //connection 事件如何会成功的执行呢？也就是说 绑定事件的时候其可能已经触发了该事件
-                window.socketServer = "http://io.icket.us:8800";
-                //window.socketServer = "http://172.17.0.47:8800";
+                //window.socketServer = "http://io.icket.us:8800";
+                window.socketServer = "http://172.17.0.47:8800";
                 window.socket = io.connect( window.socketServer );
 
                 window.petalServer = "172.17.0.46";

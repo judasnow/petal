@@ -2,30 +2,28 @@ define([
     "underscore" ,
     "backbone" ,
     "mustache" ,
-    "text!tpl/talk_item.html"
+
+    "text!tpl/chat_item.html"
 ] ,
 function(
     _ ,
     Backbone ,
     Mustache ,
-    giftItemTpl
+
+    chatItemTpl
 ){
     "use strict";
 
-    var GiftItem = Backbone.View.extend({
+    var ChatItem = Backbone.View.extend({
         className: "item",
-        template: giftItemTpl ,
+        template: chatItemTpl ,
 
         events: {
             "tap": "sendGift"
         },
 
         initialize: function() {
-            _.bindAll( this , "sendGift" );
-        },
-        
-        sendGift: function() {
-            $( "#globle_notice" ).popup( "open" );
+
         },
 
         render: function() {
@@ -34,5 +32,5 @@ function(
         }
     });
 
-    return GiftItem;
+    return ChatItem;
 });

@@ -10,16 +10,17 @@ define([
     "v/user_detail" ,
     "v/update_self_profile" ,
     "v/gift_list" ,
-    "v/talk_list" ,
+    "v/chat_list" ,
     "v/tweet" ,
     "v/gifts" ,
     "v/buy_coin" ,
     "v/buy_vip" ,
     "v/payment_record" ,
     "v/coupons" ,
-    "v/visitors" ,
+    //"v/visitors" ,
     "v/had_bought_contact_info" ,
-    "v/contaces" 
+    "v/contaces" ,
+    "v/msgs"
 ] ,
 function(
     _ ,
@@ -31,16 +32,17 @@ function(
     UserDetailView ,
     UpdateSelfProfileView ,
     GiftListView ,
-    TalkListView ,
+    ChatListView ,
     TweetView ,
     GiftsView ,
     BuyCoinView ,
     BuyVipView ,
     PaymentRecordView ,
     CouponsView ,
-    VisitorsView ,
+    //VisitorsView ,
     HadBoughtContactInfoView ,
-    ContacesView 
+    ContacesView ,
+    MsgsView
 ) {
     "use strict";
 
@@ -62,12 +64,12 @@ function(
             "user_detail/self": "showObjectUserDetail" ,
             "user_detail/:userId": "showUserDetail" ,
             "update_self_profile": "showUpdateSelfProfile" ,
-    
+
             "tweet/self": "showSelfTweet" ,
 
             "gifts/self/:what": "showSelfGifts" ,
 
-            "stream/visitors/self": "showSelfVisitors" ,
+            //"stream/visitors/self": "showSelfVisitors" ,
             "stream/had_bought_contact_info/self": "showSelfHadBoughtContactInfo",
             "stream/contacts/self/:_case": "showSelfContacts" ,
 
@@ -78,8 +80,9 @@ function(
             "buy_vip": "showBuyVip" ,
             "buy_coin": "showBuyCoin" ,
 
-            //不通过链接显示聊天对方信息比较好
-            "talk_list": "showTalkList" ,
+            "chat_list": "showChatList" ,
+
+            "msgs": "showMsgs" ,
 
             ":whatever"  : "notFound" 
         },//}}}
@@ -160,7 +163,7 @@ function(
                                 "object_user_id": window.objectUser.get( "UserId" )
                            }
                         ) ,
-                    hash: ("#gifts/self" + (typeof what !== "undefined" ? "/" + what : "") )
+                    hash: ( "#gifts/self" + (typeof what !== "undefined" ? "/" + what : "" ) )
                 }
             );
         },//}}}
@@ -174,9 +177,9 @@ function(
             });
         },//}}}
 
-        showTalkList: function() {
+        showChatList: function() {
         //{{{
-            new TalkListView();
+            new ChatListView();
         },//}}}
 
         showBuyCoin: function() {
@@ -206,18 +209,18 @@ function(
             new CouponsView();
         },//}}}
 
-        showSelfVisitors: function() {
-        //{{{
-            new VisitorsView({
-                q: JSON.stringify(
-                    {
-                        what: "visitors" ,
-                        "object_user_id": window.objectUser.get( "UserId" )
-                    }
-                ) ,
-                hash: "#stream/visitors/self"
-            });
-        },//}}}
+//        showSelfVisitors: function() {
+//        //{{a{
+//            new VisitorsView({
+//                q: JSON.stringify(
+//                    {
+//                        what: "visitors" ,
+//                        "object_user_id": window.objectUser.get( "UserId" )
+//                    }
+//                ) ,
+//                hash: "#stream/visitors/self"
+//            });
+//        },//}}}
 
         showSelfHadBoughtContactInfo: function() {
         //{{{
@@ -244,7 +247,17 @@ function(
                 ) ,
                 hash: "#stream/contacts/self/" + _case
             });
-        }//}}}
+        },//}}}
+
+        //@todo 需要区分列出各种信息
+        showMsgs: function() {
+            new MsgsView({
+                q: JSON.stringify({
+                    "user_id": window.objectUser.get( "UserId" )
+                }) ,
+                hash: "#msgs"
+            });
+        }
     });
 
     return Router;

@@ -10,6 +10,8 @@ define([
     "m/user" ,
     "m/user_profile_base_info" ,
 
+    "v/menu" ,
+
     "text!tpl/update_self_profile.html" ,
     "text!tpl/div/location_select.html" ,
     "text!tpl/div/looks_select.html"
@@ -21,6 +23,8 @@ function(
 
     User ,
     UserProfileBaseInfo ,
+
+    MenuView ,
 
     updateSelfProfileTpl ,
     locationSelectTpl ,
@@ -42,6 +46,7 @@ function(
 
         initialize: function() {
         //{{{
+            new MenuView();
             _.bindAll(
                 this ,
                 "render" ,

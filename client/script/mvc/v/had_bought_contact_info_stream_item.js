@@ -3,7 +3,10 @@ define([
     "underscore" ,
     "backbone" ,
     "mustache" ,
+
     "m/user" ,
+
+    "v/menu" ,
 
     "text!tpl/had_bought_contact_info_stream_item.html"
 ] ,
@@ -11,7 +14,10 @@ function(
     _ ,
     Backbone ,
     Mustache ,
+
     UserView ,
+
+    MenuView ,
 
     hadBoughtContactInfoStreamItemTpl
 ){
@@ -23,16 +29,17 @@ function(
         template: hadBoughtContactInfoStreamItemTpl ,
 
         initialize: function() {
- 
-        },
+
+        } ,
 
         render: function() {
+            new MenuView();
             this.$el.html(
-                    Mustache.to_html(
-                        this.template ,
-                        this.model.toJSON()
-                        ) 
-                    );
+                Mustache.to_html(
+                    this.template ,
+                    this.model.toJSON()
+                )
+            );
             return this;
         }
     });

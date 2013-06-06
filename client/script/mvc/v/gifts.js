@@ -5,7 +5,8 @@ define([
     "mustache" ,
 
     "v/stream_base" ,
-    "v/gift_item" ,
+    "v/gift_record" ,
+    "v/menu" ,
 
     "c/gifts" ,
 
@@ -17,7 +18,8 @@ function(
     Mustache ,
 
     StreamBase ,
-    GiftItemView ,
+    GiftRecordView ,
+    MenuView ,
 
     Gifts ,
 
@@ -28,11 +30,13 @@ function(
     var GiftsView = StreamBase.extend({
 
         initialize: function( args ) {
+            new MenuView();
             var gifts = new Gifts();
+
             this.baseInitialize( 
                 "gifts" , 
                 giftsTpl , 
-                GiftItemView , 
+                GiftRecordView , 
                 gifts , 
                 args.q ,
                 args.hash 

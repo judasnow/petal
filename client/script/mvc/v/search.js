@@ -6,6 +6,8 @@ define([
     "m/search" ,
     "m/user_profile_base_info" ,
 
+    "v/menu" ,
+
     "text!tpl/search.html" ,
     "text!tpl/div/location_select.html" ,
     "text!tpl/div/looks_select.html"
@@ -14,9 +16,11 @@ function(
     _ ,
     Backbone ,
     Mustache ,
-    SearchModel ,
 
+    SearchModel ,
     UserProfileBaseInfo ,
+
+    MenuView ,
 
     searchTpl ,
     locationSelectTpl ,
@@ -107,6 +111,7 @@ function(
 
         render: function() {
         //{{{
+            new MenuView();
             $.ui.updateContentDiv(
                 "search" ,
                 Mustache.to_html(

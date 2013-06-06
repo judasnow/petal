@@ -1,11 +1,13 @@
 define([
     "underscore" ,
     "backbone" ,
+
     "m/gift"
 ],
 function( 
     _ ,
     Backbone,
+
     GiftModel
 ){
     "use strict";

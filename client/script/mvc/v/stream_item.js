@@ -104,7 +104,7 @@ function(
         sendMsg: function( event ) {
         //{{{
             event.stopImmediatePropagation();
-            window.router.navigate( "#talk_list" , {trigger: true} );
+            window.router.navigate( "#chat_list" , {trigger: true} );
         },//}}}
 
         sendGift: function( event ) {

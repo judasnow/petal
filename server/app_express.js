@@ -270,6 +270,25 @@ app.get( "/api/payment_recoreds/" , function( req , res ) {
     );
 });//}}}
 
+app.get( "/api/msgs/" , function( req , res ) {
+    var page = req.param( "p" , 1 );
+    var q = req.param( "q" , "{}" );
+
+    var qObj = JSON.parse( q );
+    var userId = (typeof qObj.user_id !== "undefined" ?  qObj.user_id  : null);
+
+    var ok = function( dataObj ) {
+        res.json( JSON.parse( dataObj.msg_list ) );
+    }
+
+    req2hb123( 
+        "get" , 
+        "about=msg&action=get_list&user_id=" + userId + "&p=" + page , 
+
+        ok 
+    );
+});
+
 //socket events
 io.sockets.on('connection', function( socket ) {
 

@@ -27,7 +27,7 @@ function(
             this.ItemView = ItemView;
             _.bindAll( this , "addOne" , "addAll" , "fetchOk" , "fetchFail" );
             $.ui.addOrUpdateDiv( streamId , tpl );
-            $.ui.loadContent( hash , false , false , "fade" );
+            $.ui.loadContent( hash , true , false , "fade" );
             this.$el = $( "#" + streamId );
 
             //每一个 streamTpl 都必须包含一个 .items 元素 

@@ -2,20 +2,21 @@ define([
     "underscore" ,
     "backbone" ,
 
-    "m/talk_item"
+    "m/chat_item"
 
 ],
 function( 
     _ ,
     Backbone ,
-    TalkItemModel
+
+    ChatItemModel
 ){
     "use strict";
 
-    var TalkItems = Backbone.Collection.extend({
-        model: TalkItemModel ,
+    var ChatItems = Backbone.Collection.extend({
+        model: ChatItemModel ,
 
-        url: "talk_items" ,
+        url: "/api/chat_items" ,
 
         initialize: function() {
             
@@ -23,7 +24,7 @@ function(
 
     });
 
-    return TalkItems;
+    return ChatItems;
 });
 
 

@@ -23,18 +23,18 @@ function(
         el: "#menu" ,
 
         events: {
-            "tap #object_user_info>.gravatar": "showObjectUserHome" ,
+            "tap #object_user_info": "showObjectUserHome" ,
 
             "tap .stream_same_city": "showSameCityStream" ,
             "tap .search": "showSearch" ,
             "tap .tweet": "showTweet" ,
             "tap .gifts": "showGifts" ,
-            "tap .visitors": "showVisitors" ,
+            //"tap .visitors": "showVisitors" ,
             "tap .had_bought_contact_info": "showHadBoughtContactInfo" ,
-            "tap .message": "showMessage" ,
+            "tap .msgs": "showMsgs" ,
             "tap .contacts": "showContacts" ,
             "tap .buy_coin": "showBuyCoin" ,
-            "tap .buy_vip": "showBuyVip" ,
+            //"tap .buy_vip": "showBuyVip" ,
             "tap .payment_record": "showPatmentRecord" ,
             "tap .coupons": "showCoupons"
         } ,
@@ -72,9 +72,9 @@ function(
             window.router.navigate( "#gifts/self/received" , {trigger: true} );
         } ,
 
-        showVisitors: function() {
-            window.router.navigate( "#stream/visitors/self" , {trigger: true} );
-        } ,
+        //showVisitors: function() {
+        //    window.router.navigate( "#stream/visitors/self" , {trigger: true} );
+        //} ,
 
         showHadBoughtContactInfo: function() {
             window.router.navigate( "#stream/had_bought_contact_info/self" , {trigger: true} );
@@ -103,8 +103,12 @@ function(
             window.router.navigate( "#buy_coin" , {trigger: true} );
         },
 
-        showBuyVip: function() {
-            window.router.navigate( "#buy_vip" , {trigger: true} );
+        //showBuyVip: function() {
+        //    window.router.navigate( "#buy_vip" , {trigger: true} );
+        //},
+
+        showMsgs: function() {
+            window.router.navigate( "#msgs" , {trigger: true} );
         },
 
         render: function() {

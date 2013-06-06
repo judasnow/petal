@@ -2,15 +2,18 @@ define([
     "underscore" ,
     "backbone" ,
     "mustache" ,
+
     "m/object_user" ,
+
     "text!tpl/login.html" 
 ],
 function( 
     _ , 
     Backbone ,
     Mustache ,
-    socket ,
+
     ObjectUserModel ,
+
     loginTpl 
 ){
     "use strict";
@@ -20,7 +23,7 @@ function(
 
         events: {
             "click #do_login": "doLogin"
-        },
+        } ,
 
         initialize: function() {
             $.ui.toggleHeaderMenu( false ); 
@@ -28,7 +31,7 @@ function(
 
             socket.on( "login_ok" , this.loginOk );
             socket.on( "login_fail" , this.loginFail );
-        },
+        } ,
 
         doLogin: function() {
             //错误提示信息
@@ -51,7 +54,7 @@ function(
                     }
                 );
             }
-        },
+        } ,
 
         loginOk: function( data ) {
             //@todo 返回的就一定是 json ? 
@@ -60,11 +63,11 @@ function(
             //直接保存 json string 
             window.localStorage.setItem( "petal:object_user_info" , data.object_user_info );
             window.route.navigate( "stream" , {trigger : true} );
-        },
+        } ,
 
         loginFail: function( data ) {
             this.$alertPositionHolder.addClass( "alert" ).text( "用户名或密码错误" );
-        },
+        } ,
 
         render: function() {
             this.$el.append( this.template );

@@ -3,12 +3,16 @@ define([
     "backbone" ,
     "mustache" ,
 
+    "v/menu" ,
+
     "text!tpl/coupons.html" 
 ] ,
 function(
     _ ,
     Backbone ,
     Mustache ,
+
+    MenuView ,
 
     couponsTpl
 ) {
@@ -22,6 +26,8 @@ function(
         el: "#coupons" ,
 
         initialize: function() {
+            new MenuView();
+
             this.model = window.objectUser;
             $.ui.updateContentDiv( 
                 "coupons" ,

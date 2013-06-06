@@ -8,15 +8,15 @@ function(
 ){
     "use strict";
 
-    var TalkItem = Backbone.Model.extend({
-        url: "talk_item",
+    var ChatItem = Backbone.Model.extend({
+        url: "/api/chat_item",
 
         initialize: function(){
             
         }
     });
 
-    return TalkItem;
+    return ChatItem;
 });
 
 
