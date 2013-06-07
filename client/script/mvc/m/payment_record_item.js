@@ -10,7 +10,10 @@ function(
 
     var PaymentRecordItem = Backbone.Model.extend({
         initialize: function(){
-            
+            var createAt = new Date( this.get( "CreateAt" ) );
+            this.set( "time" , createAt.getFullYear() + "/" + createAt.getMonth() + "/" + createAt.getDate() );
+
+            this.set( "PvMsg" , this.get( "PvMsg" ).replace( /<\s?a[^>]*>[\s\S]+?<\/a>/gi , "" ) );
         }
     });
 

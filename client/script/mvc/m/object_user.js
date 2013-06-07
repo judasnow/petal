@@ -15,7 +15,7 @@ function(
         url: "object_user",
 
         initialize: function(){
-            
+
         }
     });
 

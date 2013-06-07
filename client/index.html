@@ -66,12 +66,10 @@
                 window.petalServer = "172.17.0.46";
 
                 socket.on( "error" , function() {
-                    alert( "网络链接不可用" )
                     console.log( "socket connect fail" );
                 });
 
                 socket.on( "disconnect" , function() {
-                    alert( "网络链接已断开" )
                     console.log( "socket disconnected" );
                 });
 

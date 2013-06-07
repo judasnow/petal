@@ -1,11 +1,18 @@
 <p>
-设置提现银行卡信息
+当前拥有的礼品券 {{XJJ}} 元
 </p>
 
 <p>
-<span>输入提现金额</span>
-<input type="" />
-<input type="submit" />
+当前提现银行卡信息 {{BANKACCOUNT}}
+</p>
+
+<p>
+<span class="set_bank_account button">设置银行卡信息</span>
+</p>
+
+<p>
+<input type="number" class="amount jq-ui-forms" placeholder="输入提现金额"/>
+<span class="withdraw button">提现</span>
 </p>
 
 <header>
@@ -13,3 +20,13 @@
 <a class="button" style="float:left;" onclick="$.ui.goBackWithDefault();" class="">返回</a>
 </header>
 
+<script id="set_bank_account_tpl" type="text/template">
+    <input class="jq-ui-forms account_No" type="number" name="account_No" value="" placeholder="帐号" />
+    <input class="jq-ui-forms account_name" type="text" name="account_name" value="" placeholder="户名" />
+    <select id="bank_name" name="bank_name" class="jq-ui-forms bank_name">
+        <option value="中国银行">中国银行</option>
+        <option value="中国银行">中国银行</option>
+        <option value="中国建设银行">中国建设银行</option>
+        <option value="中国农业银行">中国农业银行</option>
+    </select>
+</script>

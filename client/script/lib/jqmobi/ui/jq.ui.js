@@ -1720,13 +1720,13 @@
                     opts = {message: opts,cancelOnly: "true",cancelText: "OK"};
                 this.id = id = opts.id = opts.id || $.uuid(); //opts is passed by reference
                 var self = this;
-                this.title = opts.suppressTitle?"":(opts.title || "Alert");
+                this.title = opts.suppressTitle?"":(opts.title || "");
                 this.message = opts.message || "";
-                this.cancelText = opts.cancelText || "Cancel";
+                this.cancelText = opts.cancelText || "取消";
                 this.cancelCallback = opts.cancelCallback || function() {
                 };
                 this.cancelClass = opts.cancelClass || "button";
-                this.doneText = opts.doneText || "Done";
+                this.doneText = opts.doneText || "确定";
                 this.doneCallback = opts.doneCallback || function(self) {
                     // no action by default
                 };
@@ -3792,7 +3792,7 @@
          */
         showMask: function(text) {
             if (!text)
-                text = "Loading Content";
+                text = "加载中...";
             jq("#jQui_mask>h1").html(text);
             jq("#jQui_mask").show()
         },

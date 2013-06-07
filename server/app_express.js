@@ -289,7 +289,47 @@ app.get( "/api/msgs/" , function( req , res ) {
     );
 });
 
+app.post( "/api/set_back_account" , function( req , res ) {
+    var userId = req.param( "user_id" , "" );
+    var bank_name = req.param( "bank_name" , "" );
+    var account_name = req.param( "account_name" , "" );
+    var account_No = req.param( "account_No" , "" );
+
+    var ok = function( dataObj ) {
+        res.json( [ "ok" ] );
+    };
+
+    req2hb123( 
+        "post" ,
+        "about=user&action=update_bank_account_info&user_id=" + userId +
+            "&bank_name=" + bank_name + 
+            "&account_No=" + account_No + 
+            "&account_name=" + account_name ,
+
+        ok
+    );
+});
+
+app.post( "/api/withdraw_cash" , function( req , res ){
+    var userId = req.param( "user_id" , "" );
+    var amount = req.param( "amount" , 0 );
+
+    var ok = function() {
+        res.json( [ "ok" ] );
+    }
+
+    req2hb123( 
+        "post" ,
+        "about=user&action=withdraw_cash&user_id=" + userId +
+            "&amount=" + amount ,
+
+        ok
+    );
+});
+
 //socket events
 io.sockets.on('connection', function( socket ) {
+    socket.on( "get_user_info" , function( userId ) {
 
+    });
 });

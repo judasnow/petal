@@ -864,14 +864,14 @@ textarea {
   float: left;
   display: block;
   position: absolute;
-  width: 300px;
+  width: 256px;
   z-index: 1000000;
   margin: auto !important;
-  padding: 12px;
+  padding: 6px;
   background: #FFFFFF;
   border: solid 1px #bfbfbf;
-  box-shadow: 0 0 18px rgba(255,255,255,0.8);
-  border-radius: 1px;
+  /*box-shadow: 0 0 18px rgba(255,255,255,0.8);*/
+  border-radius: 4px;
   font-family: Arial Black, Gadget, Arial, Helvetica, sans-serif;
   color: #232332;
   opacity: 1;
@@ -905,15 +905,15 @@ textarea {
   text-align: center;
 }
 #jQUi .jqPopup footer a#cancel {
-  float: left;
-}
-#jQUi .jqPopup footer a#action {
   float: right;
   margin-right: 4px;
 }
+#jQUi .jqPopup footer a#action {
+  float: left;
+}
 #jQUi .jqPopup footer a.center {
   float: none !important;
-  width: 80%;
+  /*width: 80%;*/
   margin: 8px;
 }
 #jQUi .scrollBar {
