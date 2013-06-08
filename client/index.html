@@ -78,40 +78,71 @@
                     //判断当前用户是否已经登录系统
                     //{{{
                     if( window.localStorage.getItem( "petal:object_user_info" ) === null ) {
-                        //隐藏 splashscreen 显示登录界面
-                        var $splashscreenEl = $( "#splashscreen" ).hide();
-                        var $loginEl = $( "#login" ).show();
-                        var $usernameEl = $loginEl.find( ".username" );
-                        var $passwordEl = $loginEl.find( ".password" );
-                        var logging = false;
-                        $loginEl.find( ".do_login" ).click( function() {
-                            if( logging === true ) {
-                                return false;
-                            }
-                            logging = true;
-                            $.post( 
-                                "/api/do_login" ,
-                                {
-                                    username: $usernameEl.val() ,
-                                    password: $passwordEl.val()
-                                } ,
-                                function( res ) {
-                                    if( res[0] === "ok" ) {
-                                        //登录成功
-                                        window.localStorage.setItem( "petal:object_user_info" , res[1] );
-                                        $.ui.launch();
-                                    } else {
-                                        logging = false;
-                                        alert( "登录失败,用户名或密码错误" );
-                                    }
-                                } ,
-                                "json"
-                             );
-                        });
-                        return false;
+                        if( window.location.hash !== "" ) {
+                            //尝试 wx 登录
+                            $.post( "/api/wx_login" , {wx_id: window.location.hash} , function( data ) {
+                                var dataObj = JSON.parse( data );
+                                if( dataObj[0] === "ok" ) {
+                                    $.post( 
+                                        "/api/do_login" ,
+                                        {
+                                            username: dataObj[1].username ,
+                                            password: "huaban123"
+                                        } ,
+                                        function( res ) {
+                                            if( res[0] === "ok" ) {
+                                                //登录成功
+                                                window.localStorage.setItem( "petal:object_user_info" , res[1] );
+                                                $.ui.launch();
+                                            } else {
+                                                logging = false;
+                                                //删除hash
+                                                window.location.hash = "";
+                                                window.location.reload();
+                                                alert( "登录失败,用户名或密码错误" );
+                                            }
+                                        } ,
+                                        "json"
+                                     );
+                                }
+                            });
+                            return false;
+                        } else {
+                            //隐藏 splashscreen 显示登录界面
+                            var $splashscreenEl = $( "#splashscreen" ).hide();
+                            var $loginEl = $( "#login" ).show();
+                            var $usernameEl = $loginEl.find( ".username" );
+                            var $passwordEl = $loginEl.find( ".password" );
+                            var logging = false;
+                            $loginEl.find( ".do_login" ).click( function() {
+                                if( logging === true ) {
+                                    return false;
+                                }
+                                logging = true;
+                                $.post( 
+                                    "/api/do_login" ,
+                                    {
+                                        username: $usernameEl.val() ,
+                                        password: $passwordEl.val()
+                                    } ,
+                                    function( res ) {
+                                        if( res[0] === "ok" ) {
+                                            //登录成功
+                                            window.localStorage.setItem( "petal:object_user_info" , res[1] );
+                                            $.ui.launch();
+                                        } else {
+                                            logging = false;
+                                            alert( "登录失败,用户名或密码错误" );
+                                        }
+                                    } ,
+                                    "json"
+                                 );
+                            });
+                            return false;
+                        }
                     } else {
                         //已经处于登录状态
-                        $.ui.launch()
+                        $.ui.launch();
                     }//}}}
                 });
             }
@@ -149,14 +180,14 @@
     </body>
 
     <!--tpls 不可以放到 tpl 文件中 会被提前渲染-->
-    <script type="text/template" id="offline_contact_info_tpl">
+    <script type="text/template" id="online_contact_info_tpl">
         <p class="contact_info">
         <span class="item"<b>邮箱:</b> {{EMail}}</span>
         <span class="item"><b>QQ:</b> {{QQ}}</span>
         <span class="item"><b>微信:</b> {{MSN}}</span>
         </p>
     </script>
-    <script type="text/template" id="online_contact_info_tpl">
+    <script type="text/template" id="offline_contact_info_tpl">
         <p class="contact_info">
         <span class="item"><b>电话:</b> {{Phone}}</span>
         </p>

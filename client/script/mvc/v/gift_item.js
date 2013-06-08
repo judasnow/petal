@@ -48,7 +48,7 @@ function(
                             message: "礼物已经成功送出，是否继续选取礼物？",
                             cancelText: "不", 
                             cancelCallback: function() {
-                                $.ui.goBack();
+                                $.ui.goBackWithDefault();
                             },
                             doneText: "继续",
                             doneCallback: function() {

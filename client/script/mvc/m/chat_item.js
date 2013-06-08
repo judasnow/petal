@@ -12,7 +12,20 @@ function(
         url: "/api/chat_item",
 
         initialize: function(){
-            
+            var createAt = new Date( this.get( "CreateAt" ) ) && new Date();
+
+            this.set( 
+                "role" , 
+                window.objectUser.get( "UserId" ) === this.get( "SrcUserId" ) ? 
+                    "subject" : 
+                    "object" 
+            );
+            this.set( 
+                "time" , 
+                createAt.getFullYear() + "/" + 
+                createAt.getMonth() + "/" + 
+                createAt.getDate() 
+            );
         }
     });
 

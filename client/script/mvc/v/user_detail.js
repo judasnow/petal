@@ -23,7 +23,7 @@ function(
 ) {
     "use strict";
 
-    $.ui.addContentDiv( "user_detail" );
+    $.ui.addContentDiv( "user_detail" , "" );
 
     var UserDetail = Backbone.View.extend({
         template: userDetailTpl ,
@@ -37,17 +37,29 @@ function(
 
         initialize: function( data ) {
             new MenuView();
-            _.bindAll( 
-                this , 
-                "doReport" , "showReportSelect" , "sendMsg" , "sendGift" , "getContacesInfo" );
-
-            var subjectUserId = data.subjectUserId;
 
             //需要判断是否是当前登录用户自己的主页
             this.objectUserPage = (typeof data.objectUserPage !== "undefined" ? data.objectUserPage : false );
-            this.model = new User();
+            var subjectUserId = data.subjectUserId;
+            
+            //如果不是当前登录用户自己的页面 触发浏览事件
+            if( !this.objectUserPage ) {
+                window.socket.emit( 
+                    "update_brower_status" , 
+                    {
+                        object_user_id: window.objectUser.get( "UserId" ),
+                        subject_user_id: subjectUserId
+                    }
+                );
+            }
 
-            _.bindAll( this , "render" );
+            _.bindAll( 
+                this , 
+                "sendMsg" , "sendGift" , "getContacesInfo" , "render" );
+
+            this.onlineContactTpl = $( "#online_contact_info_tpl" ).html();
+
+            this.model = new User();
             this.model.on( "change" , this.render );
             this.model.fetch({
                 data: {
@@ -56,53 +68,50 @@ function(
             });
         } ,
 
-        //展示举报选项
-        showReportSelect: function() {
-            $.ui.popup({
-                title: "确认举报内容" ,
-                message: $( "#report_select_tpl" ).html() ,
-                cancelText: "算了", 
-                doneText: "提交",
-                doneCallback: this.doReport
-            });
-        } ,
-
         sendMsg: function() {
-            
+            event.stopImmediatePropagation();
+            window.router.navigate( "/#chat_list" , {trigger: true} );
         } ,
 
         sendGift: function() {
+            event.stopImmediatePropagation();
             window.localStorage.setItem( "send_gift_target_user_id" , this.model.get( "UserId" ) );
-            window.router.navigate( "#gift_list" , {trigger: true} );
+            window.router.navigate( "/#gift_list" , {trigger: true} );
         } ,
 
         getContacesInfo: function() {
-            
-        } ,
-
-        doReport: function() {
-            //利用同一时间只能有一个 .jqPopup 可以由此来获取
-            //用户填写的值
-            var subjectUserId = this.model.get( "UserId" );
-            (function( $jqPopup ) {
-                var reasonNo = $jqPopup.find( "input[name=report_reason]:checked" ).val();
-                var reasonDetail = $jqPopup.find( "input[name=report_detail]" ).val();
-                if( typeof reasonNo !== "undefind" ) {
-                //举报类型是必选的
-                    $.post( 
-                        "/api/report_user/" , 
-                        {
-                            subject_user_id: subjectUserId ,
-                            object_user_id: window.objectUser.get( "UserId" ) ,
-                            reason_no: reasonNo ,
-                            reason_detail: reasonDetail
-                        },
-                        function( data ) {
-                            alert( "举报成功" )
+            event.stopImmediatePropagation();
+            //@todo 此处有重
+            $.get(
+                "/api/should_display_contact_info/?type=online&" +
+                    "object_user_id=" + window.objectUser.get( "UserId" ) +
+                    "&subject_user_id=" + this.model.get( "UserId" ) ,
+                $.proxy( function( data ) {
+                    var res = JSON.parse( data );
+                    if( res.should === "true" ) {
+                        //直接显示之
+                        $.ui.popup({
+                            title: "联系方式",
+                            message: Mustache.to_html( this[ "onlineContactTpl"] , this.model.toJSON() ),
+                            cancelText: "关闭",
+                            cancelOnly: true 
+                        });
+                    } else {
+                        //@todo 将这些定义为 code
+                        switch( res.reason ) {
+                            case "insufficient coin": 
+                                $.ui.popup({
+                                    title: "" ,
+                                    message: "金币不足,买金币或vip吧" ,
+                                    doneCallback: function() {
+                                        window.router.navigate( "/#buy_coin" , {trigger: true} );
+                                    }
+                                });
+                            break;
                         }
-                    );
-                }
-            })( $( ".jqPopup" ) );
+                    }
+                }, this )
+            );
         } ,
 
         render: function() {

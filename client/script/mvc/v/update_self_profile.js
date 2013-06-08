@@ -90,13 +90,13 @@ function(
                 "/api/user/" ,
                 {
                     user_id: userId ,
-                    city_id: UserProfileBaseInfo.getAreaIdFromCityName( this.$cityname.val() ),
+                    area_id: UserProfileBaseInfo.getAreaIdFromCityName( this.$cityname.val() ),
                     zwms: this.$zwms.val() ,
                     looks: this.$looks.val() ,
                     birthday: this.$birthday.val()
                 } ,
                 function( data ) {
-                    console.dir( data )
+                    alert( "保存成功" );
                     $.ui.hideMask();
                 }
             );
@@ -107,7 +107,7 @@ function(
         //为每一个用户上传的图片绑定事件
         bindAlbumEvent: function() {
             this.$album.find( ".user_picture_box" ).unbind( "tap" ).on( "tap" , function(){
-                alert( "删除" );
+                //alert( "删除" );
             });
         } ,
 

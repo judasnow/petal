@@ -4,6 +4,7 @@ define([
     "backbone" ,
     "mustache" ,
 
+    "m/chat_item" ,
     "c/chat_items" ,
     "v/chat_item" ,
 
@@ -13,6 +14,8 @@ function(
     _ ,
     Backbone ,
     Mustache ,
+
+    ChatItem ,
     ChatItems ,
     ChatItemView ,
 
@@ -23,53 +26,46 @@ function(
 
     var ChatList = Backbone.View.extend({
         template: chatListTpl ,
-
-        el: "#chat_list" ,
+        className: "panel" ,
 
         initialize: function() {
-            this.render();
+            _.bindAll( this , "sendMsg" , "addOne" , "addAll" , "render" );
+
+            $.ui.addOrUpdateDiv( "chat_list" , this.template );
+            $.ui.loadContent( "#chat_list" , false , false , "fade" );
+
+            this.$el = $( "#chat_list" );
 
             this.$items = this.$el.find( ".items" );
+            this.$inputAreaBox = $( "#input_area_box" );
+            this.$sendBtn = this.$inputAreaBox.find( ".submit" );
+            this.$chatInput = this.$inputAreaBox.find( ".chat_input" );
+            this.$sendBtn.on( "click" , this.sendMsg );
+
 
             this.chatItems = new ChatItems();
-            this.chatItems.bind(
-                {
-                    "change": this.render ,
-                    "add": this.addOne ,
-                    "refresh": this.addAll 
-                }
-            );
-
-            _.bindAll( this , "sendMsg" );
+            this.chatItems.bind( "change", this.render );
+            this.chatItems.bind( "add" , this.addOne );
+            this.chatItems.bind( "reset" , this.addAll );
 
             this.chatItems.fetch({
                 data: {
-                    userId: window.objectUser.get( "UserId" )
-                },
-                success: function() {
-                    //footer 部分必须 render 之后才可以
-                    this.$inputAreaBox = $( "#input_area_box" );
-                    this.$sendBtn = this.$inputAreaBox.find( ".submit" );
-                    this.$chatInput = this.$inputAreaBox.find( ".chat_input" );
-
-                    this.$sendBtn.on( "click" , this.sendMsg );
+                    user_id: window.objectUser.get( "UserId" ) ,
+                    root_msg_id: window.localStorage.getItem( "target_msg_id" ) 
                 }
             });
         },
 
         addOne: function( chatItem ) {
-            var view = new ChatItemView( chatItem );
-            //往上加 还是往下加 似乎不一定
+            var view = new ChatItemView({model: chatItem});
             this.$items.append( view.render().el );
         },
 
         addAll: function() {
-            this.ChatItems.each( this.addOne );
+            this.chatItems.each( this.addOne );
         },
 
         render: function() {
-            $.ui.updateContentDiv( "chat_list" , this.template );
-            $.ui.loadContent( "#chat_list" , false , false , "fade" );
             return this;
         },
 
@@ -77,7 +73,24 @@ function(
         sendMsg: function() {
             var msg = this.$chatInput.val();
             if( msg !== "" ) {
-                
+                $.post(
+                    "/api/send_msg" ,
+                    {
+                        subject_user_id: window.localStorage.getItem( "send_gift_target_user_id" ),
+                        object_user_id: window.objectUser.get( "UserId" ),
+                        content: msg ,
+                        root_msg_id: window.localStorage.getItem( "root_msg_id" )
+                    },
+                    $.proxy(function() {
+                        this.addOne(
+                            new ChatItem({
+                                SrcUserId: window.objectUser.get( "UserId" ),
+                                time: 123, 
+                                Content: msg
+                            })
+                        );
+                    }, this)
+                );
             }
         }
     });

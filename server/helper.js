@@ -14,11 +14,10 @@ var req2hb123 = function( method , param , ok , error ) {
                     ok( dataObj );
                 } else {
                     console.log( "request error, res code is not 200." );
-                    typeof error === "function" && error( data.text );
+                    typeof ok === "function" && error( data.text );
                 }
             } catch ( e ) {
                 console.log( "request huaban123.com api error." );
-                console.dir( e );
                 typeof error === "function" && error( data.text );
             }
         }

@@ -12,7 +12,7 @@ var express = require( "express" )
     , needle = require('needle');
 //}}}
 
-var client = redis.createClient( "6380" , "172.17.0.46" )
+var redisClient = redis.createClient( "6379" , "172.17.0.46" )
     , req2hb123 = require( "./helper.js" ).req2hb123;
 
 server.listen( 8800 );
@@ -21,6 +21,23 @@ server.listen( 8800 );
 //{{{
 app.use( express.bodyParser() );
 //}}}
+
+//weixin 登录
+app.post( "/api/wx_login" , function( req , res ) {
+    var wx_id = req.param( "wx_id" , "" );
+    if( wx_id !== "" ) {
+        redisClient.get( wx_id , function( err , userInfo ) {
+            var userInfo = {};
+            userInfo.username = 123;
+            if( userInfo === null ) {
+                res.json( ["fail"] );
+            } else {
+                //返回用户名即可
+                res.json( ["ok",{username: userInfo.username}] );
+            }
+        });
+    }
+});
 
 //ajax events
 app.post( "/api/do_login" , function( req , res ) {
@@ -97,7 +114,6 @@ app.post( "/api/upload_files" , function( req , res ) {
                     multipart: true 
                 }, 
                 function( err , res , body ) {
-                    console.dir( res )
                 }
             );
         }
@@ -113,6 +129,11 @@ app.post( "/api/user/" , function( req , res ) {
     var zwms = req.param( "zwms" , "" );
     var looks = req.param( "looks" , "" );
 
+    console.log( "about=user&action=update_info&user_id=" + userId + 
+        "&birthday=birthday&zwms=" + zwms + 
+        "&looks=" + looks +
+        "&area_id=" + area_id
+);
     //保存其他信息
     var ok = function( dataObj ) {
         res.json( ["ok"] );
@@ -121,7 +142,8 @@ app.post( "/api/user/" , function( req , res ) {
         "post" , 
         "about=user&action=update_info&user_id=" + userId + 
         "&birthday=birthday&zwms=" + zwms + 
-        "&looks=" + looks,
+        "&looks=" + looks +
+        "&area_id=" + area_id ,
 
         ok
     );
@@ -289,6 +311,46 @@ app.get( "/api/msgs/" , function( req , res ) {
     );
 });
 
+//对应于以前的站点 就是获取 msg 的详细信息
+app.get( "/api/chat_items" , function( req , res ) {
+    var rootMsgId = req.param( "root_msg_id" , 0 );
+    var userId = req.param( "user_id" , "" );
+
+    var ok = function( dataObj ) {
+        res.json( JSON.parse( dataObj.msg_list ).reverse() );
+    }
+
+    req2hb123(
+        "get" ,
+        "about=msg&action=get_list_by_group&root_msg_id=" + rootMsgId +
+            "&user_id=" + userId ,
+
+        ok
+    )
+});
+
+app.post( "/api/send_msg" , function( req , res ) {
+    var content = req.param( "content" , "" );
+    var rootMsgId = req.param( "root_msg_id" , 0 );
+    var objectUserId = req.param( "object_user_id" , "" );
+    var subjectUserId = req.param( "subject_user_id" , "" );
+
+    var ok = function( dataObj ) {
+        res.json( [ "ok" ] );
+    };
+
+    req2hb123( 
+        "post" ,
+        "about=msg&action=send&title=&content=" + content +
+            "&root_msg_id=" + rootMsgId +
+            "&object_user_id=" + objectUserId +
+            //@todo 此处的称呼似乎有点不当
+            "&subject_user_id=" + subjectUserId ,
+
+        ok 
+    );
+});
+
 app.post( "/api/set_back_account" , function( req , res ) {
     var userId = req.param( "user_id" , "" );
     var bank_name = req.param( "bank_name" , "" );
@@ -327,9 +389,12 @@ app.post( "/api/withdraw_cash" , function( req , res ){
     );
 });
 
-//socket events
 io.sockets.on('connection', function( socket ) {
-    socket.on( "get_user_info" , function( userId ) {
-
+    socket.on( "update_brower_status" , function( data ) {
+        req2hb123( 
+            "post" ,
+            "about=user&action=update_brower_status&object_user_id=" + data.object_user_id + 
+                "&subject_user_id=" + data.subject_user_id
+        );
     });
 });

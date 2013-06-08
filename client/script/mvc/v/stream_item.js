@@ -24,7 +24,6 @@ function(
 
         events: {
             "tap .display_contact_info_online": "displayOnlineContactInfo" ,
-            "tap .display_contact_info_offline": "displayOfflineContactInfo" ,
             "tap .send_msg": "sendMsg" ,
             "tap .send_gift": "sendGift" ,
             "tap": "goDetailPage"
@@ -36,14 +35,10 @@ function(
         initialize: function() {
         //{{{
             _.bindAll( this ,
-                "displayOnlineContactInfo" , "displayOfflineContactInfo" , "displayContactInfo" ,
+                "displayOnlineContactInfo" , "displayContactInfo" ,
                 "sendMsg" , "sendGift" , "goDetailPage" );
 
-            //获取两种类型信息的模板 在 stream.html 中
-            //@todo 系统通用模板是否有必要单独存放到一起?
             this.onlineContactTpl = $( "#online_contact_info_tpl" ).html();
-            this.offlineContactTpl = $( "#offline_contact_info_tpl" ).html();
-
             this.model.on( "change" , this.render );
         } ,//}}}
 
@@ -69,7 +64,13 @@ function(
                         //@todo 将这些定义为 code
                         switch( res.reason ) {
                             case "insufficient coin": 
-                                alert( "买金币或vip吧" )
+                                $.ui.popup({
+                                    title: "" ,
+                                    message: "金币不足,买金币或vip吧" ,
+                                    doneCallback: function() {
+                                        window.router.navigate( "/#buy_coin" , {trigger: true} );
+                                    }
+                                });
                             break;
                         }
                     }
@@ -93,14 +94,6 @@ function(
             this.displayContactInfo( "online" );
         },//}}}
 
-        displayOfflineContactInfo: function() {
-        //{{{
-            event.stopImmediatePropagation();
-            //需要判断当前登录用户是否已经购买联系方式
-            //如果没有购买则尝试购买 如过已经购买则显示之
-            this.displayContactInfo( "offline" );
-        },//}}}
-
         sendMsg: function( event ) {
         //{{{
             event.stopImmediatePropagation();
@@ -121,7 +114,7 @@ function(
             //保存本用户信息 到本地 
             var userId = this.model.get( "UserId" );
             window.router.navigate(
-                "#user_detail/" + userId,
+                "/#user_detail/" + userId,
                 {
                     trigger: true
                 }
@@ -131,11 +124,11 @@ function(
         render: function() {
         //{{{
             this.$el.html(
-                    Mustache.to_html(
-                        this.template ,
-                        this.model.toJSON()
-                        ) 
-                    );
+                Mustache.to_html(
+                this.template ,
+                this.model.toJSON()
+                ) 
+            );
             return this;
         }//}}}
     });

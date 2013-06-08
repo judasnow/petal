@@ -126,7 +126,7 @@ function(
 
         //用户主页
         showUserDetail: function( userId ) {
-        //{{
+        //{{{
             new UserDetailView({
                 subjectUserId: userId
             });
@@ -208,19 +208,6 @@ function(
         //{{{i
             new CouponsView();
         },//}}}
-
-//        showSelfVisitors: function() {
-//        //{{a{
-//            new VisitorsView({
-//                q: JSON.stringify(
-//                    {
-//                        what: "visitors" ,
-//                        "object_user_id": window.objectUser.get( "UserId" )
-//                    }
-//                ) ,
-//                hash: "#stream/visitors/self"
-//            });
-//        },//}}}
 
         showSelfHadBoughtContactInfo: function() {
         //{{{

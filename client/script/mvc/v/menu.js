@@ -52,24 +52,24 @@ function(
         } ,
 
         showObjectUserHome: function() {
-            window.router.navigate( "#user_detail/self" , {trigger: true} );
+            window.router.navigate( "/#user_detail/self" , {trigger: true} );
         } ,
 
         showSearch: function() {
-            window.router.navigate( "#search" , {trigger: true} );
+            window.router.navigate( "/#search" , {trigger: true} );
         } ,
 
         showSameCityStream: function() {
-            window.router.navigate( "#stream" , {trigger: true} );
+            window.router.navigate( "/#stream" , {trigger: true} );
         } ,
 
         //发表今日说说
         showTweet: function() {
-            window.router.navigate( "#tweet/self" , {trigger: true} );
+            window.router.navigate( "/#tweet/self" , {trigger: true} );
         } ,
 
         showGifts: function() {
-            window.router.navigate( "#gifts/self/received" , {trigger: true} );
+            window.router.navigate( "/#gifts/self/received" , {trigger: true} );
         } ,
 
         //showVisitors: function() {
@@ -77,38 +77,34 @@ function(
         //} ,
 
         showHadBoughtContactInfo: function() {
-            window.router.navigate( "#stream/had_bought_contact_info/self" , {trigger: true} );
+            window.router.navigate( "/#stream/had_bought_contact_info/self" , {trigger: true} );
         },
 
         //最近的消息
         showMessage: function() {
-            window.router.navigate( "#message/self" , {trigger: true} );
+            window.router.navigate( "/#message/self" , {trigger: true} );
         },
 
         //最近联系人
         showContacts: function() {
-            window.router.navigate( "#stream/contacts/self/object" , {trigger: true} );
+            window.router.navigate( "/#stream/contacts/self/object" , {trigger: true} );
         },
 
         //消费记录
         showPatmentRecord: function() {
-            window.router.navigate( "#payment_record/self" , {trigger: true}  );
+            window.router.navigate( "/#payment_record/self" , {trigger: true}  );
         },
 
         showCoupons: function() {
-            window.router.navigate( "#coupons/self" , {trigger: true} );
+            window.router.navigate( "/#coupons/self" , {trigger: true} );
         },
 
         showBuyCoin: function() {
-            window.router.navigate( "#buy_coin" , {trigger: true} );
+            window.router.navigate( "/#buy_coin" , {trigger: true} );
         },
 
-        //showBuyVip: function() {
-        //    window.router.navigate( "#buy_vip" , {trigger: true} );
-        //},
-
         showMsgs: function() {
-            window.router.navigate( "#msgs" , {trigger: true} );
+            window.router.navigate( "/#msgs" , {trigger: true} );
         },
 
         render: function() {
