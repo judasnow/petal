@@ -4,7 +4,7 @@ define([
     "mustache" ,
     "m/user" ,
 
-    "text!tpl/contaces_stream_item.html"
+    "text!tpl/stream_item.html"
 ] ,
 function(
     _ ,
@@ -22,7 +22,7 @@ function(
         template: contaceStreamItemTpl ,
 
         initialize: function() {
- 
+            
         },
 
         render: function() {

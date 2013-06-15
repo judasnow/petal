@@ -40,8 +40,13 @@ function(
 
         events: {
             "tap .add_picture": "openFileSelectDialog" ,
+            "tap .user_picture_box": "tapPicture" ,
+
             "change .user_upload_picture_input": "fileNameChanged" ,
-            "change .province": "provinceChange"
+            "change .province": "provinceChange" ,
+            "change .zwms": "setUserHasChangedInfo" ,
+            "change .birthday": "setUserHasChangedInfo" ,
+            "change .looks": "setUserHasChangedInfo" ,
         } ,
 
         initialize: function() {
@@ -50,7 +55,7 @@ function(
             _.bindAll(
                 this ,
                 "render" ,
-                "openFileSelectDialog" , "fileNameChanged" , "bindAlbumEvent" , "provinceChange" , "doUpdate" );
+                "openFileSelectDialog" , "fileNameChanged" , "provinceChange" , "doUpdate" , "checkChangeAndGoBack" );
 
             this.model = new User();
             this.model.on( "change" , this.render );
@@ -67,10 +72,37 @@ function(
                 }
             });
 
+            this.userPictureBoxTpl = $( "#user_picture_box_tpl" ).html();
+
             window.doUpdate = this.doUpdate;
         },//}}}
 
+        setUserHasChangedInfo: function() {
+            this.userhasChangedInfo = true;
+        },
+
+        checkChangeAndGoBack: function() {
+            //判断用户是否已经修改了自己的信息
+            if( this.userhasChangedInfo === true ) {
+                $.ui.popup({
+                    title: "" ,
+                    message: "离开本页将丢失修改，是否确认离开？",
+                    doneCallback: function() {
+                        $.ui.goBackWithDefault();
+                    }
+                });
+            } else {
+                $.ui.goBackWithDefault();
+            }
+        } ,
+
+        provinceChange: function() {
+            this.userhasChangedInfo = true;
+            $.proxy( UserProfileBaseInfo.provinceChange , this )();
+        } ,
+
         doUpdate: function() {
+        //{{{
             $.ui.showMask( "提交中" );
             var userId = window.objectUser.get( "UserId" );
 
@@ -85,41 +117,50 @@ function(
                     xhr.send( formData );
                 }
             }
+            if( this.userhasChangedInfo === true ) {
+                $.post( 
+                    "/api/user/" ,
+                    {
+                        user_id: userId ,
+                        area_id: UserProfileBaseInfo.getAreaIdFromCityName( this.$cityname.val() ),
+                        zwms: this.$zwms.val() ,
+                        looks: this.$looks.val() ,
+                        birthday: this.$birthday.val()
+                    } ,
+                    function( data ) {
+                        alert( "保存成功" );
+                        window.router.navigate( "/#stream" , {trigger: true} );
+                    },
+                    function( data ) {
+                        alert( "保存失败" )
+                    }
+                );
+            }
+            $.ui.hideMask();
+        } ,//}}}
 
-            $.post( 
-                "/api/user/" ,
-                {
-                    user_id: userId ,
-                    area_id: UserProfileBaseInfo.getAreaIdFromCityName( this.$cityname.val() ),
-                    zwms: this.$zwms.val() ,
-                    looks: this.$looks.val() ,
-                    birthday: this.$birthday.val()
-                } ,
-                function( data ) {
-                    alert( "保存成功" );
-                    $.ui.hideMask();
-                }
-            );
-        },
+        tapPicture: function() {
 
-        provinceChange: UserProfileBaseInfo.provinceChange ,
-
-        //为每一个用户上传的图片绑定事件
-        bindAlbumEvent: function() {
-            this.$album.find( ".user_picture_box" ).unbind( "tap" ).on( "tap" , function(){
-                //alert( "删除" );
-            });
         } ,
 
         openFileSelectDialog: function() {
+        //{{{
             this.$fileInput = this.$el.find( ".user_upload_picture_input" ).click();
-        } ,
+        } ,//}}}
 
         //用户添加了新图片
         fileNameChanged: function() {
+        //{{{
+            this.userhasChangedInfo = true;
+            if( typeof this.$userUploadFile === "undefined" ) {
+                this.$userUploadFile = this.$el.find( ".user_upload_picture_input" );
+            }
+            if( typeof this.$album === "undefined" ) {
+                this.$album = this.$el.find( ".user_album" );
+            }
             //将用户选择的图片展示给用户
             var self = this;
-            var files = this.$uploadInput[0].files;
+            var files = this.$userUploadFile[0].files;
             var $album = this.$album;
 
             //遍历全部的 files
@@ -137,15 +178,11 @@ function(
                             }
                         )
                     );
-                    //@todo 性能需要改进
-                    self.bindAlbumEvent();
                 };
                 this.files.push( files[i] );
                 reader.readAsDataURL( files[i] );
             }
-
-            self.bindAlbumEvent();
-        },
+        },//}}}
 
         render: function() {
         //{{{
@@ -168,22 +205,13 @@ function(
                 "fade" 
             );
 
-            this.$album = this.$el.find( ".user_album" );
-
-            //上传文件输入框
-            this.$uploadInput = this.$el.find( ".user_upload_picture_input" );
-
-            //用户图片模板
-            this.userPictureBoxTpl = $( "#user_picture_box_tpl" ).html();
+            $( $( "#header .button" )[0]).bind( "tap" , this.checkChangeAndGoBack );
 
             this.$cityname = this.$el.find( ".cityname" );
             this.$userId = this.$el.find( ".user_id" );
             this.$zwms = this.$el.find( ".zwms" );
             this.$birthday = this.$el.find( ".birthday" );
             this.$looks = this.$el.find( ".looks" );
-
-            //为之前上传的图片绑定事件
-            this.bindAlbumEvent();
 
             return this;
         }//}}}

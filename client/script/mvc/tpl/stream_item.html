@@ -1,10 +1,11 @@
 <div class="gravatar_box">
     <img src="http://www.huaban123.com/UploadFiles/UHP/MIN/{{HeadPic}}" alt="gravatar" class="gravatar" />
 </div>
+
 <div class="info">
-    <span class="sub_item nickname">{{NickName}}</span>
-    <span class="sub_item sex {{#isFamale}}famale{{/isFamale}}">{{Age}} 岁</span>
-    <span class="sub_item detail">{{AreaDes}}</span>
+    <span class="sub_item nickname color_by_sex {{#isFemale}}famale{{/isFemale}}">{{NickName}}</span>
+    <span class="sub_item">{{age}} 岁</span>
+    <span class="sub_item detail">{{location}}</span>
     <span class="sub_item tosay">
         <b>最近说说: </b>
         {{#ToSay}}
@@ -14,11 +15,19 @@
             什么也没有
         {{/ToSay}}
     </span>
+    {{#IsXX}}
+        <span class="sub_item">QQ: {{QQ}}</span>
+        <span class="sub_item">Email: {{EMail}}</span>
+    {{/IsXX}}
+    {{#IsXS}}
+        <span class="sub_item">电话: {{Phone}}</span>
+    {{/IsXS}}
 </div>
+
+{{#needsFunc}}
 <div class="func">
     <span class="btn display_contact_info_online">联系方式</span>
-    <!--span class="btn display_contact_info_offline">线下</span-->
     <span class="btn send_msg">发信息</span>
     <span class="btn send_gift">送礼物</span>
 </div>
-
+{{/needsFunc}}

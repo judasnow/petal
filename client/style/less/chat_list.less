@@ -1,7 +1,7 @@
 #chat_list {
-    @image_size: 64px;
+    @image_size: 48px;
     .items {
-        padding-top: 16px;
+        padding: 16px 8px 8px 0;
     }
     .item {
         display: inline-block;
@@ -13,8 +13,8 @@
         @float: left;
         .chat_content {
             float: @float;
-            background: #eee;
-            border: 1px solid #ccc;
+            background: -webkit-gradient(linear, 0 0, 0 100%, from(#fefefe), to(#e7e7e7));   
+            border: 1px solid #cacaca;
         }
         .gravatar {
             float: @float;
@@ -24,8 +24,8 @@
         @float: right;
         .chat_content {
             float: @float;
-            background: #eee;
-            border: 1px solid #ccc;
+            background: -webkit-gradient(linear, 0 0, 0 100%, from(#f0f7ff), to(#cbe3ff));   
+            border: 1px solid #a8bbd4;
         }
         .gravatar {
             float: @float;
@@ -36,9 +36,15 @@
         display: inline-block;
         margin: 0 8px;
         padding: 8px;
-        color: #000;
+        color: #777;
         word-break: break-all;
         border-radius: 10px;
+        .time {
+            display: inline-block;
+            clear: both;
+            color: #c3c3c3;
+            width: 100%;
+        }
     }
     .gravatar {
         border-radius: 4px;

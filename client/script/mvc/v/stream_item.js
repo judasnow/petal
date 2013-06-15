@@ -53,6 +53,7 @@ function(
                 $.proxy( function( data ) {
                     var res = JSON.parse( data );
                     if( res.should === "true" ) {
+                        window.updateSysNotice( "金币 -1" );
                         //直接显示之
                         $.ui.popup({
                             title: (type === "online" ? "线上" : "线下") + "联系方式",
@@ -97,7 +98,8 @@ function(
         sendMsg: function( event ) {
         //{{{
             event.stopImmediatePropagation();
-            window.router.navigate( "#chat_list" , {trigger: true} );
+            window.localStorage.setItem( "petal:send_msg_target_user_id" , this.model.get( "UserId" ) );
+            window.router.navigate( "/#chat_list" , {trigger: true} );
         },//}}}
 
         sendGift: function( event ) {
@@ -106,7 +108,7 @@ function(
 
             //跳转到礼品选择页面 并且要保存当前用户的 id 以确定送礼的对象
             window.localStorage.setItem( "send_gift_target_user_id" , this.model.get( "UserId" ) );
-            window.router.navigate( "#gift_list" , {trigger: true} );
+            window.router.navigate( "/#gift_list" , {trigger: true} );
         },//}}}
 
         goDetailPage: function( event ) {

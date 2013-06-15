@@ -2,12 +2,12 @@
     @img_size: 96px;
     .item {
         padding: 8px;
-        border-bottom: 1px solid #c5c5c5;
+        border-bottom: 1px solid #ddd;
         font-size: 14px;
-        color: #616159;
+        color: #666;
         .title {
             font-size: 110%;
-            color: #53534b;
+            color: #555;
         }
     }
     .user_album {
@@ -17,7 +17,7 @@
         height: auto;
         min-height: @img_size + (@padding * 2);
         background: #eee;
-        border-bottom: 1px solid #c5c5c5;
+        border-bottom: 1px solid #666;
         padding: 8px;
         .user_picture_box {
             text-align: center;
@@ -25,7 +25,7 @@
             float: left;
             width: @img_size + 2px;
             height: @img_size + 2px;
-            border: 1px solid #ccc;
+            border: 1px solid #999;
         }
         .user_picture {
             display: inline-block;
@@ -34,7 +34,8 @@
         }
         .add_picture { 
             .user_picture_box;
-            background: #ddd;
+            border: 1px solid #999;
+            background: #efefef;
             .text {
                 @font-size: 14px;
                 display: inline-block;
@@ -50,3 +51,5 @@
         }
     }
 }
+
+

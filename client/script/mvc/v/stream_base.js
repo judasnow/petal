@@ -26,7 +26,8 @@ function(
             this.coll = coll;
             this.ItemView = ItemView;
             _.bindAll( this , "addOne" , "addAll" , "fetchOk" , "fetchFail" );
-            $.ui.addOrUpdateDiv( streamId , tpl );
+
+            $.ui.tryAddContentDiv( streamId , tpl );
             $.ui.loadContent( hash , true , false , "fade" );
             this.$el = $( "#" + streamId );
 

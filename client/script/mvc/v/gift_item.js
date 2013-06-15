@@ -23,10 +23,14 @@ function(
         },
 
         initialize: function() {
-            _.bindAll( this , "sendGift" );
+            _.bindAll( 
+                this , 
+                "sendGift" 
+            );
         },
 
         sendGift: function( event ) {
+        //{{{
             event.stopImmediatePropagation();
             var targetUserId = window.localStorage.getItem( "send_gift_target_user_id" );
             if( targetUserId === null ) {
@@ -43,6 +47,7 @@ function(
                         from_user_id: window.objectUser.get( "UserId" )
                     } ,
                     function() {
+                        window.updateSysNotice( "金币 -1" );
                         $.ui.popup({ 
                             title: "恭喜",
                             message: "礼物已经成功送出，是否继续选取礼物？",
@@ -63,9 +68,10 @@ function(
                     }
                 )
             }
-        },
+        } ,//}}}
 
         render: function() {
+        //{{{
             this.$el.html( 
                     Mustache.to_html( 
                         this.template , 
@@ -73,7 +79,7 @@ function(
                         ) 
                     );
             return this;
-        }
+        }//}}}
     });
 
     return GiftItem;

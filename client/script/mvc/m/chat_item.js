@@ -20,11 +20,15 @@ function(
                     "subject" : 
                     "object" 
             );
+
             this.set( 
                 "time" , 
-                createAt.getFullYear() + "/" + 
-                createAt.getMonth() + "/" + 
-                createAt.getDate() 
+                createAt.getFullYear() + "-" + 
+                createAt.getMonth() + "-" + 
+                createAt.getDate() + " " +
+                createAt.getHours() + ":" + 
+                createAt.getMinutes() + ":" +
+                createAt.getSeconds()
             );
         }
     });

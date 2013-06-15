@@ -39,17 +39,17 @@ require([
     "app" 
 ] ,
 function( app ) {
-    $.ui.addOrUpdateDiv = function( id , content ) {
-        //不能使用 add 这一点很重要!
-        var funcName = "addContentDiv";
-
+    //解决 id 相同的元素更新问题
+    $.ui.tryAddContentDiv = function( id , content ) {
         if( $( "#" + id ).length !== 0 ) {
-            funcName = "updateContentDiv";
+            $( "#" + id ).remove();
         }
-        $.ui[funcName] (
+
+        $.ui.addContentDiv (
             id ,
             content
-            );
+        );
+
         return $( "#" + id );
     }
     $.ui.goBackWithDefault = function() {

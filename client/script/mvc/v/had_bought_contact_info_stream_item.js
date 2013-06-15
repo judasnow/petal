@@ -8,7 +8,7 @@ define([
 
     "v/menu" ,
 
-    "text!tpl/had_bought_contact_info_stream_item.html"
+    "text!tpl/stream_item.html"
 ] ,
 function(
     _ ,

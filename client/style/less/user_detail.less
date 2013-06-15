@@ -25,19 +25,43 @@
         width: 100%;
         min-height: 192px;
         ul {
+            margin-top: 32px;
             clear: both;
         }
         li {
-            margin-right: 8px;
-            width: 64px;
+            margin: 8px;
+            width: @img_size + 32px;
+            height: @img_size + 32px;
             padding: 0;
+            display: inline-block;
+            text-align: center;
             background: #fff;
             float: left;
+            //border: 1px solid #ddd;
+        }
+        .sub_item {
+            clear: both;
+            float: left;
+        }
+        .gift_id {
+            display: none;
+        }
+        .title {
+            float: left;
+            clear: both;
             display: inline-block;
+            max-height: 16px;
+            overflow: hidden;
         }
         .gift_pic {
+            clear: both;
+            float: left;
             max-height: @img_size;
             min-width:  @img_size;
+        }
+        .price {
+            clear: both;
+            float: left;
         }
     }
     .gravatar_box {

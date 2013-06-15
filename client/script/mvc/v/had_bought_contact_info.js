@@ -2,7 +2,9 @@ define([
     "underscore" ,
     "backbone" ,
     "mustache" ,
+
     "c/users" ,
+
     "v/had_bought_contact_info_stream_item" ,
     "v/stream_base" ,
     "v/menu" ,
@@ -13,7 +15,9 @@ function(
     _ ,
     Backbone ,
     Mustache ,
+
     Users ,
+
     HadBoughtContactInfoStreamItemView ,
     StreamBase ,
     MenuView ,
@@ -25,6 +29,8 @@ function(
     var HadBoughtContactInfo = StreamBase.extend({
 
         initialize: function( args ) {
+            new MenuView();
+
             var users = new Users();
             this.baseInitialize( "stream" , hadBoughtContactInfoTpl , HadBoughtContactInfoStreamItemView , users , args.q , args.hash );
         } 

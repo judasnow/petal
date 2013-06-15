@@ -220,7 +220,7 @@ function(
                 ) ,
                 hash: "#stream/had_bought_contact_info/self"
             });
-        },//}}}
+        } ,//}}}
 
         showSelfContacts: function( _case ) {
         //{{{
@@ -234,7 +234,7 @@ function(
                 ) ,
                 hash: "#stream/contacts/self/" + _case
             });
-        },//}}}
+        } ,//}}}
 
         //@todo 需要区分列出各种信息
         showMsgs: function() {

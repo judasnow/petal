@@ -29,19 +29,40 @@ body{
     padding: 0;
 }
 
-.fixed {
-    position: fixed;
-    height: 100%;
-    overflow: scroll; 
+//inputs 样式
+@input_font_size: 14px;
+#jQUi {
+    .input {
+        border: 0;
+        background: #ededed;
+        font-size: @input_font_size;
+        border: 1px solid #ccc;
+    }
+    select {
+        .input;
+        -webkit-appearance: none;
+        width: 64px; 
+        height: 32px;
+        padding: 4px;
+        margin: 0 5px;
+        border-radius: 4px;
+        color: #333;
+    }
+    input {
+        .input;
+        padding: 5px;
+    }
+    textarea {
+        .input;
+        padding: 4px;
+        resize: none;
+        width: 100%;
+        min-height: 64px;
+    }
 }
 
-//一些全局元素的样式
-#globle_notice_sys {
-    padding: 12px;
-    background: #1f1f1f;
-    color: #e1e1e1;
-    text-shadow: none;
-    opacity: 0.7;
+#jQUi .jq-badge {
+    top: inherit;
 }
 
 .jqscroll_refresh {
@@ -68,5 +89,23 @@ body{
 }
 #jQUi nav~#menu{
     background: #333;
+}
+
+//需要注意的是 他总是相对于 当前的 panel 元素的
+#system_notice_box {
+    @width: 192px;
+    z-index: 1024;
+    text-align: center;
+    border-radius: 8px;
+    opacity: 0.8;
+    width: @width;
+    color: #FFF;
+    background: #666;
+    position: fixed;
+    bottom: 128px;
+    left: 50%;
+    margin-left: -( @width/2 );
+    padding: 8px 16px;
+    display: none;
 }
 

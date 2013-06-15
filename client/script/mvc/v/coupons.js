@@ -34,6 +34,7 @@ function(
 
         initialize: function() {
             new MenuView();
+
             _.bindAll( this , "showBankAccountSelect" , "setBankAccount" , "doWithdraw" );
 
             this.model = new User();

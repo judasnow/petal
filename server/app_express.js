@@ -9,11 +9,13 @@ var express = require( "express" )
     , io = require( "socket.io" ).listen( server )
     , redis = require( "redis" )
     , fs = require( "fs" )
-    , needle = require('needle');
+    , needle = require( "needle");
 //}}}
 
-var redisClient = redis.createClient( "6379" , "172.17.0.46" )
-    , req2hb123 = require( "./helper.js" ).req2hb123;
+var redisClientSub = redis.createClient( "6379" , "172.17.0.46" )
+    , redisClient = redis.createClient( "6379" , "172.17.0.46" )
+    , req2hb123 = require( "./helper.js" ).req2hb123
+    , addExtraUserProp = require( "./helper.js" ).addExtraUserProp;
 
 server.listen( 8800 );
 
@@ -22,24 +24,35 @@ server.listen( 8800 );
 app.use( express.bodyParser() );
 //}}}
 
-//weixin 登录
-app.post( "/api/wx_login" , function( req , res ) {
+//workers
+//{{{
+
+//}}}
+
+app.get( "/api/get_username_by_wx_id" , function( req , res ) {
+//{{{
     var wx_id = req.param( "wx_id" , "" );
     if( wx_id !== "" ) {
         redisClient.get( wx_id , function( err , userInfo ) {
             var userInfo = {};
-            userInfo.username = 123;
-            if( userInfo === null ) {
-                res.json( ["fail"] );
-            } else {
-                //返回用户名即可
-                res.json( ["ok",{username: userInfo.username}] );
-            }
+            var wxRedisClient = redis.createClient( "6379" , "m.huaban123.com" );
+            wxRedisClient.auth( "erlang/otp" , function() {
+                wxRedisClient.hget( wx_id , "username" , function( error , data ) {
+                    userInfo.username = data;
+                    if( typeof userInfo.username === "undefined" || userInfo.username === "" ) {
+                        res.json( ["fail"] );
+                    } else {
+                        //返回用户名即可
+                        res.json( ["ok" , {username: userInfo.username}] );
+                    }
+                });
+            });
         });
+    } else {
+        res.json( ["fail"] );
     }
-});
+});//}}}
 
-//ajax events
 app.post( "/api/do_login" , function( req , res ) {
 //{{{
     var username = req.param( "username" , null );
@@ -70,19 +83,49 @@ app.get( "/api/users/" , function( req , res ) {
 
     var qObj = JSON.parse( q );
     var what = (typeof qObj.what !== "undefined" ? qObj.what : "search");
-    var object_user_id = (typeof qObj.object_user_id !== "undefined" ?  qObj.object_user_id  : null);
+    var object_user_id = (typeof qObj.object_user_id !== "undefined" ? qObj.object_user_id  : null);
     var _case = (typeof qObj._case !== "undefined" ?  qObj._case  : null);
 
+    //获取不同的访问类型 url 
     var what2url = {
-        //@todo 去除 what 
         search: "about=user&action=search&p=" + page + '&q=' + q ,
         visitors: "about=user&action=visitors_list&p=" + page + "&user_id=" + object_user_id ,
         had_bought_contact_info: "about=user&action=had_bought_contact_info_list&p=" + page + "&user_id=" + object_user_id ,
         contacts: "about=user&action=contacts_" + _case + "&p=" + page + "&user_id=" + object_user_id 
     }
+
     var ok = function( dataObj ) {
-        res.json( JSON.parse( dataObj.user_list ) );
+        var userList = JSON.parse( dataObj.user_list );
+
+        var i = 0;
+        var len = userList.length;
+        for( ; i < len ; i = i + 1 ) {
+            if( typeof userList[i].SUid !== "undefined" || typeof userList[i].BUserId !== "undefined" ) {
+                var userInfo = userList[i];
+                for( key in userInfo ) {
+                    // 1 已经查看联系方式的用户信息 
+                    // 2 当前登录用户联系过的人 需要对其信息进行规范化 (真蛋疼)
+                    //@todo 可以尝试从缓存中获取一部分信息
+                    if( key.match( /^[S|B]/ ) ) {
+                        userInfo[key.replace( /^[S|B]/ , "" )] = userInfo[key];
+                        delete userInfo[key];
+                    }
+                }
+                //已经查看联系方式的用户信息 中没有 UserId
+                if( typeof userInfo.UserId === "undefined" ) {
+                    userInfo.UserId = userInfo.Uid;
+                }
+                delete userInfo.BUid;
+            }
+            userList[i] = addExtraUserProp( userList[i] );
+
+            if( what === "search" ) {
+                userList[i].needsFunc = true;
+            }
+        }
+        res.json( userList );
     };
+
     req2hb123( "get" , what2url[what] , ok );
 });
 //}}}
@@ -113,14 +156,18 @@ app.post( "/api/upload_files" , function( req , res ) {
                 {
                     multipart: true 
                 }, 
-                function( err , res , body ) {
+                function( error , resp , body ) {
+                    if( JSON.parse( body ).code === "200" ) {
+                        res.json( ["ok"] );
+                    } else {
+                        res.json( ["fail"] );
+                    }
                 }
             );
         }
     );
 });//}}}
 
-//修改用户信息
 app.post( "/api/user/" , function( req , res ) {
 //{{{
     var userId = req.param( "user_id" , "" );
@@ -129,11 +176,6 @@ app.post( "/api/user/" , function( req , res ) {
     var zwms = req.param( "zwms" , "" );
     var looks = req.param( "looks" , "" );
 
-    console.log( "about=user&action=update_info&user_id=" + userId + 
-        "&birthday=birthday&zwms=" + zwms + 
-        "&looks=" + looks +
-        "&area_id=" + area_id
-);
     //保存其他信息
     var ok = function( dataObj ) {
         res.json( ["ok"] );
@@ -141,7 +183,8 @@ app.post( "/api/user/" , function( req , res ) {
     req2hb123(
         "post" , 
         "about=user&action=update_info&user_id=" + userId + 
-        "&birthday=birthday&zwms=" + zwms + 
+        "&birthday=" + birthday + 
+        "&zwms=" + zwms + 
         "&looks=" + looks +
         "&area_id=" + area_id ,
 
@@ -152,42 +195,21 @@ app.post( "/api/user/" , function( req , res ) {
 
 //获取单条用户信息
 app.get( "/api/user/" , function( req , res ) {
-    //{{{
+//{{{
     var userId = req.param( "user_id" , null );
 
     var ok = function( dataObj ) {
         //发送来的 json 是一个数组 现在需要合并之 (到 userInfo 中)
-        var userInfo = JSON.parse(dataObj.user_info);
+        var userInfo = JSON.parse( dataObj.user_info );
+
+        userInfo = addExtraUserProp( userInfo );
         userInfo.wantedGiftList = JSON.parse(dataObj.wanted_gift_list);
         userInfo.pictureList = JSON.parse(dataObj.picture_list);
         userInfo.receivedGiftList = JSON.parse(dataObj.received_gift_list);
+
         res.json( userInfo );
     };
     req2hb123( "get" , "about=user&action=get_info&user_id=" + userId , ok );
-});//}}}
-
-//举报某用户
-app.post( "/api/report_user/" , function( req , res ) {
-    //{{{
-    var objectUserId = req.param( "object_user_id" , 0 );
-    var subjectUserId = req.param( "subject_user_id" , 0 );
-    var reasonNo = req.param( "reason_no" , "" );
-    var reasonDetail = req.param( "reason_detail" , "" );
-
-    var ok = function( dataObj ) {
-        res.json( '["ok"]' );
-    };
-    var error = function() {
-    } 
-    req2hb123(
-        "post" , 
-        "about=user&action=report&object_user_id=" + objectUserId + 
-        "&subject_user_id=" + subjectUserId  + 
-        "&reason_no=" + reasonNo + 
-        "&reason_detail=" + reasonDetail ,
-
-        ok
-        );
 });//}}}
 
 //@todo should be put, but I hava not enought time .... so sad I am.
@@ -293,6 +315,7 @@ app.get( "/api/payment_recoreds/" , function( req , res ) {
 });//}}}
 
 app.get( "/api/msgs/" , function( req , res ) {
+//{{{
     var page = req.param( "p" , 1 );
     var q = req.param( "q" , "{}" );
 
@@ -309,10 +332,11 @@ app.get( "/api/msgs/" , function( req , res ) {
 
         ok 
     );
-});
+});//}}}
 
 //对应于以前的站点 就是获取 msg 的详细信息
 app.get( "/api/chat_items" , function( req , res ) {
+//{{{
     var rootMsgId = req.param( "root_msg_id" , 0 );
     var userId = req.param( "user_id" , "" );
 
@@ -327,31 +351,35 @@ app.get( "/api/chat_items" , function( req , res ) {
 
         ok
     )
-});
+});//}}}
 
 app.post( "/api/send_msg" , function( req , res ) {
-    var content = req.param( "content" , "" );
-    var rootMsgId = req.param( "root_msg_id" , 0 );
-    var objectUserId = req.param( "object_user_id" , "" );
-    var subjectUserId = req.param( "subject_user_id" , "" );
+//{{{
+    var msg = {};
+    msg.rootMsgId = req.param( "root_msg_id" , 0 );
+    msg.content = req.param( "content" , "" );
+    msg.objectUserId = req.param( "object_user_id" , "" );
+    msg.targetUserId = req.param( "target_user_id" , "" );
 
     var ok = function( dataObj ) {
+        redisClient.publish( "msg" , JSON.stringify( msg ) );
+        redisClient.set( "msg:" + msg.rootMsgId , JSON.stringify( msg ) );
         res.json( [ "ok" ] );
     };
 
     req2hb123( 
         "post" ,
-        "about=msg&action=send&title=&content=" + content +
-            "&root_msg_id=" + rootMsgId +
-            "&object_user_id=" + objectUserId +
-            //@todo 此处的称呼似乎有点不当
-            "&subject_user_id=" + subjectUserId ,
+        "about=msg&action=send&title=&content=" + msg.content +
+            "&root_msg_id=" + msg.rootMsgId +
+            "&object_user_id=" + msg.objectUserId +
+            "&target_user_id=" + msg.targetUserId ,
 
-        ok 
+        ok
     );
-});
+});//}}}
 
 app.post( "/api/set_back_account" , function( req , res ) {
+//{{{
     var userId = req.param( "user_id" , "" );
     var bank_name = req.param( "bank_name" , "" );
     var account_name = req.param( "account_name" , "" );
@@ -370,9 +398,10 @@ app.post( "/api/set_back_account" , function( req , res ) {
 
         ok
     );
-});
+});//}}}
 
 app.post( "/api/withdraw_cash" , function( req , res ){
+//{{{
     var userId = req.param( "user_id" , "" );
     var amount = req.param( "amount" , 0 );
 
@@ -387,7 +416,7 @@ app.post( "/api/withdraw_cash" , function( req , res ){
 
         ok
     );
-});
+});//}}}
 
 io.sockets.on('connection', function( socket ) {
     socket.on( "update_brower_status" , function( data ) {
@@ -397,4 +426,15 @@ io.sockets.on('connection', function( socket ) {
                 "&subject_user_id=" + data.subject_user_id
         );
     });
+
+    redisClientSub.on( "subscribe" , function( channel , count ) {
+        console.log( "subscribe ok" );
+    });
+    redisClientSub.on( "message" , function( channel , message ) {
+        //收到新的消息 路由到相应的 用户
+        var msgObj = JSON.parse( message );
+        //console.log( "emit msg:" + msgObj.AcceptUserId );
+        socket.emit( "msg:" + msgObj.AcceptUserId , msgObj );
+    });
+    redisClientSub.subscribe( "new_msg" );
 });

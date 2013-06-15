@@ -28,6 +28,8 @@ function(
     var Contacts = StreamBase.extend({
 
         initialize: function( args ) {
+            new MenuView();
+
             var users = new Users();
             this.baseInitialize( "stream" , contacesTpl , ContactsStreamItemView , users , args.q , args.hash );
         } 

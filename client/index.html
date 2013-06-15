@@ -16,139 +16,8 @@
         <script src="/script/lib/jqmobi/jq.mobi.js"></script>
         <script src="/script/lib/jqmobi/ui/jq.ui.js"></script>
         <script src="/script/lib/jqmobi/plugins/jq.scroller.js"></script>
-        <script>
-            setInterval( function(){
-                window.localStorage.setItem( "http://172.17.0.46/style/less/main.less:timestamp" , "" );
-            }, 5000 );
-            less.env = "development";
-            less.watch();
-            //jqmobi init
-            //{{{
-            $.ui.isAjaxApp = true;
-            $.ui.openLinksNewTab = false;
-            $.ui.resetScrollers = false;
-            $.ui.nativeTouchScroll = false;
-            $.ui.autoLaunch = false;
-            $.ui.showBackbutton = false;
-            $.ui.customClickHandler = function() { return true;}
-            //}}}
-
-            //加载 main.js 
-            //{{{
-            $.ui.ready( function() {
-                var oHead = document.getElementsByTagName( "HEAD" ).item( 0 ); 
-                var oScript= document.createElement( "script" ); 
-                oScript.setAttribute( "data-main" , "/script/main.js" )
-                oScript.src = "/script/lib/require.js";
-                oHead.appendChild( oScript );
-            });//}}}
-
-            //jqmobi 初始化完成之后的操作
-            var onDeviceReady = function() {
-            //{{{
-                AppMobi.device.setRotateOrientation( "portrait" );
-                AppMobi.device.setAutoRotate( false );
-                webRoot = AppMobi.webRoot + "/";
-                AppMobi.device.hideSplashScreen();
-                $.ui.blockPageScroll();
-            };//}}}
-            document.addEventListener( "appMobi.device.ready" , onDeviceReady , false );
-
-            var init = function() {
-            //{{{
-                //初始化  socketio
-                //此处对于 js 的异步事件模型有一个疑问 connection 事件我是在 connent 调用之后进行的绑定
-                //connection 事件如何会成功的执行呢？也就是说 绑定事件的时候其可能已经触发了该事件
-                //window.socketServer = "http://io.icket.us:8800";
-                window.socketServer = "http://172.17.0.47:8800";
-                window.socket = io.connect( window.socketServer );
-
-                window.petalServer = "172.17.0.46";
-
-                socket.on( "error" , function() {
-                    console.log( "socket connect fail" );
-                });
-
-                socket.on( "disconnect" , function() {
-                    console.log( "socket disconnected" );
-                });
-
-                socket.on( "connect" , function() {
-                    console.log( "socket connected" );
-                    //判断当前用户是否已经登录系统
-                    //{{{
-                    if( window.localStorage.getItem( "petal:object_user_info" ) === null ) {
-                        if( window.location.hash !== "" ) {
-                            //尝试 wx 登录
-                            $.post( "/api/wx_login" , {wx_id: window.location.hash} , function( data ) {
-                                var dataObj = JSON.parse( data );
-                                if( dataObj[0] === "ok" ) {
-                                    $.post( 
-                                        "/api/do_login" ,
-                                        {
-                                            username: dataObj[1].username ,
-                                            password: "huaban123"
-                                        } ,
-                                        function( res ) {
-                                            if( res[0] === "ok" ) {
-                                                //登录成功
-                                                window.localStorage.setItem( "petal:object_user_info" , res[1] );
-                                                $.ui.launch();
-                                            } else {
-                                                logging = false;
-                                                //删除hash
-                                                window.location.hash = "";
-                                                window.location.reload();
-                                                alert( "登录失败,用户名或密码错误" );
-                                            }
-                                        } ,
-                                        "json"
-                                     );
-                                }
-                            });
-                            return false;
-                        } else {
-                            //隐藏 splashscreen 显示登录界面
-                            var $splashscreenEl = $( "#splashscreen" ).hide();
-                            var $loginEl = $( "#login" ).show();
-                            var $usernameEl = $loginEl.find( ".username" );
-                            var $passwordEl = $loginEl.find( ".password" );
-                            var logging = false;
-                            $loginEl.find( ".do_login" ).click( function() {
-                                if( logging === true ) {
-                                    return false;
-                                }
-                                logging = true;
-                                $.post( 
-                                    "/api/do_login" ,
-                                    {
-                                        username: $usernameEl.val() ,
-                                        password: $passwordEl.val()
-                                    } ,
-                                    function( res ) {
-                                        if( res[0] === "ok" ) {
-                                            //登录成功
-                                            window.localStorage.setItem( "petal:object_user_info" , res[1] );
-                                            $.ui.launch();
-                                        } else {
-                                            logging = false;
-                                            alert( "登录失败,用户名或密码错误" );
-                                        }
-                                    } ,
-                                    "json"
-                                 );
-                            });
-                            return false;
-                        }
-                    } else {
-                        //已经处于登录状态
-                        $.ui.launch();
-                    }//}}}
-                });
-            }
-            //}}}
-            document.addEventListener( "DOMContentLoaded" , init , false );
-        </script>
+        
+        <script src="/script/init.js"></script>
     </head>
 
     <body>
@@ -173,18 +42,20 @@
                 <p>
                     <button class="do_login">登录</button>
                 </p>
-                </div>
-                <nav>
-                </nav>
+            </div>
+            <nav>
+            </nav>
+        </div>
+        <div id="system_notice_box">
         </div>
     </body>
 
     <!--tpls 不可以放到 tpl 文件中 会被提前渲染-->
     <script type="text/template" id="online_contact_info_tpl">
         <p class="contact_info">
-        <span class="item"<b>邮箱:</b> {{EMail}}</span>
         <span class="item"><b>QQ:</b> {{QQ}}</span>
         <span class="item"><b>微信:</b> {{MSN}}</span>
+        <span class="item"<b>邮箱:</b> {{EMail}}</span>
         </p>
     </script>
     <script type="text/template" id="offline_contact_info_tpl">
