@@ -38,7 +38,6 @@ function(
             } else {
                 //购买并赠送该礼物给指定的用户
                 var giftId = this.model.get( "GId" );
-                $.ui.showMask();
                 $.post(
                     "/api/send_gift/" ,
                     {
@@ -46,22 +45,31 @@ function(
                         target_user_id: targetUserId ,
                         from_user_id: window.objectUser.get( "UserId" )
                     } ,
-                    function() {
-                        window.updateSysNotice( "金币 -1" );
-                        $.ui.popup({ 
-                            title: "恭喜",
-                            message: "礼物已经成功送出，是否继续选取礼物？",
-                            cancelText: "不", 
-                            cancelCallback: function() {
-                                $.ui.goBackWithDefault();
-                            },
-                            doneText: "继续",
-                            doneCallback: function() {
+                    function( data ) {
+                        if( JSON.parse( data )[0] === "ok" ) {
+                            window.updateSysNotice( "金币 -1" );
+                            $.ui.popup({
+                                title: "恭喜",
+                                message: "礼物已经成功送出，是否继续选取礼物？",
+                                cancelText: "不",
+                                cancelCallback: function() {
+                                    $.ui.goBackWithDefault();
+                                },
+                                doneText: "继续",
+                                doneCallback: function() {
 
-                            },
-                            cancelOnly:false
-                        });
-                        $.ui.hideMask();
+                                },
+                                cancelOnly:false
+                            });
+                        } else {
+                            $.ui.popup({
+                                title: "" ,
+                                message: "金币不足,买金币或vip吧" ,
+                                doneCallback: function() {
+                                    window.router.navigate( "/#buy_coin" , {trigger: true} );
+                                }
+                            });
+                        }
                     } ,
                     function() {
                         alert( "操作失败" );

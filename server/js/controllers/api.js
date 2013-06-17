@@ -1,4 +1,10 @@
-var helper = require( "../lib/helper" );
+var helper = require( "../lib/helper" )
+    , crypto = require( "crypto" )
+    , fs = require( "fs" ) 
+    , redis = require( "redis" )
+    , config = require( "../config/config" )["dev"]
+
+    , redisClient = redis.createClient( "6379" , config.redisServer );
 
 //user
 //为了实现weixin注册之后的自动登录 需要根据用户提供的 weixin_id 
@@ -150,7 +156,6 @@ exports.updateUser = function( req , res ) {
 
         ok
     );
-
 };//}}}
 
 //获取单条用户信息
@@ -198,7 +203,7 @@ exports.shouldDisplayContactInfo = function( req , res ) {
 
     var ok = function( dataObj ) {
         console.dir( dataObj )
-    res.json( dataObj );
+        res.json( dataObj );
     };
     helper.req2hb123( 
         "get" , 
@@ -207,7 +212,7 @@ exports.shouldDisplayContactInfo = function( req , res ) {
         "&subject_user_id=" + subUserId ,
 
         ok
-        );
+    );
 };//}}}
 
 //gift
@@ -228,8 +233,8 @@ exports.getGiftList = function( req , res ) {
     //根据不同的 what 访问不同的 api
     var what2url = {
         all: "about=gift&action=get_all&p=" + page ,
-    sended: "about=gift&action=sended_list&p=" + page + "&user_id=" + object_user_id ,
-    received: "about=gift&action=received_list&p=" + page + "&user_id=" + object_user_id 
+        sended: "about=gift&action=sended_list&p=" + page + "&user_id=" + object_user_id ,
+        received: "about=gift&action=received_list&p=" + page + "&user_id=" + object_user_id 
     };
     helper.req2hb123( "get" , what2url[what] , ok );
 };
@@ -245,13 +250,17 @@ exports.sendGift = function( req , res ) {
     var ok = function( dataObj ) {
         res.json( [ "ok" ] );
     };
+    var error = function( dataObj ) {
+        res.json( [ "fail" ] );
+    }
     helper.req2hb123( 
         "get" , 
         "about=gift&action=send&gift_id=" + giftId + 
         "&target_user_id=" + targetUserId + 
         "&from_user_id=" + fromUserId , 
 
-        ok 
+        ok ,
+        error
     );
 };//}}}
 
@@ -329,6 +338,10 @@ exports.sendMsg = function( req , res ) {
         res.json( [ "ok" ] );
     };
 
+    var error = function( dataObj ) {
+        res.json( [ "fail" ] );
+    };
+
     helper.req2hb123( 
         "post" ,
         "about=msg&action=send&title=&content=" + msg.content +
@@ -336,7 +349,8 @@ exports.sendMsg = function( req , res ) {
             "&object_user_id=" + msg.objectUserId +
             "&target_user_id=" + msg.targetUserId ,
 
-        ok
+        ok , 
+        error
     );
 };//}}}
 

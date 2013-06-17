@@ -4,24 +4,19 @@ var cluster = require( "cluster" )
     
     , express = require( "express" )
 
-    , crypto = require( "crypto" )
-    , redis = require( "redis" )
-    , fs = require( "fs" )
-
-    , thirdPartServer = require( "./config/third_part_server" )
     , config = require( "./config/config" )["dev"]
     , helper = require( "./lib/helper" );
 //}}}
 
 
-//if (cluster.isMaster) {
-//    for( var i = 0 ; i < os.cpus().length ; i++ ) {
-//        cluster.fork();
-//    }
-//    cluster.on( "exit" , function( worker , code , signal ) {
-//        console.log( "workes " + worker.process.pid + " died" );
-//    });
-//} else {
+if (cluster.isMaster) {
+    for( var i = 0 ; i < os.cpus().length ; i++ ) {
+        cluster.fork();
+    }
+    cluster.on( "exit" , function( worker , code , signal ) {
+        console.log( "workes " + worker.process.pid + " died" );
+    });
+} else {
     var app = express()
         , server = require( "http" ).createServer( app )
         , io = require( "socket.io" ).listen( server );
@@ -37,6 +32,6 @@ var cluster = require( "cluster" )
 
     //worker 
     //{{{
-    //require( "./worker/msg_worker" )( config );
+    require( "./worker/msg_worker" )( config );
     //}}}
-//}
+}

@@ -97,16 +97,29 @@ function(
                         root_msg_id: window.localStorage.getItem( "petal:root_msg_id" )
                     },
                     //send ok
-                    $.proxy(function() {
-                        window.updateSysNotice( "金币 -1" );
-                        this.addOne(
-                            new ChatItem({
-                                SrcUserId: window.objectUser.get( "UserId" ) ,
-                                SrcHeadPic: window.objectUser.get( "HeadPic" ) ,
-                                Content: msg
-                            })
-                        );
-                    }, this)
+                    $.proxy(function( data ) {
+                        if( JSON.parse( data )[0] === "ok" ) {
+                            window.updateSysNotice( "金币 -1" );
+                            this.addOne(
+                                new ChatItem({
+                                    SrcUserId: window.objectUser.get( "UserId" ) ,
+                                    SrcHeadPic: window.objectUser.get( "HeadPic" ) ,
+                                    Content: msg
+                                })
+                            );
+                        } else {
+                            $.ui.popup({
+                                title: "" ,
+                                message: "金币不足,买金币或vip吧" ,
+                                doneCallback: function() {
+                                    window.router.navigate( "/#buy_coin" , {trigger: true} );
+                                }
+                            });
+                        }
+                    }, this) ,
+                    function( data ) {
+                        console.dir( data )
+                    }
                 );
             }
         }//}}}

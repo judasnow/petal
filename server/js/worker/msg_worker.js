@@ -1,8 +1,7 @@
 //后台同 huaban123.com 通信 获取最新的 msg 
 var redis = require( "redis" )
     , fs = require( "fs" )
-    , helper = require( "./helper.js" );
-
+    , helper = require( "../lib/helper" );
 
 require( "date-utils" );
 
@@ -27,12 +26,13 @@ module.exports = function( config ) {
     //应该维护一个最后更新时间
     var timeStep = 5000;
     var lastUpdateDate = new Date();
+
     //减少同数据库服务器的时间差
     lastUpdateDate.addSeconds( -5 );
     var id = setInterval( function() {
         var beginTime = lastUpdateDate.toFormat( "YYYY-MM-D HH24:MI:SS" );
         lastUpdateDate = lastUpdateDate.addSeconds( (timeStep/1000) );
-        req2hb123(
+        helper.req2hb123(
             "get" ,
             "about=msg&action=get_latest_msg_list&p=1&begin_time=" + beginTime ,
 
