@@ -1,4 +1,3 @@
-//用户详细信息页面
 define([
     "underscore" ,
     "backbone" ,
@@ -37,46 +36,39 @@ function(
         } ,
 
         initialize: function( data ) {
+        //{{{
             new MenuView();
 
             //需要判断是否是当前登录用户自己的主页
-            this.objectUserPage = (typeof data.objectUserPage !== "undefined" ? data.objectUserPage : false );
-            var subjectUserId = data.subjectUserId;
+            this.isObjectUserPage = data.isObjectUserPage || false;
+            this.subjectUserId = data.subjectUserId;
 
-            //如果不是当前登录用户自己的页面 触发浏览事件
-            if( !this.objectUserPage ) {
-                window.socket.emit(
-                    "update_brower_status" ,
-                    {
-                        object_user_id: window.objectUser.get( "UserId" ),
-                        subject_user_id: subjectUserId
-                    }
-                );
-            }
-
-            _.bindAll( 
+            _.bindAll(
                 this , 
                 "sendMsg" , "sendGift" , "getContacesInfo" , "sendThatGift" , "render" );
 
             this.onlineContactTpl = $( "#online_contact_info_tpl" ).html();
 
             this.model = new User();
+            this.model.set( "isObjectUserPage" , this.isObjectUserPage );
             this.model.on( "change" , this.render );
             this.model.fetch({
                 data: {
-                    user_id: subjectUserId
+                    user_id: this.subjectUserId
                 }
             });
-        } ,
+        } ,//}}}
 
         sendMsg: function() {
+        //{{{
             window.router.navigate( "/#chat_list" , {trigger: true} );
-        } ,
+        } ,//}}}
 
         sendGift: function() {
+        //{{{
             window.localStorage.setItem( "send_gift_target_user_id" , this.model.get( "UserId" ) );
             window.router.navigate( "/#gift_list" , {trigger: true} );
-        } ,
+        } ,//}}}
 
         sendThatGift: function( event ) {
         //{{{
@@ -110,6 +102,7 @@ function(
         } ,//}}}
 
         getContacesInfo: function() {
+        //{{{
             event.stopImmediatePropagation();
             //@todo 此处有重
             $.get(
@@ -142,9 +135,10 @@ function(
                     }
                 }, this )
             );
-        } ,
+        } ,//}}}
 
         render: function() {
+        //{{{
             $.ui.updateContentDiv(
                 "user_detail" ,
                 Mustache.to_html(
@@ -152,15 +146,24 @@ function(
                     this.model.toJSON()
                 )
             );
-            if( this.objectUserPage === true ) {
-                //若为用户个人主页 则需要进行一些特殊的处理
-                //显示编辑按钮 用户点击之后需要变成保存按钮
+
+            if( this.isObjectUserPage === true ) {
+
                 $( "header>.update_self_profile" ).show();
                 $( "header>h1" ).html( "我的主页" );
+
+                window.socket.emit(
+                    "update_brower_status" ,
+                    {
+                        object_user_id: window.objectUser.get( "UserId" ),
+                        subject_user_id: this.subjectUserId
+                    }
+                )
             }
+
             $.ui.loadContent(
                 "#user_detail/" +
-                ( this.objectUserPage === true ? "self" : this.model.get( "UserId" ) ) , 
+                ( this.isObjectUserPage === true ? "self" : this.model.get( "UserId" ) ) , 
                 false , 
                 false , 
 
@@ -168,7 +171,7 @@ function(
             );
             return this;
         }
-    });
+    });//}}}
 
     return UserDetail;
 });

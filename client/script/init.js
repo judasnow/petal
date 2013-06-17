@@ -93,48 +93,29 @@ var wx_login = function() {
 
 var init = function() {
 //{{{
-    //初始化 socketio
-    //此处对于 js 的异步事件模型有一个疑问 connection 事件我是在 connent 调用之后进行的绑定
-    //connection 事件如何会成功的执行呢？也就是说 绑定事件的时候其可能已经触发了该事件
-    window.socketServer = "http://172.17.0.47:8800";
-    window.petalServer = "172.17.0.46";
+//判断当前用户是否已经登录系统
+    var $splashscreenEl = $( "#splashscreen" ).hide();
+    if( window.localStorage.getItem( "petal:object_user_info" ) === null ) {
+        //未登录
+        if( window.location.hash !== "" ) {
+            //weixin
+            wx_login();
+        } else {
+            var $loginEl = $( "#login" ).show();
+            var $usernameEl = $loginEl.find( ".username" );
+            var $passwordEl = $loginEl.find( ".password" );
 
-    window.socket = io.connect( window.socketServer );
-
-    socket.on( "error" , function() {
-        console.log( "socket connect fail" );
-    });
-
-    socket.on( "disconnect" , function() {
-        console.log( "socket disconnected" );
-    });
-
-    socket.on( "connect" , function() {
-        console.log( "socket connected" );
-        //判断当前用户是否已经登录系统
-        var $splashscreenEl = $( "#splashscreen" ).hide();
-        if( window.localStorage.getItem( "petal:object_user_info" ) === null ) {
-            //未登录
-            if( window.location.hash !== "" ) {
-                //weixin
-                wx_login();
-            } else {
-                var $loginEl = $( "#login" ).show();
-                var $usernameEl = $loginEl.find( ".username" );
-                var $passwordEl = $loginEl.find( ".password" );
-
-                $loginEl.find( ".do_login" ).click( 
+            $loginEl.find( ".do_login" ).click( 
                     function() {
                         login( $usernameEl.val() , $passwordEl.val() , function() {
                             window.updateSysNotice( "用户名或密码错误" );
                         });
                     }
-                );
-            }
-        } else {
-            $.ui.launch();
+                    );
         }
-    });
+    } else {
+        $.ui.launch();
+    }
 }
 //}}}
 document.addEventListener( "DOMContentLoaded" , init , false );

@@ -137,7 +137,7 @@ function(
         //{{{
             new UserDetailView({
                 subjectUserId: window.objectUser.get( "UserId" ) , 
-                objectUserPage: true
+                isObjectUserPage: true
             });
         } ,//}}}
 
@@ -238,13 +238,14 @@ function(
 
         //@todo 需要区分列出各种信息
         showMsgs: function() {
+        //{{{
             new MsgsView({
                 q: JSON.stringify({
                     "user_id": window.objectUser.get( "UserId" )
                 }) ,
                 hash: "#msgs"
             });
-        }
+        }//}}}
     });
 
     return Router;

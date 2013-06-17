@@ -1,0 +1,22 @@
+{
+  "name": "petal_server",
+  "version": "0.0.1",
+  "private": true,
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+  },
+  "dependencies": {
+    "express": ">3.0.6",
+    "mocha": ">1.7.4",
+    "underscore": ">1.4.3",
+    "async": "",
+    "grunt-beautify": "",
+    "needle": "" ,
+    "socket.io": "" ,
+    "redis": ""
+  },
+  "repository": "",
+  "author": "",
+  "license": ""
+}

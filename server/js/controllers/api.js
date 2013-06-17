@@ -1,35 +1,9 @@
-// petal 服务器端 担负着和 www.huaban123.com 通信的职责
+var helper = require( "../lib/helper" );
 
-//requires 
-//{{{
-var express = require( "express" )
-    , app = express()
-    , crypto = require( "crypto" )
-    , server = require( "http" ).createServer( app )
-    , io = require( "socket.io" ).listen( server )
-    , redis = require( "redis" )
-    , fs = require( "fs" )
-    , needle = require( "needle");
-//}}}
-
-var redisClientSub = redis.createClient( "6379" , "172.17.0.46" )
-    , redisClient = redis.createClient( "6379" , "172.17.0.46" )
-    , req2hb123 = require( "./helper.js" ).req2hb123
-    , addExtraUserProp = require( "./helper.js" ).addExtraUserProp;
-
-server.listen( 8800 );
-
-//middlewares
-//{{{
-app.use( express.bodyParser() );
-//}}}
-
-//workers
-//{{{
-
-//}}}
-
-app.get( "/api/get_username_by_wx_id" , function( req , res ) {
+//user
+//为了实现weixin注册之后的自动登录 需要根据用户提供的 weixin_id 
+//从 r2d2 的 redis 中获取相应用户的 username (密码是默认的 huaban123)
+exports.getUsernameByWxId = function( req , res ) {
 //{{{
     var wx_id = req.param( "wx_id" , "" );
     if( wx_id !== "" ) {
@@ -51,9 +25,9 @@ app.get( "/api/get_username_by_wx_id" , function( req , res ) {
     } else {
         res.json( ["fail"] );
     }
-});//}}}
+};//}}}
 
-app.post( "/api/do_login" , function( req , res ) {
+exports.doLogin = function( req , res ) {
 //{{{
     var username = req.param( "username" , null );
     var password = req.param( "password" , null );
@@ -64,7 +38,7 @@ app.post( "/api/do_login" , function( req , res ) {
     var error = function() {
         res.json( ["fail"] );
     }
-    req2hb123( 
+    helper.req2hb123( 
         "post" ,
          "about=user&action=login&username=" 
             + username + "&password="
@@ -73,10 +47,10 @@ app.post( "/api/do_login" , function( req , res ) {
         ok ,
         error
     );
-});//}}}
+};//}}}
 
 //获取多用户信息
-app.get( "/api/users/" , function( req , res ) {
+exports.getUserList = function( req , res ) {
 //{{{
     var page = req.param( "p" , 1 );
     var q = req.param( "q" , "{}" );
@@ -117,7 +91,7 @@ app.get( "/api/users/" , function( req , res ) {
                 }
                 delete userInfo.BUid;
             }
-            userList[i] = addExtraUserProp( userList[i] );
+            userList[i] = helper.addExtraUserProp( userList[i] );
 
             if( what === "search" ) {
                 userList[i].needsFunc = true;
@@ -126,11 +100,11 @@ app.get( "/api/users/" , function( req , res ) {
         res.json( userList );
     };
 
-    req2hb123( "get" , what2url[what] , ok );
-});
+    helper.req2hb123( "get" , what2url[what] , ok );
+};
 //}}}
 
-app.post( "/api/upload_files" , function( req , res ) {
+exports.uploadFiles = function( req , res ) {
 //{{{
     var userId = req.param( "user_id" , "" );
     var uploadFile = req.files.user_upload_picture;
@@ -149,26 +123,12 @@ app.post( "/api/upload_files" , function( req , res ) {
                     content_type: uploadFile.type 
                 }
             }
-
-            needle.post( 
-                "http://172.17.0.20:1979/Mobile/Api.aspx?about=picture&action=upload" , 
-                data ,
-                {
-                    multipart: true 
-                }, 
-                function( error , resp , body ) {
-                    if( JSON.parse( body ).code === "200" ) {
-                        res.json( ["ok"] );
-                    } else {
-                        res.json( ["fail"] );
-                    }
-                }
-            );
+        
         }
     );
-});//}}}
+};//}}}
 
-app.post( "/api/user/" , function( req , res ) {
+exports.updateUser = function( req , res ) {
 //{{{
     var userId = req.param( "user_id" , "" );
     var area_id = req.param( "area_id" , "" );
@@ -180,7 +140,7 @@ app.post( "/api/user/" , function( req , res ) {
     var ok = function( dataObj ) {
         res.json( ["ok"] );
     }
-    req2hb123(
+    helper.req2hb123(
         "post" , 
         "about=user&action=update_info&user_id=" + userId + 
         "&birthday=" + birthday + 
@@ -191,10 +151,10 @@ app.post( "/api/user/" , function( req , res ) {
         ok
     );
 
-});//}}}
+};//}}}
 
 //获取单条用户信息
-app.get( "/api/user/" , function( req , res ) {
+exports.getUser = function( req , res ) {
 //{{{
     var userId = req.param( "user_id" , null );
 
@@ -202,35 +162,35 @@ app.get( "/api/user/" , function( req , res ) {
         //发送来的 json 是一个数组 现在需要合并之 (到 userInfo 中)
         var userInfo = JSON.parse( dataObj.user_info );
 
-        userInfo = addExtraUserProp( userInfo );
+        userInfo = helper.addExtraUserProp( userInfo );
         userInfo.wantedGiftList = JSON.parse(dataObj.wanted_gift_list);
         userInfo.pictureList = JSON.parse(dataObj.picture_list);
         userInfo.receivedGiftList = JSON.parse(dataObj.received_gift_list);
 
         res.json( userInfo );
     };
-    req2hb123( "get" , "about=user&action=get_info&user_id=" + userId , ok );
-});//}}}
+    helper.req2hb123( "get" , "about=user&action=get_info&user_id=" + userId , ok );
+};//}}}
 
 //@todo should be put, but I hava not enought time .... so sad I am.
-app.post( "/api/tweet_it/" , function( req , res ) {
-    //{{{
+exports.tweetIt = function( req , res ) {
+//{{{
     var userId = req.param( "user_id" );
     var tweetContent = req.param( "content" );
 
     var ok = function( dataObj ) {
         res.json( ["ok"] );
     }
-    req2hb123( 
+    helper.req2hb123( 
         "post" , 
         "about=user&action=update_to_say&content=" + tweetContent + 
         "&user_id=" + userId ,
 
         ok
-        );
-});//}}}
+    );
+};//}}}
 
-app.get( "/api/should_display_contact_info/" , function( req , res ) {
+exports.shouldDisplayContactInfo = function( req , res ) {
     //{{{
     var type = req.param( "type" );
     var objUserId = req.param( "object_user_id" );
@@ -240,7 +200,7 @@ app.get( "/api/should_display_contact_info/" , function( req , res ) {
         console.dir( dataObj )
     res.json( dataObj );
     };
-    req2hb123( 
+    helper.req2hb123( 
         "get" , 
         "about=user&action=should_display_contact_info&type=" + type + 
         "&object_user_id=" + objUserId + 
@@ -248,10 +208,11 @@ app.get( "/api/should_display_contact_info/" , function( req , res ) {
 
         ok
         );
-});//}}}
+};//}}}
 
+//gift
 //获取礼物列表
-app.get( "/api/gifts/" , function( req , res ) {
+exports.getGiftList = function( req , res ) {
     //{{{
     var page = req.param( "p" , 1 );
     var q = req.param( "q" , "{}" );
@@ -270,12 +231,12 @@ app.get( "/api/gifts/" , function( req , res ) {
     sended: "about=gift&action=sended_list&p=" + page + "&user_id=" + object_user_id ,
     received: "about=gift&action=received_list&p=" + page + "&user_id=" + object_user_id 
     };
-    req2hb123( "get" , what2url[what] , ok );
-});
+    helper.req2hb123( "get" , what2url[what] , ok );
+};
 //}}}
 
 //送礼物给指定的用户
-app.post( "/api/send_gift/" , function( req , res ) {
+exports.sendGift = function( req , res ) {
 //{{{
     var giftId = req.param( "gift_id" );
     var targetUserId = req.param( "target_user_id" );
@@ -284,7 +245,7 @@ app.post( "/api/send_gift/" , function( req , res ) {
     var ok = function( dataObj ) {
         res.json( [ "ok" ] );
     };
-    req2hb123( 
+    helper.req2hb123( 
         "get" , 
         "about=gift&action=send&gift_id=" + giftId + 
         "&target_user_id=" + targetUserId + 
@@ -292,10 +253,11 @@ app.post( "/api/send_gift/" , function( req , res ) {
 
         ok 
     );
-});//}}}
+};//}}}
 
+//payment 
 //交易记录
-app.get( "/api/payment_recoreds/" , function( req , res ) {
+exports.getPaymentRecordList = function( req , res ) {
 //{{{
     var page = req.param( "p" , 1 );
     var q = req.param( "q" , "{}" );
@@ -306,15 +268,16 @@ app.get( "/api/payment_recoreds/" , function( req , res ) {
     var ok = function( dataObj ) {
         res.json( JSON.parse( dataObj.record_list ) );
     }
-    req2hb123( 
+    helper.req2hb123( 
         "get" , 
         "about=user&action=payment_record&p=" + page + "&user_id=" + object_user_id ,
 
         ok 
     );
-});//}}}
+};//}}}
 
-app.get( "/api/msgs/" , function( req , res ) {
+//msg
+exports.getMsgList = function( req , res ) {
 //{{{
     var page = req.param( "p" , 1 );
     var q = req.param( "q" , "{}" );
@@ -326,16 +289,15 @@ app.get( "/api/msgs/" , function( req , res ) {
         res.json( JSON.parse( dataObj.msg_list ) );
     }
 
-    req2hb123( 
+    helper.req2hb123( 
         "get" , 
         "about=msg&action=get_list&user_id=" + userId + "&p=" + page , 
 
         ok 
     );
-});//}}}
+};//}}}
 
-//对应于以前的站点 就是获取 msg 的详细信息
-app.get( "/api/chat_items" , function( req , res ) {
+exports.getMsgListByGroup = function( req , res ) {
 //{{{
     var rootMsgId = req.param( "root_msg_id" , 0 );
     var userId = req.param( "user_id" , "" );
@@ -344,16 +306,16 @@ app.get( "/api/chat_items" , function( req , res ) {
         res.json( JSON.parse( dataObj.msg_list ).reverse() );
     }
 
-    req2hb123(
+    helper.req2hb123(
         "get" ,
         "about=msg&action=get_list_by_group&root_msg_id=" + rootMsgId +
             "&user_id=" + userId ,
 
         ok
     )
-});//}}}
+};//}}}
 
-app.post( "/api/send_msg" , function( req , res ) {
+exports.sendMsg = function( req , res ) {
 //{{{
     var msg = {};
     msg.rootMsgId = req.param( "root_msg_id" , 0 );
@@ -367,7 +329,7 @@ app.post( "/api/send_msg" , function( req , res ) {
         res.json( [ "ok" ] );
     };
 
-    req2hb123( 
+    helper.req2hb123( 
         "post" ,
         "about=msg&action=send&title=&content=" + msg.content +
             "&root_msg_id=" + msg.rootMsgId +
@@ -376,9 +338,9 @@ app.post( "/api/send_msg" , function( req , res ) {
 
         ok
     );
-});//}}}
+};//}}}
 
-app.post( "/api/set_back_account" , function( req , res ) {
+exports.setBankAccount = function( req , res ) {
 //{{{
     var userId = req.param( "user_id" , "" );
     var bank_name = req.param( "bank_name" , "" );
@@ -389,7 +351,7 @@ app.post( "/api/set_back_account" , function( req , res ) {
         res.json( [ "ok" ] );
     };
 
-    req2hb123( 
+    helper.req2hb123( 
         "post" ,
         "about=user&action=update_bank_account_info&user_id=" + userId +
             "&bank_name=" + bank_name + 
@@ -398,9 +360,9 @@ app.post( "/api/set_back_account" , function( req , res ) {
 
         ok
     );
-});//}}}
+};//}}}
 
-app.post( "/api/withdraw_cash" , function( req , res ){
+exports.withdrawCash = function( req , res ){
 //{{{
     var userId = req.param( "user_id" , "" );
     var amount = req.param( "amount" , 0 );
@@ -409,32 +371,12 @@ app.post( "/api/withdraw_cash" , function( req , res ){
         res.json( [ "ok" ] );
     }
 
-    req2hb123( 
+    helper.req2hb123( 
         "post" ,
         "about=user&action=withdraw_cash&user_id=" + userId +
             "&amount=" + amount ,
 
         ok
     );
-});//}}}
+};//}}}
 
-io.sockets.on('connection', function( socket ) {
-    socket.on( "update_brower_status" , function( data ) {
-        req2hb123( 
-            "post" ,
-            "about=user&action=update_brower_status&object_user_id=" + data.object_user_id + 
-                "&subject_user_id=" + data.subject_user_id
-        );
-    });
-
-    redisClientSub.on( "subscribe" , function( channel , count ) {
-        console.log( "subscribe ok" );
-    });
-    redisClientSub.on( "message" , function( channel , message ) {
-        //收到新的消息 路由到相应的 用户
-        var msgObj = JSON.parse( message );
-        //console.log( "emit msg:" + msgObj.AcceptUserId );
-        socket.emit( "msg:" + msgObj.AcceptUserId , msgObj );
-    });
-    redisClientSub.subscribe( "new_msg" );
-});

@@ -18,6 +18,18 @@ function(
             try {
                 window.objectUser = new User( JSON.parse( window.localStorage.getItem( "petal:object_user_info" ) ) );
 
+                //初始化 socketio
+                window.socketServer = "http://172.17.0.47:8800";
+                window.socket = io.connect( window.socketServer );
+
+                socket.on( "error" , function() {
+                    console.log( "socket connect fail" );
+                });
+
+                socket.on( "disconnect" , function() {
+                    console.log( "socket disconnected" );
+                });
+
                 window.socket.on( "msg:" + window.objectUser.get( "UserId" ) , function( data ) {
                     var newMsgCount = (function( lastCount ) {
                         if( isNaN( lastCount ) ) {
@@ -29,6 +41,8 @@ function(
 
                     $.ui.updateBadge( "#menu .msgs" , newMsgCount );
                     $( "#chat_list" ).trigger( "receive_new_msg" , data );
+                    //返回一个hash key MsgId:AcceptUserId
+                    window.socket.emit( "check_msg_ok" , {key: data.MsgId + ":" + data.AcceptUserId} );
                 });
 
             } catch ( e ) {

@@ -1,16 +1,17 @@
-var request = require( "superagent" );
+var request = require( "superagent" )
+    , thirdPartServer = require( "../config/third_part_server" )
+    , needle = require( "needle" );
 
 var req2hb123 = function( method , param , ok , error ) {
+    //console.log( "request url:" + thirdPartServer.hb123Server + param );
     //@todo 多余的问号也会导致错误
-    var HB123_SERVER = "http://172.17.0.20:1979/Mobile/Api.aspx?";
     request[method](
-        HB123_SERVER + param ,
+        thirdPartServer.hb123Server + param ,
         function( data ) {
-            console.log( "request url:" + HB123_SERVER + param );
             try {
                 //判断是否为非法的 json 串
                 var dataObj = JSON.parse( data.text );
-                console.dir( data.text )
+                //console.dir( data.text )
                 if( dataObj.code === "200" ) {
                     ok( dataObj );
                 } else {
@@ -25,6 +26,24 @@ var req2hb123 = function( method , param , ok , error ) {
         }
     );
 }
+
+//upload file
+var uploadFile2hb123 = function( data ) {
+    needle.post(
+            thirdPartServer.hb123Server + "about=picture&action=upload" ,
+            data ,
+            {
+                multipart: true
+            },
+            function( error , resp , body ) {
+                if( JSON.parse( body ).code === "200" ) {
+                    res.json( ["ok"] );
+                } else {
+                    res.json( ["fail"] );
+                }
+            }
+    );
+};
 
 var addExtraUserProp = function( userInfo ) {
     var birthday = new Date( userInfo.CSRQ );
@@ -44,5 +63,6 @@ var addExtraUserProp = function( userInfo ) {
 }
 
 exports.req2hb123 = req2hb123;
+exports.uploadFile2hb123 = uploadFile2hb123;
 exports.addExtraUserProp = addExtraUserProp;
 

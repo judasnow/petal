@@ -8,6 +8,7 @@
     {{NickName}} , {{UserSex}} , {{Age}} 岁 , {{location}}
 </div>
 
+{{^isObjectUserPage}}
 <div class="func item">
     <p>
         <span class="btn get_contaces_info">联系方式</span>
@@ -15,6 +16,7 @@
         <span class="btn send_msg">发信息</span>
     </p>
 </div>
+{{/isObjectUserPage}}
 
 <div class="item twitte_box">
     <b class="title">最新说说</b>
@@ -66,6 +68,7 @@
     <p>{{XQ}}</p>
 </div>
 
+{{^isObjectUserPage}}
 <div class="item gift_list wanted_gift_list">
     <b class="title">期望收到的礼物</b>
     <ul>
@@ -79,6 +82,7 @@
     {{/wantedGiftList}}
     </ul>
 </div>
+{{/isObjectUserPage}}
 
 <div class="item gift_list received_gift_list">
     <b class="title">最近收到的礼物</b>
