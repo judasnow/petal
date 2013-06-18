@@ -7,16 +7,16 @@
   "scripts": {
   },
   "dependencies": {
-    "express": ">3.0.6",
-    "mocha": ">1.7.4",
-    "underscore": ">1.4.3",
+    "express": "",
+    "mocha": "",
+    "underscore": "",
     "async": "",
     "grunt-beautify": "",
     "needle": "" ,
     "socket.io": "" ,
     "redis": ""
   },
-  "repository": "",
-  "author": "",
-  "license": ""
+  "repository": "git@gitcafe.com:judasnow/petal_mk2.git",
+  "author": "judasnow@gmail.com",
+  "license": "MIT"
 }
