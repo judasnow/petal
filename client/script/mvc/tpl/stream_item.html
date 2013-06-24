@@ -1,10 +1,13 @@
 <div class="gravatar_box">
-    <img src="http://www.huaban123.com/UploadFiles/UHP/MIN/{{HeadPic}}" alt="gravatar" class="gravatar" />
+    {{#isVip}}
+    <img class="vip" />
+    {{/isVip}}
+    <img origin_src="http://www.huaban123.com/UploadFiles/UHP/MIN/{{HeadPic}}" alt="{{sex_in_english}}" class="gravatar" />
 </div>
 
 <div class="info">
     <span class="sub_item nickname color_by_sex {{#isFemale}}famale{{/isFemale}}">{{NickName}}</span>
-    <span class="sub_item">{{age}} 岁</span>
+    <span class="sub_item">{{#age}}{{age}}岁{{/age}} {{Sex}}</span>
     <span class="sub_item detail">{{location}}</span>
     <span class="sub_item tosay">
         <b>最近说说: </b>
@@ -20,13 +23,13 @@
         <span class="sub_item">Email: {{EMail}}</span>
     {{/IsXX}}
     {{#IsXS}}
-        <span class="sub_item">电话: {{Phone}}</span>
+        <!--span class="sub_item">电话: {{Phone}}</span-->
     {{/IsXS}}
 </div>
 
 {{#needsFunc}}
 <div class="func">
-    <span class="btn display_contact_info_online">联系方式</span>
+    <span class="btn display_contact_info">联系方式</span>
     <span class="btn send_msg">发信息</span>
     <span class="btn send_gift">送礼物</span>
 </div>

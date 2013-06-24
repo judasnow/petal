@@ -27,9 +27,8 @@ function(
             this.ItemView = ItemView;
             _.bindAll( this , "addOne" , "addAll" , "fetchOk" , "fetchFail" );
 
-            $.ui.tryAddContentDiv( streamId , tpl );
+            this.$el = $.ui.tryAddContentDiv( streamId , tpl );
             $.ui.loadContent( hash , true , false , "fade" );
-            this.$el = $( "#" + streamId );
 
             //每一个 streamTpl 都必须包含一个 .items 元素 
             this.$itemsEl = this.$el.find( ".items" );
@@ -51,17 +50,18 @@ function(
                 this.setRefreshContent( "松吧" );
             });
             var hideClose;
-            $.bind( scroll , "refresh-release" , function(){
+            $.bind( scroll , "refresh-release" , function() {
                 var that = this;
                 //目前只刷新第一页
                 //streamView.fetchMore();
                 this.setRefreshContent( "刷新中..." );
                 clearTimeout( hideClose );
-                hideClose=setTimeout( function(){
+                hideClose=setTimeout( function() {
                     that.hideRefresh();
                 } , 2000 );
-                return false; 
+                return false;
             });
+
             //获取更多
             $.bind( scroll , "infinite-scroll" , function() {
                 var self = this;
@@ -73,7 +73,7 @@ function(
                     setTimeout( function() {
                         $( self.el ).find( ".infinite" ).remove();
                         self.clearInfinite();
-                    } , 2000 );
+                    } , 1000 );
                 });
             });
         },//}}}
@@ -87,7 +87,7 @@ function(
             this.$itemsEl.append( itemView.render().el );
         },
 
-        fetchOk: function( coll , res ){
+        fetchOk: function( coll , res ) {
         //{{{
             //@todo 这里需要进行正确性的判断hash
             //返回值不一定有效
@@ -100,14 +100,14 @@ function(
 
         fetchFail: function( coll , res ) {
         //{{{
-        
+
         },//}}}
 
         //刷新当前的列表
         //目前想得到的实现办法就是 从当前列表中 取最新的记录 
         //和数据库中的记录进行比对 但是对于差异很大的数据 现在
-        //还没有一个比较好的方案 
-        //but 由于数据库中的信息是存在一个顺序的 
+        //还没有一个比较好的方案
+        //but 由于数据库中的信息是存在一个顺序的
         refresh: function() {
             
         },
@@ -133,5 +133,4 @@ function(
 
     return StreamBase;
 });
-
 

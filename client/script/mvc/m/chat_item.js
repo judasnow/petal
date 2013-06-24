@@ -21,6 +21,10 @@ function(
                     "object" 
             );
 
+            if( typeof this.get( "sex_in_english" ) === "undefined" ) {
+                this.set( "sex_in_english" , this.get( "SrcSex" ) === "男" ? "male" : "female" );
+            }
+
             this.set( 
                 "time" , 
                 createAt.getFullYear() + "-" + 

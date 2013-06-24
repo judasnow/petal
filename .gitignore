@@ -1,2 +1,3 @@
 *.swp
-/server/uploads/
+/server/uploads
+/node_modules

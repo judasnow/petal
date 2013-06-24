@@ -39,7 +39,7 @@ function(
                 this , 
                 "sendMsg" , "addOne" , "addAll" , "render" );
 
-            $.ui.tryAddContentDiv( "chat_list" , this.template );
+            $.ui.tryAddContentDiv( "chat_list" , this.template , true );
             $.ui.loadContent( "#chat_list" , false , false , "fade" );
 
             this.$el = $( "#chat_list" );
@@ -55,7 +55,7 @@ function(
             this.chatItems.bind( "add" , this.addOne );
             this.chatItems.bind( "reset" , this.addAll );
 
-            this.$el.on( "receive_new_msg" , $.proxy(function( event ) {
+            this.$el.on( "new_msg" , $.proxy(function( event ) {
                 this.addOne( new ChatItem( event.data ) );
             },this));
 
@@ -99,11 +99,12 @@ function(
                     //send ok
                     $.proxy(function( data ) {
                         if( JSON.parse( data )[0] === "ok" ) {
-                            window.updateSysNotice( "金币 -1" );
+                            window.updateSysNotice( "金币 -" + window.costOfSendMsg );
                             this.addOne(
                                 new ChatItem({
                                     SrcUserId: window.objectUser.get( "UserId" ) ,
                                     SrcHeadPic: window.objectUser.get( "HeadPic" ) ,
+                                    sex_in_english: window.objectUser.get( "sex_in_english" ) ,
                                     Content: msg
                                 })
                             );

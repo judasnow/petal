@@ -3,14 +3,18 @@ define([
     "backbone" ,
     "mustache" ,
 
-    "text!tpl/msg.html"
+    "text!tpl/msg.html" ,
+
+    "lib/helper"
 ],
-function( 
+function(
     _ ,
     Backbone ,
     Mustache ,
 
-    msgTpl 
+    msgTpl ,
+
+    helper
 ){
     "use strict";
 
@@ -27,8 +31,12 @@ function(
 
         seeDetail: function() {
             //回复对象
+            var rootMsgId = this.model.get( "MBId" );
+            if( rootMsgId === 0 ) {
+                rootMsgId = this.model.get( "MsgId" );
+            }
             window.localStorage.setItem( "petal:send_msg_target_user_id" , this.model.get( "SrcUserId" ) );
-            window.localStorage.setItem( "petal:root_msg_id" , this.model.get( "MBId" ) );
+            window.localStorage.setItem( "petal:root_msg_id" , rootMsgId );
             window.router.navigate( "/#chat_list", {trigger: true} );
         },
 
@@ -39,6 +47,7 @@ function(
                     this.model.toJSON()
                 ) 
             );
+            helper.showImage( this.$el.find( "img" ) );
             return this;
         }
     });

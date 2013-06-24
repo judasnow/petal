@@ -1,0 +1,17 @@
+{
+  "name": "petal_client",
+  "version": "0.0.1",
+  "description": "",
+  "main": "Gruntfile.js",
+  "devDependencies": {
+    "less": "",
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "",
+    "grunt-contrib-uglify": "",
+    "grunt-jslint": "" ,
+	"q": ""
+  },
+  "repository": "",
+  "author": "",
+  "license": "mit"
+}

@@ -2,7 +2,7 @@
 <div class="user_album">
     {{#pictureList}}
     <div class="user_picture_box">
-        <img id="user_picture_{{Title}}" class="user_picture" src="http://172.17.0.20:1979/UploadFiles/UPP/MIN/{{PicName}}" alt="user picture" />
+        <img id="user_picture_{{Title}}" class="user_picture" src="http://172.17.0.20:1979/UploadFiles/UPP/MIN/{{PicName}}" alt="{{}}" />
     </div>
     {{/pictureList}}
     <div class="add_picture">
@@ -29,10 +29,9 @@
     </p>
 </div>
 
-<div class="item">
+<div class="item looks">
     <b class="title">我的外貌</b>
     {{> looks_select}}
-    <p>{{WM}}</p>
 </div>
 
 <header>

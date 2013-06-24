@@ -393,11 +393,11 @@ function(
         looks_male: { looks_items: [
         //{{{
             { value:"英俊", des:"英俊" }, 
-            { value:"帅气", des:"帅气"}, 
+            //{ value:"帅气", des:"帅气"}, 
             { value:"健壮", des:"健壮"},
            // { "消瘦": "消瘦"},
            // { "肥胖": "肥胖"},
-           // { "高大": "高大"},
+            { value: "高大", des: "高大"},
            // { "儒雅": "儒雅"},
            // { "威严": "威严"},
            // { "亲切": "亲切"},
@@ -407,28 +407,34 @@ function(
            // { "普通": "普通"},
            // { "阳光": "阳光"},
            // { "精明": "精明"},
-           // { "瘦高": "瘦高"},
+            { value: "瘦高", des: "瘦高"},
            // { "威严": "威严"},
            // { "亲切": "亲切"},
            // { "肤白": "肤白"},
            // { "刚毅": "刚毅"},
-           // { "儒雅": "儒雅"},
-           // { "气质": "气质"},
+            { value: "儒雅气质", des: "儒雅气质"},
            // {"小白脸":"小白脸"},
-           // {"有风度": "有风度"},
+            { value: "有风度", des: "有风度"},
            // {"高大威猛": "高大威猛"},
            // {"血性汉子":"血性汉子"},
            // {"绅士气质":"绅士气质"},
            // {"精力旺盛":"精力旺盛"},
            // {"玉树临风":"玉树临风"},
-            {value:"猛肌肉发达",des:"猛肌肉发达"}
+            { value:"肌肉发达", des:"肌肉发达" }
         ]},//}}}
         looks_famale: { looks_items: [
         //{{{
-            { vlaue: "美丽", des:"美丽"} ,
-            { value: "苗条", des:"苗条"}
+            //{ vlaue: "美丽", des:"美丽"} ,
+            //{ value: "苗条", des:"苗条"} ,
+            { value: "性感", des: "性感" } ,
+            { value: "抚媚", des: "抚媚" } ,
+            { value: "漂亮", des: "漂亮" } ,
+            { value: "时尚", des: "时尚" } ,
+            { value: "青春", des: "青春" } ,
+            { value: "身材高挑", des: "身材高挑" } ,
+            { value: "迷人双眼", des: "迷人双眼" }
         ]},//}}}
-        
+
         //每次都删除全部 option 之后添加合适的新的元素
         provinceChange: function() {
         //{{{
@@ -441,7 +447,7 @@ function(
         } ,//}}}
 
         getAreaIdFromCityName: function( cityName ) {
-            return typeof this.areaListWithId[cityName] !== "undefined" ? this.areaListWithId[cityName] : undefined;
+            return typeof this.areaListWithId[cityName] !== "undefined" ? this.areaListWithId[cityName] : "";
         }
     };
 

@@ -14,6 +14,9 @@ function(
         initialize: function() {
             var createAt = new Date( this.get( "CreateAt" ) );
             this.set( "time" , createAt.getFullYear() + "/" + createAt.getMonth() + "/" + createAt.getDate() );
+
+            this.set( "sex_in_english" , this.get( "SrcSex" ) === "男" ? "male" : "female" );
+
             this.set(
                 "summary" ,
                 (function( content ) {

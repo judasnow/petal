@@ -28,7 +28,7 @@ function(
 ){
     "use strict";
 
-    $.ui.addContentDiv( "search" );
+    $.ui.tryAddContentDiv( "search" , "" );
 
     var Search = Backbone.View.extend({
         template: searchTpl ,

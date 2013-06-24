@@ -17,8 +17,7 @@
         width: 100%;
         padding-top: @item_margin;
         min-height: @image_size + @item_margin;
-        border-bottom: 1px solid #ddd;
-        background: #fff;
+        border-bottom: 1px dashed #dbd3da;
         &:active {
             //background: #e4e5dd;
         }
@@ -34,14 +33,28 @@
         overflow: hidden;
         float: left;
         border-radius: 4px;
-        border: 1px solid #ddd;
+        border: 1px solid #eee;
         width: @image_size;
         height: @image_size;
         margin-right: 4px;
     }
     .gravatar {
-        max-width: @image_size;
-        max-height: @image_size;
+        @addtion_size: 32px;
+        @img_real_size: @image_size + @addtion_size;
+        @margin: -( @addtion_size / 2 );
+        margin-left: @margin;
+        margin-top: @margin;
+        max-width: @img_real_size;
+        max-height: @img_real_size;
+    }
+    .vip {
+        background: url(data:image/gif;base64,R0lGODlhLQAQAOYAAP7+/v39/fz7/Pv6+/v5+vr5+vn4+fv4+vr4+vn3+fn3+Pn2+Pj29/j09/j19/fz9vf09vby9fXx9PTw8/Pv8v//M/Tv8/Pu8vLt8f/8MvHs8PLr8PDr7/Dq7//4MPDo7+3m6v/vK+3e7ubd4+va4uva4e3Y8OTa4ezW7uTZ4OrX3+PY3+LX3+HW3v/cIefQ2ubP2evL8ObN2P/VHtvN1trN1eTJ1OPI0+HG0eHE0Oq98//MGt/CztTEz9PEzua64+a54dG/y//DFdC+yuey8Oey6P+7EeCt3N+r2OCp3OGp3+Ch4d+i3v6pKv2oKv2nKf+pCPynKd+a5uKZ6tCjtd+a4uGX6s6hs9abyuCU6dmZ1M2esf+gBNSWxdSVx/+cAtSUxcuYrN2N5/+ZAMqXq9KRw9CSv8mUqdqH4dKLx9mE3dmE3tKIxtiC3diA3NCDxc2AwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAHAP8ALAAAAAAtABAAAAf/gBojIyuFhoeIiYqLiCAjCQABkpOUlZaXmJQMNSkCAgOgoaKjpKWmoz4sBQUKra6vsLGys7BDLAsLELoQYjAwPDwvPGu7TWPHTcbHy8zMTbu6troS1GpsWEdeXkhdb2jUY1AVUMchIUYhFRUh4h7mFVxj1PO2EREX+FJARVpwaUpFfmTBF25cuRDHKuwoSG6MuTH4ItqiQIGDRQ5TSOA4Q6VECSsXGR5MuFBcw4cXLU6k0KFlBxRLbpAhY6OKCJdjuGQQcszDDJIF3T2M4rKlrQkTNChVGiPJli1MTCzV8CRchh0hXCxTKPLYk6lK60WgSJYCETNmdJSl6CRnBa1jU9CpY2dwbVlpEObpdeNGr962x5wAbjbGiV+9tnA9WMy4sePHkCM7toUAAa7LmDNr3sxZs60HBA6IHk26tOnTqElvGAKCRo8gsGPLnk27tu3ZLQIBADs=) no-repeat left;
+        position: absolute;
+        height: 18px;
+        width: 46px;
+        margin-left: 17px;
+        margin-top: 44px;
+        opacity: 0.8;
     }
     //信息部分
     .info {

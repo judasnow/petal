@@ -10,7 +10,7 @@ define([
 
     "v/menu" ,
 
-    "text!tpl/msgs.html"
+    "text!tpl/msgs.html" 
 ],
 function( 
     _ ,
@@ -25,7 +25,7 @@ function(
     MenuView ,
 
     msgsTpl 
-){
+) {
     "use strict";
 
     var MsgsView = StreamBase.extend({

@@ -86,12 +86,7 @@ textarea {
   right: 0px;
   height: 48px;
   z-index: 250;
-  background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#ffffff),color-stop(50%,#E2EDF3),color-stop(50%,#d0e2ec),color-stop(100%,#accbdd));
-  background-image: -webkit-linear-gradient(top,color-stop(0%,#ffffff),color-stop(50%,#E2EDF3),color-stop(50%,#d0e2ec),color-stop(100%,#accbdd));
-  background-image: linear-gradient(to bottom,color-stop(0%,#ffffff),color-stop(50%,#E2EDF3),color-stop(50%,#d0e2ec),color-stop(100%,#accbdd));
-  border-bottom: 1px solid #9ac0d5;
-  -webkit-box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
-  box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
+  background: #b77aae;
 }
 #jQUi #header > * {
   position: relative;
@@ -106,7 +101,10 @@ textarea {
   text-align: center !important;
   z-index: 1;
   white-space: nowrap;
-  text-shadow: 0 1px rgba(255,255,255,0.5);
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow: none;
 }
 #jQUi #content {
   position: absolute;
@@ -130,7 +128,7 @@ textarea {
   -webkit-overflow-scrolling: touch;
   -ms-touch-action: auto !important;
   -ms-overflow-style: -ms-autohiding-scrollbar !important;
-  background: #FFFFFF;
+  background: #f6f0f5;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -146,13 +144,9 @@ textarea {
   z-index: 1000;
   height: 62px;
   padding: 0 1px;
-  background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#ffffff),color-stop(50%,#FFFFFF),color-stop(50%,#f2f2f2),color-stop(100%,#d9d9d9));
-  background-image: -webkit-linear-gradient(top,color-stop(0%,#ffffff),color-stop(50%,#FFFFFF),color-stop(50%,#f2f2f2),color-stop(100%,#d9d9d9));
-  background-image: linear-gradient(to bottom,color-stop(0%,#ffffff),color-stop(50%,#FFFFFF),color-stop(50%,#f2f2f2),color-stop(100%,#d9d9d9));
-  border-top: 1px solid #ffffff;
-  -webkit-box-shadow: 0px -2px 8px rgba(0,0,0,0.4);
-  box-shadow: 0px -2px 8px rgba(0,0,0,0.4);
+  border-top: 1px solid #ccc;
   text-align: center !important;
+  background: #ddd;
 }
 #jQUi #navbar a {
   position: relative;
@@ -303,7 +297,7 @@ textarea {
   -ms-overflow-style: -ms-autohiding-scrollbar !important;
 }
 #jQUi #menu > * {
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
 }
 #jQUi .jqMenuHeader {
@@ -378,26 +372,18 @@ textarea {
   margin: 6px;
   cursor: pointer;
   z-index: 1;
-  -webkit-border-radius: 18px;
-  border-radius: 18px;
-  background-color: #232332;
-  border: 1px solid #232332;
-  border: 1px solid #58587d;
-  font-family: Arial, Helvetica, sans-serif;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  background-color: #3e2f3c;
   font-size: 14px;
   color: #ffffff;
-  text-shadow: 0 -1px 0 rgba(0,0,0,0.5);
-  font-weight: normal;
   line-height: 34px;
   text-decoration: none;
   text-align: center;
   text-overflow: ellipsis;
 }
 #jQUi .button.selected {
-  border: 1px solid #7d7da4;
-  background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#58587d),color-stop(90%,#232332));
-  background-image: -webkit-linear-gradient(top,color-stop(0%,#58587d),color-stop(90%,#232332 90%));
-  background-image: linear-gradient(to bottom,color-stop(0%,#58587d),color-stop(90%,#232332));
+  //border: 1px solid #7d7da4;
 }
 #jQUi #backButton {
   display: block;
@@ -417,13 +403,12 @@ textarea {
   width: 48px;
   height: 100%;
   padding: 12px 12px;
-  border-left: 1px solid #88b5ce;
-  box-shadow: 1px 0 0 #ffffff inset;
+  border-left: 1px solid #a7639e;
   background-color: transparent;
   display: inline-block;
 }
 #jQUi .menuButton:active {
-  background-color: rgba(172,203,221,0.7);
+  background-color: #ae73a5;
 }
 #jQUi .menuButton:before {
   content: '';
@@ -431,8 +416,8 @@ textarea {
   width: 50%;
   height: 4px;
   border-radius: 20px;
-  background: #232332;
-  box-shadow: 0 9px 0 #232332;
+  background: #fff;
+  box-shadow: 0 9px 0 #fff;
 }
 #jQUi .menuButton:after {
   content: '';
@@ -441,7 +426,7 @@ textarea {
   width: 50%;
   height: 4px;
   border-radius: 20px;
-  background: #232332;
+  background: #fff;
 }
 #jQUi .modalbutton {
   position: absolute;

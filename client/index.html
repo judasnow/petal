@@ -4,8 +4,12 @@
         <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
         <META HTTP-EQUIV="Expires" CONTENT="-1">
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,minimum-scale=1,user-scalable=no">
         <meta name="apple-mobile-web-app-capable" content="yes" >
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta http-equiv="cleartype" content="on">
+        <meta name="description" content="">
 
         <link rel="stylesheet" type="text/css" href="/script/lib/jqmobi/kitchensink/icons.css" />
         <link rel="stylesheet" type="text/css" href="/script/lib/jqmobi/kitchensink/jq.ui_3.css" />
@@ -16,7 +20,11 @@
         <script src="/script/lib/jqmobi/jq.mobi.js"></script>
         <script src="/script/lib/jqmobi/ui/jq.ui.js"></script>
         <script src="/script/lib/jqmobi/plugins/jq.scroller.js"></script>
-        
+
+        <script type="text/javascript" src="/script/lib/jqm-mobile-bookmark-bubble/bookmark_bubble.js"></script>
+        <script type="text/javascript" src="/script/lib/jqm-mobile-bookmark-bubble/bookmark_bubble_msg_ja.js"></script>
+        <script type="text/javascript" src="/script/lib/jqm-mobile-bookmark-bubble/example/example.js"></script>
+
         <script src="/script/init.js"></script>
     </head>
 
@@ -51,16 +59,11 @@
     </body>
 
     <!--tpls 不可以放到 tpl 文件中 会被提前渲染-->
-    <script type="text/template" id="online_contact_info_tpl">
+    <script type="text/template" id="contact_info_tpl">
         <p class="contact_info">
-        <span class="item"><b>QQ:</b> {{QQ}}</span>
-        <span class="item"><b>微信:</b> {{MSN}}</span>
-        <span class="item"<b>邮箱:</b> {{EMail}}</span>
-        </p>
-    </script>
-    <script type="text/template" id="offline_contact_info_tpl">
-        <p class="contact_info">
-        <span class="item"><b>电话:</b> {{Phone}}</span>
+            <span class="item"><b>QQ:</b> {{QQ}}</span>
+            <span class="item"><b>微信:</b> {{MSN}}</span>
+            <span class="item"<b>邮箱:</b> {{EMail}}</span>
         </p>
     </script>
     <script type="text/template" id="user_picture_box_tpl">

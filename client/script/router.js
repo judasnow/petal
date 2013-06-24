@@ -17,9 +17,8 @@ define([
     "v/buy_vip" ,
     "v/payment_record" ,
     "v/coupons" ,
-    //"v/visitors" ,
     "v/had_bought_contact_info" ,
-    "v/contaces" ,
+    "v/visitors" ,
     "v/msgs"
 ] ,
 function(
@@ -39,9 +38,8 @@ function(
     BuyVipView ,
     PaymentRecordView ,
     CouponsView ,
-    //VisitorsView ,
     HadBoughtContactInfoView ,
-    ContacesView ,
+    VisitorsView ,
     MsgsView
 ) {
     "use strict";
@@ -57,21 +55,18 @@ function(
 
             "search": "showSearch" ,
 
-            "gift_list/:giftClass": "showSelfGifts" ,
+            "gift_list/:giftClass": "showGiftList" ,
             "gift_list": "showGiftList" ,
 
-            //self = ObjectUser
-            "user_detail/self": "showObjectUserDetail" ,
             "user_detail/:userId": "showUserDetail" ,
             "update_self_profile": "showUpdateSelfProfile" ,
 
             "tweet/self": "showSelfTweet" ,
 
-            "gifts/self/:what": "showSelfGifts" ,
+            "gifts/self/received": "showSelfReceivedGifts" ,
 
-            //"stream/visitors/self": "showSelfVisitors" ,
             "stream/had_bought_contact_info/self": "showSelfHadBoughtContactInfo",
-            "stream/contacts/self/:_case": "showSelfContacts" ,
+            "stream/visitors/self/": "showSelfVisitors" ,
 
             "message/self": "showSelfMessage" ,
             "payment_record/self": "showSelfPaymentRecord" ,
@@ -132,15 +127,6 @@ function(
             });
         },//}}}
 
-        //当前登录用户的主页
-        showObjectUserDetail: function() {
-        //{{{
-            new UserDetailView({
-                subjectUserId: window.objectUser.get( "UserId" ) , 
-                isObjectUserPage: true
-            });
-        } ,//}}}
-
         //当前登录用户修改资料页面
         showUpdateSelfProfile: function() {
         //{{{
@@ -152,18 +138,17 @@ function(
             new TweetView();
         },//}}}
 
-        //个人礼物中心
-        showSelfGifts: function( what ) {
+        showSelfReceivedGifts: function() {
         //{{{
             new GiftsView(
                 {
                     q: JSON.stringify(
                            {
-                                "what": what ,
+                                "what": "received" ,
                                 "object_user_id": window.objectUser.get( "UserId" )
                            }
                         ) ,
-                    hash: ( "#gifts/self" + (typeof what !== "undefined" ? "/" + what : "" ) )
+                    hash: ( "#gifts/self/received" )
                 }
             );
         },//}}}
@@ -209,6 +194,7 @@ function(
             new CouponsView();
         },//}}}
 
+        //本人已经购买了联系方式的用户列表
         showSelfHadBoughtContactInfo: function() {
         //{{{
             new HadBoughtContactInfoView({
@@ -222,17 +208,17 @@ function(
             });
         } ,//}}}
 
-        showSelfContacts: function( _case ) {
+        //访问过当前用户的用户列表
+        showSelfVisitors: function() {
         //{{{
-            new ContacesView({
+            new VisitorsView({
                 q: JSON.stringify(
                     {
-                        _case: _case ,
-                        what: "contacts" ,
+                        what: "visitors" ,
                         "object_user_id": window.objectUser.get( "UserId" )
                     }
                 ) ,
-                hash: "#stream/contacts/self/" + _case
+                hash: "#stream/visitors/self/"
             });
         } ,//}}}
 

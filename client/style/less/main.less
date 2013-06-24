@@ -18,6 +18,7 @@ body{
     font-size: 13px;
     font-family: 'Helvetica Neue', Arial, 'Liberation Sans', FreeSans, 'Hiragino Sans GB', sans-serif;
     -webkit-font-smoothing: antialiased;
+    background: #ececec;
 }
 
 .blurry_text(@px: 5px, @opacty: 0.5) {
@@ -27,6 +28,16 @@ body{
 
 .none_padding {
     padding: 0;
+}
+
+#jQUi .btn {
+    border-radius: 8px;
+    background: #b6a1b5;
+    display: inline-block;
+    font-size: 90%;
+    padding: 2px 4px;
+    margin-right: 8px;
+    color: #eee;
 }
 
 //inputs 样式
@@ -90,22 +101,35 @@ body{
 #jQUi nav~#menu{
     background: #333;
 }
+#jQUi .jqPopup {
+    .contact_info {
+        .item {
+            display: inline-block;
+            width: 100%;
+            clear: both;
+            margin-bottom: 4px;
+        }
+    }
+}
 
-//需要注意的是 他总是相对于 当前的 panel 元素的
 #system_notice_box {
-    @width: 192px;
-    z-index: 1024;
+    font-size: 110%;
+    font-weight: bolder;
     text-align: center;
-    border-radius: 8px;
-    opacity: 0.8;
-    width: @width;
-    color: #FFF;
-    background: #666;
+    z-index: -9999;
+    border-radius: 4px;
+    opacity: 0.9;
+    color: #eee;
+    background: #1f1f1f;
     position: fixed;
     bottom: 128px;
     left: 50%;
-    margin-left: -( @width/2 );
     padding: 8px 16px;
-    display: none;
 }
-
+//需要注意的是 他总是相对于 当前的 panel 元素的
+@media all and (max-device-width: 480px) {
+    //iphone 
+    #system_notice_box {
+        bottom: 64px;
+    }
+}

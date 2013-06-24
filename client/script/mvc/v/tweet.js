@@ -18,15 +18,15 @@ function(
 ) {
     "use strict";
 
-    $.ui.addContentDiv( "tweet" , "" );
-
     var Tweet = Backbone.View.extend({
         template: tweetTpl ,
-        el: "#tweet" ,
 
         initialize: function() {
             new MenuView();
+
             this.model = window.objectUser;
+
+            this.$el = $.ui.tryAddContentDiv( "tweet" , "" );
             $.ui.updateContentDiv( 
                 "tweet" ,
                 Mustache.to_html(
@@ -34,6 +34,7 @@ function(
                     window.objectUser.toJSON()
                 )
             );
+
             $.ui.loadContent( "#tweet/self" , false , false , "fade" );
 
             var self = this;
@@ -48,7 +49,7 @@ function(
                         } ,
                         function( data ) {
                             if( JSON.parse(data)[0] === "ok" ) {
-                                window.router.navigate( "#stream" , {trigger: true} );
+                                window.router.navigate( "/#stream" , {trigger: true} );
                             }
                         }
                     )

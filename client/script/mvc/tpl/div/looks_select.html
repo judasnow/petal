@@ -1,7 +1,9 @@
-<select class="looks" name="looks" multiple="multiple" class="jq-ui-forms">
-    {{#looks_items}}
-    1
-    <option value="{{value}}">{{des}}</option>
-    {{/looks_items}}
-</select>
+<p>
+{{#looks_items}}
+<div class="label">
+    <input type="checkbox" name="looks_option" value="{{value}}">
+    {{des}}
+</div>
+{{/looks_items}}
+</p>
 

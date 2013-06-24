@@ -1,11 +1,14 @@
 #user_detail {
     @padding: 8px;
-    @image_size: 128px;
+    @image_size: 96px;
+    //指的是头像那一栏
     .head_img {
         min-height: @image_size + (@padding * 2);
         text-align: center;
     }
     .item {
+        display: inline-block;
+        width: 100%;
         padding: @padding;
         border-bottom: 1px solid #c5c5c5;
         font-size: 14px;
@@ -19,68 +22,100 @@
             margin: 2px 0;
         }
     }
-    .gift_list {
-        @img_size: 64px;
-        display: inline-block;
-        width: 100%;
-        min-height: 192px;
-        ul {
-            margin-top: 32px;
-            clear: both;
-        }
-        li {
-            margin: 8px;
-            width: @img_size + 32px;
-            height: @img_size + 32px;
-            padding: 0;
-            display: inline-block;
-            text-align: center;
-            background: #fff;
-            float: left;
-            //border: 1px solid #ddd;
-        }
-        .sub_item {
-            clear: both;
-            float: left;
-        }
-        .gift_id {
-            display: none;
-        }
-        .title {
-            float: left;
-            clear: both;
-            display: inline-block;
-            max-height: 16px;
-            overflow: hidden;
-        }
-        .gift_pic {
-            clear: both;
-            float: left;
-            max-height: @img_size;
-            min-width:  @img_size;
-        }
-        .price {
-            clear: both;
-            float: left;
-        }
-    }
     .gravatar_box {
+        overflow: hidden;
         display: inline-block;
-        border: 1px solid #ddd;
         border-radius: 5px;
-        width: @image_size + 2px;
-        height: @image_size + 2px;
+        width: @image_size;
+        height: @image_size;
     }
     .gravatar {
-        max-width: @image_size;
-        max-height: @image_size;
+        @addtion_size: 32px;
+        @img_real_size: @image_size + @addtion_size;
+        @margin: -( @addtion_size / 2 );
+        margin-top: @margin;
+        margin-left: @margin;
+        max-width: @img_real_size;
+        max-height: @img_real_size;  
     }
-    .btn {
-        background: #666;
-        color: #eee;
+    .func {
+        width: 100%;
         display: inline-block;
-        height: 24px;
-        padding: 2px 4px;
+    }
+    .user_album {
+        //默认用的头像的 box
+        .sub_item {
+            float: left;
+            margin: 4px;
+        }
+    }
+    .visitors_list {
+        .sub_item {
+            float: left;
+            @image_size: 48px;
+            width: @image_size;
+            margin: 4px;
+            .gravatar_box {
+                float: left;
+                overflow: hidden;
+                display: inline-block;
+                border-radius: 5px;
+                width: @image_size;
+                height: @image_size;
+            }
+            .gravatar {
+                @addtion_size: 24px;
+                @img_real_size: @image_size + @addtion_size;
+                @margin: -( @addtion_size / 2 );
+                margin-top: @margin;
+                margin-left: @margin;
+                max-width: @img_real_size;
+                max-height: @img_real_size;  
+            }
+            .nickname {
+                float: left;
+                width: @image_size;
+                text-align: center;
+            }
+        }
+    }
+    .gift_list {
+        .sub_item {
+            float: left;
+            @image_size: 48px;
+            width: @image_size;
+            margin: 4px;
+            .gravatar_box {
+                float: left;
+                overflow: hidden;
+                display: inline-block;
+                border-radius: 5px;
+                width: @image_size;
+                height: @image_size;
+            }
+            .gravatar {
+                @addtion_size: 24px;
+                @img_real_size: @image_size + @addtion_size;
+                @margin: -( @addtion_size / 2 );
+                margin-top: @margin;
+                margin-left: @margin;
+                max-width: @img_real_size;
+                max-height: @img_real_size;  
+            }
+            .title {
+                font-size: 90%;
+                float: left;
+                width: @image_size;
+                text-align: center;
+            }
+            .price {
+                font-size: 90%;
+                float: left;
+                width: @image_size;
+                text-align: center;
+            }
+
+        }
     }
 }
 

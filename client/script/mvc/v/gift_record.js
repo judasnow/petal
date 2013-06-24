@@ -4,14 +4,18 @@ define([
     "backbone" ,
     "mustache" ,
 
-    "text!tpl/gift_record.html"
+    "text!tpl/gift_record.html" ,
+
+    "lib/helper"
 ] ,
 function(
     _ ,
     Backbone ,
     Mustache ,
 
-    giftRecordTpl
+    giftRecordTpl ,
+
+    helper
 ){
     "use strict";
 
@@ -28,8 +32,9 @@ function(
                     Mustache.to_html( 
                         this.template , 
                         this.model.toJSON() 
-                        ) 
-                    );
+                    ) 
+                );
+            helper.showImage( this.$el.find( "img" ) );
             return this;
         }
     });

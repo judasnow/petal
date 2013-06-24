@@ -14,6 +14,7 @@ function(
     Backbone ,
     Mustache ,
     Users ,
+
     ScreamItemView ,
     StreamBase ,
     MenuView ,
@@ -23,8 +24,9 @@ function(
     "use strict";
 
     var Visitors = StreamBase.extend({
-
+ 
         initialize: function( args ) {
+            new MenuView();
             var users = new Users();
             this.baseInitialize( "stream" , vistitorTpl , ScreamItemView , users , args.q , args.hash );
         } 

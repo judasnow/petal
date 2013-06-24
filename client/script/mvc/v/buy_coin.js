@@ -18,21 +18,30 @@ function(
 ){
     "use strict";
 
-    $.ui.addContentDiv( "buy_coin" , "" );
-
     var BuyCoin = Backbone.View.extend({
         template: buyCoinTpl ,
-
-        el: "#buy_coin",
 
         initialize: function() {
             new MenuView();
 
-            $.ui.updateContentDiv( "buy_coin" , this.template );
-            $.ui.loadContent( "#buy_coin" , false , false , "fade" );
+            $.ui.tryAddContentDiv( "buy_coin" , "" );
+            this.render();
+
+            this.$el = $( "#buy_coin" );
+            this.$el.find( ".sub_item .des" ).bind( "tap" , function( e ) {
+                console.dir( $( this ).parent().find( "input" )[0].checked = true );
+            });
         } ,
 
         render: function() {
+            $.ui.updateContentDiv(
+                "buy_coin" , 
+                Mustache.to_html( 
+                    this.template , 
+                    window.objectUser.toJSON() 
+                )
+            );
+            $.ui.loadContent( "#buy_coin" , false , false , "fade" );
             return this;
         }
     });

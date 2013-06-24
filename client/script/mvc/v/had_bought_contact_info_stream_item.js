@@ -8,7 +8,9 @@ define([
 
     "v/menu" ,
 
-    "text!tpl/stream_item.html"
+    "text!tpl/stream_item.html" ,
+
+    "lib/helper"
 ] ,
 function(
     _ ,
@@ -19,18 +21,40 @@ function(
 
     MenuView ,
 
-    hadBoughtContactInfoStreamItemTpl
+    hadBoughtContactInfoStreamItemTpl ,
+
+    helper
 ){
     "use strict";
 
     var HadBoughtContactInfoStreamItem = Backbone.View.extend({
         className: "item" ,
+        
+        events: {
+            "tap": "goDetailPage"
+        } ,
 
         template: hadBoughtContactInfoStreamItemTpl ,
 
         initialize: function() {
+            _.bindAll( this , "render" , "goDetailPage" );
 
+            if( this.model.get( "UserId" ) !== window.objectUser.get( "UserId" ) ) {
+                this.model.set( "needsFunc" , true );
+            }
         } ,
+
+        goDetailPage: function( event ) {
+        //{{{
+            //保存本用户信息 到本地 
+            var userId = this.model.get( "UserId" );
+            window.router.navigate(
+                "/#user_detail/" + userId,
+                {
+                    trigger: true
+                }
+            );
+        },//}}}
 
         render: function() {
             new MenuView();
@@ -40,6 +64,10 @@ function(
                     this.model.toJSON()
                 )
             );
+
+            //显示默认图片
+            helper.showImage( this.$el.find( "img" ) , this.model.get( "Sex" ) === "男" ? "male" : "female" );
+
             return this;
         }
     });

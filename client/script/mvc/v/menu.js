@@ -1,19 +1,24 @@
-//用户主目录
 define([ 
     "underscore" ,
     "backbone" ,
     "mustache" ,
+
     "m/user" ,
 
-    "text!tpl/menu.html" 
+    "text!tpl/menu.html" ,
+
+    "lib/helper"
 ],
 function( 
     _ , 
     Backbone ,
     Mustache ,
+
     User ,
 
-    menuTpl
+    menuTpl ,
+
+    helper 
 ){
     "use strict";
 
@@ -24,17 +29,14 @@ function(
 
         events: {
             "tap #object_user_info": "showObjectUserHome" ,
-
             "tap .stream_same_city": "showSameCityStream" ,
             "tap .search": "showSearch" ,
             "tap .tweet": "showTweet" ,
             "tap .gifts": "showGifts" ,
-            //"tap .visitors": "showVisitors" ,
             "tap .had_bought_contact_info": "showHadBoughtContactInfo" ,
             "tap .msgs": "showMsgs" ,
-            "tap .contacts": "showContacts" ,
+            "tap .visitors": "showVisitors" ,
             "tap .buy_coin": "showBuyCoin" ,
-            //"tap .buy_vip": "showBuyVip" ,
             "tap .payment_record": "showPatmentRecord" ,
             "tap .coupons": "showCoupons"
         } ,
@@ -52,7 +54,7 @@ function(
         } ,
 
         showObjectUserHome: function() {
-            window.router.navigate( "/#user_detail/self" , {trigger: true} );
+            window.router.navigate( "/#user_detail/" + window.objectUser.get( "UserId" ) , {trigger: true} );
         } ,
 
         showSearch: function() {
@@ -72,9 +74,9 @@ function(
             window.router.navigate( "/#gifts/self/received" , {trigger: true} );
         } ,
 
-        //showVisitors: function() {
-        //    window.router.navigate( "#stream/visitors/self" , {trigger: true} );
-        //} ,
+        showVisitors: function() {
+            window.router.navigate( "#stream/visitors/self/" , {trigger: true} );
+        } ,
 
         showHadBoughtContactInfo: function() {
             window.router.navigate( "/#stream/had_bought_contact_info/self" , {trigger: true} );
@@ -83,11 +85,6 @@ function(
         //最近的消息
         showMessage: function() {
             window.router.navigate( "/#message/self" , {trigger: true} );
-        },
-
-        //最近联系人
-        showContacts: function() {
-            window.router.navigate( "/#stream/contacts/self/object" , {trigger: true} );
         },
 
         //消费记录
@@ -114,7 +111,7 @@ function(
                     this.model.toJSON()
                 ) 
             );
-
+            helper.showImage( this.$el.find( "img" ) );
             return this;
         }
     });

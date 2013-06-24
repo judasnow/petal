@@ -31,31 +31,29 @@ function(
     looksSelectTpl
 ) {
     "use strict";
-    $.ui.addContentDiv( "update_self_profile" , "" );
 
     var UpdateSelfProfile = Backbone.View.extend({
         template: updateSelfProfileTpl ,
 
-        el: "#update_self_profile",
-
         events: {
             "tap .add_picture": "openFileSelectDialog" ,
             "tap .user_picture_box": "tapPicture" ,
+            "tap .looks .label": "tapLabel" ,
 
             "change .user_upload_picture_input": "fileNameChanged" ,
             "change .province": "provinceChange" ,
             "change .zwms": "setUserHasChangedInfo" ,
             "change .birthday": "setUserHasChangedInfo" ,
-            "change .looks": "setUserHasChangedInfo" ,
         } ,
 
         initialize: function() {
         //{{{
             new MenuView();
+            this.$el = $.ui.tryAddContentDiv( "update_self_profile" , "" );
             _.bindAll(
                 this ,
                 "render" ,
-                "openFileSelectDialog" , "fileNameChanged" , "provinceChange" , "doUpdate" , "checkChangeAndGoBack" );
+                "openFileSelectDialog" , "fileNameChanged" , "provinceChange" , "doUpdate" , "checkChangeAndGoBack" , "tapLabel" );
 
             this.model = new User();
             this.model.on( "change" , this.render );
@@ -76,6 +74,20 @@ function(
 
             window.doUpdate = this.doUpdate;
         },//}}}
+
+        tapLabel: function( event ) {
+            this.userhasChangedInfo = true;
+            (function( $el ){
+                var $input = $el.find( "input" );
+                $el[ $el.hasClass( "label_active" ) === true ? "removeClass" : "addClass" ]( "label_active" );
+                if( $input.attr( "checked" ) === "true" ) {
+                    $input.removeAttr( "checked" );
+                } else {
+                    $input.attr( "checked" , "true" );
+                }
+            })( $( event.target ) );
+            this.setUserHasChangedInfo();
+        },
 
         setUserHasChangedInfo: function() {
             this.userhasChangedInfo = true;
@@ -103,17 +115,24 @@ function(
 
         doUpdate: function() {
         //{{{
-            $.ui.showMask( "提交中" );
+            var looks = _.reduce( 
+                this.$looks.find( "input:checked" ) , 
+                function( memo , el ) {
+                    return memo + " " + $(el).val();
+                } ,
+                ""
+            );
             var userId = window.objectUser.get( "UserId" );
 
             if( typeof this.files !== "undefined" ) {
                 //没有找到一次发送全部文件的方法 只能一次发送一张
+                //base64 发送
                 for( var i = 0 ; i < this.files.length ; i++ ) {
                     var xhr = new XMLHttpRequest();
                     var formData = new FormData();
                     formData.append( "user_upload_picture" , this.files[i] );
-                    formData.append( "user_id" , userId )
-                    xhr.open( "POST" , "/api/upload_files" , true );
+                    formData.append( "user_id" , userId );
+                    xhr.open( "POST" , "/api/upload_files" );
                     xhr.send( formData );
                 }
             }
@@ -124,7 +143,7 @@ function(
                         user_id: userId ,
                         area_id: UserProfileBaseInfo.getAreaIdFromCityName( this.$cityname.val() ),
                         zwms: this.$zwms.val() ,
-                        looks: this.$looks.val() ,
+                        looks: looks ,
                         birthday: this.$birthday.val()
                     } ,
                     function( data ) {
@@ -136,7 +155,6 @@ function(
                     }
                 );
             }
-            $.ui.hideMask();
         } ,//}}}
 
         tapPicture: function() {
@@ -193,7 +211,7 @@ function(
                     this.model.toJSON() ,
                     {
                         location_select: Mustache.to_html( locationSelectTpl , UserProfileBaseInfo ) ,
-                        looks_select: Mustache.to_html( looksSelectTpl , UserProfileBaseInfo[(this.model.get( "UserSex" ) === "女") ? "looks_famale" : "looks_male"] )
+                        looks_select: Mustache.to_html( looksSelectTpl , UserProfileBaseInfo[(this.model.get( "UserSex" ) === "女") ? "looks_famale" : "looks_male"])
                     }
                 )
             );

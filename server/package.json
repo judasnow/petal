@@ -1,0 +1,26 @@
+{
+  "name": "petal_server",
+  "version": "0.0.1",
+  "private": true,
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+  },
+  "dependencies": {
+    "express": "" ,
+    "mocha": "" ,
+    "underscore": "" ,
+    "async": "" ,
+    "needle": "" ,
+    "socket.io": "" ,
+    "redis": "" ,
+    "connect": "" ,
+    "expect": "" ,
+    "mongoose": "" ,
+    "supertest": "" ,
+    "connect-redis": ""
+  },
+  "repository": "git@gitcafe.com:judasnow/petal_mk2.git",
+  "author": "judasnow@gmail.com",
+  "license": "MIT"
+}

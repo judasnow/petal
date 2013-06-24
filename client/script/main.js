@@ -35,29 +35,8 @@ require.config({
 });
 
 require([
-    "app" 
+    "app"
 ] ,
 function( app ) {
-    //解决 id 相同的元素更新问题
-    $.ui.tryAddContentDiv = function( id , content ) {
-        if( $( "#" + id ).length !== 0 ) {
-            $( "#" + id ).remove();
-        }
-
-        $.ui.addContentDiv (
-            id ,
-            content
-        );
-
-        return $( "#" + id );
-    }
-    $.ui.goBackWithDefault = function() {
-        if( $.ui.history.length === 1 ) {
-            window.router.navigate( "#stream" , {trigger: true} );
-        } else {
-            $.ui.goBack();
-        }
-    };
-
     app.initialize();
 });

@@ -1,14 +1,14 @@
 <div class="item head_img">
     <div class="gravatar_box">
-        <img class="gravatar" src="http://www.huaban123.com/UploadFiles/UHP/{{HeadPic}}" />
+        <img class="gravatar" origin_src="http://www.huaban123.com/UploadFiles/UHP/{{HeadPic}}" alt="{{sex_in_english}}" />
     </div>
 </div>
 
 <div class="user_info item">
-    {{NickName}} , {{UserSex}} , {{Age}} 岁 , {{location}}
+    {{NickName}} , {{#Age}}{{Age}}岁 , {{/Age}} {{Sex}} , {{location}}
 </div>
 
-{{^isObjectUserPage}}
+{{^isSelfPage}}
 <div class="func item">
     <p>
         <span class="btn get_contaces_info">联系方式</span>
@@ -16,7 +16,7 @@
         <span class="btn send_msg">发信息</span>
     </p>
 </div>
-{{/isObjectUserPage}}
+{{/isSelfPage}}
 
 <div class="item twitte_box">
     <b class="title">最新说说</b>
@@ -68,38 +68,72 @@
     <p>{{XQ}}</p>
 </div>
 
-{{^isObjectUserPage}}
+{{^isSelfPage}}
 <div class="item gift_list wanted_gift_list">
     <b class="title">期望收到的礼物</b>
-    <ul>
+    <p>
     {{#wantedGiftList}}
-    <li>
-    <span class="gift_id">{{GId}}</span>
-    <span class="title"><b>{{GTitle}}</b></span>
-    <img class="gift_pic" src="http://www.huaban123.com/UploadFiles/GPP/MIN/{{GPicName}}" alt="" />
-    <span class="price">{{GPrice}} 金币</span>
-    </li>
+    <div class="sub_item">
+        <div class="gravatar_box">
+            <img class="gravatar" origin_src="http://www.huaban123.com/UploadFiles/GPP/MIN/{{GPicName}}" alt="gift" />
+        </div>
+        <span class="title">{{GTitle}}</span>
+        <span class="price"><b>{{GPrice}}</b> 金币</span>
+    </div>
     {{/wantedGiftList}}
-    </ul>
+    </p>
 </div>
-{{/isObjectUserPage}}
+{{/isSelfPage}}
 
 <div class="item gift_list received_gift_list">
     <b class="title">最近收到的礼物</b>
-    <ul>
+    <p>
     {{#receivedGiftList}}
-    <li>
-    <span class="title">{{GTitle}}</span>
-    <img class="gift_pic" src="http://www.huaban123.com/UploadFiles/GPP/MIN/{{GPicName}}" alt="" />
-    <span class="price">{{Gprice}} 金币</span>
-    </li>
+    <div class="sub_item">
+        <div class="gravatar_box">
+            <img class="gravatar" origin_src="http://www.huaban123.com/UploadFiles/GPP/MIN/{{GPicName}}" alt="gift" />
+        </div>
+        <span class="title">{{GTitle}}</span>
+        <span class="price"><b>{{GPrice}}</b> 金币</span>
+    </div>
     {{/receivedGiftList}}
-    </ul>
+    </p>
+</div>
+
+<div class="item visitors_list">
+    <b class="title">最近访客</b>
+    <p>
+    {{#visitorsList}}
+    <div class="sub_item">
+        <div class="gravatar_box">
+            <img data-user_id="{{UserId}}" class="gravatar" origin_src="http://www.huaban123.com/UploadFiles/UHP/MIN/{{HeadPic}}" alt="{{sex_in_english}}" />
+        </div>
+        <span data-user_id="{{UserId}}" class="nickname">
+        {{NickName}}
+        </span>
+    </div>
+    {{/visitorsList}}
+    </p>
+</div>
+
+<div class="item user_album">
+    <b class="title">相册</b>
+    <p>
+    {{#pictureList}}
+    <div class="sub_item">
+        <div class="gravatar_box">
+        <img id="user_picture_{{Title}}" class="user_picture gravatar" src="http://172.17.0.20:1979/UploadFiles/UPP/MIN/{{PicName}}" alt="{{photo}}" />
+        </div>
+    </div>
+    {{/pictureList}}
+    </p>
 </div>
 
 <header>
 <h1>用户详细信息</h1>
 <a class="button" style="float:left;" onclick="$.ui.goBackWithDefault();" class="">返回</a>
-<a class="button update_self_profile" style="float:right;display:none;" onclick="window.router.navigate( '/#update_self_profile' , {trigger: true});" class="">修改资料</a>
+{{#isSelfPage}}
+<a class="button update_self_profile" style="float:right;" onclick="window.router.navigate( '/#update_self_profile' , {trigger: true});" class="">修改资料</a>
+{{/isSelfPage}}
 </header>
 
