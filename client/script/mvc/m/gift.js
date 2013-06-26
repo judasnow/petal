@@ -12,7 +12,8 @@ function(
         url: "gift",
 
         initialize: function(){
-            
+            var createAt = new Date( this.get( "SendAt" ) );
+            this.set( "time" , createAt.getFullYear() + "/" + createAt.getMonth() + "/" + createAt.getDate() );
         }
     });
 

@@ -12,7 +12,7 @@ var req2hb123 = function( method , param , ok , error ) {
     }
     //尝试替换 param 开头的 ?
     param = param.replace( /\?/ , "" );
-    //console.log( "request url:" + config.hb123Server + param );
+    console.log( "request url:" + config.hb123Server + param );
 
     request[method](
         config.hb123Server + param ,

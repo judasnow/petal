@@ -14,7 +14,6 @@ define([
     "v/tweet" ,
     "v/gifts" ,
     "v/buy_coin" ,
-    "v/buy_vip" ,
     "v/payment_record" ,
     "v/coupons" ,
     "v/had_bought_contact_info" ,
@@ -35,7 +34,6 @@ function(
     TweetView ,
     GiftsView ,
     BuyCoinView ,
-    BuyVipView ,
     PaymentRecordView ,
     CouponsView ,
     HadBoughtContactInfoView ,
@@ -72,7 +70,6 @@ function(
             "payment_record/self": "showSelfPaymentRecord" ,
             "coupons/self": "showSelfCoupons" ,
 
-            "buy_vip": "showBuyVip" ,
             "buy_coin": "showBuyCoin" ,
 
             "chat_list": "showChatList" ,

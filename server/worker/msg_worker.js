@@ -9,37 +9,66 @@ require( "date-utils" );
 module.exports = function( config , socket , redisClient ) {
     //保存获取的最新消息到 redis
     var get_msg_ok = function( dataObj ) {
-        (function( msgList ){
+        (function( msgList ) {
             var len = msgList.length;
             if( len > 0 ) {
                 for( var i = 0 ; i < len ; i++ ) {
                     var msgItem = msgList[i];
-                    //因为使用了 msgId 作为键 因此不会出现重复的情况
+                    var key = msgItem.MsgId + ":" + msgItem.AcceptUserId;
+                    //因为使用了 msgId 作为键 因此不会出现重复的情况 但是重复写入也很麻烦
+                    //因此还是需要监测是否有重复
                     //@todo 为了方便 是否应该考虑在 key 中加入收信人的 id
                     //@todo 使用 hmset
-                    redisClient.hset(
-                        "unread_msg" ,
-                        msgItem.MsgId + ":" + msgItem.AcceptUserId ,
-                        JSON.stringify( msgItem )
-                    );
-                    socket.emit( "new_msg:" + msgItem.AcceptUserId , msgItem );
+                    if( redisClient.hexists( "unread_msg" , key , function( error , data ) {
+                        if( data === 0 ) {
+                            redisClient.hset(
+                                "unread_msg" ,
+                                key ,
+                                JSON.stringify( msgItem )
+                            );
+                            socket.emit( "new_msg:" + msgItem.AcceptUserId , msgItem , function( data ) {
+                                redisClient.hdel( "unread_msg" , data.key , function( error ) {
+                                    if( error ) return;
+                                    console.dir( "del " + data.key );
+                                });
+                                console.dir( "user success receive a msg" );
+                            });
+                        } else {
+                            console.dir( key )
+                        }
+                    }));
                 }
             }
         })( JSON.parse( dataObj.msg_list ) );
     };
-
+/*
     var get_gift_ok = function( dataObj ) {
         (function( giftList ){
             var len = giftList.length;
             if( len > 0 ) {
                 for( var i = 0 ; i < len ; i++ ) {
                     var giftItem = giftList[i];
-                    redisClient.hset(
-                        "new_send_gift" ,
-                        giftItem.RId + ":" + giftItem.AUid,
-                        JSON.stringify( giftItem )
-                    );
-                    socket.emit( "new_gift:" + giftItem.AUid , giftItem );
+                    var key = giftItem.RId + ":" + giftItem.AUid;
+                    if( redisClient.hexists( "new_gift" , key , function( error , data ) {
+                        console.dir( data )
+                        if( data === 0 ) {
+                            redisClient.hset(
+                                "new_send_gift" ,
+                                key ,
+                                JSON.stringify( giftItem )
+                            );
+                            socket.emit( "new_gift:" + key, giftItem , function( data ) {
+                                redisClient.hdel( "new_gift" , data.key , function( error ) {
+                                    if( error ) return;
+                                    console.dir( "del " + data.key );
+                                });
+                                console.dir( "user success receive a gift" );
+                            });
+                        } else {
+                            console.dir( key )
+                        }
+                    }));
+
                 }
             }
         })( JSON.parse( dataObj.gift_list ) );
@@ -61,10 +90,10 @@ module.exports = function( config , socket , redisClient ) {
             }
         })( JSON.parse( dataObj.user_list ) );
     };
-
+*/
     //总是以当前时间进行查询 则总是返回空
     //应该维护一个最后更新时间
-    var timeStep = 5000;
+    var timeStep = 1000;
     var lastUpdateDate = new Date();
 
     //减少同数据库服务器的时间差
@@ -78,21 +107,22 @@ module.exports = function( config , socket , redisClient ) {
             "about=msg&action=get_latest_msg_list&p=1&begin_time=" + beginTime ,
 
             get_msg_ok
-        );
-
+            );
+/*
         helper.req2hb123(
             "get" ,
             "about=gift&action=new_send_gift_list&begin_send_time=" + beginTime ,
 
             get_gift_ok
-        );
+            );
 
-        helper.req2hb123(
-            "get" ,
-            "about=user&action=new_visitors_list&begin_browse_time=" + beginTime ,
+           helper.req2hb123(
+           "get" ,
+           "about=user&action=new_visitors_list&begin_browse_time=" + beginTime ,
 
-            get_visitors_ok
-        );
+           get_visitors_ok
+           );
+           */
 
     } , timeStep );
 }

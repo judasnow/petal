@@ -24,7 +24,7 @@ function(
         template: giftRecordTpl ,
 
         initialize: function() {
-
+            
         },
 
         render: function() {

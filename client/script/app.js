@@ -3,6 +3,7 @@ define([
     "backbone" ,
     "router" ,
     "mustache" ,
+    "underscore" ,
 
     "m/user"
 ],
@@ -10,6 +11,7 @@ function(
     Backbone ,
     Router ,
     Mustache ,
+    _ ,
 
     User
     ) {
@@ -18,7 +20,6 @@ function(
         //进行系统的初始化
         var init = function() {
             //一些系统常量
-            window.socketServer = "http://172.17.0.47:8800";
             //查看资料花费金币
             window.costOfContact = 2;
             //发信息花费金币 
@@ -27,64 +28,60 @@ function(
             //objectUserInfo -> objectUserModel
             window.objectUser = new User( JSON.parse( window.localStorage.getItem( "petal:object_user_info" ) ) );
 
-            //初始化 socketio
-            window.socket = io.connect( window.socketServer );
-            socket.on( "error" , function() {
-                console.log( "socket connect fail" );
-            });
-            socket.on( "disconnect" , function() {
-                console.log( "socket disconnected" );
-            });
-
-            //绑定 socketio 相关的事件
-            window.socket.on( "new_msg:" + window.objectUser.get( "UserId" )  , function( msg ) {
-                //当前登录用户收到新的 msg 时 
-                var newMsgCount = (function( lastCount ) {
-                    if( isNaN( lastCount ) ) {
-                        return 1;
-                    } else {
-                        return parseInt( lastCount ) + 1;
+            //更新动态提示
+            window.updateMenuNotice = function( justThisKey ) {
+                _.each( [ "msgs" , "gifts" , "vistitor" ] , function( className ) {
+                    if( typeof justThisKey !== "undefined" ) {
+                        //如果设置了 justThisKey 就只更新指定的动态
+                        if( className !== justThisKey ) {
+                            return false;
+                        }
                     }
-                })( $( "#menu .msgs .jq-badge" ).text() );
-
-                $.ui.updateBadge( "#menu .msgs" , newMsgCount );
-
-                $( "#chat_list" ).trigger( "new_msg" , msg );
-                //返回一个hash key MsgId:AcceptUserId 没有必要再返回 data
-                $( "#menu .msgs" ).on( "tap" , function() {
-                    window.socket.emit( "msg_received" , {key: msg.MsgId + ":" + msg.AcceptUserId} );
-                });
-            });
-
-            window.socket.on( "new_gift:" + window.objectUser.get( "UserId" ) , function( new_gift ) {
-                var newGiftCount = (function( lastCount ) {
-                    if( isNaN( lastCount ) ) {
-                        return 1;
+                    var notice_count = window.localStorage.getItem( "petal:new_" + className + "_count" );
+                    if( notice_count !== null && notice_count != "null" ) {
+                        $.ui.updateBadge( "#menu ." + className , notice_count );
                     } else {
-                        return parseInt( lastCount ) + 1;
+                        $.ui.removeBadge( "#menu ." + className );
                     }
-                })( $( "#menu .gifts .jq-badge" ).text() );
+                })
+            };
 
-                $.ui.updateBadge( "#menu .gifts" , newGiftCount );
-                $( "#menu .gifts" ).on( "tap" , function() {
-                    window.socket.emit( "gift_checked" , {key: new_gift.RId + ":" + new_gift.AUid} );
-                });
-            });
+            //轮询获取最新动态
+            window.localStorage.setItem( "petal:new_msgs_count" , 0 );
+            var step = 2000;
+            var formatTime = function( date ) {
+                return date.getFullYear()
+                    + "-" + (parseInt( date.getMonth() ) + 1)
+                    + "-" + date.getDate()
+                    + " " + date.getHours()
+                    + ":" + date.getMinutes()
+                    + ":" + date.getSeconds() 
+                    + ":" + date.getMilliseconds();a
+            }
+            window.msgLastUpdateTime = window.localStorage.getItem( "petal:msg_last_update_time" ) || formatTime( new Date() );
+            setInterval( function() {
+                $.get(
+                    "/api/new_msgs/?user_id=" + window.objectUser.get( "UserId" ) 
+                        + "&&last_update_time=" + window.msgLastUpdateTime ,
+                    function( data ) {
+                        var dataObj = JSON.parse( data );
+                        var len = dataObj.length;
+                        if( len > 0 ) {
+                            //更新数量
+                            var localCount = window.localStorage.getItem( "petal:new_msgs_count" );
+                            var newCount = len;
+                            newCount = parseInt(newCount) + parseInt(localCount);
+                            window.localStorage.setItem( "petal:new_msgs_count" , newCount );
 
-            window.socket.on( "new_visitors:" + window.objectUser.get( "UserId" ) , function( visitors ) {
-                var newVistitorCount = (function( lastCount ) {
-                    if( isNaN( lastCount ) ) {
-                        return 1;
-                    } else {
-                        return parseInt( lastCount ) + 1;
+                            //更新最后刷新时间
+                            window.msgLastUpdateTime = formatTime( new Date() );
+                            window.localStorage.setItem( "petal:msgLastUpdateTime" , window.msgLastUpdateTime );
+
+                            window.updateMenuNotice( "msgs" );
+                        }
                     }
-                })( $( "#menu .visitors .jq-badge" ).text() );
- 
-                $.ui.updateBadge( "#menu .visitors" , newVistitorCount );
-                $( "#menu .visitors" ).on( "tap" , function() {
-                    window.socket.emit( "visitors_checked" , {key: visitors.BUserId + ":" + visitors.BrowseAt} );
-                });
-            });
+                )
+            }, step );
 
             //backbone router
             var router = new Router();
@@ -95,7 +92,6 @@ function(
             });
 
             //一些通用函数
-            //{{{
             //获取用户联系方式
             window.getUserContactInfo = function() {
                 var contactTpl = $( "#contact_info_tpl" ).html();
@@ -156,8 +152,6 @@ function(
                     }
                 );
             }
-            //}}}
-
         };
 
         return {

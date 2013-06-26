@@ -71,20 +71,17 @@ function(
         } ,
 
         showGifts: function() {
+            window.localStorage.setItem( "petal:new_gift_count" , "null" );
             window.router.navigate( "/#gifts/self/received" , {trigger: true} );
         } ,
 
         showVisitors: function() {
+            window.localStorage.setItem( "petal:new_visitors_count" , "null" );
             window.router.navigate( "#stream/visitors/self/" , {trigger: true} );
         } ,
 
         showHadBoughtContactInfo: function() {
             window.router.navigate( "/#stream/had_bought_contact_info/self" , {trigger: true} );
-        },
-
-        //最近的消息
-        showMessage: function() {
-            window.router.navigate( "/#message/self" , {trigger: true} );
         },
 
         //消费记录
@@ -101,6 +98,8 @@ function(
         },
 
         showMsgs: function() {
+            //清空新消息的计数
+            window.localStorage.setItem( "petal:new_msgs_count" , "null" );
             window.router.navigate( "/#msgs" , {trigger: true} );
         },
 
@@ -112,6 +111,7 @@ function(
                 ) 
             );
             helper.showImage( this.$el.find( "img" ) );
+            window.updateMenuNotice();
             return this;
         }
     });

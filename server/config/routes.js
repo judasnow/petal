@@ -26,4 +26,6 @@ module.exports = function( app ) {
     app.post( "/api/send_msg" , api.sendMsg );
     app.post( "/api/set_back_account" , api.setBankAccount );
     app.post( "/api/withdraw_cash" , api.withdrawCash );
+
+    app.get( "/api/new_msgs/" , api.getNewMsgs );
 }

@@ -12,17 +12,17 @@ module.exports = function( app , config ) {
     }))
 
     app.use( express.cookieParser() );
-    app.use(express.bodyParser());
-    app.use(express.methodOverride());
-    app.use(express.session({
-      secret: 'petal',
+    app.use( express.bodyParser() );
+    app.use( express.methodOverride() );
+    app.use( express.session({
+      secret: "petal",
       store: new RedisStore({
           host: config.redisServer,
           port: "6379",
           db: "petal"
       })
-    }));
-    app.use( express.static( config.root + "/public" ) );
+    }) );
+    //app.use( express.static( config.root + "/public" ) );
     app.use( express.compress() );
     app.use( app.router );
 }

@@ -5,7 +5,6 @@ var helper = require( "../lib/helper" )
     , needle = require( "needle" ) 
     , config = require( "../config/config" )["dev"];
 
-
 //user
 //为了实现weixin注册之后的自动登录 需要根据用户提供的 weixin_id 
 //从 r2d2 的 redis 中获取相应用户的 username (密码是默认的 huaban123)
@@ -40,7 +39,9 @@ exports.doLogin = function( req , res ) {
     var password = req.param( "password" , null );
 
     var ok = function( dataObj ) {
-        res.json( ["ok" , helper.formatUserInfo( JSON.parse( dataObj.user_info ) )] );
+        var userInfoObj = JSON.parse( dataObj.user_info );
+        req.session.object_user_id = userInfoObj.UserId;
+        res.json( ["ok" , helper.formatUserInfo( userInfoObj )] );
     };
 
     var error = function() {
@@ -383,3 +384,56 @@ exports.withdrawCash = function( req , res ){
     );
 };//}}}
 
+exports.getNewMsgs = function( req , res ) {
+//{{{
+    var userId = req.param( "user_id" , "" );
+    var lastUpdateTime = req.param( "last_update_time" , "" );
+
+    var ok = function( dataObj ) {
+        res.json( JSON.parse( dataObj.msg_list ).reverse() );
+    }
+
+    helper.req2hb123(
+        "get" ,
+        "about=msg&action=get_latest_msg_list&p=1&begin_time=" + lastUpdateTime 
+            + "&user_id=" + userId ,
+
+        ok
+    );
+}//}}}
+
+exports.getNewGifts = function( req , res ) {
+//{{{
+    var userId = req.param( "user_id" , "" );
+    var lastUpdateTime = req.param( "last_update_time" , "" );
+
+    var ok = function( dataObj ) {
+        res.json( JSON.parse( dataObj.gift_list ).reverse() );
+    }
+
+    helper.req2hb123(
+        "get" ,
+        "about=gift&action=new_send_gift_list&p=1&begin_time=" + lastUpdateTime 
+            + "&user_id=" + userId ,
+
+        ok
+    );
+}//}}}
+
+exports.getNewVisitors = function( req , res ) {
+//{{{
+    var userId = req.param( "user_id" , "" );
+    var lastUpdateTime = req.param( "last_update_time" , "" );
+
+    var ok = function( dataObj ) {
+        res.json( JSON.parse( dataObj.msg_list ).reverse() );
+    }
+
+    helper.req2hb123(
+        "get" ,
+        "about=msg&action=new_vistitor_list&p=1&begin_time=" + lastUpdateTime 
+            + "&user_id=" + userId ,
+
+        ok
+    );
+}//}}}

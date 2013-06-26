@@ -143,8 +143,7 @@ function(
                         user_id: userId ,
                         area_id: UserProfileBaseInfo.getAreaIdFromCityName( this.$cityname.val() ),
                         zwms: this.$zwms.val() ,
-                        looks: looks ,
-                        birthday: this.$birthday.val()
+                        looks: looks 
                     } ,
                     function( data ) {
                         alert( "保存成功" );
@@ -228,7 +227,6 @@ function(
             this.$cityname = this.$el.find( ".cityname" );
             this.$userId = this.$el.find( ".user_id" );
             this.$zwms = this.$el.find( ".zwms" );
-            this.$birthday = this.$el.find( ".birthday" );
             this.$looks = this.$el.find( ".looks" );
 
             return this;
