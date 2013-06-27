@@ -19,10 +19,10 @@ function(
         template: paymentRecoredItemTpl ,
 
         initialize: function() {
-
         },
-        
+
         render: function() {
+            console.dir(  this.model.toJSON()  )
             this.$el.html( Mustache.to_html( this.template , this.model.toJSON() ) );
             return this;
         }

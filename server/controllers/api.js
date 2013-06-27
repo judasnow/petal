@@ -194,17 +194,30 @@ exports.shouldDisplayContactInfo = function( req , res ) {
     var objUserId = req.param( "object_user_id" );
     var subUserId = req.param( "subject_user_id" );
 
+    helper.req2hb123( 
+        "get" , 
+        "about=user&action=should_display_contact_info" + 
+        "&object_user_id=" + objUserId + 
+        "&subject_user_id=" + subUserId 
+    );
+};//}}}
+
+exports.updateBrowerStatus = function( req , res ) {
+//{{{
+    var objUserId = req.param( "object_user_id" );
+    var subUserId = req.param( "subject_user_id" );
+
     var ok = function( dataObj ) {
         res.json( dataObj );
     };
     helper.req2hb123( 
             "get" , 
-            "about=user&action=should_display_contact_info" + 
+            "about=user&action=update_brower_status" + 
             "&object_user_id=" + objUserId + 
             "&subject_user_id=" + subUserId ,
 
             ok
-            );
+        );
 };//}}}
 
 //gift
@@ -384,13 +397,14 @@ exports.withdrawCash = function( req , res ){
     );
 };//}}}
 
+//status 
 exports.getNewMsgs = function( req , res ) {
 //{{{
     var userId = req.param( "user_id" , "" );
     var lastUpdateTime = req.param( "last_update_time" , "" );
 
     var ok = function( dataObj ) {
-        res.json( JSON.parse( dataObj.msg_list ).reverse() );
+        res.json( JSON.parse( dataObj.msg_list ) );
     }
 
     helper.req2hb123(
@@ -408,7 +422,7 @@ exports.getNewGifts = function( req , res ) {
     var lastUpdateTime = req.param( "last_update_time" , "" );
 
     var ok = function( dataObj ) {
-        res.json( JSON.parse( dataObj.gift_list ).reverse() );
+        res.json( JSON.parse( dataObj.gift_list ) );
     }
 
     helper.req2hb123(
@@ -426,12 +440,12 @@ exports.getNewVisitors = function( req , res ) {
     var lastUpdateTime = req.param( "last_update_time" , "" );
 
     var ok = function( dataObj ) {
-        res.json( JSON.parse( dataObj.msg_list ).reverse() );
+        res.json( JSON.parse( dataObj.user_list ) );
     }
 
     helper.req2hb123(
         "get" ,
-        "about=msg&action=new_vistitor_list&p=1&begin_time=" + lastUpdateTime 
+        "about=user&action=new_visitors_list&p=1&begin_time=" + lastUpdateTime 
             + "&user_id=" + userId ,
 
         ok

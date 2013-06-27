@@ -12,6 +12,7 @@ module.exports = function( app ) {
     app.get( "/api/user/" , api.getUser );
     app.post( "/api/tweet_it/" , api.tweetIt );
     app.get( "/api/should_display_contact_info/" , api.shouldDisplayContactInfo );
+    app.get( "/api/update_brower_status/" , api.updateBrowerStatus );
 
     //gift
     app.get( "/api/gifts/" , api.getGiftList );
@@ -28,4 +29,6 @@ module.exports = function( app ) {
     app.post( "/api/withdraw_cash" , api.withdrawCash );
 
     app.get( "/api/new_msgs/" , api.getNewMsgs );
+    app.get( "/api/new_gifts/" , api.getNewGifts );
+    app.get( "/api/new_visitors/" , api.getNewVisitors );
 }

@@ -136,16 +136,13 @@ function(
             helper.showImage( this.$el.find( "img" ) );
 
             if( this.isSelfPage === true ) {
-
                 $( "header>h1" ).html( "我的主页" );
-
-                window.socket.emit(
-                    "update_brower_status" ,
-                    {
-                        object_user_id: window.objectUser.get( "UserId" ),
-                        subject_user_id: this.subjectUserId
-                    }
-                )
+            } else {
+                $.get(
+                    "/api/update_brower_status/?object_user_id=" 
+                        + window.objectUser.get( "UserId" )
+                        + "&&subject_user_id=" + this.subjectUserId
+                );
             }
 
             $.ui.loadContent(

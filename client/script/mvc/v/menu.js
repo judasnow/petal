@@ -71,12 +71,12 @@ function(
         } ,
 
         showGifts: function() {
-            window.localStorage.setItem( "petal:new_gift_count" , "null" );
+            window.localStorage.setItem( "petal:new_gifts_count" , "0" );
             window.router.navigate( "/#gifts/self/received" , {trigger: true} );
         } ,
 
         showVisitors: function() {
-            window.localStorage.setItem( "petal:new_visitors_count" , "null" );
+            window.localStorage.setItem( "petal:new_visitors_count" , "0" );
             window.router.navigate( "#stream/visitors/self/" , {trigger: true} );
         } ,
 
@@ -99,7 +99,7 @@ function(
 
         showMsgs: function() {
             //清空新消息的计数
-            window.localStorage.setItem( "petal:new_msgs_count" , "null" );
+            window.localStorage.setItem( "petal:new_msgs_count" , "0" );
             window.router.navigate( "/#msgs" , {trigger: true} );
         },
 
