@@ -76,6 +76,7 @@ function(
         },//}}}
 
         tapLabel: function( event ) {
+        //{{{
             this.userhasChangedInfo = true;
             (function( $el ){
                 var $input = $el.find( "input" );
@@ -87,13 +88,15 @@ function(
                 }
             })( $( event.target ) );
             this.setUserHasChangedInfo();
-        },
+        } ,//}}}
 
         setUserHasChangedInfo: function() {
+        //{{{
             this.userhasChangedInfo = true;
-        },
+        } ,//}}}
 
         checkChangeAndGoBack: function() {
+        //{{{
             //判断用户是否已经修改了自己的信息
             if( this.userhasChangedInfo === true ) {
                 $.ui.popup({
@@ -106,7 +109,7 @@ function(
             } else {
                 $.ui.goBackWithDefault();
             }
-        } ,
+        } ,//}}}
 
         provinceChange: function() {
             this.userhasChangedInfo = true;
@@ -143,7 +146,7 @@ function(
                         user_id: userId ,
                         area_id: UserProfileBaseInfo.getAreaIdFromCityName( this.$cityname.val() ),
                         zwms: this.$zwms.val() ,
-                        looks: looks 
+                        looks: looks
                     } ,
                     function( data ) {
                         alert( "保存成功" );
@@ -222,12 +225,32 @@ function(
                 "fade" 
             );
 
-            $( $( "#header .button" )[0]).bind( "tap" , this.checkChangeAndGoBack );
+            $( $( "#header .button" )[0] ).bind( "tap" , this.checkChangeAndGoBack );
 
+            this.$province = this.$el.find( ".province" );
             this.$cityname = this.$el.find( ".cityname" );
             this.$userId = this.$el.find( ".user_id" );
             this.$zwms = this.$el.find( ".zwms" );
             this.$looks = this.$el.find( ".looks" );
+
+            //根据用户之前的信息初始化页面
+            //城市信息
+            var locationArray = this.model.get( "location" ).split( " " );
+            var province = locationArray[0];
+            var cityname = locationArray[1];
+            if( province != "" ) {
+                this.$province.val( province ).trigger( "change" );
+                this.$cityname.val( cityname );
+            }
+
+            //外貌
+            var looksArray = this.model.get( "WM" ).split( " " );
+            var $looks = this.$looks;
+            _.each( looksArray , function( item ) {
+                if( item !== "" ) {
+                    $looks.find( "input[value=" + item + "]" ).parent().trigger( "tap" );
+                }
+            });
 
             return this;
         }//}}}

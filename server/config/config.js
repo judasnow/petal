@@ -4,10 +4,10 @@ var path = require( "path" )
 module.exports = {
     dev: {
         rootPath: rootPath ,
-        redisServer: "172.17.0.46" ,
+        redisServer: "192.168.1.109" ,
         mongodServer: "mongodb://172.17.0.46/petal" ,
-        wxRedisServer: "172.17.0.46" ,
-        hb123Server: "http://172.17.0.20:1979/Mobile/Api.aspx?" ,
+        wxRedisServer: "192.168.1.109" ,
+        hb123Server: "http://127.0.0.1:1979/Mobile/Api.aspx?" ,
         port: 8800
     },
     production: {

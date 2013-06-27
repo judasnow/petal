@@ -373,21 +373,1631 @@ function(
         },
         areaList: [
         //{{{
-            {
-                province: "四川" ,
-                classname: "sichuan" ,
-                cities: [
-                    {cityname: "成都"} ,
-                    {cityname: "自贡"}
-                ]
-            } ,
-            {
-                province: "吉林",
-                classname: "hunan" ,
-                cities: [
-                    {cityname: "长春"}
-                ]
-            }
+        {
+            province: '安徽',
+            classname: "anhui",
+            cities: [
+            //{{{
+                {
+                    cityname: '合肥'
+                },
+                {
+                    cityname: '安庆'
+                },
+                {
+                    cityname: '蚌埠'
+                },
+                {
+                    cityname: '亳州'
+                },
+                {
+                    cityname: '巢湖'
+                },
+                {
+                    cityname: '滁州'
+                },
+                {
+                    cityname: '阜阳'
+                },
+                {
+                    cityname: '贵池'
+                },
+                {
+                    cityname: '淮北'
+                },
+                {
+                    cityname: '淮化'
+                },
+                {
+                    cityname: '淮南'
+                },
+                {
+                    cityname: '黄山'
+                },
+                {
+                    cityname: '九华山'
+                },
+                {
+                    cityname: '六安'
+                },
+                {
+                    cityname: '马鞍山'
+                },
+                {
+                    cityname: '宿州'
+                },
+                {
+                    cityname: '铜陵'
+                },
+                {
+                    cityname: '屯溪'
+                },
+                {
+                    cityname: '芜湖'
+                },
+                {
+                    cityname: '宣城'
+                }
+            ]//}}}
+        },
+        {
+            province: '福建',
+            classname: "fujian",
+            cities: [
+            //{{{
+                {
+                    cityname: '福州'
+                },
+                {
+                    cityname: '福安'
+                },
+                {
+                    cityname: '龙岩'
+                },
+                {
+                    cityname: '南平'
+                },
+                {
+                    cityname: '宁德'
+                },
+                {
+                    cityname: '莆田'
+                },
+                {
+                    cityname: '泉州'
+                },
+                {
+                    cityname: '三明'
+                },
+                {
+                    cityname: '邵武'
+                },
+                {
+                    cityname: '石狮'
+                },
+                {
+                    cityname: '晋江'
+                },
+                {
+                    cityname: '永安'
+                },
+                {
+                    cityname: '武夷山'
+                },
+                {
+                    cityname: '厦门'
+                },
+                {
+                    cityname: '漳州'
+                }
+            ]//}}}
+        },
+        {
+            province: '甘肃',
+            classname: "gansu",
+            cities: [
+            //{{{
+                {
+                    cityname: '兰州'
+                },
+                {
+                    cityname: '白银'
+                },
+                {
+                    cityname: '定西'
+                },
+                {
+                    cityname: '敦煌'
+                },
+                {
+                    cityname: '甘南'
+                },
+                {
+                    cityname: '金昌'
+                },
+                {
+                    cityname: '酒泉'
+                },
+                {
+                    cityname: '临夏'
+                },
+                {
+                    cityname: '平凉'
+                },
+                {
+                    cityname: '天水'
+                },
+                {
+                    cityname: '武都'
+                },
+                {
+                    cityname: '武威'
+                },
+                {
+                    cityname: '西峰'
+                },
+                {
+                    cityname: '嘉峪关'
+                },
+                {
+                    cityname: '张掖'
+                }
+            ]//}}}
+        },
+        {
+            province: '广东',
+            classname: "guangdong",
+            cities: [
+            //{{{
+                {
+                    cityname: '广州'
+                },
+                {
+                    cityname: '潮阳'
+                },
+                {
+                    cityname: '潮州'
+                },
+                {
+                    cityname: '澄海'
+                },
+                {
+                    cityname: '东莞'
+                },
+                {
+                    cityname: '佛山'
+                },
+                {
+                    cityname: '河源'
+                },
+                {
+                    cityname: '惠州'
+                },
+                {
+                    cityname: '江门'
+                },
+                {
+                    cityname: '揭阳'
+                },
+                {
+                    cityname: '开平'
+                },
+                {
+                    cityname: '茂名'
+                },
+                {
+                    cityname: '梅州'
+                },
+                {
+                    cityname: '清远'
+                },
+                {
+                    cityname: '汕头'
+                },
+                {
+                    cityname: '汕尾'
+                },
+                {
+                    cityname: '韶关'
+                },
+                {
+                    cityname: '深圳'
+                },
+                {
+                    cityname: '顺德'
+                },
+                {
+                    cityname: '阳江'
+                },
+                {
+                    cityname: '英德'
+                },
+                {
+                    cityname: '云浮'
+                },
+                {
+                    cityname: '增城'
+                },
+                {
+                    cityname: '湛江'
+                },
+                {
+                    cityname: '肇庆'
+                },
+                {
+                    cityname: '中山'
+                },
+                {
+                    cityname: '珠海'
+                }
+            ]//}}}
+        },
+        {
+            province: '广西',
+            classname: "guangxi",
+            cities: [
+            //{{{
+                {
+                    cityname: '南宁'
+                },
+                {
+                    cityname: '百色'
+                },
+                {
+                    cityname: '北海'
+                },
+                {
+                    cityname: '桂林'
+                },
+                {
+                    cityname: '防城港'
+                },
+                {
+                    cityname: '河池'
+                },
+                {
+                    cityname: '贺州'
+                },
+                {
+                    cityname: '柳州'
+                },
+                {
+                    cityname: '来宾'
+                },
+                {
+                    cityname: '钦州'
+                },
+                {
+                    cityname: '梧州'
+                },
+                {
+                    cityname: '贵港'
+                },
+                {
+                    cityname: '玉林'
+                }
+            ]//}}}
+        },
+        {
+            province: '贵州',
+            classname: "guizhou",
+            cities: [
+            //{{{
+                {
+                    cityname: '贵阳'
+                },
+                {
+                    cityname: '安顺'
+                },
+                {
+                    cityname: '毕节'
+                },
+                {
+                    cityname: '都匀'
+                },
+                {
+                    cityname: '凯里'
+                },
+                {
+                    cityname: '六盘水'
+                },
+                {
+                    cityname: '铜仁'
+                },
+                {
+                    cityname: '兴义'
+                },
+                {
+                    cityname: '玉屏'
+                },
+                {
+                    cityname: '遵义'
+                }
+            ]//}}}
+        },
+        {
+            province: '海南',
+            classname: "hainan",
+            cities: [
+            //{{{
+                {
+                    cityname: '海口'
+                },
+                {
+                    cityname: '三亚'
+                },
+                {
+                    cityname: '五指山'
+                },
+                {
+                    cityname: '琼海'
+                },
+                {
+                    cityname: '儋州'
+                },
+                {
+                    cityname: '文昌'
+                },
+                {
+                    cityname: '万宁'
+                },
+                {
+                    cityname: '东方'
+                },
+                {
+                    cityname: '定安'
+                },
+                {
+                    cityname: '屯昌'
+                },
+                {
+                    cityname: '澄迈'
+                },
+                {
+                    cityname: '临高'
+                },
+                {
+                    cityname: '万宁'
+                },
+                {
+                    cityname: '白沙黎族'
+                },
+                {
+                    cityname: '昌江黎族'
+                },
+                {
+                    cityname: '乐东黎族'
+                },
+                {
+                    cityname: '陵水黎族'
+                },
+                {
+                    cityname: '保亭黎族'
+                },
+                {
+                    cityname: '琼中黎族'
+                },
+                {
+                    cityname: '西沙群岛'
+                },
+                {
+                    cityname: '南沙群岛'
+                },
+                {
+                    cityname: '中沙群岛'
+                }
+            ]//}}}
+        },
+        {
+            province: '河北',
+            classname: "hebei",
+            cities: [
+            //{{{
+                {
+                    cityname: '石家庄'
+                },
+                {
+                    cityname: '保定'
+                },
+                {
+                    cityname: '北戴河'
+                },
+                {
+                    cityname: '沧州'
+                },
+                {
+                    cityname: '承德'
+                },
+                {
+                    cityname: '丰润'
+                },
+                {
+                    cityname: '邯郸'
+                },
+                {
+                    cityname: '衡水'
+                },
+                {
+                    cityname: '廊坊'
+                },
+                {
+                    cityname: '南戴河'
+                },
+                {
+                    cityname: '秦皇岛'
+                },
+                {
+                    cityname: '唐山'
+                },
+                {
+                    cityname: '新城'
+                },
+                {
+                    cityname: '邢台'
+                },
+                {
+                    cityname: '张家口'
+                }
+            ]//}}}
+        },
+        {
+            province: '黑龙江',
+            classname: "heilongjiang",
+            cities: [
+            //{{{
+                {
+                    cityname: '哈尔滨'
+                },
+                {
+                    cityname: '北安'
+                },
+                {
+                    cityname: '大庆'
+                },
+                {
+                    cityname: '大兴安岭'
+                },
+                {
+                    cityname: '鹤岗'
+                },
+                {
+                    cityname: '黑河'
+                },
+                {
+                    cityname: '佳木斯'
+                },
+                {
+                    cityname: '鸡西'
+                },
+                {
+                    cityname: '牡丹江'
+                },
+                {
+                    cityname: '齐齐哈尔'
+                },
+                {
+                    cityname: '七台河'
+                },
+                {
+                    cityname: '双鸭山'
+                },
+                {
+                    cityname: '绥化'
+                },
+                {
+                    cityname: '伊春'
+                }
+            ]//}}}
+        },
+        {
+            province: '河南',
+            classname: "henan",
+            cities: [
+            //{{{
+                {
+                    cityname: '郑州'
+                },
+                {
+                    cityname: '安阳'
+                },
+                {
+                    cityname: '鹤壁'
+                },
+                {
+                    cityname: '潢川'
+                },
+                {
+                    cityname: '焦作'
+                },
+                {
+                    cityname: '济源'
+                },
+                {
+                    cityname: '开封'
+                },
+                {
+                    cityname: '漯河'
+                },
+                {
+                    cityname: '洛阳'
+                },
+                {
+                    cityname: '南阳'
+                },
+                {
+                    cityname: '平顶山'
+                },
+                {
+                    cityname: '濮阳'
+                },
+                {
+                    cityname: '三门峡'
+                },
+                {
+                    cityname: '商丘'
+                },
+                {
+                    cityname: '新乡'
+                },
+                {
+                    cityname: '信阳'
+                },
+                {
+                    cityname: '许昌'
+                },
+                {
+                    cityname: '周口'
+                },
+                {
+                    cityname: '驻马店'
+                }
+            ]//}}}
+        },
+        {
+            province: '湖北',
+            classname: "hubei",
+            cities: [
+            //{{{
+                {
+                    cityname: '武汉'
+                },
+                {
+                    cityname: '恩施'
+                },
+                {
+                    cityname: '鄂州'
+                },
+                {
+                    cityname: '黄冈'
+                },
+                {
+                    cityname: '黄石'
+                },
+                {
+                    cityname: '荆门'
+                },
+                {
+                    cityname: '荆州'
+                },
+                {
+                    cityname: '潜江'
+                },
+                {
+                    cityname: '十堰'
+                },
+                {
+                    cityname: '随州'
+                },
+                {
+                    cityname: '武穴'
+                },
+                {
+                    cityname: '仙桃'
+                },
+                {
+                    cityname: '咸宁'
+                },
+                {
+                    cityname: '襄阳'
+                },
+                {
+                    cityname: '襄樊'
+                },
+                {
+                    cityname: '孝感'
+                },
+                {
+                    cityname: '宜昌'
+                }
+            ]//}}}
+        },
+        {
+            province: '湖南',
+            classname: "hunan",
+            cities: [
+            //{{{
+                {
+                    cityname: '长沙'
+                },
+                {
+                    cityname: '常德'
+                },
+                {
+                    cityname: '郴州'
+                },
+                {
+                    cityname: '衡阳'
+                },
+                {
+                    cityname: '怀化'
+                },
+                {
+                    cityname: '吉首'
+                },
+                {
+                    cityname: '娄底'
+                },
+                {
+                    cityname: '邵阳'
+                },
+                {
+                    cityname: '湘潭'
+                },
+                {
+                    cityname: '益阳'
+                },
+                {
+                    cityname: '岳阳'
+                },
+                {
+                    cityname: '永州'
+                },
+                {
+                    cityname: '张家界'
+                },
+                {
+                    cityname: '株洲'
+                }
+            ]//}}}
+        },
+        {
+            province: '江苏',
+            classname: "jiangsu",
+            cities: [
+            //{{{
+                {
+                    cityname: '南京'
+                },
+                {
+                    cityname: '常熟'
+                },
+                {
+                    cityname: '常州'
+                },
+                {
+                    cityname: '海门'
+                },
+                {
+                    cityname: '淮安'
+                },
+                {
+                    cityname: '江都'
+                },
+                {
+                    cityname: '江阴'
+                },
+                {
+                    cityname: '昆山'
+                },
+                {
+                    cityname: '连云港'
+                },
+                {
+                    cityname: '南通'
+                },
+                {
+                    cityname: '启东'
+                },
+                {
+                    cityname: '沭阳'
+                },
+                {
+                    cityname: '宿迁'
+                },
+                {
+                    cityname: '苏州'
+                },
+                {
+                    cityname: '太仓'
+                },
+                {
+                    cityname: '泰州'
+                },
+                {
+                    cityname: '同里'
+                },
+                {
+                    cityname: '无锡'
+                },
+                {
+                    cityname: '徐州'
+                },
+                {
+                    cityname: '盐城'
+                },
+                {
+                    cityname: '扬州'
+                },
+                {
+                    cityname: '宜兴'
+                },
+                {
+                    cityname: '仪征'
+                },
+                {
+                    cityname: '张家港'
+                },
+                {
+                    cityname: '镇江'
+                },
+                {
+                    cityname: '周庄'
+                }
+            ]//}}}
+        },
+        {
+            province: '江西',
+            classname: "jiangxi",
+            cities: [
+            //{{{
+                {
+                    cityname: '南昌'
+                },
+                {
+                    cityname: '抚州'
+                },
+                {
+                    cityname: '赣州'
+                },
+                {
+                    cityname: '吉安'
+                },
+                {
+                    cityname: '景德镇'
+                },
+                {
+                    cityname: '井冈山'
+                },
+                {
+                    cityname: '九江'
+                },
+                {
+                    cityname: '庐山'
+                },
+                {
+                    cityname: '萍乡'
+                },
+                {
+                    cityname: '上饶'
+                },
+                {
+                    cityname: '新余'
+                },
+                {
+                    cityname: '宜春'
+                },
+                {
+                    cityname: '鹰潭'
+                }
+            ]//}}}
+        },
+        {
+            province: '吉林',
+            classname: "jilin",
+            cities: [
+            //{{{
+                {
+                    cityname: '长春'
+                },
+                {
+                    cityname: '白城'
+                },
+                {
+                    cityname: '白山'
+                },
+                {
+                    cityname: '珲春'
+                },
+                {
+                    cityname: '辽源'
+                },
+                {
+                    cityname: '梅河'
+                },
+                {
+                    cityname: '吉林'
+                },
+                {
+                    cityname: '四平'
+                },
+                {
+                    cityname: '松原'
+                },
+                {
+                    cityname: '通化'
+                },
+                {
+                    cityname: '延吉'
+                }
+            ]//}}}
+        },
+        {
+            province: '辽宁',
+            classname: "liaoning",
+            cities: [
+            //{{{
+                {
+                    cityname: '沈阳'
+                },
+                {
+                    cityname: '鞍山'
+                },
+                {
+                    cityname: '本溪'
+                },
+                {
+                    cityname: '朝阳'
+                },
+                {
+                    cityname: '大连'
+                },
+                {
+                    cityname: '丹东'
+                },
+                {
+                    cityname: '抚顺'
+                },
+                {
+                    cityname: '阜新'
+                },
+                {
+                    cityname: '葫芦岛'
+                },
+                {
+                    cityname: '锦州'
+                },
+                {
+                    cityname: '辽阳'
+                },
+                {
+                    cityname: '盘锦'
+                },
+                {
+                    cityname: '铁岭'
+                },
+                {
+                    cityname: '营口'
+                }
+            ]//}}}
+        },
+        {
+            province: '内蒙古',
+            classname: "neimenggu",
+            cities: [
+            //{{{
+                {
+                    cityname: '呼和浩特'
+                },
+                {
+                    cityname: '包头'
+                },
+                {
+                    cityname: '鄂尔多斯'
+                },
+                {
+                    cityname: '乌海'
+                },
+                {
+                    cityname: '乌兰察布盟'
+                },
+                {
+                    cityname: '通辽'
+                },
+                {
+                    cityname: '赤峰'
+                },
+                {
+                    cityname: '巴彦淖尔'
+                },
+                {
+                    cityname: '锡林郭勒盟'
+                },
+                {
+                    cityname: '呼伦贝尔'
+                },
+                {
+                    cityname: '兴安盟'
+                },
+                {
+                    cityname: '阿拉善盟'
+                }
+            ]//}}}
+        },
+        {
+            province: '宁夏',
+            classname: "ningxia",
+            cities: [
+            //{{{
+                {
+                    cityname: '银川'
+                },
+                {
+                    cityname: '固原'
+                },
+                {
+                    cityname: '中卫'
+                },
+                {
+                    cityname: '石嘴山'
+                },
+                {
+                    cityname: '吴忠'
+                }
+            ]//}}}
+        },
+        {
+            province: '山东',
+            classname: "shandong",
+            cities: [
+            //{{{
+                {
+                    cityname: '济南'
+                },
+                {
+                    cityname: '滨州'
+                },
+                {
+                    cityname: '兖州'
+                },
+                {
+                    cityname: '德州'
+                },
+                {
+                    cityname: '东营'
+                },
+                {
+                    cityname: '菏泽'
+                },
+                {
+                    cityname: '济宁'
+                },
+                {
+                    cityname: '莱芜'
+                },
+                {
+                    cityname: '聊城'
+                },
+                {
+                    cityname: '临沂'
+                },
+                {
+                    cityname: '蓬莱'
+                },
+                {
+                    cityname: '青岛'
+                },
+                {
+                    cityname: '曲阜'
+                },
+                {
+                    cityname: '日照'
+                },
+                {
+                    cityname: '泰安'
+                },
+                {
+                    cityname: '潍坊'
+                },
+                {
+                    cityname: '威海'
+                },
+                {
+                    cityname: '烟台'
+                },
+                {
+                    cityname: '枣庄'
+                },
+                {
+                    cityname: '淄博'
+                }
+            ]//}}}
+        },
+        {
+            province: '山西',
+            classname: "jiangxi",
+            cities: [
+            //{{{
+                {
+                    cityname: '太原'
+                },
+                {
+                    cityname: '长治'
+                },
+                {
+                    cityname: '大同'
+                },
+                {
+                    cityname: '候马'
+                },
+                {
+                    cityname: '晋城'
+                },
+                {
+                    cityname: '离石'
+                },
+                {
+                    cityname: '临汾'
+                },
+                {
+                    cityname: '宁武'
+                },
+                {
+                    cityname: '朔州'
+                },
+                {
+                    cityname: '忻州'
+                },
+                {
+                    cityname: '阳泉'
+                },
+                {
+                    cityname: '榆次'
+                },
+                {
+                    cityname: '运城'
+                }
+            ]//}}}
+        },
+        {
+            province: '陕西',
+            classname: "shanxi",
+            cities: [
+            //{{{
+                {
+                    cityname: '西安'
+                },
+                {
+                    cityname: '安康'
+                },
+                {
+                    cityname: '宝鸡'
+                },
+                {
+                    cityname: '汉中'
+                },
+                {
+                    cityname: '渭南'
+                },
+                {
+                    cityname: '商州'
+                },
+                {
+                    cityname: '绥德'
+                },
+                {
+                    cityname: '铜川'
+                },
+                {
+                    cityname: '咸阳'
+                },
+                {
+                    cityname: '延安'
+                },
+                {
+                    cityname: '榆林'
+                }
+            ]//}}}
+        },
+        {
+            province: '台湾',
+            classname: "taiwuan",
+            cities: [
+            //{{{
+                {
+                    cityname: '台北'
+                },
+                {
+                    cityname: '基隆'
+                },
+                {
+                    cityname: '台南'
+                },
+                {
+                    cityname: '台中'
+                },
+                {
+                    cityname: '高雄'
+                },
+                {
+                    cityname: '屏东'
+                },
+                {
+                    cityname: '南投'
+                },
+                {
+                    cityname: '云林'
+                },
+                {
+                    cityname: '新竹'
+                },
+                {
+                    cityname: '彰化'
+                },
+                {
+                    cityname: '苗栗'
+                },
+                {
+                    cityname: '嘉义'
+                },
+                {
+                    cityname: '花莲'
+                },
+                {
+                    cityname: '桃园'
+                },
+                {
+                    cityname: '宜兰'
+                },
+                {
+                    cityname: '台东'
+                },
+                {
+                    cityname: '金门'
+                },
+                {
+                    cityname: '马祖'
+                },
+                {
+                    cityname: '澎湖'
+                },
+                {
+                    cityname: '其它'
+                }
+            ]//}}}
+        },
+        {
+            province: '西藏',
+            classname: "xizang",
+            cities: [
+            //{{{
+                {
+                    cityname: '拉萨'
+                },
+                {
+                    cityname: '阿里'
+                },
+                {
+                    cityname: '昌都'
+                },
+                {
+                    cityname: '林芝'
+                },
+                {
+                    cityname: '那曲'
+                },
+                {
+                    cityname: '日喀则'
+                },
+                {
+                    cityname: '山南'
+                }
+            ]//}}}
+        },
+        {
+            province: '青海',
+            classname: "qinghai",
+            cities: [
+            //{{{
+                {
+                    cityname: '西宁'
+                },
+                {
+                    cityname: '德令哈'
+                },
+                {
+                    cityname: '格尔木'
+                },
+                {
+                    cityname: '共和'
+                },
+                {
+                    cityname: '海东'
+                },
+                {
+                    cityname: '海晏'
+                },
+                {
+                    cityname: '玛沁'
+                },
+                {
+                    cityname: '同仁'
+                },
+                {
+                    cityname: '玉树'
+                }
+            ]//}}}
+        },
+        {
+            province: '四川',
+            classname: "sichuan",
+            cities: [
+            //{{{
+                {
+                    cityname: '成都'
+                },
+                {
+                    cityname: '巴中'
+                },
+                {
+                    cityname: '达州'
+                },
+                {
+                    cityname: '德阳'
+                },
+                {
+                    cityname: '都江堰'
+                },
+                {
+                    cityname: '峨眉山'
+                },
+                {
+                    cityname: '涪陵'
+                },
+                {
+                    cityname: '广安'
+                },
+                {
+                    cityname: '广元'
+                },
+                {
+                    cityname: '九寨沟'
+                },
+                {
+                    cityname: '康定'
+                },
+                {
+                    cityname: '乐山'
+                },
+                {
+                    cityname: '泸州'
+                },
+                {
+                    cityname: '马尔康'
+                },
+                {
+                    cityname: '绵阳'
+                },
+                {
+                    cityname: '眉山'
+                },
+                {
+                    cityname: '南充'
+                },
+                {
+                    cityname: '内江'
+                },
+                {
+                    cityname: '攀枝花'
+                },
+                {
+                    cityname: '遂宁'
+                },
+                {
+                    cityname: '汶川'
+                },
+                {
+                    cityname: '西昌'
+                },
+                {
+                    cityname: '雅安'
+                },
+                {
+                    cityname: '宜宾'
+                },
+                {
+                    cityname: '自贡'
+                },
+                {
+                    cityname: '资阳'
+                },
+                {
+                    cityname: '阿坝'
+                },
+                {
+                    cityname: '甘孜'
+                }
+            ]//}}}
+        },
+        {
+            province: '天津',
+            classname: "tianjin",
+            cities: [
+            //{{{
+                {
+                    cityname: '天津'
+                },
+                {
+                    cityname: '和平'
+                },
+                {
+                    cityname: '东丽'
+                },
+                {
+                    cityname: '河东'
+                },
+                {
+                    cityname: '西青'
+                },
+                {
+                    cityname: '河西'
+                },
+                {
+                    cityname: '津南'
+                },
+                {
+                    cityname: '南开'
+                },
+                {
+                    cityname: '北辰'
+                },
+                {
+                    cityname: '河北'
+                },
+                {
+                    cityname: '武清'
+                },
+                {
+                    cityname: '红挢'
+                },
+                {
+                    cityname: '塘沽'
+                },
+                {
+                    cityname: '汉沽'
+                },
+                {
+                    cityname: '大港'
+                },
+                {
+                    cityname: '宁河'
+                },
+                {
+                    cityname: '静海'
+                },
+                {
+                    cityname: '宝坻'
+                },
+                {
+                    cityname: '蓟县'
+                }
+            ]//}}}
+        },
+        {
+            province: '新疆',
+            classname: "xinjiang",
+            cities: [
+            //{{{    
+                {
+                    cityname: '乌鲁木齐'
+                },
+                {
+                    cityname: '阿克苏'
+                },
+                {
+                    cityname: '阿勒泰'
+                },
+                {
+                    cityname: '阿图什'
+                },
+                {
+                    cityname: '博乐'
+                },
+                {
+                    cityname: '昌吉'
+                },
+                {
+                    cityname: '东山'
+                },
+                {
+                    cityname: '哈密'
+                },
+                {
+                    cityname: '和田'
+                },
+                {
+                    cityname: '喀什'
+                },
+                {
+                    cityname: '克拉玛依'
+                },
+                {
+                    cityname: '库车'
+                },
+                {
+                    cityname: '库尔勒'
+                },
+                {
+                    cityname: '奎屯'
+                },
+                {
+                    cityname: '石河子'
+                },
+                {
+                    cityname: '塔城'
+                },
+                {
+                    cityname: '吐鲁番'
+                },
+                {
+                    cityname: '伊宁'
+                }
+            ]//}}}
+        },
+        {
+            province: '云南',
+            classname: "yunnan",
+            cities: [
+            //{{{
+                {
+                    cityname: '昆明'
+                },
+                {
+                    cityname: '大理'
+                },
+                {
+                    cityname: '保山'
+                },
+                {
+                    cityname: '楚雄'
+                },
+                {
+                    cityname: '大理'
+                },
+                {
+                    cityname: '东川'
+                },
+                {
+                    cityname: '个旧'
+                },
+                {
+                    cityname: '景洪'
+                },
+                {
+                    cityname: '开远'
+                },
+                {
+                    cityname: '临沧'
+                },
+                {
+                    cityname: '丽江'
+                },
+                {
+                    cityname: '六库'
+                },
+                {
+                    cityname: '潞西'
+                },
+                {
+                    cityname: '曲靖'
+                },
+                {
+                    cityname: '思茅'
+                },
+                {
+                    cityname: '文山'
+                },
+                {
+                    cityname: '西双版纳'
+                },
+                {
+                    cityname: '玉溪'
+                },
+                {
+                    cityname: '中甸'
+                },
+                {
+                    cityname: '昭通'
+                }
+            ]//}}}
+        },
+        {
+            province: '浙江',
+            classname: "zhejiang",
+            cities: [
+            //{{{
+                {
+                    cityname: '杭州'
+                },
+                {
+                    cityname: '安吉'
+                },
+                {
+                    cityname: '慈溪'
+                },
+                {
+                    cityname: '定海'
+                },
+                {
+                    cityname: '奉化'
+                },
+                {
+                    cityname: '海盐'
+                },
+                {
+                    cityname: '黄岩'
+                },
+                {
+                    cityname: '湖州'
+                },
+                {
+                    cityname: '嘉兴'
+                },
+                {
+                    cityname: '金华'
+                },
+                {
+                    cityname: '临安'
+                },
+                {
+                    cityname: '临海'
+                },
+                {
+                    cityname: '丽水'
+                },
+                {
+                    cityname: '宁波'
+                },
+                {
+                    cityname: '瓯海'
+                },
+                {
+                    cityname: '平湖'
+                },
+                {
+                    cityname: '千岛湖'
+                },
+                {
+                    cityname: '衢州'
+                },
+                {
+                    cityname: '江山'
+                },
+                {
+                    cityname: '瑞安'
+                },
+                {
+                    cityname: '绍兴'
+                },
+                {
+                    cityname: '嵊州'
+                },
+                {
+                    cityname: '台州'
+                },
+                {
+                    cityname: '温岭'
+                },
+                {
+                    cityname: '温州'
+                },
+                {
+                    cityname: '余姚'
+                },
+                {
+                    cityname: '舟山'
+                }
+            ]//}}}
+        }
         ],//}}}
 
         looks_male: { looks_items: [

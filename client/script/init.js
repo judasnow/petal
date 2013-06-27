@@ -2,11 +2,11 @@
 (function() {
 
 //{{{
-//setInterval( function(){
-//    window.localStorage.setItem( "http://172.17.0.46/style/less/main.less:timestamp" , "" );
-//}, 5000 );
-//less.env = "development";
-//less.watch();
+setInterval( function(){
+    window.localStorage.setItem( "http://172.17.0.46/style/less/main.less:timestamp" , "" );
+}, 5000 );
+less.env = "development";
+less.watch();
 //}}}
 
 //jqmobi init
@@ -130,7 +130,6 @@ document.addEventListener( "DOMContentLoaded" , init , false );
 //解决 id 相同的元素更新问题
 $.ui.tryAddContentDiv = function( id , content , showFooter ) {
     if( $( "#" + id ).length !== 0 ) {
-        console.dir( "remove page " + id );
         $( "#" + id ).remove();
     }
 
