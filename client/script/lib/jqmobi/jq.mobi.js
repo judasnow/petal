@@ -29,7 +29,6 @@ if (!window.jq || typeof (jq) !== "function") {
         _attrCache={},
         _propCache={};
         
-        
         /**
          * internal function to use domfragments for insertion
          *

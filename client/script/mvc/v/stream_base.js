@@ -43,7 +43,6 @@ function(
             var scroll = this.$el.scroller();
             this.scroll = scroll;
             scroll.addInfinite();
-            //scroll.addPullToRefresh();
 
             //刷新
             $.bind( scroll , "refresh-trigger" , function() {

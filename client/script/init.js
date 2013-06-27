@@ -130,13 +130,14 @@ document.addEventListener( "DOMContentLoaded" , init , false );
 //解决 id 相同的元素更新问题
 $.ui.tryAddContentDiv = function( id , content , showFooter ) {
     if( $( "#" + id ).length !== 0 ) {
-        $( "#" + id ).remove();
+        //$( "#" + id ).remove();
+        $.ui.updateContentDiv( "#" + id , content );
+    } else {
+        $.ui.addContentDiv (
+            id ,
+            content
+        );
     }
-
-    $.ui.addContentDiv (
-        id ,
-        content
-    );
 
     var $el = $( "#" + id );
     if( typeof showFooter === "undefined" || showFooter === false ) {

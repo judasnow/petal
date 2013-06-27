@@ -27,6 +27,7 @@ function(
  
         initialize: function( args ) {
             new MenuView();
+
             var users = new Users();
             this.baseInitialize( "stream" , vistitorTpl , ScreamItemView , users , args.q , args.hash );
         } 
