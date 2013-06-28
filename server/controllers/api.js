@@ -11,22 +11,16 @@ var helper = require( "../lib/helper" )
 exports.getUsernameByWxId = function( req , res ) {
 //{{{
     var wx_id = req.param( "wx_id" , "" );
-    var redisClient = redis.createClient( "6379" , config.redisServer );
     if( wx_id !== "" ) {
-        redisClient.get( wx_id , function( err , userInfo ) {
-            var userInfo = {};
-            var wxRedisClient = redis.createClient( "6379" , "m.huaban123.com" );
-            wxRedisClient.auth( "erlang/otp" , function() {
-                wxRedisClient.hget( wx_id , "username" , function( error , data ) {
-                    userInfo.username = data;
-                    if( typeof userInfo.username === "undefined" || userInfo.username === "" ) {
-                        res.json( ["fail"] );
-                    } else {
-                        //返回用户名即可
-                        res.json( ["ok" , {username: userInfo.username}] );
-                    }
-                });
-            });
+        var wxRedisClient = redis.createClient( "6379" , config.wxRedisServer );
+        //wxRedisClient.auth( "erlang/otp" , function() {
+        wxRedisClient.hget( wx_id , "username" , function( error , username ) {
+            if( typeof username ==="undefined" || username === "" ) {
+                res.json( ["fail"] );
+            } else {
+                //返回用户名即可
+                res.json( ["ok" , {username: username}] );
+            }
         });
     } else {
         res.json( ["fail"] );
