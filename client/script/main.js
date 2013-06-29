@@ -9,6 +9,7 @@ require.config({
         backbone: "lib/backbone" ,
         backbonelocalstore: "lib/backbone.localStorage-min" ,
         mustache: "lib/mustache" ,
+        date_utils: "lib/date-utils.min" ,
 
         router: "router" ,
 
@@ -30,6 +31,9 @@ require.config({
         },
         mustache: {
             exports: "Mustache"
+        },
+        date_utils: {
+            exports: "date_utils"
         }
     }
 });

@@ -368,11 +368,144 @@ function(
     "台州": 810,
     "温州": 749,
     "舟山": 805,
-    "湖州": 769
+    "湖州": 769,
+    "重庆市区": 133,
+    "忠县": 713,
+    "开县": 714,
+    "綦江县": 702,
+    "潼南县": 703,
+    "铜梁县": 704,
+    "大足县": 705,
+    "荣昌县": 706,
+    "璧山县": 707,
+    "梁平县": 708,
+    "城口县": 709,
+    "丰都县": 710,
+    "垫江县": 711,
+    "武隆县": 712,
+    "云阳县": 715,
+    "奉节县": 716,
+    "巫山县": 717,
+    "巫溪县": 718,
+    "石柱县": 719,
+    "秀山县": 720,
+    "酉阳县": 721,
+    "彭水县": 722,
+    "海淀": 469,
+    "东城": 641,
+    "西城": 642,
+    "朝阳": 643,
+    "丰台": 644,
+    "房山": 647,
+    "通州": 648,
+    "顺义": 649,
+    "昌平": 650,
+    "大兴": 651,
+    "怀柔": 652,
+    "平谷": 653,
+    "密云县": 654,
+    "延庆县": 655,
+    "石景山": 645,
+    "门头沟": 646,
+    "黄浦": 672,
+    "卢湾": 673,
+    "徐汇": 674,
+    "长宁": 675,
+    "静安": 676,
+    "普陀": 677,
+    "闸北": 678,
+    "虹口": 679,
+    "杨浦": 680,
+    "闵行": 681,
+    "宝山": 682,
+    "嘉定": 683,
+    "浦东": 684,
+    "金山": 685,
+    "松江": 686,
+    "青浦": 687,
+    "奉贤": 688,
+    "崇明": 689
     //}}}
         },
         areaList: [
+        {
         //{{{
+        province: "上海" ,
+        classname: "shanghai",
+        cities: [
+            //{{{
+            { cityname: "黄浦" } ,
+            { cityname: "卢湾" } ,
+            { cityname: "徐汇" } ,
+            { cityname: "长宁" } ,
+            { cityname: "静安" } ,
+            { cityname: "普陀" } ,
+            { cityname: "闸北" } ,
+            { cityname: "虹口" } ,
+            { cityname: "杨浦" } ,
+            { cityname: "闵行" } ,
+            { cityname: "宝山" } ,
+            { cityname: "嘉定" } ,
+            { cityname: "浦东" } ,
+            { cityname: "金山" } ,
+            { cityname: "松江" } ,
+            { cityname: "青浦" } ,
+            { cityname: "奉贤" } ,
+            { cityname: "崇明" } 
+            ]//}}}
+        },
+        {
+            province: "北京" ,
+            classname: "beijing" ,
+            cities: [
+            //{{{
+                { cityname: "海淀" }, 
+                { cityname: "东城" },
+                { cityname: "西城" },
+                { cityname: "朝阳" },
+                { cityname: "丰台" },
+                { cityname: "房山" },
+                { cityname: "通州" },
+                { cityname: "顺义" },
+                { cityname: "昌平" },
+                { cityname: "大兴" },
+                { cityname: "怀柔" },
+                { cityname: "平谷" },
+                { cityname: "密云县" },
+                { cityname: "延庆县" },
+                { cityname: "石景山" },
+                { cityname: "门头沟" }
+            ]//}}}
+        },
+        {
+            province: '重庆',
+            classname: 'chongqing',
+            cities: [
+            //{{{
+                { cityname: "重庆市区" } ,
+                { cityname: "忠县" } ,
+                { cityname: "开县" } ,
+                { cityname: "綦江县" }, 
+                { cityname: "潼南县" },
+                { cityname: "铜梁县" },
+                { cityname: "大足县" },
+                { cityname: "荣昌县" },
+                { cityname: "璧山县" },
+                { cityname: "梁平县" },
+                { cityname: "城口县" },
+                { cityname: "丰都县" },
+                { cityname: "垫江县" },
+                { cityname: "武隆县" },
+                { cityname: "云阳县" },
+                { cityname: "奉节县" },
+                { cityname: "巫山县" },
+                { cityname: "巫溪县" },
+                { cityname: "石柱县" },
+                { cityname: "秀山县" },
+                { cityname: "酉阳县" },
+                { cityname: "彭水县" } 
+            ]
+        },//}}}
         {
             province: '安徽',
             classname: "anhui",
@@ -1414,7 +1547,7 @@ function(
         },
         {
             province: '山西',
-            classname: "jiangxi",
+            classname: "shan1xi",
             cities: [
             //{{{
                 {
@@ -1460,7 +1593,7 @@ function(
         },
         {
             province: '陕西',
-            classname: "shanxi",
+            classname: "shan4xi",
             cities: [
             //{{{
                 {

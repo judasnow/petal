@@ -107,7 +107,7 @@ module.exports = function( config , socket , redisClient ) {
             "about=msg&action=get_latest_msg_list&p=1&begin_time=" + beginTime ,
 
             get_msg_ok
-            );
+        );
 /*
         helper.req2hb123(
             "get" ,
@@ -122,7 +122,7 @@ module.exports = function( config , socket , redisClient ) {
 
            get_visitors_ok
            );
-           */
+*/
 
     } , timeStep );
 }

@@ -31,7 +31,6 @@ function(
 
     var ChatList = Backbone.View.extend({
         template: chatListTpl ,
-        className: "panel" ,
 
         initialize: function() {
         //{{{
@@ -40,8 +39,7 @@ function(
                 "sendMsg" , "addOne" , "addAll" , "render" );
 
             $.ui.tryAddContentDiv( "chat_list" , this.template , true );
-            $.ui.loadContent( "#chat_list" , false , false , "fade" );
-
+            $.ui.loadContent( "#chat_list" , false , false , "none" );
             this.$el = $( "#chat_list" );
 
             this.$items = this.$el.find( ".items" );
@@ -98,8 +96,11 @@ function(
                     },
                     //send ok
                     $.proxy(function( data ) {
-                        if( JSON.parse( data )[0] === "ok" ) {
-                            window.updateSysNotice( "金币 -" + window.costOfSendMsg );
+                        var dataObj = JSON.parse( data );
+                        if( dataObj.result === "ok" ) {
+                            if( dataObj.need_pay === "True" ) {
+                                window.updateSysNotice( "金币 -" + window.costOfSendMsg );
+                            }
                             this.addOne(
                                 new ChatItem({
                                     SrcUserId: window.objectUser.get( "UserId" ) ,

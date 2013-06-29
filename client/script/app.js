@@ -47,7 +47,7 @@ function(
             };
 
             //轮询获取最新动态
-            var step = 2000;
+            var step = 15000;
             var formatTime = function( date ) {
                 return date.getFullYear()
                     + "-" + (parseInt( date.getMonth() ) + 1)
@@ -55,7 +55,7 @@ function(
                     + " " + date.getHours()
                     + ":" + date.getMinutes()
                     + ":" + date.getSeconds() 
-                    + ":" + date.getMilliseconds();a
+                    + ":" + date.getMilliseconds();
             }
             var intervalUpdate = function( type , urlPart ) {
                 //保存在本地的最后更新时间
@@ -74,11 +74,12 @@ function(
                             if( len > 0 ) {
                                 //更新数量
                                 var localCount = window.localStorage.getItem( localCountKey );
-                                if( isNaN( localCount ) ) {
+                                if( localCount === null || isNaN( localCount ) ) {
                                     localCount = 0;
                                     window.localStorage.setItem( localCountKey , 0 );
                                 }
 
+                                //需要特殊处理
                                 if( type === "msgs" ) {
                                     //是消息的话 如果是在 chat_list 页面 则需要即时的显示
                                     _.each( dataObj , function( msgItem ) {
@@ -129,8 +130,8 @@ function(
                 var contactTpl = $( "#contact_info_tpl" ).html();
                 $.get(
                     "/api/should_display_contact_info/?"
-                    + "object_user_id=" + window.objectUser.get( "UserId" )
-                    + "&subject_user_id=" + this.model.get( "UserId" ) ,
+                        + "object_user_id=" + window.objectUser.get( "UserId" )
+                        + "&subject_user_id=" + this.model.get( "UserId" ) ,
 
                     $.proxy( function( data ) {
                         try {

@@ -3,6 +3,7 @@ var helper = require( "../lib/helper" )
     , fs = require( "fs" ) 
     , redis = require( "redis" )
     , needle = require( "needle" ) 
+    , logger = require( "../config/logger")
     , config = require( "../config/config" )["dev"];
 
 //user
@@ -142,7 +143,7 @@ exports.uploadFiles = function( req , res ) {
 };//}}}
 
 exports.updateUser = function( req , res ) {
-    //{{{
+//{{{
     var userId = req.param( "user_id" , "" );
     var area_id = req.param( "area_id" , "" );
     var birthday = req.param( "birthday" , "" );
@@ -151,23 +152,29 @@ exports.updateUser = function( req , res ) {
 
     //保存其他信息
     var ok = function( dataObj ) {
-        res.json( ["ok"] );
-    }
-    helper.req2hb123(
-            "post" , 
-            "about=user&action=update_info&user_id=" + userId + 
-            "&birthday=" + birthday + 
-            "&zwms=" + zwms + 
-            "&looks=" + looks +
-            "&area_id=" + area_id ,
+        res.json( {result: "ok"} );
+    };
+   
+    var error = function( dataObj ) {
+        res.json( {result: "fail"} );
+    };
 
-            ok
-            );
+    helper.req2hb123(
+        "post" , 
+        "about=user&action=update_info&user_id=" + userId + 
+        "&birthday=" + birthday + 
+        "&zwms=" + zwms + 
+        "&looks=" + looks +
+        "&area_id=" + area_id ,
+
+        ok ,
+        error
+    );
 };//}}}
 
 //@todo should be put, but I hava not enought time .... so sad I am.
 exports.tweetIt = function( req , res ) {
-    //{{{
+//{{{
     var userId = req.param( "user_id" );
     var tweetContent = req.param( "content" );
 
@@ -188,11 +195,17 @@ exports.shouldDisplayContactInfo = function( req , res ) {
     var objUserId = req.param( "object_user_id" );
     var subUserId = req.param( "subject_user_id" );
 
+    var ok = function( dataObj ) {
+        res.json( dataObj );
+    };
+
     helper.req2hb123( 
         "get" , 
         "about=user&action=should_display_contact_info" + 
         "&object_user_id=" + objUserId + 
-        "&subject_user_id=" + subUserId 
+        "&subject_user_id=" + subUserId ,
+
+        ok
     );
 };//}}}
 
@@ -332,11 +345,11 @@ exports.sendMsg = function( req , res ) {
     msgObj.targetUserId = req.param( "target_user_id" , "" );
 
     var ok = function( dataObj ) {
-        res.json( [ "ok" ] );
+        res.json( {result: "ok" , need_pay: dataObj.need_pay} );
     };
 
     var error = function( dataObj ) {
-        res.json( [ "fail" ] );
+        res.json({result: "fail"});
     };
 
     helper.req2hb123( 

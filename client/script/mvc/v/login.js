@@ -28,9 +28,6 @@ function(
         initialize: function() {
             $.ui.toggleHeaderMenu( false ); 
             _.bindAll( this , "doLogin" , "loginOk" , "loginFail" );
-
-            socket.on( "login_ok" , this.loginOk );
-            socket.on( "login_fail" , this.loginFail );
         } ,
 
         doLogin: function() {
@@ -45,14 +42,6 @@ function(
             if( username === "" || password === "" ) {
                 this.$alertPositionHolder.addClass( "alert" ).text( "请输入完整的用户和密码" );
             } else {
-                //需要先绑定回调事件
-                socket.emit(
-                    "do_login" ,
-                    {
-                        username: $username.val() ,
-                        password: $password.val()
-                    }
-                );
             }
         } ,
 

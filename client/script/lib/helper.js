@@ -1,8 +1,28 @@
-define( [] , 
+define( [
+    "date_utils"
+] , 
 
 function(){
 
     var helper = {};
+
+    //调整时区
+    helper.resetTime = function( dateString ) {
+        //进行一个时区的转换 需要减去 8 小时
+        //createAt.getTimezoneOffset() * 60000;
+        var date = "";
+        if( typeof dateString === "undefined" || dateString === "" ) {
+            //似乎本机时间是对的
+            var date = new Date();
+        } else {
+            var date = new Date( dateString );
+            date.addMilliseconds( -28800000 );
+        }
+        return date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + " "
+            + date.getHours() + ":" 
+            + date.getMinutes() + ":"
+            + date.getSeconds();
+    };
 
     helper.showImage = function( $imgs ) {
         var default_src = {

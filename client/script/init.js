@@ -2,11 +2,11 @@
 (function() {
 
 //{{{
-setInterval( function(){
-    window.localStorage.setItem( "http://172.17.0.46/style/less/main.less:timestamp" , "" );
-}, 5000 );
-less.env = "development";
-less.watch();
+//setInterval( function(){
+//    window.localStorage.setItem( "http://172.17.0.46/style/less/main.less:timestamp" , "" );
+//}, 5000 );
+//less.env = "development";
+//less.watch();
 //}}}
 
 //jqmobi init
@@ -127,25 +127,45 @@ var init = function() {
 
 document.addEventListener( "DOMContentLoaded" , init , false );
 
-//解决 id 相同的元素更新问题
+//解决 id 相同的元素更新问题 
+//也就是说如果已经有了相同 id 的元素则不进行任何操作
 $.ui.tryAddContentDiv = function( id , content , showFooter ) {
-    if( $( "#" + id ).length !== 0 ) {
-        //$( "#" + id ).remove();
-        $.ui.updateContentDiv( "#" + id , content );
-    } else {
+    if( $( "#" + id ).length === 0 ) {
         $.ui.addContentDiv (
             id ,
             content
         );
+        var $el = $( "#" + id );
+        if( typeof showFooter === "undefined" || showFooter === false ) {
+            $el.attr( "data-footer" , "none" );
+        }
+        $el.addClass( "panel" );
+    } else {
+        $.ui.updateContentDiv(
+            id ,
+            content
+        );
     }
+}
+
+//重新添加页面 如果有则删除之前的页面
+$.ui.reAddContentDiv = function( id , content , showFooter ) {
+    if( $( "#" + id ).length !== 0 ) {
+        $( "#" + id ).remove();
+    }
+    $.ui.addContentDiv (
+        id ,
+        content
+    );
 
     var $el = $( "#" + id );
     if( typeof showFooter === "undefined" || showFooter === false ) {
         $el.attr( "data-footer" , "none" );
     }
+    $el.addClass( "panel" );
 
-    return $el.addClass( "panel" );
-}
+    return;
+};
 
 $.ui.goBackWithDefault = function() {
     if( $.ui.history.length === 1 ) {

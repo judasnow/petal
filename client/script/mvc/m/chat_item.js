@@ -1,10 +1,14 @@
 define([
     "underscore" ,
-    "backbone"
+    "backbone" ,
+
+    "lib/helper"
 ],
 function( 
     _ ,
-    Backbone
+    Backbone ,
+
+    helper
 ){
     "use strict";
 
@@ -12,8 +16,6 @@ function(
         url: "/api/chat_item",
 
         initialize: function(){
-            var createAt = new Date( this.get( "CreateAt" ) ) && new Date();
-
             this.set( 
                 "role" , 
                 window.objectUser.get( "UserId" ) === this.get( "SrcUserId" ) ? 
@@ -26,13 +28,8 @@ function(
             }
 
             this.set( 
-                "time" , 
-                createAt.getFullYear() + "-" + 
-                createAt.getMonth() + "-" + 
-                createAt.getDate() + " " +
-                createAt.getHours() + ":" + 
-                createAt.getMinutes() + ":" +
-                createAt.getSeconds()
+                "time" ,
+                helper.resetTime( this.get( "CreateAt" ) ) 
             );
         }
     });

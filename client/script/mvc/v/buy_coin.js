@@ -3,6 +3,8 @@ define([
     "backbone" ,
     "mustache" ,
 
+    "m/user" ,
+
     "v/menu" ,
 
     "text!tpl/buy_coin.html" 
@@ -12,6 +14,8 @@ function(
     Backbone ,
     Mustache ,
 
+    User ,
+
     MenuView ,
 
     buyCoinTpl
@@ -20,6 +24,7 @@ function(
 
     var BuyCoin = Backbone.View.extend({
         template: buyCoinTpl ,
+
         events: {
             "click .sub_item_inner": "activeIt"
         } ,
@@ -27,14 +32,22 @@ function(
         initialize: function() {
             new MenuView();
 
-            _.bindAll( this , "unactiveOthers" , "activeIt" );
+            //@todo 注意这里是一个权宜 不应该需要新建立一个
+            //user model 的
+            this.model = new User();
+            this.listenTo( this.model , "change" , this.render );
+            this.model.fetch({
+                data: {
+                    user_id: window.objectUser.get( "UserId" )
+                }
+            });
 
+            _.bindAll( this , "render" , "unactiveOthers" , "activeIt" );
+            
             $.ui.tryAddContentDiv( "buy_coin" , "" );
-            this.render();
-
             this.$el = $( "#buy_coin" );
-            this.$el.find( ".sub_item .des" ).bind( "tap" , function( e ) {
-                console.dir( $( this ).parent().find( "input" )[0].checked = true );
+            this.$el.find( ".sub_item" ).bind( "tap" , function( e ) {
+                $( this ).find( "input" )[0].checked = true;
             });
         } ,
 
@@ -42,7 +55,7 @@ function(
             _.each(
                 this.$el.find( ".sub_item_inner" ) , 
                 function( el ) {
-                    $(el).removeClass( "active" )
+                    $( el ).removeClass( "active" )
                         .find( "input" ).attr( "checked" , false );
                 }
             )
@@ -50,9 +63,13 @@ function(
 
         activeIt: function( event ) {
             this.unactiveOthers();
+
             var $el = $( event.target );
             if( $el.hasClass( "des" ) ) {
                 $el = $el.parent();
+            }
+            if( $el.hasClass( "num" ) ) {
+                $el = $el.parent().parent();
             }
             $el.find( "input" ).attr( "checked" , true );
             if( $el.hasClass( "active" ) ) {
@@ -60,19 +77,23 @@ function(
             } else {
                 $el.addClass( "active" );
             }
-
-
         } ,
 
         render: function() {
             $.ui.updateContentDiv(
-                "buy_coin" , 
-                Mustache.to_html( 
-                    this.template , 
-                    window.objectUser.toJSON() 
+                "buy_coin" ,
+                Mustache.to_html(
+                    this.template ,
+                    this.model.toJSON()
                 )
             );
-            $.ui.loadContent( "#buy_coin" , false , false , "fade" );
+            $.ui.loadContent( 
+                "#buy_coin" ,
+                false ,
+                false , 
+
+                "none" 
+            );
             return this;
         }
     });

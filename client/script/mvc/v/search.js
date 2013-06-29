@@ -122,7 +122,7 @@ function(
                     }
                 )
             );
-            $.ui.loadContent( "#search" , false , false , "fade" );
+            $.ui.loadContent( "#search" , false , false , "none" );
             return this;
         }//}}}
     });

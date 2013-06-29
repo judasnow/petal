@@ -17,7 +17,8 @@
     "expect": "" ,
     "mongoose": "" ,
     "supertest": "" ,
-    "connect-redis": ""
+    "connect-redis": "",
+    "winston": ""
   },
   "repository": "git@gitcafe.com:judasnow/petal_mk2.git",
   "author": "judasnow@gmail.com",

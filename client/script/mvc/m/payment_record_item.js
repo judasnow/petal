@@ -1,17 +1,25 @@
 define([
     "underscore" ,
-    "backbone"
+    "backbone" ,
+    
+    "lib/helper" ,
+
+    "date_utils"
 ],
 function( 
     _ ,
-    Backbone
+    Backbone ,
+
+    helper
 ){
     "use strict";
 
     var PaymentRecordItem = Backbone.Model.extend({
-        initialize: function(){
-            var createAt = new Date( this.get( "CreateAt" ) );
-            this.set( "time" , createAt.getFullYear() + "/" + createAt.getMonth() + "/" + createAt.getDate() );
+        initialize: function() {
+            this.set( 
+                "time" ,
+                helper.resetTime( this.get( "CreateAt" ) ) 
+            );
 
             this.set( "PvMsg" , this.get( "PvMsg" ).replace( /<[^>].*?>/g , "" ) );
         }

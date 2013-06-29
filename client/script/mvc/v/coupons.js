@@ -109,7 +109,7 @@ function(
                     this.model.toJSON()
                 )
             );
-            $.ui.loadContent( "#coupons/self" , false , false , "fade" );
+            $.ui.loadContent( "#coupons/self" , false , false , "none" );
         }
     });
 

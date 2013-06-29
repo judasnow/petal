@@ -30,17 +30,18 @@ function(
         template: userDetailTpl ,
 
         events: {
-            "tap .get_contaces_info": "getContacesInfo" ,
-            "tap .send_gift": "sendGift" ,
-            "tap .send_msg": "sendMsg" ,
-            "tap .wanted_gift_list li": "sendThatGift" ,
-            "tap .visitors_list>.sub_item": "goDetailPage"
+            "click .get_contaces_info": "getContacesInfo" ,
+            "click .send_gift": "sendGift" ,
+            "click .send_msg": "sendMsg" ,
+            "click .wanted_gift_list .gravatar": "sendThatGift" ,
+            "click .visitors_list>.sub_item": "goDetailPage"
         } ,
 
         initialize: function( data ) {
         //{{{
             new MenuView();
-            this.$el = $.ui.tryAddContentDiv( "user_detail" , "" );
+            $.ui.tryAddContentDiv( "user_detail" , "" );
+            this.$el = $( "#user_detail" );
 
             //需要判断是否是当前登录用户自己的主页
             this.subjectUserId = data.subjectUserId;
@@ -60,11 +61,12 @@ function(
                     user_id: this.subjectUserId
                 }
             });
-
         } ,//}}}
 
         sendMsg: function() {
         //{{{
+            window.localStorage.setItem( "petal:root_msg_id" , "0" );
+            window.localStorage.setItem( "petal:send_msg_target_user_id" , this.model.get( "UserId" ) );
             window.router.navigate( "/#chat_list" , {trigger: true} );
         } ,//}}}
 
@@ -77,7 +79,9 @@ function(
         sendThatGift: function( event ) {
         //{{{
             event.stopImmediatePropagation();
-            var giftId = $( event.currentTarget ).find( ".gift_id" ).text();
+            var $subItem = $( event.target ).parent().parent();
+            var giftId = $subItem.find( ".gift_id" ).text();
+            var price = $subItem.find( ".price b" ).text();
 
             $.post(
                 "/api/send_gift/" ,
@@ -86,8 +90,8 @@ function(
                     target_user_id: this.model.get( "UserId" ) ,
                     from_user_id: window.objectUser.get( "UserId" )
                 } ,
-                function() {
-                    window.updateSysNotice( "金币 -1" );
+                function( data ) {
+                    window.updateSysNotice( "金币 -" + price );
                     $.ui.popup({ 
                         title: "恭喜",
                         message: "礼物已经成功送出!",
@@ -100,7 +104,7 @@ function(
                     $.ui.hideMask();
                 } ,
                 function() {
-                    alert( "失败" );
+                    alert( "送礼失败,请稍后再试" );
                 }
             );
         } ,//}}}
@@ -150,7 +154,7 @@ function(
                 false , 
                 false , 
 
-                "fade" 
+                "none" 
             );
 
             return this;

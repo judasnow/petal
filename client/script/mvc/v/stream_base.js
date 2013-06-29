@@ -12,9 +12,6 @@ function(
     "use strict";
 
     var StreamBase = Backbone.View.extend({
-        //指定了每一个 stream 都必将是一个 panel
-        className: "panel" ,
-
         //@param streamId 需要渲染的流 dom id
         //@param tpl 需要渲染的流的模板
         //@param title 需要渲染的模板的标题
@@ -25,10 +22,15 @@ function(
             this.q = q;
             this.coll = coll;
             this.ItemView = ItemView;
+
+            //用来判断当首次加载的时候就没有相应记录的情况
+            this.firstFetch = true;
+
             _.bindAll( this , "addOne" , "addAll" , "fetchOk" , "fetchFail" );
 
-            this.$el = $.ui.tryAddContentDiv( streamId , tpl );
-            $.ui.loadContent( hash , true , false , "fade" );
+            $.ui.tryAddContentDiv( streamId , tpl );
+            $.ui.loadContent( hash , false , false , "none" );
+            this.$el = $( "#" + streamId );
 
             //每一个 streamTpl 都必须包含一个 .items 元素 
             this.$itemsEl = this.$el.find( ".items" );
@@ -44,23 +46,6 @@ function(
             this.scroll = scroll;
             scroll.addInfinite();
 
-            //刷新
-            $.bind( scroll , "refresh-trigger" , function() {
-                this.setRefreshContent( "松吧" );
-            });
-            var hideClose;
-            $.bind( scroll , "refresh-release" , function() {
-                var that = this;
-                //目前只刷新第一页
-                //streamView.fetchMore();
-                this.setRefreshContent( "刷新中..." );
-                clearTimeout( hideClose );
-                hideClose=setTimeout( function() {
-                    that.hideRefresh();
-                } , 2000 );
-                return false;
-            });
-
             //获取更多
             $.bind( scroll , "infinite-scroll" , function() {
                 var self = this;
@@ -72,7 +57,7 @@ function(
                     setTimeout( function() {
                         $( self.el ).find( ".infinite" ).remove();
                         self.clearInfinite();
-                    } , 1000 );
+                    } , 500 );
                 });
             });
         },//}}}
@@ -88,11 +73,15 @@ function(
 
         fetchOk: function( coll , res ) {
         //{{{
-            //@todo 这里需要进行正确性的判断hash
-            //返回值不一定有效
             if( coll.length > 0 ) {
                 this.isFetching = false;
+                this.firstFetch === false;
             } else {
+                //如果是首次自动的加载 一条记录都没有 则
+                //提示用户
+                if( this.firstFetch === true ) {
+                    window.updateSysNotice( "没有相应的记录" );
+                }
                 $.unbind( this.scroll , "infinite-scroll" );
             }
         },//}}}

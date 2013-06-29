@@ -1,10 +1,14 @@
 define([
     "underscore" ,
-    "backbone" 
+    "backbone" ,
+
+    "lib/helper"
 ],
 function( 
     _ ,
-    Backbone 
+    Backbone ,
+
+    helper
 ){
     "use strict";
 
@@ -13,7 +17,10 @@ function(
 
         initialize: function() {
             var createAt = new Date( this.get( "CreateAt" ) );
-            this.set( "time" , createAt.getFullYear() + "/" + createAt.getMonth() + "/" + createAt.getDate() );
+            this.set( 
+                "time" ,
+                helper.resetTime( this.get( "CreateAt" ) ) 
+            );
 
             this.set( "sex_in_english" , this.get( "SrcSex" ) === "男" ? "male" : "female" );
 

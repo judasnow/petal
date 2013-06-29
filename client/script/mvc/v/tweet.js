@@ -26,7 +26,9 @@ function(
 
             this.model = window.objectUser;
 
-            this.$el = $.ui.tryAddContentDiv( "tweet" , "" );
+            $.ui.tryAddContentDiv( "tweet" , "" );
+            this.$el = $( "#tweet" );
+
             $.ui.updateContentDiv( 
                 "tweet" ,
                 Mustache.to_html(
@@ -35,7 +37,7 @@ function(
                 )
             );
 
-            $.ui.loadContent( "#tweet/self" , false , false , "fade" );
+            $.ui.loadContent( "#tweet/self" , false , false , "none" );
 
             var self = this;
             window.tweetIt = function() {

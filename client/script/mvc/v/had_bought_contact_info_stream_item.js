@@ -38,10 +38,6 @@ function(
 
         initialize: function() {
             _.bindAll( this , "render" , "goDetailPage" );
-
-            if( this.model.get( "UserId" ) !== window.objectUser.get( "UserId" ) ) {
-                this.model.set( "needsFunc" , true );
-            }
         } ,
 
         goDetailPage: function( event ) {
