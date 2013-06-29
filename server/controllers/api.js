@@ -13,7 +13,7 @@ exports.getUsernameByWxId = function( req , res ) {
 //{{{
     var wx_id = req.param( "wx_id" , "" );
     if( wx_id !== "" ) {
-        var wxRedisClient = redis.createClient( "6379" , config.wxRedisServer );
+        var wxRedisClient = redis.createClient( "6380" , config.wxRedisServer );
         //wxRedisClient.auth( "erlang/otp" , function() {
         wxRedisClient.hget( wx_id , "username" , function( error , username ) {
             if( typeof username ==="undefined" || username === "" ) {
