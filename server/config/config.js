@@ -28,7 +28,7 @@ module.exports = {
             address: "127.0.0.1" ,
             port: "6380"
         } ,
-        hb123Server: "http://www.huaban123.com/Mobile/Api.aspx?" ,
+        hb123Server: "http://test.huaban123.com/Mobile/Api.aspx?" ,
         hb123WxServer: "http://www.huaban123.com/action/weixinmpapi.aspx?" ,
         appPort: 8800
     }

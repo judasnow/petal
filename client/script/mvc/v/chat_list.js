@@ -71,7 +71,7 @@ function(
 
         addOne: function( chatItem ) {
         //{{{
-            var view = new ChatItemView({model: chatItem});
+            var view = new ChatItemView({ model: chatItem });
             this.$items.append( view.render().el );
         } ,//}}}
 
@@ -98,10 +98,12 @@ function(
                         content: msg ,
                         root_msg_id: window.localStorage.getItem( "petal:root_msg_id" )
                     } ,
+
                     //send ok
                     $.proxy(function( data ) {
                         var dataObj = JSON.parse( data );
                         if( dataObj.result === "ok" ) {
+
                             //删除已经发送的内容
                             this.$chatInput.val( "" );
 

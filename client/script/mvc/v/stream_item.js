@@ -59,10 +59,7 @@ function(
         sendMsg: function( event ) {
         //{{{
             event.stopImmediatePropagation();
-            //此处其实应该监测是否有已经有同该用户的对话
-            window.localStorage.setItem( "petal:root_msg_id" , "0" );
-            window.localStorage.setItem( "petal:send_msg_target_user_id" , this.model.get( "UserId" ) );
-            window.router.navigate( "/#chat_list" , {trigger: true} );
+            commonOperate.goChatListPage( this.model );
         },//}}}
 
         sendGift: function( event ) {

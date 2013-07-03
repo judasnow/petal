@@ -67,9 +67,7 @@ function(
 
         sendMsg: function() {
         //{{{
-            window.localStorage.setItem( "petal:root_msg_id" , "0" );
-            window.localStorage.setItem( "petal:send_msg_target_user_id" , this.model.get( "UserId" ) );
-            window.router.navigate( "/#chat_list" , {trigger: true} );
+            commonOperate.goChatListPage( this.model );
         } ,//}}}
 
         sendGift: function() {

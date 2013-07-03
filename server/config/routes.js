@@ -21,6 +21,7 @@ module.exports = function( app , config ) {
     app.get( "/api/payment_recoreds/" , api.getPaymentRecordList );
 
     //msg
+    app.get( "/api/get_exist_talk_betweet_two_users/" , api.getExistTalkBetweetTwoUsers );
     app.get( "/api/msgs/" , api.getMsgList );
     app.get( "/api/chat_items" , api.getMsgListByGroup );
     app.post( "/api/send_msg" , api.sendMsg );

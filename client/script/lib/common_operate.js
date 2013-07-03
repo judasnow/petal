@@ -104,6 +104,33 @@ function(
         }
     }//}}}
 
+    //定向到聊天记录页面
+    commonOperate.goChatListPage = function( objectUser ) {
+        //判断是否有存在的对话 如果有 将其设置为 root_msg_id
+        $.get(
+             "/api/get_exist_talk_betweet_two_users/?object_user_id="
+                + window.objectUser.get( "UserId" )
+                + "&subject_user_id=" + objectUser.get( "UserId" ) ,
+
+             function( data ) {
+                 var dataObj = JSON.parse( data );
+                 if( dataObj.result === "ok" ) {
+                     window.localStorage.setItem( "petal:root_msg_id" , dataObj.root_msg_id );
+                     window.localStorage.setItem( "petal:send_msg_target_user_id" , objectUser.get( "UserId" ) );
+
+                     window.router.navigate( "/#chat_list" , {trigger: true} );
+                 }
+             },
+
+             function() {
+                 window.localStorage.setItem( "petal:root_msg_id" , 0 );
+                 window.localStorage.setItem( "petal:send_msg_target_user_id" , that.model.get( "UserId" ) );
+
+                 window.router.navigate( "/#chat_list" , {trigger: true} );
+             }
+        );
+    };
+
     return commonOperate;
 
 });

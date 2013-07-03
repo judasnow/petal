@@ -309,7 +309,7 @@ api.sendGift = function( req , res ) {
 //payment 
 //交易记录
 api.getPaymentRecordList = function( req , res ) {
-    //{{{
+//{{{
     var page = req.param( "p" , 1 );
     var q = req.param( "q" , "{}" );
 
@@ -319,7 +319,7 @@ api.getPaymentRecordList = function( req , res ) {
     var ok = function( dataObj ) {
         res.json( JSON.parse( dataObj.record_list ) );
     }
-    helper.req2hb123( 
+    helper.req2hb123(
         "get" , 
         "about=user&action=payment_record&p=" + page + "&user_id=" + object_user_id ,
 
@@ -328,6 +328,28 @@ api.getPaymentRecordList = function( req , res ) {
 };//}}}
 
 //msg
+api.getExistTalkBetweetTwoUsers = function( req , res ) {
+//{{{
+
+    var objectUserId = req.param( "object_user_id" , "" );
+    var subjectUserId = req.param( "subject_user_id" , "" );
+
+    var ok = function( dataObj ) {
+        if( dataObj.code === "200" ) {
+            res.json({ result: "ok" , root_msg_id: dataObj.root_msg_id });
+        } else {
+            res.json({ result: "fail" , root_msg_id: 0 });
+        }
+    }
+
+    helper.req2hb123( 
+        "get" ,
+        "about=msg&action=get_exist_talk_between_two_users&object_user_id=" + objectUserId + "&subject_user_id=" + subjectUserId , 
+
+        ok
+    );
+};//}}}
+
 api.getMsgList = function( req , res ) {
 //{{{
     var page = req.param( "p" , 1 );
