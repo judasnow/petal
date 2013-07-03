@@ -16,7 +16,7 @@ $.ui.resetScrollers = false;
 //$.ui.nativeTouchScroll = false;
 $.ui.autoLaunch = false;
 $.ui.showBackbutton = false;
-//$.ui.manageHistory = false;
+$.ui.manageHistory = true;
 $.ui.customClickHandler = function() { return true;}
 //}}}
 

@@ -156,14 +156,19 @@ api.uploadFiles = function( req , res ) {
                 }
             }
             needle.post( 
-                config.hb123WxServer + "about=picture&action=upload" , 
+                config.hb123WxServer + "action=uploadImg" , 
                 data ,
                 {
                     multipart: true 
-                }, 
+                },
                 function( err , result , body ) {
-                    console.dir( err );
-                    res.json(["ok"]);
+                    var bodyObj = JSON.parse( body );
+                    if( bodyObj.type === "success"  ) {
+                        res.json(["ok"]);
+                        console.log( "upload img ok" );
+                    } else {
+                        console.log( "upload img error" + body );
+                    }
                 }
             ); 
         }
@@ -209,15 +214,15 @@ api.tweetIt = function( req , res ) {
     var tweetContent = req.param( "content" );
 
     var ok = function( dataObj ) {
-        res.json( ["ok"] );CreateAt
+        res.json( ["ok"] );
     }
     helper.req2hb123( 
-            "post" , 
-            "about=user&action=update_to_say&content=" + tweetContent + 
-            "&user_id=" + userId ,
+        "post" , 
+        "about=user&action=update_to_say&content=" + tweetContent + 
+        "&user_id=" + userId ,
 
-            ok
-            );
+        ok
+    );
 };//}}}
 
 api.shouldDisplayContactInfo = function( req , res ) {
@@ -260,7 +265,7 @@ api.updateBrowerStatus = function( req , res ) {
 //gift
 //获取礼物列表
 api.getGiftList = function( req , res ) {
-    //{{{
+//{{{
     var page = req.param( "p" , 1 );
     var q = req.param( "q" , "{}" );
 
@@ -284,7 +289,7 @@ api.getGiftList = function( req , res ) {
 
 //送礼物给指定的用户
 api.sendGift = function( req , res ) {
-    //{{{
+//{{{
     var giftId = req.param( "gift_id" );
     var targetUserId = req.param( "target_user_id" );
     var fromUserId = req.param( "from_user_id" );

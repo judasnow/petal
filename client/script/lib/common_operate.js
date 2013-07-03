@@ -106,6 +106,7 @@ function(
 
     //定向到聊天记录页面
     commonOperate.goChatListPage = function( objectUser ) {
+    //{{{
         //判断是否有存在的对话 如果有 将其设置为 root_msg_id
         $.get(
              "/api/get_exist_talk_betweet_two_users/?object_user_id="
@@ -129,7 +130,7 @@ function(
                  window.router.navigate( "/#chat_list" , {trigger: true} );
              }
         );
-    };
+    };//}}}
 
     return commonOperate;
 

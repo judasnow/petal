@@ -47,7 +47,7 @@ function(
             };
 
             //轮询获取最新动态
-            var step = 9999999;
+            var step = 15000;
             var formatTime = function( date ) {
                 return date.getFullYear()
                     + "-" + (parseInt( date.getMonth() ) + 1)
@@ -60,6 +60,7 @@ function(
             var intervalUpdate = function( type , urlPart ) {
                 //保存在本地的最后更新时间
                 var localLastUpdateKey = "petal:" + type + "_last_update_time";
+
                 //保存在本地的最后数量
                 var localCountKey = "petal:new_" + type + "_count";
 
