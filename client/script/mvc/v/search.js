@@ -102,6 +102,9 @@ function(
         //{{{
             var nickName = this.$nickName.val();
             var sex = this.$sex.val();
+            if( sex === "不限" ) {
+                sex = "";
+            }
 
             var province = this.$province.val();
             var cityname = this.$cityname.val();

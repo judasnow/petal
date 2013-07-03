@@ -24,7 +24,7 @@ function(
 
     MenuView ,
 
-    msgsTpl 
+    msgsTpl
 ) {
     "use strict";
 

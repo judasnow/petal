@@ -17,12 +17,16 @@ function(
 
         initialize: function() {
             var createAt = new Date( this.get( "CreateAt" ) );
-            this.set( 
+            this.set(
                 "time" ,
                 helper.resetTime( this.get( "CreateAt" ) ) 
             );
 
-            this.set( "sex_in_english" , this.get( "SrcSex" ) === "男" ? "male" : "female" );
+            if( typeof this.get( "sexInEnglish" ) === "undefined" ) {
+                this.set( "sexInEnglish" , this.get( "SrcSex" ) === "男" ? "male" : "female" );
+            }
+
+            this.set( "Content" , this.get( "Content" ).replace( /<[^>].*?>/g , "" ) );
 
             this.set(
                 "summary" ,
