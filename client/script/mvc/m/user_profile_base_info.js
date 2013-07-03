@@ -434,6 +434,7 @@ function(
         classname: "shanghai",
         cities: [
             //{{{
+            { cityname: "不限" }, 
             { cityname: "黄浦" } ,
             { cityname: "卢湾" } ,
             { cityname: "徐汇" } ,
@@ -459,6 +460,7 @@ function(
             classname: "beijing" ,
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 { cityname: "海淀" }, 
                 { cityname: "东城" },
                 { cityname: "西城" },
@@ -482,6 +484,7 @@ function(
             classname: 'chongqing',
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 { cityname: "重庆市区" } ,
                 { cityname: "忠县" } ,
                 { cityname: "开县" } ,
@@ -511,6 +514,7 @@ function(
             classname: "anhui",
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 {
                     cityname: '合肥'
                 },
@@ -578,6 +582,7 @@ function(
             classname: "fujian",
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 {
                     cityname: '福州'
                 },
@@ -630,6 +635,7 @@ function(
             classname: "gansu",
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 {
                     cityname: '兰州'
                 },
@@ -682,6 +688,7 @@ function(
             classname: "guangdong",
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 {
                     cityname: '广州'
                 },
@@ -770,6 +777,7 @@ function(
             classname: "guangxi",
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 {
                     cityname: '南宁'
                 },
@@ -816,6 +824,7 @@ function(
             classname: "guizhou",
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 {
                     cityname: '贵阳'
                 },
@@ -853,6 +862,7 @@ function(
             classname: "hainan",
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 {
                     cityname: '海口'
                 },
@@ -978,6 +988,7 @@ function(
             classname: "heilongjiang",
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 {
                     cityname: '哈尔滨'
                 },
@@ -1027,6 +1038,7 @@ function(
             classname: "henan",
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 {
                     cityname: '郑州'
                 },
@@ -1091,6 +1103,7 @@ function(
             classname: "hubei",
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 {
                     cityname: '武汉'
                 },
@@ -1149,6 +1162,7 @@ function(
             classname: "hunan",
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 {
                     cityname: '长沙'
                 },
@@ -1198,6 +1212,7 @@ function(
             classname: "jiangsu",
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 {
                     cityname: '南京'
                 },
@@ -1283,6 +1298,7 @@ function(
             classname: "jiangxi",
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 {
                     cityname: '南昌'
                 },
@@ -1329,6 +1345,7 @@ function(
             classname: "jilin",
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 {
                     cityname: '长春'
                 },
@@ -1369,6 +1386,7 @@ function(
             classname: "liaoning",
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 {
                     cityname: '沈阳'
                 },
@@ -1418,6 +1436,7 @@ function(
             classname: "neimenggu",
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 {
                     cityname: '呼和浩特'
                 },
@@ -1461,6 +1480,7 @@ function(
             classname: "ningxia",
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 {
                     cityname: '银川'
                 },
@@ -1483,6 +1503,7 @@ function(
             classname: "shandong",
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 {
                     cityname: '济南'
                 },
@@ -1550,6 +1571,7 @@ function(
             classname: "shan1xi",
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 {
                     cityname: '太原'
                 },
@@ -1596,6 +1618,7 @@ function(
             classname: "shan4xi",
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 {
                     cityname: '西安'
                 },
@@ -1636,6 +1659,7 @@ function(
             classname: "taiwuan",
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 {
                     cityname: '台北'
                 },
@@ -1703,6 +1727,7 @@ function(
             classname: "xizang",
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 {
                     cityname: '拉萨'
                 },
@@ -1731,6 +1756,7 @@ function(
             classname: "qinghai",
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 {
                     cityname: '西宁'
                 },
@@ -1765,6 +1791,7 @@ function(
             classname: "sichuan",
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 {
                     cityname: '成都'
                 },
@@ -1856,6 +1883,7 @@ function(
             classname: "tianjin",
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 {
                     cityname: '天津'
                 },
@@ -1920,6 +1948,7 @@ function(
             classname: "xinjiang",
             cities: [
             //{{{    
+                { cityname: "不限" }, 
                 {
                     cityname: '乌鲁木齐'
                 },
@@ -1981,6 +2010,7 @@ function(
             classname: "yunnan",
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 {
                     cityname: '昆明'
                 },
@@ -2048,6 +2078,7 @@ function(
             classname: "zhejiang",
             cities: [
             //{{{
+                { cityname: "不限" }, 
                 {
                     cityname: '杭州'
                 },

@@ -1,10 +1,14 @@
 define([
     "underscore" ,
-    "backbone"
+    "backbone" ,
+
+    "lib/helper"
 ],
 function( 
     _ ,
-    Backbone
+    Backbone ,
+
+    helper
 ){
     "use strict";
 
@@ -13,7 +17,10 @@ function(
         url: "/api/user/",
 
         initialize: function() {
-
+            //如果 type 是 visitors 格式化浏览时间
+            if( this.get( "type" ) === "visitors" ) {
+                this.set( "visit_time" , helper.resetTime( this.get( "BrowseAt" ) ) );
+            }
         } 
     });
 

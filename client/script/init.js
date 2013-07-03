@@ -1,10 +1,9 @@
 //backbone 没有接管之前的初始化
 (function() {
-
 //{{{
 //setInterval( function(){
 //    window.localStorage.setItem( "http://172.17.0.46/style/less/main.less:timestamp" , "" );
-//}, 5000 );
+//}, 1000 );
 //less.env = "development";
 //less.watch();
 //}}}
@@ -14,9 +13,10 @@
 $.ui.isAjaxApp = true;
 $.ui.openLinksNewTab = false;
 $.ui.resetScrollers = false;
-$.ui.nativeTouchScroll = false;
+//$.ui.nativeTouchScroll = false;
 $.ui.autoLaunch = false;
 $.ui.showBackbutton = false;
+//$.ui.manageHistory = false;
 $.ui.customClickHandler = function() { return true;}
 //}}}
 
@@ -45,17 +45,27 @@ document.addEventListener( "appMobi.device.ready" , onDeviceReady , false );
 //似乎 hide 的 元素无法正确的获取 width 值
 window.updateSysNotice = function( content ) {
 //{{{
+
     //提前获取元素 会因为 dom 未加载完而出错
     window.$sysNotice = window.$sysNotice || $( "#system_notice_box" );
 
-    window.$sysNotice.attr( "style" , "z-index: -9999" );
+    //window.$sysNotice.attr( "style" , "z-index: -9999" );
     window.$sysNotice.text( content )
         .attr( "style" , "margin-left: -" + ( window.$sysNotice.width() / 2 ) + "px;z-index: 9999" );
 
     setTimeout( function() {
         window.$sysNotice.attr( "style" , "z-index: -9999" );
-    } , 1000 );
+    } , 2000 );
+
 };//}}}
+
+//初始化将在本地存储的数据
+var initLocalData = function() {
+    window.localStorage.setItem( "petal:object_user_info" , "" );
+    window.localStorage.setItem( "petal:is_new_login" , "true" );
+    window.localStorage.setItem( "petal:root_msg_id" , "0" );
+    window.localStorage.setItem( "petal:send_msg_target_user_id" , "" );
+};
 
 //成功后的操作都一样 只有失败的时候不同
 var login = function( username , password , failCallback ) {
@@ -66,19 +76,33 @@ var login = function( username , password , failCallback ) {
             username: username ,
             password: password
         } ,
-        function( res ) {
-            if( res[0] === "ok" ) {
-                //登录成功
-                window.location.hash = "";
-                window.localStorage.setItem( "petal:object_user_info" , JSON.stringify( res[1] ) );
-                window.localStorage.setItem( "petal:is_new_login" , "true" );
-                $.ui.launch();
-            } else {
+        function( data ) {
+            try {
+                var dataObj = JSON.parse( data );
+                if( dataObj.result === "ok" ) {
+                    var object_user_info = JSON.stringify( dataObj.user_info );
+                    if( typeof object_user_info === "undefined" ) {
+                        throw new Error( "json stringify user_info error" );
+                    }
+                    //登录成功 且返回数据有效
+                    initLocalData();
+                    window.location.hash = "";
+                    window.localStorage.setItem( "petal:object_user_info" , object_user_info );
+                    window.localStorage.setItem( "petal:is_new_login" , "true" );
+                    $.ui.launch();
+                    //ios 有问题要手动 reload
+                    window.location.reload();
+                } else {
+                    logging = false;
+                    failCallback();
+                }
+            } catch ( err ) {
+                console.log( "登录时发生异常" );
+                console.dir( err.stack )
                 logging = false;
                 failCallback();
             }
-        } ,
-        "json"
+        }
     );
 };//}}}
 
@@ -100,9 +124,13 @@ var wx_login = function() {
 
 var init = function() {
 //{{{
-    //判断当前用户是否已经登录系统
     var $splashscreenEl = $( "#splashscreen" ).hide();
-    if( window.localStorage.getItem( "petal:object_user_info" ) === null ) {
+
+    //判断当前用户是否已经登录系统
+    var localObjectUserInfo = window.localStorage.getItem( "petal:object_user_info" );
+
+    //@todo 判断是否登录的条件有可能会发生改变
+    if( localObjectUserInfo === null || localObjectUserInfo === "" ) {
         //未登录
         if( window.location.hash !== "" ) {
             //weixin
@@ -121,6 +149,7 @@ var init = function() {
             );
         }
     } else {
+        //已经登录系统
         $.ui.launch();
     }
 }//}}}
@@ -140,6 +169,7 @@ $.ui.tryAddContentDiv = function( id , content , showFooter ) {
             $el.attr( "data-footer" , "none" );
         }
         $el.addClass( "panel" );
+        //$el.attr( "style", "overflow:hidden" );
     } else {
         $.ui.updateContentDiv(
             id ,
@@ -167,11 +197,17 @@ $.ui.reAddContentDiv = function( id , content , showFooter ) {
     return;
 };
 
+//jqmobi 的 goBack() 仅仅跳转到相应的 page
 $.ui.goBackWithDefault = function() {
     if( $.ui.history.length === 1 ) {
         window.router.navigate( "/#stream" , {trigger: true} );
     } else {
         $.ui.goBack();
+
+        //读取当前的 hash 并且 trigger it
+        var hash = window.history.state;
+        console.dir( "/#" + hash )
+        window.router.navigate( "/#" + hash , {trigger: true} );
     }
 };
 

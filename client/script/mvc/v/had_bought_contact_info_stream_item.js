@@ -1,4 +1,3 @@
-//用户信息流中的一条信息
 define([
     "underscore" ,
     "backbone" ,

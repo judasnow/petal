@@ -1,19 +1,26 @@
-var helper = require( "../lib/helper" )
-    , crypto = require( "crypto" )
+var crypto = require( "crypto" )
+    , _ = require( "underscore" )
     , fs = require( "fs" ) 
-    , redis = require( "redis" )
-    , needle = require( "needle" ) 
-    , logger = require( "../config/logger")
-    , config = require( "../config/config" )["dev"];
+    , needle = require( "needle" )
+    , redis = require( "redis" );
+
+module.exports = function( config ) {
+
+var helper = require( "../lib/helper" )( config )
+    , api = {};
 
 //user
 //为了实现weixin注册之后的自动登录 需要根据用户提供的 weixin_id 
 //从 r2d2 的 redis 中获取相应用户的 username (密码是默认的 huaban123)
-exports.getUsernameByWxId = function( req , res ) {
+api.getUsernameByWxId = function( req , res ) {
 //{{{
     var wx_id = req.param( "wx_id" , "" );
     if( wx_id !== "" ) {
-        var wxRedisClient = redis.createClient( "6380" , config.wxRedisServer );
+        var wxRedisClient = redis.createClient( 
+                config.wxRedisServer.port ,
+                config.wxRedisServer.address
+        );
+
         //wxRedisClient.auth( "erlang/otp" , function() {
         wxRedisClient.hget( wx_id , "username" , function( error , username ) {
             if( typeof username ==="undefined" || username === "" ) {
@@ -28,19 +35,25 @@ exports.getUsernameByWxId = function( req , res ) {
     }
 };//}}}
 
-exports.doLogin = function( req , res ) {
+api.doLogin = function( req , res ) {
 //{{{
-    var username = req.param( "username" , null );
-    var password = req.param( "password" , null );
+    var username = req.param( "username" , "" );
+    var password = req.param( "password" , "" );
 
     var ok = function( dataObj ) {
         var userInfoObj = JSON.parse( dataObj.user_info );
         req.session.object_user_id = userInfoObj.UserId;
-        res.json( ["ok" , helper.formatUserInfo( userInfoObj )] );
+
+        res.json(
+            {
+                result: "ok", 
+                user_info: helper.formatUserInfo( userInfoObj )
+            }
+        );
     };
 
     var error = function() {
-        res.json( ["fail"] );
+        res.json( {result: "fail"} );
     };
 
     helper.req2hb123( 
@@ -55,7 +68,7 @@ exports.doLogin = function( req , res ) {
 };//}}}
 
 //获取多用户信息
-exports.getUserList = function( req , res ) {
+api.getUserList = function( req , res ) {
 //{{{
     var page = req.param( "p" , 1 );
     var q = req.param( "q" , "{}" );
@@ -73,13 +86,21 @@ exports.getUserList = function( req , res ) {
     }
 
     var ok = function( dataObj ) {
-        var userList = JSON.parse( dataObj.user_list );
-        var i = 0;
-        var len = userList.length;
-        for( ; i < len ; i = i + 1 ) {
-            userList[i] = helper.formatUserInfo( userList[i] );
+        try {
+            var userList = JSON.parse( dataObj.user_list );
+            userList = _.map(
+                userList ,
+                function( user ) {
+                    return helper.formatUserInfo( user , what );
+                }
+            );
+        } catch ( err ) {
+            console.log( "fetch user list with what:" + what + " error" );
+            console.log( err.stack );
+            userList = [];
+        } finally {
+            res.json( userList );
         }
-        res.json( userList );
     };
 
     helper.req2hb123( "get" , what2url[what] , ok );
@@ -87,27 +108,34 @@ exports.getUserList = function( req , res ) {
 //}}}
 
 //获取单条用户信息
-exports.getUser = function( req , res ) {
+api.getUser = function( req , res ) {
 //{{{
     var userId = req.param( "user_id" , null );
 
     var ok = function( dataObj ) {
         //发送来的 json 是一个数组 现在需要合并之 (到 userInfo 中)
-        var userInfo = JSON.parse( dataObj.user_info );
+        try {
+            var userInfoObj = JSON.parse( dataObj.user_info );
 
-        userInfo = helper.formatUserInfo( userInfo );
+            //为了统一处理需要设置 what
+            userInfoObj = helper.formatUserInfo( userInfoObj , "detail" );
 
-        userInfo.visitorsList = JSON.parse( dataObj.visitors_list );
-        userInfo.wantedGiftList = JSON.parse( dataObj.wanted_gift_list );
-        userInfo.pictureList = JSON.parse( dataObj.picture_list );
-        userInfo.receivedGiftList = JSON.parse( dataObj.received_gift_list );
+            userInfoObj.visitorsList = JSON.parse( dataObj.visitors_list );
+            userInfoObj.wantedGiftList = JSON.parse( dataObj.wanted_gift_list );
+            userInfoObj.pictureList = JSON.parse( dataObj.picture_list );
+            userInfoObj.receivedGiftList = JSON.parse( dataObj.received_gift_list );
 
-        res.json( userInfo );
+        } catch( err ) {
+            console.log( "fetch user info with user_id:" + userId + " error" );
+            userInfoObj = [];
+        } finally {
+            res.json( userInfoObj );
+        }
     };
     helper.req2hb123( "get" , "about=user&action=get_info&user_id=" + userId , ok );
 };//}}}
 
-exports.uploadFiles = function( req , res ) {
+api.uploadFiles = function( req , res ) {
 //{{{
     var userId = req.param( "user_id" , "" );
     var uploadFile = req.files.user_upload_picture;
@@ -128,13 +156,13 @@ exports.uploadFiles = function( req , res ) {
                 }
             }
             needle.post( 
-                config.hb123Server + "about=picture&action=upload" , 
+                config.hb123WxServer + "about=picture&action=upload" , 
                 data ,
                 {
                     multipart: true 
                 }, 
                 function( err , result , body ) {
-                    console.dir( JSON.parse( body ) );
+                    console.dir( err );
                     res.json(["ok"]);
                 }
             ); 
@@ -142,7 +170,7 @@ exports.uploadFiles = function( req , res ) {
     );
 };//}}}
 
-exports.updateUser = function( req , res ) {
+api.updateUser = function( req , res ) {
 //{{{
     var userId = req.param( "user_id" , "" );
     var area_id = req.param( "area_id" , "" );
@@ -152,9 +180,11 @@ exports.updateUser = function( req , res ) {
 
     //保存其他信息
     var ok = function( dataObj ) {
-        res.json( {result: "ok"} );
+        if( dataObj.code === "200" ) {
+            res.json( {result: "ok"} );
+        }
     };
-   
+
     var error = function( dataObj ) {
         res.json( {result: "fail"} );
     };
@@ -173,13 +203,13 @@ exports.updateUser = function( req , res ) {
 };//}}}
 
 //@todo should be put, but I hava not enought time .... so sad I am.
-exports.tweetIt = function( req , res ) {
+api.tweetIt = function( req , res ) {
 //{{{
     var userId = req.param( "user_id" );
     var tweetContent = req.param( "content" );
 
     var ok = function( dataObj ) {
-        res.json( ["ok"] );
+        res.json( ["ok"] );CreateAt
     }
     helper.req2hb123( 
             "post" , 
@@ -190,7 +220,7 @@ exports.tweetIt = function( req , res ) {
             );
 };//}}}
 
-exports.shouldDisplayContactInfo = function( req , res ) {
+api.shouldDisplayContactInfo = function( req , res ) {
 //{{{
     var objUserId = req.param( "object_user_id" );
     var subUserId = req.param( "subject_user_id" );
@@ -209,7 +239,7 @@ exports.shouldDisplayContactInfo = function( req , res ) {
     );
 };//}}}
 
-exports.updateBrowerStatus = function( req , res ) {
+api.updateBrowerStatus = function( req , res ) {
 //{{{
     var objUserId = req.param( "object_user_id" );
     var subUserId = req.param( "subject_user_id" );
@@ -229,7 +259,7 @@ exports.updateBrowerStatus = function( req , res ) {
 
 //gift
 //获取礼物列表
-exports.getGiftList = function( req , res ) {
+api.getGiftList = function( req , res ) {
     //{{{
     var page = req.param( "p" , 1 );
     var q = req.param( "q" , "{}" );
@@ -253,7 +283,7 @@ exports.getGiftList = function( req , res ) {
 //}}}
 
 //送礼物给指定的用户
-exports.sendGift = function( req , res ) {
+api.sendGift = function( req , res ) {
     //{{{
     var giftId = req.param( "gift_id" );
     var targetUserId = req.param( "target_user_id" );
@@ -278,7 +308,7 @@ exports.sendGift = function( req , res ) {
 
 //payment 
 //交易记录
-exports.getPaymentRecordList = function( req , res ) {
+api.getPaymentRecordList = function( req , res ) {
     //{{{
     var page = req.param( "p" , 1 );
     var q = req.param( "q" , "{}" );
@@ -298,7 +328,7 @@ exports.getPaymentRecordList = function( req , res ) {
 };//}}}
 
 //msg
-exports.getMsgList = function( req , res ) {
+api.getMsgList = function( req , res ) {
 //{{{
     var page = req.param( "p" , 1 );
     var q = req.param( "q" , "{}" );
@@ -311,14 +341,14 @@ exports.getMsgList = function( req , res ) {
     }
 
     helper.req2hb123( 
-        "get" , 
+        "get" ,
         "about=msg&action=get_list&user_id=" + userId + "&p=" + page , 
 
         ok 
     );
 };//}}}
 
-exports.getMsgListByGroup = function( req , res ) {
+api.getMsgListByGroup = function( req , res ) {
 //{{{
     var rootMsgId = req.param( "root_msg_id" , 0 );
     var userId = req.param( "user_id" , "" );
@@ -336,7 +366,7 @@ exports.getMsgListByGroup = function( req , res ) {
     )
 };//}}}
 
-exports.sendMsg = function( req , res ) {
+api.sendMsg = function( req , res ) {
 //{{{
     var msgObj = {};
     msgObj.rootMsgId = req.param( "root_msg_id" , 0 );
@@ -364,7 +394,7 @@ exports.sendMsg = function( req , res ) {
     );
 };//}}}
 
-exports.setBankAccount = function( req , res ) {
+api.setBankAccount = function( req , res ) {
 //{{{
     var userId = req.param( "user_id" , "" );
     var bank_name = req.param( "bank_name" , "" );
@@ -386,7 +416,7 @@ exports.setBankAccount = function( req , res ) {
     );
 };//}}}
 
-exports.withdrawCash = function( req , res ){
+api.withdrawCash = function( req , res ){
 //{{{
     var userId = req.param( "user_id" , "" );
     var amount = req.param( "amount" , 0 );
@@ -405,7 +435,7 @@ exports.withdrawCash = function( req , res ){
 };//}}}
 
 //status 
-exports.getNewMsgs = function( req , res ) {
+api.getNewMsgs = function( req , res ) {
 //{{{
     var userId = req.param( "user_id" , "" );
     var lastUpdateTime = req.param( "last_update_time" , "" );
@@ -423,7 +453,7 @@ exports.getNewMsgs = function( req , res ) {
     );
 }//}}}
 
-exports.getNewGifts = function( req , res ) {
+api.getNewGifts = function( req , res ) {
 //{{{
     var userId = req.param( "user_id" , "" );
     var lastUpdateTime = req.param( "last_update_time" , "" );
@@ -441,7 +471,7 @@ exports.getNewGifts = function( req , res ) {
     );
 }//}}}
 
-exports.getNewVisitors = function( req , res ) {
+api.getNewVisitors = function( req , res ) {
 //{{{
     var userId = req.param( "user_id" , "" );
     var lastUpdateTime = req.param( "last_update_time" , "" );
@@ -458,3 +488,7 @@ exports.getNewVisitors = function( req , res ) {
         ok
     );
 }//}}}
+
+return api;
+
+}

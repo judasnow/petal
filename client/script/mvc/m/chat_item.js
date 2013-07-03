@@ -19,12 +19,12 @@ function(
             this.set( 
                 "role" , 
                 window.objectUser.get( "UserId" ) === this.get( "SrcUserId" ) ? 
-                    "subject" : 
-                    "object" 
+                "subject" : 
+                "object" 
             );
 
-            if( typeof this.get( "sex_in_english" ) === "undefined" ) {
-                this.set( "sex_in_english" , this.get( "SrcSex" ) === "男" ? "male" : "female" );
+            if( typeof this.get( "sexInEnglish" ) === "undefined" ) {
+                this.set( "sexInEnglish" , this.get( "SrcSex" ) === "男" ? "male" : "female" );
             }
 
             this.set( 

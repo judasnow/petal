@@ -8,7 +8,8 @@ define([
 
     "text!tpl/stream_item.html" ,
 
-    "lib/helper"
+    "lib/helper" ,
+    "lib/common_operate"
 ] ,
 function(
     _ ,
@@ -19,7 +20,8 @@ function(
 
     streamTpl ,
 
-    helper 
+    helper ,
+    commonOperate
 ){
     "use strict";
 
@@ -51,7 +53,7 @@ function(
         displayContactInfo: function() {
         //{{{
             event.stopImmediatePropagation();
-            $.proxy( window.getUserContactInfo , this )();
+            commonOperate.getUserContactInfo( this.model );
         },//}}}
 
         sendMsg: function( event ) {

@@ -14,7 +14,9 @@ define([
 
     "text!tpl/update_self_profile.html" ,
     "text!tpl/div/location_select.html" ,
-    "text!tpl/div/looks_select.html"
+    "text!tpl/div/looks_select.html" ,
+
+    "lib/helper"
 ] ,
 function(
     _ ,
@@ -28,7 +30,9 @@ function(
 
     updateSelfProfileTpl ,
     locationSelectTpl ,
-    looksSelectTpl
+    looksSelectTpl ,
+
+    helper
 ) {
     "use strict";
 
@@ -217,13 +221,27 @@ function(
                     } ,
                     function( data ) {
                         var dataObj = JSON.parse( data );
-                        if( dataObj.result === "ok" ) { 
-                            alert( "保存成功" );
+                        if( dataObj.result === "ok" ) {
+                            window.updateSysNotice( "保存成功" );
+
                             //更新本地的 objectUser 信息
-                            var newObjectUserInfo = dataObj.user_info;
-                            window.objectUser = new User( JSON.parse( newObjectUserInfo ) );
-                            window.localStorage.setItem( "petal:object_user_info" , newObjectUserInfo );
-                            window.router.navigate( "/#stream" , {trigger: true} );
+                            //暂时为了获取格式化信息 需要重新获取
+                            //一次用户信息
+                            var newObjectUser = new User();
+                            newObjectUser.fetch({
+                                data: {
+                                    user_id: userId
+                                },
+                                success: function( model ) {
+                                    window.objectUser = model;
+                                    window.localStorage.setItem( "petal:object_user_info" , JSON.stringify( model.toJSON() ) );
+                                    window.router.navigate( "/#stream" , {trigger: true} );
+                                },
+                                error: function() {
+                                    //手动 reload 一次？
+                                    console.log( "save ok, fetch user info error" );
+                                }
+                            });
                         } else {
                             alert( "保存失败,请稍后再试一次" );
                         }
@@ -247,7 +265,10 @@ function(
                     this.model.toJSON() ,
                     {
                         location_select: Mustache.to_html( locationSelectTpl , UserProfileBaseInfo ) ,
-                        looks_select: Mustache.to_html( looksSelectTpl , UserProfileBaseInfo[(this.model.get( "UserSex" ) === "女") ? "looks_famale" : "looks_male"])
+                        looks_select: Mustache.to_html(
+                            looksSelectTpl , 
+                            UserProfileBaseInfo[ this.model.get( "isFemale" ) ? "looks_famale" : "looks_male"]
+                        )
                     }
                 )
             );
@@ -268,6 +289,8 @@ function(
             this.$zwms = this.$el.find( ".zwms" );
             this.$looks = this.$el.find( ".looks" );
             this.$fileInput = this.$el.find( ".user_upload_picture_input" );
+
+            helper.showImage( this.$el.find( "img" ) );
 
             //根据用户之前的信息初始化页面
             //城市信息

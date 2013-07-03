@@ -1,13 +1,8 @@
 var cluster = require( "cluster" )
-    , os = require( "os" )
-    , _ = require( "underscore" )
-    
-    , express = require( "express" )
+    , os = require( "os" );
 
-    , config = require( "./config/config" )["dev"]
-    , helper = require( "./lib/helper" );
+if( cluster.isMaster ) {
 
-if (cluster.isMaster) {
     for( var i = 0 ; i < os.cpus().length ; i++ ) {
         cluster.fork();
     }
@@ -15,19 +10,25 @@ if (cluster.isMaster) {
         console.log( "workes " + worker.process.pid + " died" );
         cluster.fork();
     });
+
 } else {
-    var app = express()
+
+    var env = process.argv[2] || "development"
+        , config = require( "./config/config" )[env]
+        , express = require( "express" )
+        , redis = require( "redis" )
+
+        , app = express()
         , server = require( "http" ).createServer( app )
-        , redis = require( "redis" );
 
-    server.listen( config.port || 8800 );
+        , helper = require( "./lib/helper" );
 
-    var redisClient = redis.createClient( "6379" , config.redisServer );
+    server.listen( config.appPort || 8800 );
 
     app.use( express.bodyParser() );
 
     require( "./config/express" )( app , config );
-    require( "./config/routes" )( app );
+    require( "./config/routes" )( app , config );
 
     exports = module.exports = app;
 }

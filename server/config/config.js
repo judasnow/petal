@@ -2,20 +2,34 @@ var path = require( "path" )
     , rootPath = path.normalize( __dirname + "/.." );
 
 module.exports = {
-    dev: {
+    development: {
         rootPath: rootPath ,
-        redisServer: "172.17.0.46" ,
+        redisServer: { 
+            address: "172.17.0.46" , 
+            port: "6379" 
+        } ,
         mongodServer: "mongodb://172.17.0.46/petal" ,
-        wxRedisServer: "172.17.0.46" ,
+        wxRedisServer: { 
+            address: "172.17.0.46" ,
+            port: "6380"
+        } ,
         hb123Server: "http://172.17.0.20:1979/Mobile/Api.aspx?" ,
-        port: 8800
+        hb123WxServer: "http://172.17.0.20:1979/action/weixinmpapi.aspx?" ,
+        appPort: 8800
     },
     production: {
         rootPath: rootPath ,
-        redisServer: "127.0.0.1" ,
-        mongodServer: "127.0.0.1" ,
-        wxRedisServer: "127.0.0.1" ,
-        hb123Server: "http://huaban123.com/Mobile/Api.aspx?" ,
-        port: 8800
+        redisServer: { 
+            address: "127.0.0.1" , 
+            port: "6379" 
+        } ,
+        mongodServer: "mongodb://127.0.0.1/petal" ,
+        wxRedisServer: { 
+            address: "127.0.0.1" ,
+            port: "6380"
+        } ,
+        hb123Server: "http://www.huaban123.com/Mobile/Api.aspx?" ,
+        hb123WxServer: "http://www.huaban123.com/action/weixinmpapi.aspx?" ,
+        appPort: 8800
     }
 }

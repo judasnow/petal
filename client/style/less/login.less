@@ -1,23 +1,32 @@
-//用户登录页面
 #login {
+    @height: 327px;
+    max-height: @height;
+    display: none;
     margin-top: 64px;
     text-align: center;
-    display: none;
     .title {
-        color: #333;
+        text-rendering: optimizeLegibility;
+        @font-size: 36px;
+        font-size: @font-size;
+        line-height: @font-size;
+        margin-bottom: 16px;
+        font-weight: bold;
+        color: #a7639e;
     }
-    input {
-        clear: both;
-        display: inline-block;
-        border: 1px solid #ccc;
-        height: 48px;
-        line-height: normal;
-        font-size: 24px;
-        padding: 4px;
+    .sub_title {
+        @font-size: 18px;
+        font-size: @font-size;
+        line-height: @font-size;
+        color: #a7639e;
     }
-    .do_login {
-        padding: 12px 24px;
-        font-size: 18px;
+    .input {
+        width: 80%;
+    }
+    .username {
+        .input;
+    }
+    .password {
+        .input;
     }
 }
 

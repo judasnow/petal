@@ -9,7 +9,8 @@ define([
 
     "text!tpl/user_detail.html" ,
 
-    "lib/helper"
+    "lib/helper" ,
+    "lib/common_operate"
 ] ,
 function(
     _ ,
@@ -22,7 +23,8 @@ function(
 
     userDetailTpl ,
 
-    helper
+    helper ,
+    commonOperate
 ) {
     "use strict";
 
@@ -112,7 +114,7 @@ function(
         getContacesInfo: function() {
         //{{{
             event.stopImmediatePropagation();
-            $.proxy( window.getUserContactInfo , this )();
+            commonOperate.getUserContactInfo( this.model );
         } ,//}}}
 
         goDetailPage: function( event ) {

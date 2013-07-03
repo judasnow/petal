@@ -5,10 +5,9 @@ require.config({
         text: "lib/text" ,
 
         //libs
-        underscore: "lib/underscore" ,
-        backbone: "lib/backbone" ,
-        backbonelocalstore: "lib/backbone.localStorage-min" ,
-        mustache: "lib/mustache" ,
+        underscore: "lib/underscore-min" ,
+        backbone: "lib/backbone-min" ,
+        mustache: "lib/mustache.min" ,
         date_utils: "lib/date-utils.min" ,
 
         router: "router" ,

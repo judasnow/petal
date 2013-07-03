@@ -47,7 +47,7 @@ function(
             };
 
             //轮询获取最新动态
-            var step = 15000;
+            var step = 9999999;
             var formatTime = function( date ) {
                 return date.getFullYear()
                     + "-" + (parseInt( date.getMonth() ) + 1)
@@ -124,67 +124,6 @@ function(
                 hashChange: true
             });
 
-            //一些通用函数
-            //获取用户联系方式
-            window.getUserContactInfo = function() {
-                var contactTpl = $( "#contact_info_tpl" ).html();
-                $.get(
-                    "/api/should_display_contact_info/?"
-                        + "object_user_id=" + window.objectUser.get( "UserId" )
-                        + "&subject_user_id=" + this.model.get( "UserId" ) ,
-
-                    $.proxy( function( data ) {
-                        try {
-                            var res = JSON.parse( data );
-                            if( res.should === "true" ) {
-                                //根据可以显示的原因确定相应操作 一共存在 3 种
-                                //1 had_bought 之前已经购买
-                                //2 vip 因为他是 vip
-                                //3 buy_just_now 刚刚购买 
-                                if( res.reason === "buy_just_now" ) {
-                                    window.updateSysNotice( "金币 -" + window.costOfContact );
-                                }
-                                if( res.reason === "vip" ) {
-                                    //@todo 需要判断 remain_count 是否是有效的数字
-                                    window.updateSysNotice( "您是 vip 还可以查看 " + window.remain_count + " 次"  );
-                                }
-                                $.ui.popup({
-                                    title: "联系方式",
-                                    message: Mustache.to_html( contactTpl , this.model.toJSON() ),
-                                    cancelText: "关闭",
-                                    cancelOnly: true 
-                                });
-                            } else {
-                                //不能看情况也分两种
-                                //1 excess_vip_count vip 查看次数用完了
-                                //2 insufficient_coin 没有足够的金币进行购买操作 
-                                //但是 vip 用完机会之后会直接尝试购买 因此也只能算一种
-                                switch( res.reason ) {
-                                    case "insufficient_coin": 
-                                        $.ui.popup({
-                                            title: "" ,
-                                            message: "账户金币不足,请购买金币" ,
-                                            doneCallback: function() {
-                                                window.router.navigate( "/#buy_coin" , {trigger: true} );
-                                            }
-                                        });
-                                        break;
-                                    default:
-                                        //@todo 应该是一个异常
-                                        break;
-                                }
-                            }
-                        } catch( e ) {
-                            alert( "查看联系方式失败，请稍后再试。" );
-                            console.dir( "call getUserContactInfo error: " + e );
-                        }
-                    } , this ) ,
-                    function( data ) {
-                        alert( "查看联系方式失败，请稍后再试。" );
-                        console.dir( "call getUserContactInfo error( server return error ): " + data );
-                    }
-                );
-            }
         };
 
         return {

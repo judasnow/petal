@@ -7,17 +7,18 @@
     height: 100%;
     overflow: auto;
     .items {
+        padding-top: 4px;
         width: 100%;
         display: inline-block;
     }
     .item {
         float: left;
         clear: both;
-        padding: 2px 0;
+        padding: 4px 2px;
         width: 100%;
         padding-top: @item_margin;
         min-height: @image_size + @item_margin;
-        border-bottom: 1px dashed #dbd3da;
+        border-bottom: 1px solid #dbd3da;
         &:active {
             //background: #e4e5dd;
         }
@@ -88,5 +89,20 @@
         &:active {
             background: #d7d3c4;
         }
+    }
+    .fetch_more {
+        text-align: center;
+        width: 90%;
+        background: #eee;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        color: #333;
+        height: 48px;
+        line-height: 48px;
+        margin: 8px auto;
+    }
+    .disable {
+        background:# ccc;
+        color: #999;
     }
 }

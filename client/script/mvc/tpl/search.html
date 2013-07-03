@@ -1,36 +1,27 @@
-<p class="item">
+<div class="item">
     <input type="text" name="nickname" class="nickname" placeholder="昵称">
-</p>
-<p class="item">
-    <span class="title">按年龄</span>
-    <select class="age_min" name="age_min">
-        <option value="0">不限</option>
-        {{#ageRange}}
-            <option>{{age}}</option>
-        {{/ageRange}}
-    </select>
-    <select class="age_max" name="age_max">
-        <option value="0">不限</option>
-        {{#ageRange}}
-            <option>{{age}}</option>
-        {{/ageRange}}
-    </select>
-</p>
-<p class="item">
+</div>
+
+<div class="item sex_select">
     <span class="title">按性别</span>
-    <select class="sex" name="sex">
-        <option value="">不限</option>
-        <option value="男">男</option>
-        <option value="女">女</option>
-    </select>
-</p>
-<p class="item" >
+    <p>
+        <span class="select_box male">男</span>
+        <span class="select_box female">女</span>
+        <input type="hidden" name="sex" class="sex" />
+    </p>
+</div>
+
+<div class="item" >
     <span>按地区</span>
     {{> location_select}}
-</p>
+</div>
+
+<div class="item">
+<span class="normal_btn do_search" >搜索</span>
+</div>
+
 <header>
-<h1>搜索</h1>
+<h1>高级搜索</h1>
 <a class="button" style="float:left;" onclick="$.ui.goBackWithDefault();" class="">返回</a>
-<a class="button" style="float:right;" onclick="window.doSearch();" class="">搜搜</a>
 </header>
 

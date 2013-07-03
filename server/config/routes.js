@@ -1,7 +1,6 @@
-var  config = require( "../config/config" )["dev"]
-    , api = require( "../controllers/api" );
+module.exports = function( app , config ) {
+    var api = require( "../controllers/api" )( config );
 
-module.exports = function( app ) {
     //api routes
     //user
     app.get( "/api/get_username_by_wx_id" , api.getUsernameByWxId );
@@ -28,6 +27,7 @@ module.exports = function( app ) {
     app.post( "/api/set_back_account" , api.setBankAccount );
     app.post( "/api/withdraw_cash" , api.withdrawCash );
 
+    //最新状态
     app.get( "/api/new_msgs/" , api.getNewMsgs );
     app.get( "/api/new_gifts/" , api.getNewGifts );
     app.get( "/api/new_visitors/" , api.getNewVisitors );

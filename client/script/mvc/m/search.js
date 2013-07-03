@@ -17,15 +17,7 @@ function(
         defaults: userProfileBaseInfo ,
 
         initialize: function() {
-            this.set( "ageRange" , (function( minAge , maxAge ) {
-                var i = minAge;
-                var ageRange = [];
-                while( i <= maxAge ) {
-                    ageRange.push( {age: i} );
-                    i = i+1;
-                }
-                return ageRange;
-            })( this.get( "minAge" ) , this.get( "maxAge" ) ) );
+            
         }
     });
 

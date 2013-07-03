@@ -4,12 +4,15 @@ define([
     "mustache" ,
 
     "m/chat_item" ,
+
     "c/chat_items" ,
 
     "v/chat_item" ,
     "v/sys_notice" ,
 
-    "text!tpl/chat_list.html" 
+    "text!tpl/chat_list.html" ,
+
+    "lib/common_operate"
 ],
 function( 
     _ ,
@@ -22,11 +25,11 @@ function(
     ChatItemView ,
     SysNoticeView ,
 
-    chatListTpl 
+    chatListTpl ,
+
+    commonOperate
 ){
     "use strict";
-
-    $.ui.addContentDiv( "#chat_list" , "" );
 
 
     var ChatList = Backbone.View.extend({
@@ -40,6 +43,7 @@ function(
 
             $.ui.tryAddContentDiv( "chat_list" , this.template , true );
             $.ui.loadContent( "#chat_list" , false , false , "none" );
+
             this.$el = $( "#chat_list" );
 
             this.$items = this.$el.find( ".items" );
@@ -93,30 +97,28 @@ function(
                         object_user_id: window.objectUser.get( "UserId" ),
                         content: msg ,
                         root_msg_id: window.localStorage.getItem( "petal:root_msg_id" )
-                    },
+                    } ,
                     //send ok
                     $.proxy(function( data ) {
                         var dataObj = JSON.parse( data );
                         if( dataObj.result === "ok" ) {
+                            //删除已经发送的内容
+                            this.$chatInput.val( "" );
+
                             if( dataObj.need_pay === "True" ) {
                                 window.updateSysNotice( "金币 -" + window.costOfSendMsg );
                             }
+
                             this.addOne(
                                 new ChatItem({
                                     SrcUserId: window.objectUser.get( "UserId" ) ,
                                     SrcHeadPic: window.objectUser.get( "HeadPic" ) ,
-                                    sex_in_english: window.objectUser.get( "sex_in_english" ) ,
+                                    sex_in_english: window.objectUser.get( "sexInEnglish" ) ,
                                     Content: msg
                                 })
                             );
                         } else {
-                            $.ui.popup({
-                                title: "" ,
-                                message: "金币不足,买金币或vip吧" ,
-                                doneCallback: function() {
-                                    window.router.navigate( "/#buy_coin" , {trigger: true} );
-                                }
-                            });
+                            commonOperate.insufficientCoinHandle();
                         }
                     }, this) ,
                     function( data ) {

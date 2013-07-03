@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
-        <meta HTTP-EQUIV="Expires" CONTENT="-1">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Expires" content="-1">
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,minimum-scale=1,user-scalable=no">
         <meta name="apple-mobile-web-app-capable" content="yes" >
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
         <meta name="description" content="">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
         <link rel="stylesheet" type="text/css" href="/script/lib/jqmobi/kitchensink/icons.css" />
         <link rel="stylesheet" type="text/css" href="/script/lib/jqmobi/kitchensink/jq.ui_3.css" />
@@ -19,9 +20,8 @@
         <script src="/script/lib/appframework/appframework.min.js"></script>
         <script src="/script/lib/jqmobi/ui/jq.ui.js"></script>
 
-        <!--script type="text/javascript" src="/script/lib/jqm-mobile-bookmark-bubble/bookmark_bubble.js"></script-->
-        <!--script type="text/javascript" src="/script/lib/jqm-mobile-bookmark-bubble/bookmark_bubble_msg_ja.js"></script-->
-        <!--script type="text/javascript" src="/script/lib/jqm-mobile-bookmark-bubble/example/example.js"></script-->
+        <link rel="stylesheet" href="/script/lib/cubiq-add-to-homescreen/style/add2home.css">
+        <script type="application/javascript" src="/script/lib/cubiq-add-to-homescreen/src/add2home.js" charset="utf-8"></script>
 
         <script src="/script/init.js"></script>
     </head>
@@ -38,6 +38,7 @@
             <div id="login">
                 <p>
                     <h1 class="title">花瓣网</h1>
+                    <h4 class="sub_title">邂逅出色男女，约会同城情人</h4>
                 </p>
                 <p>
                     <input type="text" name="username" class="username" placeholder="用户名"/>
@@ -46,7 +47,7 @@
                     <input type="password" name="password" class="password" placeholder="密码"/>
                 </p>
                 <p>
-                    <button class="do_login">登录</button>
+                    <span class="big_btn do_login">登录</span>
                 </p>
             </div>
             <nav>

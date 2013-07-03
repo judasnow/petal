@@ -5,7 +5,8 @@ define([
 
     "text!tpl/gift_item.html" ,
 
-    "lib/helper"
+    "lib/helper" ,
+    "lib/common_operate"
 ] ,
 function(
     _ ,
@@ -14,7 +15,8 @@ function(
 
     giftItemTpl ,
 
-    helper
+    helper ,
+    commonOperate
 ){
     "use strict";
 
@@ -66,13 +68,7 @@ function(
                                 cancelOnly:false
                             });
                         } else {
-                            $.ui.popup({
-                                title: "" ,
-                                message: "金币不足,买金币或vip吧" ,
-                                doneCallback: function() {
-                                    window.router.navigate( "/#buy_coin" , {trigger: true} );
-                                }
-                            });
+                            commonOperate.insufficientCoinHandle();
                         }
                     }, this ) ,
                     function() {
