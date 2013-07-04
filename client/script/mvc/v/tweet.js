@@ -31,6 +31,7 @@ function(
                 this , 
                 "tweetIt" 
             );
+
             this.model = window.objectUser;
             this.render();
         } ,
@@ -54,7 +55,7 @@ function(
         } ,
 
         render: function() {
-            $.ui.tryAddContentDiv( "tweet" , "" );
+            this.$el = $.ui.addOrUpdateDiv( "tweet" , "" );
             $.ui.updateContentDiv( 
                 "tweet" ,
                 Mustache.to_html(
@@ -63,7 +64,6 @@ function(
                 )
             );
             $.ui.loadContent( "#tweet/self" , false , false , "none" );
-            this.$el = $( "#tweet" );
         }
     });
 

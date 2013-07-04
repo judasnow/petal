@@ -43,7 +43,7 @@ function(
         //{{{
             new MenuView();
 
-            $.ui.tryAddContentDiv( "search" , "" );
+            this.$el = $.ui.addOrUpdateDiv( "search" , "" );
 
             _.bindAll( 
                 this , 
@@ -142,7 +142,6 @@ function(
                 )
             );
             $.ui.loadContent( "#search" , false , false , "none" );
-            this.$el = $( "#search" );
             this.findEls();
 
             //设置默认值

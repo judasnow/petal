@@ -19,6 +19,13 @@ function(
         //@param hash 需要跳转的 history hash 
         baseInitialize: function( streamId , tpl , ItemView , coll , q , hash ) {
         //{{{
+            //不能放到函数之外的原因在于 
+            //事前不能确认是哪个 streamId
+            $.ui.addOrUpdateDiv( streamId , tpl );
+            $.ui.loadContent( hash , false , false , "none" );
+            this.$el = $( "#" + streamId );
+            this.$el.unbind();
+
             this.q = q;
             this.coll = coll;
             this.ItemView = ItemView;
@@ -26,13 +33,9 @@ function(
             //用来判断当首次加载的时候就没有相应记录的情况
             this.firstFetch = true;
 
-            _.bindAll( 
+            _.bindAll(
                 this , 
                 "addOne" , "addAll" , "fetchOk" , "fetchFail" , "fetchMore" );
-
-            $.ui.tryAddContentDiv( streamId , tpl );
-            $.ui.loadContent( hash , false , false , "none" );
-            this.$el = $( "#" + streamId );
 
             //每一个 streamTpl 都必须包含一个 .items 元素 
             this.$items = this.$el.find( ".items" );

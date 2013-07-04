@@ -22,11 +22,8 @@ function(
 ) {
     "use strict";
 
-    $.ui.addContentDiv( "coupons" , "" );
-
     var Coupons = Backbone.View.extend({
         template: couponsTpl ,
-        el: "#coupons" ,
         events: {
             "click .set_bank_account": "showBankAccountSelect" ,
             "click .withdraw": "doWithdraw"
@@ -35,6 +32,7 @@ function(
         initialize: function() {
             new MenuView();
 
+            this.$el = $.ui.addOrUpdateDiv( "coupons" , "" );
             _.bindAll( this , "showBankAccountSelect" , "setBankAccount" , "doWithdraw" );
 
             this.model = new User();

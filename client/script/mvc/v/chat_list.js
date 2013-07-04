@@ -31,7 +31,6 @@ function(
 ){
     "use strict";
 
-
     var ChatList = Backbone.View.extend({
         template: chatListTpl ,
 
@@ -41,10 +40,8 @@ function(
                 this , 
                 "sendMsg" , "addOne" , "addAll" , "render" );
 
-            $.ui.tryAddContentDiv( "chat_list" , this.template , true );
+            this.$el = $.ui.addOrUpdateDiv( "chat_list" , this.template , true );
             $.ui.loadContent( "#chat_list" , false , false , "none" );
-
-            this.$el = $( "#chat_list" );
 
             this.$items = this.$el.find( ".items" );
             this.$inputAreaBox = $( "#input_area_box" );

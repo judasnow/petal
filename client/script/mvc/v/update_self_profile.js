@@ -52,8 +52,7 @@ function(
 
         initialize: function() {
         //{{{
-            $.ui.reAddContentDiv( "update_self_profile" , "" );
-            this.$el = $( "#update_self_profile" );
+            this.$el = $.ui.addOrUpdateDiv( "update_self_profile" , "" );
 
             _.bindAll(
                 this ,

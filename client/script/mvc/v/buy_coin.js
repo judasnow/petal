@@ -31,6 +31,7 @@ function(
 
         initialize: function() {
             new MenuView();
+            this.$el = $.ui.addOrUpdateDiv( "buy_coin" , "" );
 
             //@todo 注意这里是一个权宜 不应该需要新建立一个
             //user model 的
@@ -43,9 +44,7 @@ function(
             });
 
             _.bindAll( this , "render" , "unactiveOthers" , "activeIt" );
-            
-            $.ui.tryAddContentDiv( "buy_coin" , "" );
-            this.$el = $( "#buy_coin" );
+
             this.$el.find( ".sub_item" ).bind( "tap" , function( e ) {
                 $( this ).find( "input" )[0].checked = true;
             });

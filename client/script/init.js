@@ -3,20 +3,19 @@
 //{{{
 //setInterval( function(){
 //    window.localStorage.setItem( "http://172.17.0.46/style/less/main.less:timestamp" , "" );
-//}, 1000 );
+//}, 5000 );
 //less.env = "development";
 //less.watch();
 //}}}
 
 //jqmobi init
 //{{{
-$.ui.isAjaxApp = true;
+$.ui.isAjaxApp = false;
 $.ui.openLinksNewTab = false;
 $.ui.resetScrollers = false;
 //$.ui.nativeTouchScroll = false;
 $.ui.autoLaunch = false;
 $.ui.showBackbutton = false;
-$.ui.manageHistory = true;
 $.ui.customClickHandler = function() { return true;}
 //}}}
 
@@ -158,44 +157,27 @@ document.addEventListener( "DOMContentLoaded" , init , false );
 
 //解决 id 相同的元素更新问题 
 //也就是说如果已经有了相同 id 的元素则不进行任何操作
-$.ui.tryAddContentDiv = function( id , content , showFooter ) {
+$.ui.addOrUpdateDiv = function( id , content , showFooter ) {
     if( $( "#" + id ).length === 0 ) {
         $.ui.addContentDiv (
             id ,
-            content
+            content ,
+            true ,
+            true 
         );
-        var $el = $( "#" + id );
-        if( typeof showFooter === "undefined" || showFooter === false ) {
-            $el.attr( "data-footer" , "none" );
-        }
-        $el.addClass( "panel" );
-        //$el.attr( "style", "overflow:hidden" );
     } else {
         $.ui.updateContentDiv(
             id ,
             content
         );
     }
-}
-
-//重新添加页面 如果有则删除之前的页面
-$.ui.reAddContentDiv = function( id , content , showFooter ) {
-    if( $( "#" + id ).length !== 0 ) {
-        $( "#" + id ).remove();
-    }
-    $.ui.addContentDiv (
-        id ,
-        content
-    );
-
     var $el = $( "#" + id );
     if( typeof showFooter === "undefined" || showFooter === false ) {
         $el.attr( "data-footer" , "none" );
     }
-    $el.addClass( "panel" );
-
-    return;
-};
+    return $el.unbind();
+    //$el.attr( "style", "overflow:hidden" );
+}
 
 //jqmobi 的 goBack() 仅仅跳转到相应的 page
 $.ui.goBackWithDefault = function() {
@@ -203,11 +185,9 @@ $.ui.goBackWithDefault = function() {
         window.router.navigate( "/#stream" , {trigger: true} );
     } else {
         $.ui.goBack();
-
         //读取当前的 hash 并且 trigger it
-        var hash = window.history.state;
-        console.dir( "/#" + hash )
-        window.router.navigate( "/#" + hash , {trigger: true} );
+        //var hash = window.location.hash;
+        //window.router.navigate( "/" + hash , {trigger: true} );
     }
 };
 

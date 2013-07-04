@@ -935,7 +935,8 @@ function(
             province: '河北',
             classname: "hebei",
             cities: [
-            //{{{
+            //{{{ 
+                { cityname: "不限" }, 
                 {
                     cityname: '石家庄'
                 },
@@ -2228,3 +2229,4 @@ function(
     return userProfileBaseInfo;
 });
 
+            //{{{

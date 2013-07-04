@@ -32,6 +32,8 @@ function(
         initialize: function( args ) {
             new MenuView();
 
+            $.ui.clearHistory();
+
             //此处需要注意的问题是 没有显式渲染的 menu 是不会显示的
             //除非之前的一个页面已经渲染了他
             var users = new Users();

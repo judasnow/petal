@@ -46,6 +46,7 @@ function(
             _.bindAll( 
                 this , 
                 "render" , "showObjectUserHome" , "showSameCityStream" , "showSearch" );
+
             this.model = new User();
             this.model.on( "change" , this.render );
 
@@ -77,7 +78,7 @@ function(
 
         showVisitors: function() {
             window.localStorage.setItem( "petal:new_visitors_count" , "0" );
-            window.router.navigate( "#stream/visitors/self/" , {trigger: true} );
+            window.router.navigate( "/#stream/visitors/self/" , {trigger: true} );
         } ,
 
         showHadBoughtContactInfo: function() {

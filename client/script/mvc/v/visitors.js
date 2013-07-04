@@ -2,7 +2,9 @@ define([
     "underscore" ,
     "backbone" ,
     "mustache" ,
+
     "c/users" ,
+
     "v/stream_item" ,
     "v/stream_base" ,
     "v/menu" ,
@@ -13,6 +15,7 @@ function(
     _ ,
     Backbone ,
     Mustache ,
+
     Users ,
 
     ScreamItemView ,

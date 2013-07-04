@@ -28,8 +28,11 @@ function(
 ) {
     "use strict";
 
+    $.ui.createDiv( "user_detail" , "" );
+
     var UserDetail = Backbone.View.extend({
         template: userDetailTpl ,
+
         events: {
             "click .get_contaces_info": "getContacesInfo" ,
             "click .send_gift": "sendGift" ,
@@ -41,14 +44,11 @@ function(
         initialize: function( data ) {
         //{{{
             new MenuView();
-            this.subjectUserId = data.subjectUserId;
 
-            //为了 history 可以正常使用 必须使用不同的 id
-            this.divId = "user_detail-" + this.subjectUserId;
-
-            this.$el = $.ui.addOrUpdateDiv( this.divId , "" );
+            this.$el = $( "#user_detail" );
 
             //需要判断是否是当前登录用户自己的主页
+            this.subjectUserId = data.subjectUserId;
             if( this.subjectUserId == window.objectUser.get( "UserId" ) ) {
                 this.isSelfPage = true;
             }
@@ -129,7 +129,12 @@ function(
             }
 
             $.ui.updateContentDiv(
-                this.divId ,
+                "user_detail" ,
+                ""
+            }
+
+            $.ui.updateContentDiv(
+                "user_detail" ,
                 Mustache.to_html(
                     this.template ,
                     this.model.toJSON()
@@ -137,10 +142,10 @@ function(
             );
 
             $.ui.loadContent(
-                this.divId ,
+                "#user_detail/" + this.model.get( "UserId" ) , 
                 false , 
                 false , 
- 
+
                 "none" 
             );
 

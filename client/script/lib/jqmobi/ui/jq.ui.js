@@ -1823,11 +1823,11 @@
                 var self = this;
                 this.title = opts.suppressTitle?"":(opts.title || "");
                 this.message = opts.message || "";
-                this.cancelText = opts.cancelText || "取消";
+                this.cancelText = opts.cancelText || "å–æ¶ˆ";
                 this.cancelCallback = opts.cancelCallback || function() {
                 };
                 this.cancelClass = opts.cancelClass || "button";
-                this.doneText = opts.doneText || "确定";
+                this.doneText = opts.doneText || "ç¡®å®š";
                 this.doneCallback = opts.doneCallback || function(self) {
                     // no action by default
                 };
@@ -3893,7 +3893,7 @@
          */
         showMask: function(text) {
             if (!text)
-                text = "加载中...";
+                text = "åŠ è½½ä¸­...";
             jq("#jQui_mask>h1").html(text);
             jq("#jQui_mask").show()
         },

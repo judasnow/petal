@@ -4,7 +4,6 @@ define([
 
     "m/object_user" ,
 
-    "v/login" ,
     "v/stream" ,
     "v/search" ,
     "v/user_detail" ,
@@ -24,7 +23,7 @@ function(
     _ ,
     Backbone ,
     ObjectUserModel ,
-    LoginView ,
+
     StreamView ,
     SearchView ,
     UserDetailView ,
