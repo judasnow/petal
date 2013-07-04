@@ -34,11 +34,16 @@ function(
             this.firstFetch = true;
 
             _.bindAll(
-                this , 
+                this ,
                 "addOne" , "addAll" , "fetchOk" , "fetchFail" , "fetchMore" );
 
-            //每一个 streamTpl 都必须包含一个 .items 元素 
+            //每一个 streamTpl 都必须包含一个 .items 元素
             this.$items = this.$el.find( ".items" );
+
+            var streamView = this;
+            var scroll = this.$el.scroller();
+            scroll.refresh = false;
+            this.scroll = scroll;
 
             //初始化用户列表
             this.p = 1;
