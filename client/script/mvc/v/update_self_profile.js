@@ -40,9 +40,10 @@ function(
         template: updateSelfProfileTpl ,
 
         events: {
-            "click .add_picture": "openFileSelectDialog" ,
-            "click .user_picture_box": "clickPicture" ,
-            "click .looks .label": "clickLabel" ,
+            "tap .add_picture": "openFileSelectDialog" ,
+            "tap .user_picture_box": "tapPicture" ,
+            "tap .looks .label": "tapLabel" ,
+            "tap .do_update": "doUpdate" ,
 
             "change .user_upload_picture_input": "fileNameChanged" ,
             "change .province": "provinceChange" ,
@@ -57,14 +58,12 @@ function(
             _.bindAll(
                 this ,
                 "render" ,
-                "openFileSelectDialog" , "fileNameChanged" , "provinceChange" , "doUpdate" , "checkChangeAndGoBack" , "clickLabel" );
+                "openFileSelectDialog" , "fileNameChanged" , "provinceChange" , "doUpdate" , "checkChangeAndGoBack" , "tapLabel" );
 
             //待上传图片
             this.files = [];
 
             this.userPictureBoxTpl = $( "#user_picture_box_tpl" ).html();
-
-            window.doUpdate = this.doUpdate;
 
             this.model = new User();
             this.listenTo( this.model , "change" , this.render );
@@ -79,7 +78,7 @@ function(
         } ,//}}}
 
         //用户点击了外貌标签
-        clickLabel: function( event ) {
+        tapLabel: function( event ) {
         //{{{
             var $el = $( event.target );
             var $input = $el.find( "input" );
@@ -130,14 +129,10 @@ function(
             $.proxy( UserProfileBaseInfo.provinceChange , this )();
         } ,//}}}
 
-        clickPicture: function() {
-        //{{{
-        } ,//}}}
-
         openFileSelectDialog: function() {
         //{{{
             //@todo 似乎是 scroller 变卡的原因
-            this.$fileInput.trigger( "click" );;
+            this.$fileInput.trigger( "click" );
         } ,//}}}
 
         //用户添加了新图片
@@ -280,7 +275,7 @@ function(
                 "none"
             );
 
-            $( $( "#header .button" )[0] ).bind( "click" , this.checkChangeAndGoBack );
+            $( $( "#header .button" )[0] ).bind( "tap" , this.checkChangeAndGoBack );
 
             this.$province = this.$el.find( ".province" );
             this.$cityname = this.$el.find( ".cityname" );
@@ -306,7 +301,7 @@ function(
             var $looks = this.$looks;
             _.each( looksArray , function( item ) {
                 if( item !== "" ) {
-                    $looks.find( "input[value=" + item + "]" ).parent().trigger( "click" );
+                    $looks.find( "input[value=" + item + "]" ).parent().trigger( "tap" );
                 }
             });
 

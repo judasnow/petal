@@ -19,7 +19,8 @@
     "supertest": "" ,
     "connect-redis": "",
     "winston": "" ,
-    "imagemagick": ""
+    "imagemagick": "" ,
+    "node-smushit": ""
   },
   "repository": "git@gitcafe.com:judasnow/petal_mk2.git",
   "author": "judasnow@gmail.com",

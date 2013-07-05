@@ -1,11 +1,11 @@
 //backbone 没有接管之前的初始化
 (function() {
 //{{{
-//setInterval( function(){
-//    window.localStorage.setItem( "http://172.17.0.46/style/less/main.less:timestamp" , "" );
-//}, 5000 );
-//less.env = "development";
-//less.watch();
+setInterval( function(){
+    window.localStorage.setItem( "http://172.17.0.46/style/less/main.less:timestamp" , "" );
+}, 5000 );
+less.env = "development";
+less.watch();
 //}}}
 
 //jqmobi init
