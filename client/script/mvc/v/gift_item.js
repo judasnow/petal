@@ -31,51 +31,16 @@ function(
         initialize: function() {
             _.bindAll( 
                 this , 
-                "sendGift" 
+                "sendGift"
             );
         },
 
         sendGift: function( event ) {
         //{{{
             event.stopImmediatePropagation();
-            var targetUserId = window.localStorage.getItem( "send_gift_target_user_id" );
-            if( targetUserId === null ) {
-                alert( "没有选择目标用户，将仅仅只是购买该礼物" );
-            } else {
-                //购买并赠送该礼物给指定的用户
-                var giftId = this.model.get( "GId" );
-                $.post(
-                    "/api/send_gift/" ,
-                    {
-                        gift_id: giftId ,
-                        target_user_id: targetUserId ,
-                        from_user_id: window.objectUser.get( "UserId" )
-                    } ,
-                    $.proxy( function( data ) {
-                        if( JSON.parse( data )[0] === "ok" ) {
-                            window.updateSysNotice( "金币 -" + this.model.get( "GPrice" ) );
-                            $.ui.popup({
-                                title: "恭喜",
-                                message: "礼物已经成功送出，是否继续选取礼物？",
-                                cancelText: "不",
-                                cancelCallback: function() {
-                                    $.ui.goBackWithDefault();
-                                },
-                                doneText: "继续",
-                                doneCallback: function() {
 
-                                },
-                                cancelOnly:false
-                            });
-                        } else {
-                            commonOperate.insufficientCoinHandle();
-                        }
-                    }, this ) ,
-                    function() {
-                        alert( "操作失败" );
-                    }
-                )
-            }
+            var targetUserId = window.localStorage.getItem( "petal:send_gift_target_user_id" );
+            commonOperate.sendGift( targetUserId , this.model.get( "GId" ) , this.model.get( "GPrice" ) );
         } ,//}}}
 
         render: function() {

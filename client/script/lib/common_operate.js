@@ -71,6 +71,47 @@ function(
         );
     }//}}}
 
+    //送礼物
+    commonOperate.sendGift = function( targetUserId , giftId , price ) {
+    //{{{
+        //@todo 需要对 targetUserId 有效性进行判断
+        if( targetUserId !== null ) {
+            //购买并赠送该礼物给指定的用户
+            $.post(
+                "/api/send_gift/" ,
+                {
+                    gift_id: giftId ,
+                    target_user_id: targetUserId ,
+                    from_user_id: window.objectUser.get( "UserId" )
+                } ,
+                function( data ) {
+                    var dataObj = JSON.parse( data );
+                    if( dataObj.result === "ok" ) {
+                        window.updateSysNotice( "金币 -" + price );
+                        $.ui.popup({
+                            title: "恭喜",
+                            message: "礼物已经成功送出，是否继续选取礼物？",
+                            cancelText: "不",
+                            cancelCallback: function() {
+                                $.ui.goBackWithDefault();
+                            },
+                            doneText: "继续",
+                            doneCallback: function() {
+
+                            },
+                            cancelOnly:false
+                        });
+                    } else {
+                        commonOperate.insufficientCoinHandle();
+                    }
+                } ,
+                function() {
+                    //opt fail
+                }
+            )
+        }
+    };//}}}
+
     //访问指定用户的主页
     commonOperate.goDetailPage = function( userId ) {
     //{{{

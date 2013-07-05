@@ -31,11 +31,11 @@ function(
     var UserDetail = Backbone.View.extend({
         template: userDetailTpl ,
         events: {
-            "click .get_contaces_info": "getContacesInfo" ,
-            "click .send_gift": "sendGift" ,
-            "click .send_msg": "sendMsg" ,
-            "click .wanted_gift_list .gravatar": "sendThatGift" ,
-            "click .visitors_list>.sub_item": "goDetailPage"
+            "tap .get_contaces_info": "getContacesInfo" ,
+            "tap .send_gift": "sendGift" ,
+            "tap .send_msg": "sendMsg" ,
+            "tap .wanted_gift_list .gravatar": "sendThatGift" ,
+            "tap .visitors_list>.sub_item": "goDetailPage"
         } ,
 
         initialize: function( data ) {
@@ -77,36 +77,15 @@ function(
             window.router.navigate( "/#gift_list" , {trigger: true} );
         } ,//}}}
 
+        //赠送其想收到的礼物
         sendThatGift: function( event ) {
         //{{{
             var $subItem = $( event.target ).parent().parent();
             var giftId = $subItem.find( ".gift_id" ).text();
             var price = $subItem.find( ".price b" ).text();
+            var targetUserId = this.model.get( "UserId" );
 
-            $.post(
-                "/api/send_gift/" ,
-                {
-                    gift_id: giftId ,
-                    target_user_id: this.model.get( "UserId" ) ,
-                    from_user_id: window.objectUser.get( "UserId" )
-                } ,
-                function( data ) {
-                    window.updateSysNotice( "金币 -" + price );
-                    $.ui.popup({ 
-                        title: "恭喜",
-                        message: "礼物已经成功送出!",
-                        cancelText: "关闭", 
-                        cancelCallback: function() {
-                            
-                        },
-                        cancelOnly: true
-                    });
-                    $.ui.hideMask();
-                } ,
-                function() {
-                    alert( "送礼失败,请稍后再试" );
-                }
-            );
+            commonOperate.sendGift( targetUserId , giftId , price );
         } ,//}}}
 
         getContacesInfo: function() {

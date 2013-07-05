@@ -42,7 +42,7 @@ api.doLogin = function( req , res ) {
 
     var ok = function( dataObj ) {
         var userInfoObj = JSON.parse( dataObj.user_info );
-        req.session.object_user_id = userInfoObj.UserId;
+        //req.session.object_user_id = userInfoObj.UserId;
 
         res.json(
             {
@@ -290,15 +290,26 @@ api.getGiftList = function( req , res ) {
 //送礼物给指定的用户
 api.sendGift = function( req , res ) {
 //{{{
-    var giftId = req.param( "gift_id" );
-    var targetUserId = req.param( "target_user_id" );
-    var fromUserId = req.param( "from_user_id" );
+    var giftId = req.param( "gift_id" , "" );
+    var targetUserId = req.param( "target_user_id" , "" );
+    var fromUserId = req.param( "from_user_id" , "" );
 
     var ok = function( dataObj ) {
-        res.json( [ "ok" ] );
+        if( dataObj.code === "200" ) {
+            res.json({
+                result: "ok"
+            });
+        } else {
+            res.json({
+                result: "fail",
+                msg: dataObj.msg
+            });
+        }
     };
     var error = function( dataObj ) {
-        res.json( [ "fail" ] );
+        res.json({
+            result: "fail"
+        });
     }
     helper.req2hb123( 
             "get" , 

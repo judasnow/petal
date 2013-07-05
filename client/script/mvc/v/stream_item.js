@@ -67,7 +67,7 @@ function(
             event.stopImmediatePropagation();
 
             //跳转到礼品选择页面 并且要保存当前用户的 id 以确定送礼的对象
-            window.localStorage.setItem( "send_gift_target_user_id" , this.model.get( "UserId" ) );
+            window.localStorage.setItem( "petal:send_gift_target_user_id" , this.model.get( "UserId" ) );
             window.router.navigate( "/#gift_list" , {trigger: true} );
         },//}}}
 
