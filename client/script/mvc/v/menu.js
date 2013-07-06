@@ -38,7 +38,8 @@ function(
             "tap .visitors": "showVisitors" ,
             "tap .buy_coin": "showBuyCoin" ,
             "tap .payment_record": "showPatmentRecord" ,
-            "tap .coupons": "showCoupons"
+            "tap .coupons": "showCoupons" ,
+            "tap .service": "showService"
         } ,
 
         initialize: function() {
@@ -102,6 +103,10 @@ function(
             //清空新消息的计数
             window.localStorage.setItem( "petal:new_msgs_count" , "0" );
             window.router.navigate( "/#msgs" , {trigger: true} );
+        },
+
+        showService: function() {
+            window.router.navigate( "/#service" , {trigger: true} );
         },
 
         render: function() {

@@ -17,7 +17,8 @@ define([
     "v/coupons" ,
     "v/had_bought_contact_info" ,
     "v/visitors" ,
-    "v/msgs"
+    "v/msgs" ,
+    "v/service"
 ] ,
 function(
     _ ,
@@ -37,7 +38,8 @@ function(
     CouponsView ,
     HadBoughtContactInfoView ,
     VisitorsView ,
-    MsgsView
+    MsgsView ,
+    ServiceView
 ) {
     "use strict";
 
@@ -75,7 +77,10 @@ function(
 
             "msgs": "showMsgs" ,
 
+            "service": "showService" ,
+
             ":whatever"  : "notFound" 
+
         },//}}}
 
         initialize: function () {
@@ -227,6 +232,11 @@ function(
                 }) ,
                 hash: "#msgs"
             });
+        },//}}}
+
+        showService: function() {
+        //{{{
+            new ServiceView();
         }//}}}
     });
 

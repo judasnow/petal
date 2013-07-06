@@ -1,11 +1,11 @@
 //backbone 没有接管之前的初始化
 (function() {
 //{{{
-setInterval( function(){
-    window.localStorage.setItem( "http://172.17.0.46/style/less/main.less:timestamp" , "" );
-}, 5000 );
-less.env = "development";
-less.watch();
+//setInterval( function(){
+//    window.localStorage.setItem( "http://172.17.0.46/style/less/main.less:timestamp" , "" );
+//}, 5000 );
+//less.env = "development";
+//less.watch();
 //}}}
 
 //jqmobi init
@@ -36,7 +36,7 @@ var onDeviceReady = function() {
     AppMobi.device.setAutoRotate( false );
     webRoot = AppMobi.webRoot + "/";
     AppMobi.device.hideSplashScreen();
-    $.ui.blockPageScroll();
+    //$.ui.blockPageScroll();
 };//}}}
 document.addEventListener( "appMobi.device.ready" , onDeviceReady , false );
 
@@ -88,9 +88,10 @@ var login = function( username , password , failCallback ) {
                     window.location.hash = "";
                     window.localStorage.setItem( "petal:object_user_info" , object_user_info );
                     window.localStorage.setItem( "petal:is_new_login" , "true" );
+
                     $.ui.launch();
                     //ios 有问题要手动 reload
-                    window.location.reload();
+                    //window.location.reload();
                 } else {
                     logging = false;
                     failCallback();
@@ -152,7 +153,6 @@ var init = function() {
         $.ui.launch();
     }
 }//}}}
-
 document.addEventListener( "DOMContentLoaded" , init , false );
 
 //解决 id 相同的元素更新问题 

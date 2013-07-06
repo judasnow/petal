@@ -87,20 +87,22 @@ function(
             var msg = this.$chatInput.val();
 
             if( msg !== "" ) {
+                var targetUserId = window.localStorage.getItem( "petal:send_msg_target_user_id" );
+                var rootMsgId = window.localStorage.getItem( "petal:root_msg_id" );
                 $.post(
                     "/api/send_msg" ,
                     {
-                        target_user_id: window.localStorage.getItem( "petal:send_msg_target_user_id" ),
-                        object_user_id: window.objectUser.get( "UserId" ),
+                        target_user_id: targetUserId ,
+                        object_user_id: window.objectUser.get( "UserId" ) ,
                         content: msg ,
-                        root_msg_id: window.localStorage.getItem( "petal:root_msg_id" )
+                        root_msg_id: rootMsgId
                     } ,
 
                     //send ok
                     $.proxy(function( data ) {
                         var dataObj = JSON.parse( data );
-                        if( dataObj.result === "ok" ) {
 
+                        if( dataObj.result === "ok" ) {
                             //删除已经发送的内容
                             this.$chatInput.val( "" );
 
@@ -124,6 +126,8 @@ function(
                         console.dir( data )
                     }
                 );
+            } else {
+                window.updateSysNotice( "信息内容不能为空" );
             }
         }//}}}
     });
