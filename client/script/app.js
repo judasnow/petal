@@ -47,7 +47,7 @@ function(
             };
 
             //轮询获取最新动态
-            var step = 1500;
+            var step = 15000;
             var formatTime = function( date ) {
                 return date.getFullYear()
                     + "-" + (parseInt( date.getMonth() ) + 1)
