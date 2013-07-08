@@ -1,18 +1,18 @@
 require.config({
-    baseUrl: "/script/" ,
+    baseUrl: "/script_build/" ,
     paths: {
         //requirejs plugins
         text: "lib/text" ,
 
         //libs
-        underscore: "lib/underscore-min" ,
-        backbone: "lib/backbone-min" ,
-        mustache: "lib/mustache.min" ,
-        date_utils: "lib/date-utils.min" ,
+        underscore: "lib/underscore" ,
+        backbone: "lib/backbone" ,
+        mustache: "lib/mustache" ,
+        date_utils: "lib/date-utils" ,
 
         router: "router" ,
 
-        tpl: "mvc/tpl/" ,
+        tpl: "/script/mvc/tpl/" ,
         v: "mvc/v/" ,
         m: "mvc/m/" ,
         c: "mvc/c"

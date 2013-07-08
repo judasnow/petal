@@ -1,0 +1,2 @@
+/*! petal_client 2013-07-08 */
+define(["underscore","backbone","lib/helper"],function(a,b,c){"use strict";var d=b.Model.extend({url:"/api/chat_item/",initialize:function(){this.set("role",window.objectUser.get("UserId")===this.get("SrcUserId")?"subject":"object"),"undefined"==typeof this.get("sexInEnglish")&&this.set("sexInEnglish","男"===this.get("SrcSex")?"male":"female"),this.set("Content",this.get("Content").replace(/<[^>].*?>/g,"")),this.set("time",c.resetTime(this.get("CreateAt")))}});return d});

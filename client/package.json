@@ -4,12 +4,13 @@
   "description": "",
   "main": "Gruntfile.js",
   "devDependencies": {
-    "less": "",
-    "grunt": "~0.4.1",
+    "grunt": "",
     "grunt-contrib-jshint": "",
     "grunt-contrib-uglify": "",
-    "grunt-jslint": "" ,
-	"q": ""
+    "grunt-contrib-less": "",
+    "grunt-contrib-watch": "",
+    "grunt-contrib-concat": "",
+    "grunt-contrib-clean": "~0.4.1"
   },
   "repository": "",
   "author": "",

@@ -1,0 +1,2 @@
+/*! petal_client 2013-07-08 */
+define(["underscore","backbone","date_utils"],function(a,b){"use strict";var c=b.Model.extend({url:"gift",initialize:function(){var a=new Date(this.get("SendAt")),a=new Date(this.get("CreateAt"));a.addMilliseconds(-288e5),this.set("time",a.getFullYear()+"/"+(a.getMonth()+1)+"/"+a.getDate()+" "+a.getHours()+":"+a.getMinutes()+":"+a.getSeconds())}});return c});

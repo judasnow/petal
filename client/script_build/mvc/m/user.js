@@ -1,0 +1,2 @@
+/*! petal_client 2013-07-08 */
+define(["underscore","backbone","lib/helper"],function(a,b,c){"use strict";var d=b.Model.extend({url:"/api/user/",initialize:function(){"visitors"===this.get("type")&&this.set("visit_time",c.resetTime(this.get("BrowseAt")))}});return d});

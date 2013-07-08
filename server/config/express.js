@@ -8,7 +8,7 @@ module.exports = function( app , config ) {
     app.use( express.compress({
         filter: function ( req , res ) {
             return /json|text|javascript|css/.test( res.getHeader( "Content-Type" ) )
-        },
+        } ,
         level: 9
     }))
 

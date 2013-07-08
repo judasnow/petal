@@ -1,0 +1,2 @@
+/*! petal_client 2013-07-08 */
+define(["underscore","backbone","mustache","c/gifts","v/gift_item","v/stream_base","v/menu","text!tpl/gift_list.html"],function(a,b,c,d,e,f,g,h){"use strict";var i=f.extend({initialize:function(a){new g;var b=new d;this.baseInitialize("gift_list",h,e,b,a.q,a.hash)}});return i});

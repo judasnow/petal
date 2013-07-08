@@ -1,0 +1,2 @@
+/*! petal_client 2013-07-08 */
+define(["underscore","backbone","text!tpl/404.html"],function(a,b){"use strict";return b.extend({initialize:function(a){this.baseInitialize("stream",vistitorTpl,ScreamItemView,users,a.q,a.hash)}}),Visitors});

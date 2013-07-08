@@ -1,0 +1,2 @@
+/*! petal_client 2013-07-08 */
+require.config({baseUrl:"/script_bulid/",paths:{text:"lib/text",underscore:"lib/underscore",backbone:"lib/backbone",mustache:"lib/mustache",date_utils:"lib/date-utils",router:"router",tpl:"mvc/tpl/",v:"mvc/v/",m:"mvc/m/",c:"mvc/c"},shim:{underscore:{exports:"_"},backbone:{deps:["underscore"],exports:"Backbone",init:function(){Backbone.$=window.$}},mustache:{exports:"Mustache"},date_utils:{exports:"date_utils"}}}),require(["app"],function(a){a.initialize()});
