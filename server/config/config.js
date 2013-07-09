@@ -4,6 +4,8 @@ var path = require( "path" )
 module.exports = {
     development: {
         rootPath: rootPath ,
+        qiniuACCESS_KEY: "TE_-Yqi7633MjIo3haNx4uF-WJaLqatk1SjduHcY" ,
+        qiniuSECRET_KEY: "tygGSrdMLIpgTie26eqYH41aKd9Rd3S6CRac92Uz" ,
         redisServer: { 
             address: "172.17.0.46" , 
             port: "6379" 

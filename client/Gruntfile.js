@@ -38,6 +38,14 @@ module.exports = function( grunt ) {
                 
             }
         },
+        requirejs: {
+            compile: {
+                options: {
+                    mainConfigFile: "script/main.js",
+                    out: "script_build/optimized.js"
+                }
+            }
+        },
         watch: {
             js: {
                 src: "script/*.js" ,
@@ -55,6 +63,7 @@ module.exports = function( grunt ) {
     grunt.loadNpmTasks( "grunt-contrib-watch" );
     grunt.loadNpmTasks( "grunt-contrib-concat" );
     grunt.loadNpmTasks( "grunt-contrib-clean" );
+    grunt.loadNpmTasks('grunt-contrib-requirejs');
 
     grunt.registerTask( "default" , [ "uglify" , "less" ] );
 };
