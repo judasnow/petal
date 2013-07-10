@@ -80,7 +80,7 @@ module.exports = function( grunt ) {
                     'script/mvc/tpl/*.html',
                     'style/css/*.css'
                 ],
-                dest: 'manifest.appcache'
+                dest: 'petal.mf'
             }
          }
     });

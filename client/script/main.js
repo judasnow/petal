@@ -1,5 +1,4 @@
 require.config({
-    urlArgs: "bust=" +  (new Date()).getTime() ,
     baseUrl: "/script/" ,
     paths: {
         app: "app" ,
