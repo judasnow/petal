@@ -1,12 +1,12 @@
 //backbone 没有接管之前的初始化
 (function() {
-//{{{
-//setInterval( function(){
-//    window.localStorage.setItem( "http://172.17.0.46/style/less/main.less:timestamp" , "" );
-//}, 5000 );
-//less.env = "development";
-//less.watch();
-//}}}
+//appCache
+var handleCacheEvent = function() {
+    console.log( "cached fire" );
+    alert( "cache ok" )
+    window.localStorage.setItem( "petal:app_cached" , "true" );
+};
+window.applicationCache.addEventListener( "cached" , handleCacheEvent , false );
 
 //jqmobi init
 //{{{
@@ -165,6 +165,12 @@ var onDeviceReady = function() {
 
 var init = function() {
 //{{{
+    var isAppCached = window.localStorage.getItem( "petal:app_cached" );
+    var step = 1000;
+    if( isAppCached !== "true" ) {
+        window.applicationCache.update();
+        step = 3000;
+    }
     setTimeout( function() {
         $( "#splashscreen" ).hide();
 
@@ -194,7 +200,7 @@ var init = function() {
             //已经登录系统
             $.ui.launch();
         }
-    }, 5000 );
+    }, step );
 }//}}}
 
 document.addEventListener( "appMobi.device.ready" , onDeviceReady , false );
