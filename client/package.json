@@ -11,7 +11,8 @@
     "grunt-contrib-watch": "",
     "grunt-contrib-concat": "",
     "grunt-contrib-clean": "~0.4.1",
-    "grunt-contrib-requirejs": "~0.4.1"
+    "grunt-contrib-requirejs": "~0.4.1",
+    "grunt-manifest": "~0.4.0"
   },
   "repository": "",
   "author": "",

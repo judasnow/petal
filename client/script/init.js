@@ -24,7 +24,7 @@ $.ui.customClickHandler = function() { return true;}
 $.ui.ready( function() {
     var oHead = document.getElementsByTagName( "HEAD" ).item( 0 ); 
     var oScript= document.createElement( "script" ); 
-    oScript.setAttribute( "data-main" , "/script/main.js" )
+    oScript.setAttribute( "data-main" , "/script/main.js" );
     oScript.src = "/script/lib/require.js";
     oHead.appendChild( oScript );
 });//}}}

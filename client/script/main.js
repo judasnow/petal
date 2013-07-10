@@ -1,6 +1,8 @@
 require.config({
-    baseUrl: "/script_build/" ,
+    baseUrl: "/script/" ,
     paths: {
+        app: "app" ,
+
         //requirejs plugins
         text: "lib/text" ,
 
@@ -12,21 +14,21 @@ require.config({
 
         router: "router" ,
 
-        tpl: "/script/mvc/tpl/" ,
+        tpl: "mvc/tpl/" ,
         v: "mvc/v/" ,
         m: "mvc/m/" ,
-        c: "mvc/c"
+        c: "mvc/c/"
     },
     shim: {
-        underscore: {
-            exports: "_"
-        },
         backbone: {
             deps: [ "underscore" ],
             exports: "Backbone",
             init: function() {
                 Backbone.$ = window.$;
             }
+        },
+        underscore: {
+            exports: "_"
         },
         mustache: {
             exports: "Mustache"
@@ -36,6 +38,7 @@ require.config({
         }
     }
 });
+
 
 require([
     "app"

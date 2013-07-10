@@ -1,6 +1,4 @@
 module.exports = function( grunt ) {
-    "use strict";
-
     grunt.initConfig({
         pkg: grunt.file.readJSON( "package.json" ) ,
         clean: {
@@ -39,10 +37,15 @@ module.exports = function( grunt ) {
             }
         },
         requirejs: {
-            compile: {
+            app: {
                 options: {
                     mainConfigFile: "script/main.js",
-                    out: "script_build/optimized.js"
+                    out: "script_build/optimized.js",
+                    findNestedDependencies: true,
+                    baseUrl       : 'script',
+                    name          : 'app',
+                    //out           : 'build.js',
+                    optimize      : 'none'
                 }
             }
         },
@@ -55,7 +58,31 @@ module.exports = function( grunt ) {
                 files: "style/less/*.less" ,
                 tasks: [ "less" ]
             }
-        }
+        },
+        manifest: {
+            generate: {
+                options: {
+                    basePath: '.',
+                    //cache: ["script/app.js"] ,
+                    network: ['http://*', 'https://*'],
+                    fallback: [],
+                    exclude: [],
+                    preferOnline: true,
+                    verbose: true,
+                    timestamp: true
+                },
+                src: [
+                    'script/*.js' ,
+                    'script/lib/*.js' ,
+                    'script/mvc/m/*.js',
+                    'script/mvc/v/*.js',
+                    'script/mvc/c/*.js',
+                    'script/mvc/tpl/*.html',
+                    'style/css/*.css'
+                ],
+                dest: 'manifest.appcache'
+            }
+         }
     });
 
     grunt.loadNpmTasks( "grunt-contrib-less" );
@@ -63,7 +90,8 @@ module.exports = function( grunt ) {
     grunt.loadNpmTasks( "grunt-contrib-watch" );
     grunt.loadNpmTasks( "grunt-contrib-concat" );
     grunt.loadNpmTasks( "grunt-contrib-clean" );
-    grunt.loadNpmTasks('grunt-contrib-requirejs');
+    grunt.loadNpmTasks( "grunt-contrib-requirejs" );
+    grunt.loadNpmTasks( "grunt-manifest" );
 
     grunt.registerTask( "default" , [ "uglify" , "less" ] );
 };
