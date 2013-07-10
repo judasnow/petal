@@ -64,7 +64,7 @@ module.exports = function( grunt ) {
                 options: {
                     basePath: '.',
                     //cache: ["script/app.js"] ,
-                    network: ['http://*', 'https://*'],
+                    network: ['http://*', 'https://*', "*"],
                     fallback: [],
                     exclude: [],
                     preferOnline: true,
