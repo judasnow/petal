@@ -78,6 +78,7 @@ module.exports = function( grunt ) {
                     'script/mvc/v/*.js',
                     'script/mvc/c/*.js',
                     'script/mvc/tpl/*.html',
+
                     'style/css/*.css'
                 ],
                 dest: 'petal.mf'

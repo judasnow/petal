@@ -1,5 +1,5 @@
 require.config({
-    baseUrl: "/script/" ,
+    baseUrl: "script/" ,
     paths: {
         app: "app" ,
 
@@ -14,10 +14,10 @@ require.config({
 
         router: "router" ,
 
-        tpl: "mvc/tpl/" ,
-        v: "mvc/v/" ,
-        m: "mvc/m/" ,
-        c: "mvc/c/"
+        tpl: "mvc/tpl" ,
+        v: "mvc/v" ,
+        m: "mvc/m" ,
+        c: "mvc/c"
     },
     shim: {
         backbone: {
