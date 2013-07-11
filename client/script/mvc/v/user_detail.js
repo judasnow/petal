@@ -169,7 +169,8 @@ function(
             $albumSlider.show();
             $albumSlider.on( 
                 "tap" , 
-                function() { 
+                function() {
+                    $.ui.hideMask(); 
                     $albumSlider.hide() 
                 } 
             );
