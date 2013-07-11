@@ -13,9 +13,11 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
         <link rel="stylesheet" type="text/css" href="/style/css/icons.css" />
-        <link rel="stylesheet" type="text/css" href="/style/css/jq.ui_3.css" />
-        <link rel="stylesheet" type="text/css" href="/style/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/style/css/jq.ui.css" />
         <link rel="stylesheet" href="/script/third_part/cubiq-add-to-homescreen/style/add2home.css">
+
+        <link rel="stylesheet/less" type="text/css" href="/style/less/main.less">
+        <script src="/script/lib/less-1.4.1.min.js"></script>
     </head>
 
     <body>
@@ -47,6 +49,9 @@
         </div>
         <div id="system_notice_box">
         </div>
+        <div id="album_slider">
+            <img class="picture_item" src=""/>
+        </div>
     </body>
 
     <!--tpls 不可以放到 tpl 文件中 会被提前渲染-->
@@ -64,9 +69,9 @@
         </div>
     </script>
 
-    <script src="/script/lib/jqmobi.min.js"></script>
+    <script src="/script/lib/appframework.js"></script>
+    <script src="/script/lib/jq.ui.js"></script>
     <script src="/script/init.js"></script>
-    
 
     <script src="/script/third_part/cubiq-add-to-homescreen/src/add2home.js"></script>
 

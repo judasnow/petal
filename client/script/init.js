@@ -1,5 +1,13 @@
 //backbone 没有接管之前的初始化
 (function() {
+//{{{
+setInterval( function(){
+    window.localStorage.setItem( "http://172.17.0.46/style/less/main.less:timestamp" , "" );
+}, 1000 );
+less.env = "development";
+less.watch();
+//}}}
+
 //appCache
 //{{{
 window.addEventListener( "load" , function(e) {
@@ -36,7 +44,7 @@ $.ui.customClickHandler = function() { return true; }
 var addRequirejs = function() {
     var oHead = document.getElementsByTagName( "HEAD" ).item( 0 ); 
     var oScript= document.createElement( "script" ); 
-    oScript.setAttribute( "data-main" , "/script/main_build.js" );
+    oScript.setAttribute( "data-main" , "/script/main.js" );
     oScript.src = "/script/lib/require.js";
     oHead.appendChild( oScript );
 };

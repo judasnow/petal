@@ -35,7 +35,8 @@ function(
             "tap .send_gift": "sendGift" ,
             "tap .send_msg": "sendMsg" ,
             "tap .wanted_gift_list .gravatar": "sendThatGift" ,
-            "tap .visitors_list>.sub_item": "goDetailPage"
+            "tap .visitors_list>.sub_item": "goDetailPage" ,
+            "tap .user_picture": "showAlbum"
         } ,
 
         initialize: function( data ) {
@@ -55,7 +56,7 @@ function(
 
             _.bindAll(
                 this , 
-                "sendMsg" , "sendGift" , "getContacesInfo" , "sendThatGift" , "render" );
+                "sendMsg" , "sendGift" , "getContacesInfo" , "sendThatGift" , "showAlbum" , "render" );
 
             this.model = new User();
             this.listenTo( this.model , "change" , this.render );
@@ -95,11 +96,84 @@ function(
 
         goDetailPage: function( event ) {
             event.stopImmediatePropagation();
+
             var userId = $( event.target ).attr( "data-user_id" );
             if( !isNaN( userId ) ) {
                 window.router.navigate( "/#user_detail/" + userId , {trigger: true} );
             }
         } ,
+
+        //相当于一个相册的插件 每次只需要传递
+        //给该插件一个相片地址的数组 并将其设置为
+        //可见就可以了
+        showAlbum: function( event ) {
+        //{{{
+            var $target = $( event.target );
+            var targetSrc = $target.attr( "origin_src" );
+            var $albumSlider = $( "#album_slider" );
+            var $albumSliderPicture = $albumSlider.find( ".picture_item" );
+
+            //获取用户所有图片的列表 并将其 src 组装成一个 array
+            var $userPictureList = this.$el.find( ".user_album .user_picture" );
+            var pictureSrcList = _.reduce(
+                $userPictureList , 
+                function( memo , picture ) {
+                    var $picture = $( picture );
+                    memo.push( $picture.attr( "origin_src" ) );
+
+                    return memo;
+                } ,
+                []
+            );
+            var pictureSrcListSize = pictureSrcList.length;
+
+            //定位当前图片
+            var currIndex = _.indexOf( pictureSrcList , targetSrc );
+
+            helper.showImage( $albumSliderPicture );
+            $albumSliderPicture.bind( 
+                "load" , 
+                function() { 
+                    $.ui.hideMask(); 
+                }
+            );
+
+            //加载当前图片
+            $albumSliderPicture.attr( "src" , pictureSrcList[currIndex] );
+            if( pictureSrcListSize > 1 ) {
+                //显示下一张
+                var showNextImg = function() {
+                    $.ui.showMask();
+                    currIndex = currIndex + 1;
+                    if( currIndex >= pictureSrcListSize ) {
+                        //到达最后一张 返回第一张
+                        currIndex = 0;
+                    }
+                    $albumSliderPicture.attr( "src" , pictureSrcList[currIndex] );
+                };
+
+                //显示上一张
+                var showPrevImg = function() {
+                    $.ui.showMask();
+                    currIndex = currIndex - 1;
+                    if( currIndex <= 0 ) {
+                        currIndex = pictureSrcListSize;
+                    }
+                    $albumSliderPicture.attr( "src" , pictureSrcList[currIndex] );
+                };
+
+                $albumSlider.on( "swipeLeft" , showPrevImg );
+                $albumSlider.on( "swipeRight" , showNextImg );
+            }
+
+            $albumSlider.show();
+            $albumSlider.on( 
+                "tap" , 
+                function() { 
+                    $albumSlider.hide() 
+                } 
+            );
+        } ,//}}}
 
         render: function() {
         //{{{

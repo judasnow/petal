@@ -23,12 +23,14 @@ module.exports = {
         rootPath: rootPath ,
         redisServer: { 
             address: "127.0.0.1" , 
-            port: "6379" 
+            port: "6380" 
         } ,
         mongodServer: "mongodb://127.0.0.1/petal" ,
+        qiniuACCESS_KEY: "TE_-Yqi7633MjIo3haNx4uF-WJaLqatk1SjduHcY" ,
+        qiniuSECRET_KEY: "tygGSrdMLIpgTie26eqYH41aKd9Rd3S6CRac92Uz" ,
         wxRedisServer: { 
             address: "127.0.0.1" ,
-            port: "6380"
+            port: "6379"
         } ,
         hb123Server: "http://test.huaban123.com/Mobile/Api.aspx?" ,
         hb123WxServer: "http://www.huaban123.com/action/weixinmpapi.aspx?" ,
