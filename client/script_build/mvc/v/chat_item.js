@@ -1,2 +1,0 @@
-/*! petal_client 2013-07-08 */
-define(["underscore","backbone","mustache","text!tpl/chat_item.html","lib/helper","lib/common_operate"],function(a,b,c,d,e,f){"use strict";var g=b.View.extend({className:"item",template:d,events:{"tap .gravatar":"handleTap"},initialize:function(){a.bindAll(this,"handleTap","render")},handleTap:function(){f.goDetailPage(this.model.get("SrcUserId"))},render:function(){return this.$el.html(c.to_html(this.template,this.model.toJSON())),e.showImage(this.$el.find("img")),this}});return g});

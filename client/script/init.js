@@ -1,12 +1,25 @@
 //backbone 没有接管之前的初始化
 (function() {
 //appCache
+//{{{
+window.addEventListener( "load" , function(e) {
+    window.applicationCache.addEventListener( "updateready" , function(e) {
+        if( window.applicationCache.status == window.applicationCache.UPDATEREADY ) {
+            window.applicationCache.swapCache();
+            console.dir( "new cache" )
+            window.location.reload();
+        } else {
+
+        }
+    }, false );
+}, false );
+
 var handleCacheEvent = function() {
     console.log( "cached fire" );
-    alert( "cache ok" )
     window.localStorage.setItem( "petal:app_cached" , "true" );
 };
 window.applicationCache.addEventListener( "cached" , handleCacheEvent , false );
+//}}}
 
 //jqmobi init
 //{{{
@@ -16,14 +29,14 @@ $.ui.resetScrollers = false;
 $.ui.nativeTouchScroll = false;
 $.ui.autoLaunch = false;
 $.ui.showBackbutton = false;
-$.ui.customClickHandler = function() { return true;}
+$.ui.customClickHandler = function() { return true; }
 //}}}
 
 //加载 main.js 
 var addRequirejs = function() {
     var oHead = document.getElementsByTagName( "HEAD" ).item( 0 ); 
     var oScript= document.createElement( "script" ); 
-    oScript.setAttribute( "data-main" , "/script/main.js" );
+    oScript.setAttribute( "data-main" , "/script/main_build.js" );
     oScript.src = "/script/lib/require.js";
     oHead.appendChild( oScript );
 };
@@ -165,42 +178,34 @@ var onDeviceReady = function() {
 
 var init = function() {
 //{{{
-    var isAppCached = window.localStorage.getItem( "petal:app_cached" );
-    var step = 1000;
-    if( isAppCached !== "true" ) {
-        window.applicationCache.update();
-        step = 3000;
-    }
-    setTimeout( function() {
-        $( "#splashscreen" ).hide();
+    $( "#splashscreen" ).hide();
 
-        //判断当前用户是否已经登录系统
-        var localObjectUserInfo = window.localStorage.getItem( "petal:object_user_info" );
+    //判断当前用户是否已经登录系统
+    var localObjectUserInfo = window.localStorage.getItem( "petal:object_user_info" );
 
-        //@todo 判断是否登录的条件有可能会发生改变
-        if( localObjectUserInfo === null || localObjectUserInfo === "" ) {
-            //未登录
-            if( window.location.hash !== "" ) {
-                //weixin
-                wx_login();
-            } else {
-                var $loginEl = $( "#login" ).show();
-                var $usernameEl = $loginEl.find( ".username" );
-                var $passwordEl = $loginEl.find( ".password" );
-
-                $loginEl.find( ".do_login" ).click( 
-                    function() {
-                        login( $usernameEl.val() , $passwordEl.val() , function() {
-                            window.updateSysNotice( "用户名或密码错误" );
-                        });
-                    }
-                );
-            }
+    //@todo 判断是否登录的条件有可能会发生改变
+    if( localObjectUserInfo === null || localObjectUserInfo === "" ) {
+        //未登录
+        if( window.location.hash !== "" ) {
+            //weixin
+            wx_login();
         } else {
-            //已经登录系统
-            $.ui.launch();
+            var $loginEl = $( "#login" ).show();
+            var $usernameEl = $loginEl.find( ".username" );
+            var $passwordEl = $loginEl.find( ".password" );
+
+            $loginEl.find( ".do_login" ).click( 
+                function() {
+                    login( $usernameEl.val() , $passwordEl.val() , function() {
+                        window.updateSysNotice( "用户名或密码错误" );
+                    });
+                }
+            );
         }
-    }, step );
+    } else {
+        //已经登录系统
+        $.ui.launch();
+    }
 }//}}}
 
 document.addEventListener( "appMobi.device.ready" , onDeviceReady , false );

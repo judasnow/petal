@@ -1,2 +1,0 @@
-/*! petal_client 2013-07-08 */
-define(["underscore","backbone","mustache","c/payment_recoreds","v/payment_recored_item","v/stream_base","v/menu","text!tpl/payment_record.html"],function(a,b,c,d,e,f,g,h){"use strict";var i=f.extend({initialize:function(a){new g;var b=new d;this.baseInitialize("payment_record",h,e,b,a.q,a.hash)}});return i});

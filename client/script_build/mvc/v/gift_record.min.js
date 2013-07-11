@@ -1,2 +1,0 @@
-/*! petal_client 2013-07-08 */
-define(["underscore","backbone","mustache","text!tpl/gift_record.html","lib/helper"],function(a,b,c,d,e){"use strict";var f=b.View.extend({className:"item",template:d,initialize:function(){},render:function(){return this.$el.html(c.to_html(this.template,this.model.toJSON())),e.showImage(this.$el.find("img")),this}});return f});

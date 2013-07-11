@@ -73,7 +73,7 @@ function(
 
         sendGift: function() {
         //{{{
-            window.localStorage.setItem( "send_gift_target_user_id" , this.model.get( "UserId" ) );
+            window.localStorage.setItem( "petal:send_gift_target_user_id" , this.model.get( "UserId" ) );
             window.router.navigate( "/#gift_list" , {trigger: true} );
         } ,//}}}
 

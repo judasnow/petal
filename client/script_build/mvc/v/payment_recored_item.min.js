@@ -1,2 +1,0 @@
-/*! petal_client 2013-07-08 */
-define(["underscore","backbone","mustache","text!tpl/payment_recored_item.html"],function(a,b,c,d){"use strict";var e=b.View.extend({className:"item",template:d,initialize:function(){},render:function(){return this.$el.html(c.to_html(this.template,this.model.toJSON())),this}});return e});

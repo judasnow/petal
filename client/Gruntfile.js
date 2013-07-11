@@ -39,14 +39,28 @@ module.exports = function( grunt ) {
         requirejs: {
             app: {
                 options: {
-                    mainConfigFile: "script/main.js",
-                    out: "script_build/optimized.js",
-                    findNestedDependencies: true,
-                    baseUrl       : 'script',
-                    name          : 'app',
-                    //out           : 'build.js',
-                    optimize      : 'none'
-                }
+                    baseUrl: ".",
+                    appDir: "script/",
+                    dir: "script/",
+                    modules: [
+                    ],
+                    paths: {
+                        app: "app" ,
+
+                        text: "lib/text" ,
+
+                        underscore: "lib/underscore" ,
+                        backbone: "lib/backbone" ,
+                        mustache: "lib/mustache" ,
+                        date_utils: "lib/date-utils" ,
+
+                        router: "router" ,
+
+                        tpl: "mvc/tpl" ,
+                        v: "mvc/v" ,
+                        m: "mvc/m" ,
+                        c: "mvc/c"
+                    }
             }
         },
         watch: {

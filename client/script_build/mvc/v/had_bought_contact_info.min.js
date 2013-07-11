@@ -1,2 +1,0 @@
-/*! petal_client 2013-07-08 */
-define(["underscore","backbone","mustache","c/users","v/had_bought_contact_info_stream_item","v/stream_base","v/menu","text!tpl/had_bought_contact_info.html"],function(a,b,c,d,e,f,g,h){"use strict";var i=f.extend({initialize:function(a){new g;var b=new d;this.baseInitialize("stream",h,e,b,a.q,a.hash)}});return i});

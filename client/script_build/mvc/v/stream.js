@@ -1,2 +1,0 @@
-/*! petal_client 2013-07-08 */
-define(["underscore","backbone","mustache","c/users","v/stream_item","v/stream_base","v/menu","text!tpl/stream.html"],function(a,b,c,d,e,f,g,h){"use strict";var i=f.extend({initialize:function(a){new g,$.ui.clearHistory();var b=new d;this.baseInitialize("stream",h,e,b,a.q,a.hash),"true"===window.localStorage.getItem("petal:is_new_login")&&(window.localStorage.setItem("petal:is_new_login","false"),$.ui.toggleSideMenu())}});return i});
