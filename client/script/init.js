@@ -168,6 +168,7 @@ var wx_login = function() {
         "/api/get_username_by_wx_id?wx_id=" +  window.location.hash.replace( /^\#/ , "" ) ,
         function( data ) {
             var dataObj = JSON.parse( data );
+
             if( dataObj[0] === "ok" ) {
                 login( dataObj[1].username , "huaban123" , function() {
                     window.location.hash = "";
