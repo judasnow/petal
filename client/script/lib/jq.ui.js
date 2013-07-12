@@ -2528,7 +2528,7 @@
                 touch.el.trigger('doubleTap'); 
                 touch = {}; 
             } else if (touch.x2 > 0 || touch.y2 > 0) { 
-                (Math.abs(touch.x1 - touch.x2) > 30 || Math.abs(touch.y1 - touch.y2) > 30) &&  
+                (Math.abs(touch.x1 - touch.x2) > 25 || Math.abs(touch.y1 - touch.y2) > 25) &&  
                 touch.el.trigger('swipe') &&  
                 touch.el.trigger('swipe' + (swipeDirection(touch.x1, touch.x2, touch.y1, touch.y2))); 
                 touch.x1 = touch.x2 = touch.y1 = touch.y2 = touch.last = 0; 
@@ -3893,7 +3893,7 @@
          */ 
         showMask: function(text) { 
             if (!text) 
-                text = ""; 
+                text = "正在加载..."; 
             jq("#jQui_mask>h1").html(text); 
             jq("#jQui_mask").show() 
         }, 

@@ -30,6 +30,7 @@ function(
         },
 
         initialize: function() {
+        //{{{
             new MenuView();
 
             this.$el = $.ui.addOrUpdateDiv( "coupons" , "" );
@@ -41,20 +42,23 @@ function(
             this.model.set( window.objectUser.toJSON() );
 
             this.setBankAccountTpl = this.$el.find( "#set_bank_account_tpl" ).html();
-        } ,
+        } ,//}}}
 
         showBankAccountSelect: function() {
+        //{{{
             $.ui.popup({
                 title: "设置提现银行信息" ,
                 message: this.setBankAccountTpl ,
                 doneCallback: this.setBankAccount
             });
-        } ,
+        } ,//}}}
 
         setBankAccount: function() {
+        //{{{
+            var that = this;
             (function( bank_name , account_No , account_name ){
                 if( bank_name === "" || account_No === "" || account_name === "" ) {
-                    alert( "信息不完整" );
+                    window.updateSysNotice( "信息不完整" );
                     return;
                 } else {
                     $.post(
@@ -67,7 +71,13 @@ function(
                         },
                         function( data ) {
                             //更新当前 objectUser model
-                            alert( "设置成功" );
+                            that.model.fetch({ 
+                                data: { 
+                                    user_id: window.objectUser.get( "UserId" )
+                                }
+                            });
+                            window.objectUser = that.model;
+                            window.updateSysNotice( "设置成功" );
                         }
                     );
                 }
@@ -76,9 +86,10 @@ function(
                 $( ".jqPopup .account_No" ).val() , 
                 $( ".jqPopup .account_name" ).val()
             );
-        } ,
+        } ,//}}}
 
         doWithdraw: function() {
+        //{{{
             (function( amount ) {
                 if( amount === "" || isNaN( amount ) ) {
                     return;
@@ -89,7 +100,12 @@ function(
                             amount: amount
                         } ,
                         function( data ) {
-                            alert( "提现信息已经等级,请耐心等待管理员审核" );
+                            var dataObj = JSON.parse( data );
+                            if( dataObj.result === "ok" ) {
+                                alert( "提现信息已经等级,请耐心等待管理员审核" );
+                            } else {
+                                alert( dataObj.msg );
+                            }
                         },
                         function( data ) {
                             alert( "提现操作失败" );
@@ -97,7 +113,7 @@ function(
                     );
                 }
             })( this.$el.find( ".amount" ).val() );
-        } ,
+        } ,//}}}
 
         render: function() {
              $.ui.updateContentDiv( 

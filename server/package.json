@@ -19,9 +19,10 @@
     "connect-redis": "",
     "winston": "",
     "imagemagick": "",
-    "node-smushit": ""
+    "node-smushit": "",
+    "alipay": ""
   },
-  "repository": "git@gitcafe.com:judasnow/petal_mk2.git",
+  "repository": "git@git.oschina.net:judasnow/petal.git",
   "author": "judasnow@gmail.com",
   "license": "MIT",
   "devDependencies": {}

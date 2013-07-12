@@ -127,12 +127,15 @@ function(
             );
             var pictureSrcListSize = pictureSrcList.length;
 
+            //脚标
+            var pictureSrcListIndex = pictureSrcListSize - 1;
+
             //定位当前图片
             var currIndex = _.indexOf( pictureSrcList , targetSrc );
 
             helper.showImage( $albumSliderPicture );
             $albumSliderPicture.bind( 
-                "load" , 
+                "load" ,
                 function() { 
                     $.ui.hideMask(); 
                 }
@@ -145,10 +148,11 @@ function(
                 var showNextImg = function() {
                     $.ui.showMask();
                     currIndex = currIndex + 1;
-                    if( currIndex >= pictureSrcListSize ) {
+                    if( currIndex > ( pictureSrcListSize - 1 ) ) {
                         //到达最后一张 返回第一张
                         currIndex = 0;
                     }
+                    console.log( currIndex )
                     $albumSliderPicture.attr( "src" , pictureSrcList[currIndex] );
                 };
 
@@ -156,9 +160,10 @@ function(
                 var showPrevImg = function() {
                     $.ui.showMask();
                     currIndex = currIndex - 1;
-                    if( currIndex <= 0 ) {
-                        currIndex = pictureSrcListSize;
+                    if( currIndex < 0 ) {
+                        currIndex = pictureSrcListSize - 1;
                     }
+                    console.log( currIndex )
                     $albumSliderPicture.attr( "src" , pictureSrcList[currIndex] );
                 };
 
@@ -167,11 +172,12 @@ function(
             }
 
             $albumSlider.show();
-            $albumSlider.on( 
-                "tap" , 
+            $albumSlider.on(
+                "tap" ,
                 function() {
-                    $.ui.hideMask(); 
-                    $albumSlider.hide() 
+                    $.ui.hideMask();
+                    $albumSlider.hide();
+                    $albumSliderPicture.attr( "src" , "" );
                 } 
             );
         } ,//}}}

@@ -125,6 +125,9 @@ function(
                 hashChange: true
             });
 
+            //到这里加载完成
+            console.log( "after router" );
+            $.ui.hideMask();
         };
 
         return {

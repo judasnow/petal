@@ -29,7 +29,7 @@ helper.req2hb123 = function( method , param , ok , error ) {
                     ok( dataObj );
                 } else {
                     console.log( "res code is " + dataObj.code + " not 200." );
-                    typeof error === "function" && error( data.text );
+                    typeof error === "function" && error( dataObj );
                 }
             } catch ( err ) {
                 console.log( 
@@ -37,6 +37,8 @@ helper.req2hb123 = function( method , param , ok , error ) {
                     + " res.text: " + data.text
                 );
                 console.dir( err.stack );
+
+                //这里可能出现无法解析json的情况
                 typeof error === "function" && error( data.text );
             }
         }

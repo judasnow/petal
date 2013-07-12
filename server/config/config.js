@@ -23,7 +23,7 @@ module.exports = {
         rootPath: rootPath ,
         redisServer: { 
             address: "127.0.0.1" , 
-            port: "6380" 
+            port: "6379" 
         } ,
         mongodServer: "mongodb://127.0.0.1/petal" ,
         qiniuACCESS_KEY: "TE_-Yqi7633MjIo3haNx4uF-WJaLqatk1SjduHcY" ,

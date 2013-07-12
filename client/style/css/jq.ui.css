@@ -988,20 +988,21 @@ textarea {
   border-radius: 9px;
 }
 .ui-loader {
+    background: #2f1f26;
   display: none;
   position: absolute;
-  opacity: .85;
+  opacity: .4;
   z-index: 100;
   left: 50%;
   width: 200px;
   margin-left: -100px;
   margin-top: -35px;
   padding: 10px 30px;
-  background: rgba(0,0,0,0.2);
   border-radius: 9px;
 }
 .ui-loader h1 {
-  font-size: 15px;
+    color: #fff;
+  font-size: 14px;
   text-align: center;
 }
 .ui-loader .ui-icon {

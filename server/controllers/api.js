@@ -454,13 +454,25 @@ api.setBankAccount = function( req , res ) {
     );
 };//}}}
 
+//提现
 api.withdrawCash = function( req , res ){
 //{{{
     var userId = req.param( "user_id" , "" );
     var amount = req.param( "amount" , 0 );
 
-    var ok = function() {
-        res.json( [ "ok" ] );
+    var ok = function( dataObj ) {
+        if( dataObj.code === "200" ) {
+            res.json({result: "ok"});
+        }
+    }
+
+    var fail = function( dataObj ) {
+        var fail_msg = "提现失败请稍后再试";
+        console.dir( dataObj.origin_msg );
+        if( typeof dataObj.origin_msg !== "undefined" && dataObj.origin_msg !== null ) {
+            fail_msg = dataObj.origin_msg;
+        }
+        res.json( {result: "fail", "msg": fail_msg} );
     }
 
     helper.req2hb123( 
@@ -468,7 +480,8 @@ api.withdrawCash = function( req , res ){
         "about=user&action=withdraw_cash&user_id=" + userId +
             "&amount=" + amount ,
 
-        ok
+        ok,
+        fail
     );
 };//}}}
 

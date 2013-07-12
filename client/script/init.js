@@ -3,7 +3,7 @@
 //{{{
 setInterval( function(){
     window.localStorage.setItem( "http://172.17.0.46/style/less/main.less:timestamp" , "" );
-}, 1000 );
+}, 3000 );
 less.env = "development";
 less.watch();
 //}}}
@@ -40,22 +40,26 @@ $.ui.showBackbutton = false;
 $.ui.customClickHandler = function() { return true; }
 //}}}
 
-//加载 main.js 
+//加载 main.js 最花时间的地方
 var addRequirejs = function() {
+//{{{
     var oHead = document.getElementsByTagName( "HEAD" ).item( 0 ); 
     var oScript= document.createElement( "script" ); 
     oScript.setAttribute( "data-main" , "/script/main.js" );
     oScript.src = "/script/lib/require.js";
     oHead.appendChild( oScript );
-};
+
+    $.ui.showMask();
+};//}}}
 
 //初始化将在本地存储的数据
 var initLocalData = function() {
+//{{{
     window.localStorage.setItem( "petal:object_user_info" , "" );
     window.localStorage.setItem( "petal:is_new_login" , "true" );
     window.localStorage.setItem( "petal:root_msg_id" , "0" );
     window.localStorage.setItem( "petal:send_msg_target_user_id" , "" );
-};
+};//}}}
 
 //系统通知
 //只所以使用 z-index 而不直接 hide 是因为
@@ -77,6 +81,7 @@ window.updateSysNotice = function( content ) {
 //解决 id 相同的元素更新问题 
 //也就是说如果已经有了相同 id 的元素则不进行任何操作
 $.ui.addOrUpdateDiv = function( id , content , showFooter ) {
+//{{{
     if( $( "#" + id ).length === 0 ) {
         $.ui.addContentDiv (
             id ,
@@ -96,10 +101,11 @@ $.ui.addOrUpdateDiv = function( id , content , showFooter ) {
     }
     return $el.unbind();
     //$el.attr( "style", "overflow:hidden" );
-}
+}//}}}
 
 //jqmobi 的 goBack() 仅仅跳转到相应的 page
 $.ui.goBackWithDefault = function() {
+//{{{
     if( $.ui.history.length === 1 ) {
         window.router.navigate( "/#stream" , {trigger: true} );
     } else {
@@ -108,10 +114,10 @@ $.ui.goBackWithDefault = function() {
         //var hash = window.location.hash;
         //window.router.navigate( "/" + hash , {trigger: true} );
     }
-};
+};//}}}
 
-//{{{
 //callback of $.ui.launch()
+//{{{
 $.ui.ready( function() {
     console.log( "ui ready" );
 
