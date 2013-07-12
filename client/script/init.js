@@ -1,32 +1,32 @@
 //backbone 没有接管之前的初始化
 (function() {
 //{{{
-setInterval( function(){
-    window.localStorage.setItem( "http://172.17.0.46/style/less/main.less:timestamp" , "" );
-}, 3000 );
-less.env = "development";
-less.watch();
+//setInterval( function(){
+//    window.localStorage.setItem( "http://172.17.0.46/style/less/main.less:timestamp" , "" );
+//}, 3000 );
+//less.env = "development";
+//less.watch();
 //}}}
 
 //appCache
 //{{{
-window.addEventListener( "load" , function(e) {
-    window.applicationCache.addEventListener( "updateready" , function(e) {
-        if( window.applicationCache.status == window.applicationCache.UPDATEREADY ) {
-            window.applicationCache.swapCache();
-            console.dir( "new cache" )
-            window.location.reload();
-        } else {
+//window.addEventListener( "load" , function(e) {
+//    window.applicationCache.addEventListener( "updateready" , function(e) {
+//        if( window.applicationCache.status == window.applicationCache.UPDATEREADY ) {
+//            window.applicationCache.swapCache();
+//            console.dir( "new cache" )
+//            window.location.reload();
+//        } else {
+//
+//       }
+//    }, false );
+//}, false );
 
-        }
-    }, false );
-}, false );
-
-var handleCacheEvent = function() {
-    console.log( "cached fire" );
-    window.localStorage.setItem( "petal:app_cached" , "true" );
-};
-window.applicationCache.addEventListener( "cached" , handleCacheEvent , false );
+//var handleCacheEvent = function() {
+//    console.log( "cached fire" );
+//    window.localStorage.setItem( "petal:app_cached" , "true" );
+//};
+//window.applicationCache.addEventListener( "cached" , handleCacheEvent , false );
 //}}}
 
 //jqmobi init

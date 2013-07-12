@@ -7,11 +7,11 @@ module.exports = {
         qiniuACCESS_KEY: "TE_-Yqi7633MjIo3haNx4uF-WJaLqatk1SjduHcY" ,
         qiniuSECRET_KEY: "tygGSrdMLIpgTie26eqYH41aKd9Rd3S6CRac92Uz" ,
         redisServer: { 
-            address: "172.17.0.46" , 
-            port: "6379" 
+            address: "172.17.0.46" ,
+            port: "6379"
         } ,
         mongodServer: "mongodb://172.17.0.46/petal" ,
-        wxRedisServer: { 
+        wxRedisServer: {
             address: "172.17.0.46" ,
             port: "6380"
         } ,
@@ -21,14 +21,14 @@ module.exports = {
     },
     production: {
         rootPath: rootPath ,
-        redisServer: { 
+        redisServer: {
             address: "127.0.0.1" , 
-            port: "6379" 
+            port: "6379"
         } ,
         mongodServer: "mongodb://127.0.0.1/petal" ,
         qiniuACCESS_KEY: "TE_-Yqi7633MjIo3haNx4uF-WJaLqatk1SjduHcY" ,
         qiniuSECRET_KEY: "tygGSrdMLIpgTie26eqYH41aKd9Rd3S6CRac92Uz" ,
-        wxRedisServer: { 
+        wxRedisServer: {
             address: "127.0.0.1" ,
             port: "6379"
         } ,
