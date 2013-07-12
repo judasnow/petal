@@ -1,0 +1,167 @@
+.base_item {
+    font-size: 18px;
+    border-bottom: 1px solid #ddd;
+    padding: 16px 8px;
+    display: inline-block;
+    width: 100%;
+}
+
+//button
+//{{{
+.btn {
+    border-radius: 8px;
+    background: #b6a1b5;
+    display: inline-block;
+    padding: 2px 4px;
+    color: #fff;
+}
+
+#jQUi .small_btn {
+     .btn;
+}
+
+#jQUi .big_btn {
+    .btn;
+    font-size: 120%;
+    padding: 16px 32px;
+}
+
+#jQUi .normal_btn {
+    .btn;
+    padding: 8px 16px;
+}
+//}}}
+
+//inputs 样式
+//{{{
+@input_font_size: 16px;
+#jQUi {
+    .input {
+        border: 0;
+        background: #ddd;
+        border-radius: 8px;
+        border: 1px solid #bbb;
+        font-size: @input_font_size;
+        height: @input_font_size * 2;
+        width: 100%;
+    }
+    select {
+        .input;
+        width: 96px; 
+        margin: 0 8px;
+        padding-left: 4px;
+        -webkit-appearance: none;
+    }
+    input {
+        padding: 24px 8px;
+        .input;
+    }
+    textarea {
+        .input;
+        padding: 8px;
+        resize: none;
+        min-height: 64px;
+    }
+}
+//}}}
+
+
+@import "stream_base";
+
+@import "menu";
+@import "login";
+@import "stream";
+@import "gift_list";
+@import "chat_list";
+@import "user_detail";
+@import "search";
+@import "update_self_profile";
+@import "tweet";
+@import "msgs";
+@import "gifts";
+@import "payment_record";
+@import "buy_coin";
+@import "service";
+@import "coupons";
+
+body{
+    font-size: 13px;
+    font-family: 'Helvetica Neue', Arial, 'Liberation Sans', FreeSans, 'Hiragino Sans GB', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background: #ececec;
+}
+
+.blurry_text(@px: 5px, @opacty: 0.5) {
+    color: transparent;
+    text-shadow: 0 0 @px rgba(0,0,0,@opacty);
+}
+
+.none_padding {
+    padding: 0;
+}
+
+
+#jQUi .jq-badge {
+    top: inherit;
+}
+
+.jqscroll_refresh {
+    margin: 0px;
+    position: relative;
+    text-align: center;
+    line-height: 64px;
+    width: 100%;
+    background: #fff;
+    color: #333;
+}
+
+.infinite {
+    text-align: center;
+    margin-top: 10px;
+    width: 100%;
+    line-height: 64px;
+}
+
+.jqMenuClose {
+}
+.jqMenuHeader {
+    display: none;
+}
+#jQUi nav~#menu{
+    background: #333;
+}
+#jQUi .jqPopup {
+    .contact_info {
+        .item {
+            display: inline-block;
+            width: 100%;
+            clear: both;
+            margin-bottom: 4px;
+        }
+    }
+}
+
+#system_notice_box {
+    font-size: 110%;
+    font-weight: bolder;
+    text-align: center;
+    z-index: -9999;
+    border-radius: 4px;
+    opacity: 0.9;
+    color: #eee;
+    background: #1f1f1f;
+    position: fixed;
+    bottom: 128px;
+    left: 50%;
+    padding: 8px 16px;
+}
+//需要注意的是 他总是相对于 当前的 panel 元素的
+@media all and (max-device-width: 480px) {
+    //iphone 
+    #system_notice_box {
+        bottom: 64px;
+    }
+}
+
+
+
