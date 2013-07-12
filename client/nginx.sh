@@ -4,9 +4,9 @@ mem_path="/dev/shm/petal_client"
 lk_path="/home/www/petal_client"  
  
 if [ ! -d "$mem_path" ]; then  
-        cp -r "$res_path" "$mem_path"  
+    cp -r "$res_path" "$mem_path"  
 fi  
  
 if [ ! -L "$lk_path" ]; then  
-        ln -s "$mem_path" "$lk_path"  
+    ln -s "$mem_path" "$lk_path"  
 fi
