@@ -113,14 +113,9 @@ module.exports = function( grunt ) {
                     timestamp: true
                 },
                 src: [
-                    'script/*.js' ,
-                    'script/lib/*.js' ,
-                    'script/mvc/m/*.js',
-                    'script/mvc/v/*.js',
-                    'script/mvc/c/*.js',
-                    'script/mvc/tpl/*.html',
-
-                    'style/css/*.css'
+                    "script_build/all.js" ,
+                    "script_build/rquirejs_main_build.js",
+                    "style_build/css/main.min.css"
                 ],
                 dest: 'petal.mf'
             }
@@ -134,7 +129,7 @@ module.exports = function( grunt ) {
     grunt.loadNpmTasks( "grunt-contrib-clean" );
     grunt.loadNpmTasks( "grunt-contrib-requirejs" );
     grunt.loadNpmTasks( "grunt-manifest" );
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
 
     grunt.registerTask( "default" , [ "clean" , "uglify" , "less" , "cssmin" , "concat" , "requirejs" ] );
 };
