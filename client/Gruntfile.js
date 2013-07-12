@@ -47,16 +47,14 @@ module.exports = function( grunt ) {
         requirejs: {
             app: {
                 options: {
-                    baseUrl: ".",
-                    appDir: "script/",
-                    dir: "script/",
-                    modules: [
-                    ],
+                    baseUrl: "./script/",
                     paths: {
                         app: "app" ,
 
+                        //requirejs plugins
                         text: "lib/text" ,
 
+                        //libs
                         underscore: "lib/underscore" ,
                         backbone: "lib/backbone" ,
                         mustache: "lib/mustache" ,
@@ -68,7 +66,27 @@ module.exports = function( grunt ) {
                         v: "mvc/v" ,
                         m: "mvc/m" ,
                         c: "mvc/c"
-                    }
+                    },
+                    shim: {
+                        backbone: {
+                            deps: [ "underscore" ],
+                            exports: "Backbone",
+                            init: function() {
+                                Backbone.$ = window.$;
+                            }
+                        },
+                        underscore: {
+                            exports: "_"
+                        },
+                        mustache: {
+                            exports: "Mustache"
+                        },
+                        date_utils: {
+                            exports: "date_utils"
+                        }
+                    },
+                    name: "main",
+                    out: "script_build/rquirejs_main_build.js"
                 }
             }
         },
@@ -118,5 +136,5 @@ module.exports = function( grunt ) {
     grunt.loadNpmTasks( "grunt-manifest" );
     grunt.loadNpmTasks('grunt-contrib-cssmin');
 
-    grunt.registerTask( "default" , [ "clean" , "uglify" , "less" , "cssmin" , "concat" ] );
+    grunt.registerTask( "default" , [ "clean" , "uglify" , "less" , "cssmin" , "concat" , "requirejs" ] );
 };
