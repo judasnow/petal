@@ -3,6 +3,7 @@ module.exports = function( grunt ) {
         pkg: grunt.file.readJSON( "package.json" ) ,
         clean: {
             script_build: [ "script_build/*.js" ],
+            script_build: [ "style_build/*.css" ]
         },
         uglify: {
             options: {
@@ -12,15 +13,22 @@ module.exports = function( grunt ) {
                 files: [{
                     expand: true,
                     cwd: "script/",
-                    src: ["mvc/*.js" , "lib/*.js"],
+                    src: ["*.js", "mvc/*.js" , "lib/*.js"],
                     dest: "script_build/",
                     ext: ".js"
                 }]
             }
         } ,
+        cssmin: {
+            combine: {
+                files: {
+                    "style_build/css/main.min.css": ["style/css/icons.css","style/css/jq.ui.css","style/css/main.css","script/third_part/cubiq-add-to-homescreen/src/add2home.js"]
+                }
+            }
+        },
         less: {
             options: {
-                compress: true
+                compress: false
             } ,
             main: {
                 src: "style/less/main.less" ,
@@ -29,8 +37,8 @@ module.exports = function( grunt ) {
         },
         concat: {
             js: {
-                src: ["script_build/lib/jqmobi.js" , "script_build/init.js"] ,
-                dest: "script_build/jqmobi_and_init.js"
+                src: ["script_build/lib/appframework.js" , "script_build/lib/jqmobiui.js" , "script_build/init.js" , "/script/third_part/cubiq-add-to-homescreen/src/add2home.js"] ,
+                dest: "script_build/all.js"
             } ,
             css: {
                 
@@ -61,6 +69,7 @@ module.exports = function( grunt ) {
                         m: "mvc/m" ,
                         c: "mvc/c"
                     }
+                }
             }
         },
         watch: {
@@ -107,6 +116,7 @@ module.exports = function( grunt ) {
     grunt.loadNpmTasks( "grunt-contrib-clean" );
     grunt.loadNpmTasks( "grunt-contrib-requirejs" );
     grunt.loadNpmTasks( "grunt-manifest" );
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
 
-    grunt.registerTask( "default" , [ "uglify" , "less" ] );
+    grunt.registerTask( "default" , [ "clean" , "uglify" , "less" , "cssmin" , "concat" ] );
 };
