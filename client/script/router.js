@@ -18,7 +18,9 @@ define([
     "v/had_bought_contact_info" ,
     "v/visitors" ,
     "v/msgs" ,
-    "v/service"
+    "v/service" ,
+
+    "text!tpl/error404.html"
 ] ,
 function(
     _ ,
@@ -39,7 +41,9 @@ function(
     HadBoughtContactInfoView ,
     VisitorsView ,
     MsgsView ,
-    ServiceView
+    ServiceView ,
+
+    error404Tpl
 ) {
     "use strict";
 
@@ -89,8 +93,10 @@ function(
         },//}}}
 
         notFound: function() {
-            $.ui.loadContent( "404.html" , false , false , "fade" );
-        },
+        //{{{
+            $.ui.addOrUpdateDiv( "error404" , error404Tpl );
+            $.ui.loadContent( "error404" , false , false , "" );
+        },//}}}
 
         //默认显示附近的人 也就是以用户当前所在地作为查询条件
         showStream: function() {

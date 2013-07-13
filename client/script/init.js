@@ -164,17 +164,16 @@ var login = function( username , password , failCallback ) {
 
 var wx_login = function() {
 //{{{
-    $.get(
-        "/api/get_username_by_wx_id?wx_id=" +  window.location.hash.replace( /^\#/ , "" ) ,
-        function( data ) {
-            var dataObj = JSON.parse( data );
+    var username =  window.location.hash.replace( /^\#/ , "" ).replace( /^\!/ , "" );
+    alert( username )
+    login( 
+        username , 
+        "uutest" , 
+        function() {
 
-            if( dataObj[0] === "ok" ) {
-                login( dataObj[1].username , "huaban123" , function() {
-                    window.location.hash = "";
-                    window.location.reload();
-                });
-            }
+            //登录失败
+            window.location.hash = "";
+            $( "#login" ).show();
         }
     );
 };//}}}
@@ -200,16 +199,18 @@ var init = function() {
 
     //@todo 判断是否登录的条件有可能会发生改变
     if( localObjectUserInfo === null || localObjectUserInfo === "" ) {
+
         //未登录
         if( window.location.hash !== "" ) {
-            //weixin
+
+            //尝试 wx 登录
             wx_login();
         } else {
             var $loginEl = $( "#login" ).show();
             var $usernameEl = $loginEl.find( ".username" );
             var $passwordEl = $loginEl.find( ".password" );
 
-            $loginEl.find( ".do_login" ).click( 
+            $loginEl.find( ".do_login" ).click(
                 function() {
                     login( $usernameEl.val() , $passwordEl.val() , function() {
                         window.updateSysNotice( "用户名或密码错误" );
@@ -219,6 +220,11 @@ var init = function() {
         }
     } else {
         //已经登录系统
+        //如果 hash 也被设置了 就判断下有没有可能是 weixin 传来的用户名
+        //以 ! 开头 则去除 hash 
+        if( window.location.hash.indexOf( "!" ) === 1 ) {
+            window.location.hash = "";
+        }
         $.ui.launch();
     }
 }//}}}

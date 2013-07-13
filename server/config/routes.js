@@ -3,7 +3,6 @@ module.exports = function( app , config ) {
 
     //api routes
     //user
-    app.get( "/api/get_username_by_wx_id" , api.getUsernameByWxId );
     app.post( "/api/do_login" , api.doLogin );
     app.get( "/api/users/" , api.getUserList );
     app.post( "/api/upload_files" , api.uploadFiles );

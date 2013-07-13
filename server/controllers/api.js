@@ -10,31 +10,6 @@ var helper = require( "../lib/helper" )( config )
     , api = {};
 
 //user
-//为了实现weixin注册之后的自动登录 需要根据用户提供的 weixin_id 
-//从 r2d2 的 redis 中获取相应用户的 username (密码是默认的 huaban123)
-api.getUsernameByWxId = function( req , res ) {
-//{{{
-    var wx_id = req.param( "wx_id" , "" );
-    if( wx_id !== "" ) {
-        var wxRedisClient = redis.createClient( 
-                config.wxRedisServer.port ,
-                config.wxRedisServer.address
-        );
-
-        //wxRedisClient.auth( "erlang/otp" , function() {
-        wxRedisClient.hget( wx_id , "username" , function( error , username ) {
-            if( typeof username ==="undefined" || username === "" ) {
-                res.json( ["fail"] );
-            } else {
-                //返回用户名即可
-                res.json( ["ok" , {username: username}] );
-            }
-        });
-    } else {
-        res.json( ["fail"] );
-    }
-};//}}}
-
 api.doLogin = function( req , res ) {
 //{{{
     var username = req.param( "username" , "" );

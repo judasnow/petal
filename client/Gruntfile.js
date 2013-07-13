@@ -1,11 +1,15 @@
 module.exports = function( grunt ) {
     grunt.initConfig({
         pkg: grunt.file.readJSON( "package.json" ) ,
+
         clean: {
+        //{{{
             script_build: [ "script_build/*.js" ],
             script_build: [ "style_build/*.css" ]
-        },
+        },//}}}
+
         uglify: {
+        //{{{
             options: {
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today( "yyyy-mm-dd" ) %> */\n'
             },
@@ -18,15 +22,19 @@ module.exports = function( grunt ) {
                     ext: ".js"
                 }]
             }
-        } ,
+        } ,//}}}
+
         cssmin: {
+        //{{{
             combine: {
                 files: {
-                    "style_build/css/main.min.css": ["style/css/icons.css","style/css/jq.ui.css","style/css/main.css","script/third_part/cubiq-add-to-homescreen/src/add2home.js"]
+                    "style_build/css/main.min.css": ["style/css/icons.css","style/css/jq.ui.css","style/css/main.css","script/third_part/cubiq-add-to-homescreen/style/add2home.css"]
                 }
             }
-        },
+        },//}}}
+
         less: {
+        //{{{
             options: {
                 compress: false
             } ,
@@ -34,8 +42,10 @@ module.exports = function( grunt ) {
                 src: "style/less/main.less" ,
                 dest: "style/css/main.css"
             }
-        },
+        },//}}}
+
         concat: {
+        //{{{
             js: {
                 src: ["script_build/lib/appframework.js" , "script_build/lib/jqmobiui.js" , "script_build/init.js" , "/script/third_part/cubiq-add-to-homescreen/src/add2home.js"] ,
                 dest: "script_build/all.js"
@@ -43,8 +53,10 @@ module.exports = function( grunt ) {
             css: {
                 
             }
-        },
+        },//}}}
+
         requirejs: {
+        //{{{
             app: {
                 options: {
                     baseUrl: "./script/",
@@ -89,18 +101,18 @@ module.exports = function( grunt ) {
                     out: "script_build/rquirejs_main_build.js"
                 }
             }
-        },
+        },//}}}
+
         watch: {
+        //{{{
             js: {
-                src: "script/*.js" ,
-                tasks: [ "concat" ]
-            },
-            css: {
-                files: "style/less/*.less" ,
-                tasks: [ "less" ]
+                files: "script/*.js" ,
+                tasks: ["default"]
             }
-        },
+        },//}}}
+
         manifest: {
+        //{{{
             generate: {
                 options: {
                     basePath: '.',
@@ -119,7 +131,20 @@ module.exports = function( grunt ) {
                 ],
                 dest: 'petal.mf'
             }
-         }
+        },//}}}
+
+        htmlmin: {
+        //{{{
+            dist: {
+                options: {
+                    removeComments: true ,
+                    collapseWhitespace: true
+                } ,
+                files: {
+                    "html_build/index.html": "index.html"
+                }
+            }
+        }//}}}
     });
 
     grunt.loadNpmTasks( "grunt-contrib-less" );
@@ -129,7 +154,11 @@ module.exports = function( grunt ) {
     grunt.loadNpmTasks( "grunt-contrib-clean" );
     grunt.loadNpmTasks( "grunt-contrib-requirejs" );
     grunt.loadNpmTasks( "grunt-manifest" );
-    grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
+    grunt.loadNpmTasks( "grunt-contrib-cssmin" );
+    grunt.loadNpmTasks( "grunt-contrib-htmlmin" );
 
-    grunt.registerTask( "default" , [ "clean" , "uglify" , "less" , "cssmin" , "concat" , "requirejs" ] );
+    grunt.registerTask( 
+        "default" , 
+        [ "clean" , "uglify" , "less" , "cssmin" , "concat" , "requirejs" ]
+    );
 };
