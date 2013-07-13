@@ -152,7 +152,6 @@ function(
                         //到达最后一张 返回第一张
                         currIndex = 0;
                     }
-                    console.log( currIndex )
                     $albumSliderPicture.attr( "src" , pictureSrcList[currIndex] );
                 };
 
@@ -163,7 +162,6 @@ function(
                     if( currIndex < 0 ) {
                         currIndex = pictureSrcListSize - 1;
                     }
-                    console.log( currIndex )
                     $albumSliderPicture.attr( "src" , pictureSrcList[currIndex] );
                 };
 
