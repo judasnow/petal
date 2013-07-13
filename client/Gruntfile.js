@@ -4,8 +4,7 @@ module.exports = function( grunt ) {
 
         clean: {
         //{{{
-            script_build: [ "script_build/*.js" ],
-            script_build: [ "style_build/*.css" ]
+            build: [ "script_build/*.js" , "style_build/*.css" ]
         },//}}}
 
         uglify: {

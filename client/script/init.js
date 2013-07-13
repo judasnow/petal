@@ -165,10 +165,9 @@ var login = function( username , password , failCallback ) {
 var wx_login = function() {
 //{{{
     var username =  window.location.hash.replace( /^\#/ , "" ).replace( /^\!/ , "" );
-    alert( username )
     login( 
         username , 
-        "uutest" , 
+        "huaban123" , 
         function() {
 
             //登录失败
