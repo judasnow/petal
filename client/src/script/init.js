@@ -45,8 +45,10 @@ var addRequirejs = function() {
 //{{{
     var oHead = document.getElementsByTagName( "HEAD" ).item( 0 ); 
     var oScript= document.createElement( "script" );
-    oScript.setAttribute( "data-main" , "/build/script/rquirejs_main_build.js" );
-    oScript.src = "/build/script/lib/require.js";
+    //oScript.setAttribute( "data-main" , "/build/script/rquirejs_main_build.js" );
+    //oScript.src = "/build/script/lib/require.js";
+    oScript.setAttribute( "data-main" , "/src/script/main.js" );
+    oScript.src = "/src/script/lib/require.js";
     oHead.appendChild( oScript );
 
     $.ui.showMask();

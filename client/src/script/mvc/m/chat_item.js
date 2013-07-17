@@ -15,7 +15,7 @@ function(
     var ChatItem = Backbone.Model.extend({
         url: "/api/chat_item/",
 
-        initialize: function(){
+        initialize: function() {
             this.set( 
                 "role" , 
                 window.objectUser.get( "UserId" ) === this.get( "SrcUserId" ) ? 

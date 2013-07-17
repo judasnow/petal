@@ -1,5 +1,5 @@
 require.config({
-    baseUrl: "script/" ,
+    baseUrl: "/src/script/" ,
     paths: {
         app: "app" ,
 

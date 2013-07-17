@@ -43,6 +43,11 @@ function(
             this.$el = $.ui.addOrUpdateDiv( "chat_list" , this.template , true );
             $.ui.loadContent( "#chat_list" , false , false , "none" );
 
+            var streamView = this;
+            var scroll = this.$el.scroller();
+            scroll.refresh = false;
+            this.scroll = scroll;
+
             this.$items = this.$el.find( ".items" );
             this.$inputAreaBox = $( "#input_area_box" );
             this.$sendBtn = this.$inputAreaBox.find( ".submit" );
@@ -114,7 +119,7 @@ function(
                                 new ChatItem({
                                     SrcUserId: window.objectUser.get( "UserId" ) ,
                                     SrcHeadPic: window.objectUser.get( "HeadPic" ) ,
-                                    sex_in_english: window.objectUser.get( "sexInEnglish" ) ,
+                                    sexInEnglish: window.objectUser.get( "sexInEnglish" ) ,
                                     Content: msg
                                 })
                             );
