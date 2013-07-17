@@ -1,0 +1,29 @@
+<div class="item">
+    <input type="text" name="nickname" class="nickname" placeholder="昵称">
+</div>
+
+<div class="item sex_select">
+    <span class="title">按性别</span>
+    <p>
+        <span class="select_box male">男</span>
+        <span class="select_box female">女</span>
+        <span class="select_box nolimit">不限</span>
+        <input type="hidden" name="sex" class="sex" />
+    </p>
+</div>
+
+<div class="item" >
+    <span>按地区</span>
+    <p>
+        {{> location_select}}
+    </p>
+    <div class="do_search_box">
+        <span class="normal_btn do_search" >搜索</span>
+    </div>
+</div>
+
+<header>
+<h1>高级搜索</h1>
+<a class="button" style="float:left;" onclick="$.ui.goBackWithDefault();" class="">返回</a>
+</header>
+

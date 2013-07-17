@@ -2,7 +2,7 @@ var path = require( "path" )
     , rootPath = path.normalize( __dirname + "/.." );
 
 module.exports = {
-    development: {
+    dev: {
         rootPath: rootPath ,
         qiniuACCESS_KEY: "TE_-Yqi7633MjIo3haNx4uF-WJaLqatk1SjduHcY" ,
         qiniuSECRET_KEY: "tygGSrdMLIpgTie26eqYH41aKd9Rd3S6CRac92Uz" ,
@@ -19,7 +19,7 @@ module.exports = {
         hb123WxServer: "http://172.17.0.20:1979/action/weixinmpapi.aspx?" ,
         appPort: 8800
     },
-    production: {
+    prod: {
         rootPath: rootPath ,
         redisServer: {
             address: "127.0.0.1" , 

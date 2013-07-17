@@ -13,7 +13,7 @@ if( cluster.isMaster ) {
 
 } else {
 
-    var env = process.argv[2] || "development"
+    var env = process.argv[2] || "dev"
         , config = require( "./config/config" )[env]
         , express = require( "express" )
         , redis = require( "redis" )

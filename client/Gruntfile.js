@@ -2,22 +2,49 @@ module.exports = function( grunt ) {
     grunt.initConfig({
         pkg: grunt.file.readJSON( "package.json" ) ,
 
+        meta: {
+        //{{{
+ 
+        },//}}}
+
+        env : {
+        //{{{
+            dev : {
+                NODE_ENV : "DEV"
+            },
+            prod : {
+                NODE_ENV : "PROD"
+            }
+        },//}}}
+
+        preprocess : {
+        //{{{
+            dev : {
+                src : "./src/tpl/index.html",
+                dest : "./index.html"
+            },
+            prod : {
+                src : "./src/tpl/index.html",
+                dest : "./index.html",
+            }
+        },//}}}
+
         clean: {
         //{{{
-            build: [ "script_build/*.js" , "style_build/*.css" ]
+            build: [ "./build/script/*.js" , "./build/script/lib/*.js" , "./build/style/css/*.css" ]
         },//}}}
 
         uglify: {
         //{{{
             options: {
-                banner: '/*! <%= pkg.name %> <%= grunt.template.today( "yyyy-mm-dd" ) %> */\n'
+                //banner: '/*! <%= pkg.name %> <%= grunt.template.today( "yyyy-mm-dd" ) %> */\n'
             },
             main: {
                 files: [{
                     expand: true,
-                    cwd: "script/",
-                    src: ["*.js", "mvc/*.js" , "lib/*.js"],
-                    dest: "script_build/",
+                    cwd: "./src/script/",
+                    src: ["*.js", "mvc/*.js" , "lib/*.js", "third_part/cubiq-add-to-homescreen/src/add2home.js" ],
+                    dest: "./build/script/",
                     ext: ".js"
                 }]
             }
@@ -27,7 +54,7 @@ module.exports = function( grunt ) {
         //{{{
             combine: {
                 files: {
-                    "style_build/css/main.min.css": ["style/css/icons.css","style/css/jq.ui.css","style/css/main.css","script/third_part/cubiq-add-to-homescreen/style/add2home.css"]
+                    "./build/style/css/main.css": ["./src/style/css/icons.css","./src/style/css/jq.ui.css","./src/style/css/main.css","./src/script/third_part/cubiq-add-to-homescreen/style/add2home.css"]
                 }
             }
         },//}}}
@@ -38,16 +65,21 @@ module.exports = function( grunt ) {
                 compress: false
             } ,
             main: {
-                src: "style/less/main.less" ,
-                dest: "style/css/main.css"
+                src: "./src/style/less/main.less" ,
+                dest: "./src/style/css/main.css"
             }
         },//}}}
 
         concat: {
         //{{{
             js: {
-                src: ["script_build/lib/appframework.js" , "script_build/lib/jqmobiui.js" , "script_build/init.js" , "/script/third_part/cubiq-add-to-homescreen/src/add2home.js"] ,
-                dest: "script_build/all.js"
+                src: [
+                    "./build/script/lib/appframework.js" ,
+                    "./build/script/lib/jqmobiui.js" ,
+                    "./build/script/init.js" ,
+                    "./build/script/third_part/cubiq-add-to-homescreen/src/add2home.js"
+                ] ,
+                dest: "./build/script/all.js"
             } ,
             css: {
                 
@@ -58,7 +90,7 @@ module.exports = function( grunt ) {
         //{{{
             app: {
                 options: {
-                    baseUrl: "./script/",
+                    baseUrl: "./src/script/",
                     paths: {
                         app: "app" ,
 
@@ -97,15 +129,15 @@ module.exports = function( grunt ) {
                         }
                     },
                     name: "main",
-                    out: "script_build/rquirejs_main_build.js"
+                    out: "./build/script/rquirejs_main_build.js"
                 }
             }
         },//}}}
 
         watch: {
-        //{{{
+        //{{{PRODUCTION
             js: {
-                files: "script/*.js" ,
+                files: "./src/script/*.js" ,
                 tasks: ["default"]
             }
         },//}}}
@@ -124,9 +156,9 @@ module.exports = function( grunt ) {
                     timestamp: true
                 },
                 src: [
-                    "script_build/all.js" ,
-                    "script_build/rquirejs_main_build.js",
-                    "style_build/css/main.min.css"
+                    "./build/script/all.min.js" ,
+                    "./build/script/rquirejs_main_build.min.js",
+                    "./build/style/css/main.min.css"
                 ],
                 dest: 'petal.mf'
             }
@@ -140,12 +172,14 @@ module.exports = function( grunt ) {
                     collapseWhitespace: true
                 } ,
                 files: {
-                    "html_build/index.html": "index.html"
+                    "./build/html/index.html": "index.html"
                 }
             }
-        }//}}}
+        },//}}}
     });
 
+    grunt.loadNpmTasks( "grunt-env" );
+    grunt.loadNpmTasks( "grunt-preprocess" );
     grunt.loadNpmTasks( "grunt-contrib-less" );
     grunt.loadNpmTasks( "grunt-contrib-uglify" );
     grunt.loadNpmTasks( "grunt-contrib-watch" );
@@ -157,7 +191,12 @@ module.exports = function( grunt ) {
     grunt.loadNpmTasks( "grunt-contrib-htmlmin" );
 
     grunt.registerTask( 
-        "default" , 
-        [ "clean" , "uglify" , "less" , "cssmin" , "concat" , "requirejs" ]
+        "dev" ,
+        ["env:dev" , "preprocess:dev" , "clean" ]
+    );
+
+    grunt.registerTask( 
+        "prod" ,
+        [ "env:prod" , "preprocess:prod" , "uglify" , "less" , "cssmin" , "concat" , "requirejs" ]
     );
 };

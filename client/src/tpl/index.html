@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html manifest="<!-- @if NODE_ENV == "PROD" -->petal.mf<!-- @endif -->">
+    <head>
+        <title>花瓣网</title>
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Expires" content="-1">
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,minimum-scale=1,user-scalable=no">
+
+        <meta name="apple-mobile-web-app-capable" content="no" >
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+        <!-- @if NODE_ENV == "DEV" -->
+        <link rel="stylesheet" href="/src/style/css/icons.css" />
+        <link rel="stylesheet" href="/src/style/css/jq.ui.css" />
+        <link rel="stylesheet" href="/src/script/third_part/cubiq-add-to-homescreen/style/add2home.css">
+
+        <link rel="stylesheet/less" href="/src/style/less/main.less">
+        <script src="/src/script/lib/less-1.4.1.min.js"></script>
+        <!-- @endif -->
+
+        <!-- @if NODE_ENV == "PROD" -->
+        <link rel="stylesheet" href="/build/style/css/main.css" />
+        <!-- @endif -->
+
+    </head>
+
+    <body>
+        <div id="jQUi">
+            <div id="splashscreen" class='ui-loader'>
+                <b>花瓣网</b>
+                <br><br>
+                <br><br>
+                <span class='ui-icon ui-icon-loading spin'></span>
+                <h1>应用加载中</h1>
+            </div>
+            <div id="login">
+                <p>
+                    <h1 class="title">花瓣网</h1>
+                    <h4 class="sub_title">邂逅出色男女，约会同城情人</h4>
+                </p>
+                <p>
+                    <input type="text" value="uutest" name="username" class="username" placeholder="用户名"/>
+                </p>
+                <p>
+                    <input type="password" value="uutest" name="password" class="password" placeholder="密码"/>
+                </p>
+                <p>
+                    <span class="big_btn do_login">登录</span>
+                </p>
+            </div>
+            <nav>
+            </nav>
+        </div>
+        <div id="system_notice_box">
+        </div>
+        <div id="album_slider">
+            <img class="picture_item" src=""/>
+        </div>
+    </body>
+
+    <!--tpls 不可以放到 tpl 文件中 会被提前渲染-->
+    <script type="text/template" id="contact_info_tpl">
+        <p class="contact_info">
+            <span class="item"><b>QQ:</b> {{QQ}}</span>
+            <span class="item"><b>微信:</b> {{MSN}}</span>
+            <span class="item"<b>邮箱:</b> {{EMail}}</span>
+        </p>
+    </script>
+
+    <script type="text/template" id="user_picture_box_tpl">
+        <div class="user_picture_box">
+            <img id="user_picture_{{uid}}" class="user_picture" src="{{image}}" alt="user picture" />
+        </div>
+    </script>
+
+    <!-- @if NODE_ENV == "DEV" -->
+    <script src="/src/script/lib/appframework.js"></script>
+    <script src="/src/script/lib/jqmobiui.js"></script>
+    <script src="/src/script/init.js"></script>
+    <script src="/src/script/third_part/cubiq-add-to-homescreen/src/add2home.js"></script>
+    <!-- @endif -->
+
+    <!-- @if NODE_ENV == "PROD" -->
+    <script src="/build/script/all.js"></script>
+    <!-- @endif -->
+
+</html>
+
