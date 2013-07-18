@@ -1,5 +1,6 @@
 module.exports = function( app , config ) {
-    var api = require( "../controllers/api" )( config );
+    var api = require( "../controllers/api" )( config )
+        , alipay = require( "../controllers/alipay" )( config , app );
 
     //api routes
     //user
@@ -31,4 +32,7 @@ module.exports = function( app , config ) {
     app.get( "/api/new_msgs/" , api.getNewMsgs );
     app.get( "/api/new_gifts/" , api.getNewGifts );
     app.get( "/api/new_visitors/" , api.getNewVisitors );
+
+    //pay 
+    app.get( "/alipay/init_trade/" , alipay.initTrade );
 }
