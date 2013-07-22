@@ -20,6 +20,7 @@
     "winston": "",
     "imagemagick": "",
     "node-smushit": "",
+    "xmldom": "",
     "alipay": ""
   },
   "repository": "git@git.oschina.net:judasnow/petal.git",
