@@ -156,9 +156,9 @@ module.exports = function( grunt ) {
                     timestamp: true
                 },
                 src: [
-                    "./build/script/all.min.js" ,
-                    "./build/script/rquirejs_main_build.min.js",
-                    "./build/style/css/main.min.css"
+                    "./build/script/all.js" ,
+                    "./build/script/rquirejs_main_build.js",
+                    "./build/style/css/main.css"
                 ],
                 dest: 'petal.mf'
             }
@@ -197,6 +197,6 @@ module.exports = function( grunt ) {
 
     grunt.registerTask( 
         "prod" ,
-        [ "env:prod" , "preprocess:prod" , "uglify" , "less" , "cssmin" , "concat" , "requirejs" ]
+        [ "env:prod" , "preprocess:prod" , "uglify" , "less" , "cssmin" , "concat" , "requirejs" , "manifest" ]
     );
 };
