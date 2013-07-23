@@ -117,7 +117,7 @@ alipay.initTrade = function( req , res ) {
             var data = {
                 out_trade_no : dataObj.out_trade_no ,
                 subject : "花瓣网充值" ,
-                price : payMoney,
+                price : payMoney ,
                 quantity : "1" ,
                 logistics_fee : "0" ,
                 logistics_type : "EXPRESS" ,
