@@ -76,6 +76,7 @@ alipay.tradeSuccess = function( type , out_trade_no , trade_no , res ) {
 //{{{
     var ok = function( dataObj ) {
         console.log( "ok by " + type );
+
         //将 alipayNpm 中的成功通知 移动到了这里
         if( type === "notify" ) {
             res.send( "success" );
@@ -116,7 +117,7 @@ alipay.initTrade = function( req , res ) {
             var data = {
                 out_trade_no : dataObj.out_trade_no ,
                 subject : "花瓣网充值" ,
-                price : "0.01" ,
+                price : payMoney,
                 quantity : "1" ,
                 logistics_fee : "0" ,
                 logistics_type : "EXPRESS" ,
@@ -130,9 +131,7 @@ alipay.initTrade = function( req , res ) {
                 receive_mobile :"无需电话" 
             }
 
-            var formHtml = alipayLib.createOrderForm( data );
-            console.log( formHtml )
-            res.send( formHtml );
+            aliapyNpm.trade_create_by_buyer( data , res );
         }
     };
 
