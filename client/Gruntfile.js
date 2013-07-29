@@ -4,14 +4,14 @@ module.exports = function( grunt ) {
 
         meta: {
         //{{{
- 
+
         },//}}}
 
         env : {
         //{{{
             dev : {
                 NODE_ENV : "DEV"
-            },
+            } ,
             prod : {
                 NODE_ENV : "PROD"
             }
@@ -22,7 +22,7 @@ module.exports = function( grunt ) {
             dev : {
                 src : "./src/tpl/index.html",
                 dest : "./index.html"
-            },
+            } ,
             prod : {
                 src : "./src/tpl/index.html",
                 dest : "./index.html",
@@ -31,7 +31,7 @@ module.exports = function( grunt ) {
 
         clean: {
         //{{{
-            build: [ "./build/script/*.js" , "./build/script/lib/*.js" , "./build/style/css/*.css" ]
+            build: [ "./build/script/*.js" , "./build/script/lib/*.js" , "./build/style/css/*.css" , "petal!.mf" , "petal.mf" ]
         },//}}}
 
         uglify: {
@@ -135,7 +135,7 @@ module.exports = function( grunt ) {
         },//}}}
 
         watch: {
-        //{{{PRODUCTION
+        //{{{
             js: {
                 files: "./src/script/*.js" ,
                 tasks: ["default"]
@@ -144,23 +144,29 @@ module.exports = function( grunt ) {
 
         manifest: {
         //{{{
-            generate: {
-                options: {
-                    basePath: '.',
-                    //cache: ["script/app.js"] ,
-                    network: ['http://*', 'https://*', "*"],
-                    fallback: [],
-                    exclude: [],
-                    preferOnline: true,
-                    verbose: true,
-                    timestamp: true
-                },
-                src: [
-                    "./build/script/all.js" ,
-                    "./build/script/rquirejs_main_build.js",
-                    "./build/style/css/main.css"
-                ],
-                dest: 'petal.mf'
+            prod: {
+                generate: {
+                    options: {
+                        basePath: '.',
+                        //cache: ["script/app.js"] ,
+                        network: ['http://*', 'https://*', "*"],
+                        fallback: [],
+                        exclude: [],
+                        preferOnline: true,
+                        verbose: true,
+                        timestamp: true
+                    },
+                    src: [
+                        "./build/script/all.js" ,
+                        "./build/script/rquirejs_main_build.js",
+                        "./build/style/css/main.css"
+                    ],
+                    dest: 'petal.mf'
+                }
+            },
+            dev: {
+                src: [],
+                dest: 'petal!.mf'
             }
         },//}}}
 
@@ -192,7 +198,7 @@ module.exports = function( grunt ) {
 
     grunt.registerTask( 
         "dev" ,
-        ["env:dev" , "preprocess:dev" , "clean" ]
+        ["env:dev" , "preprocess:dev" , "clean" , "manifest:dev" ]
     );
 
     grunt.registerTask( 

@@ -1,4 +1,5 @@
 var cluster = require( "cluster" )
+    , connect = require( "connect" )
     , os = require( "os" );
 
 if( cluster.isMaster ) {

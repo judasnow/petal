@@ -1,5 +1,15 @@
 <!DOCTYPE html>
-<html manifest="petal.mf">
+<!--
+           _        _ 
+           | |      | |
+ _ __   ___| |_ __ _| |
+| '_ \ / _ \ __/ _` | |
+| |_) |  __/ || (_| | |
+| .__/ \___|\__\__,_|_|
+| |                    
+|_| 
+-->
+<html manifest="">
     <head>
         <title>花瓣网</title>
         <meta http-equiv="Pragma" content="no-cache">
@@ -14,9 +24,14 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
         
+        <link rel="stylesheet" href="/src/style/css/icons.css" />
+        <link rel="stylesheet" href="/src/style/css/jq.ui.css" />
+        <link rel="stylesheet" href="/src/script/third_part/cubiq-add-to-homescreen/style/add2home.css">
 
+        <link rel="stylesheet/less" href="/src/style/less/main.less">
+        <script src="/src/script/lib/less-1.4.1.min.js"></script>
         
-        <link rel="stylesheet" href="/build/style/css/main.css" />
+
         
 
     </head>
@@ -35,15 +50,25 @@
                     <h1 class="title">花瓣网</h1>
                     <h4 class="sub_title">邂逅出色男女，约会同城情人</h4>
                 </p>
-                <p>
+                <div>
                     <input type="text" value="" name="username" class="username" placeholder="用户名"/>
-                </p>
-                <p>
+                </div>
+                <div>
                     <input type="password" value="" name="password" class="password" placeholder="密码"/>
-                </p>
+                </div>
                 <p>
                     <span class="big_btn do_login">登录</span>
+                    <span class="big_btn do_reg">注册</span>
                 </p>
+                <div class="oauth_list_box">
+                    <h5 class="sub_title">其他登录方式</h5>
+                    <div class="oauth_list">
+                        <a href="/oauth/authorize/weibo"><img class="item" src="/image/3rd_logo/weibo_48.png" alt="用微博帐号登录" /></a>
+                        <a href="/oauth/authorize/qq"><img class="item" src="/image/3rd_logo/qq_48.png" alt="用qq帐号登录" /></a>
+                        <a href="/oauth/authorize/renren"><img class="item" src="/image/3rd_logo/renren_48.png" alt="用人人网帐号登录" /></a>
+                        <!--img class="item" src="/image/3rd_logo/douban_48.png" alt="用豆瓣网帐号登录" /-->
+                    </div>
+                </div>
             </div>
             <nav>
             </nav>
@@ -71,10 +96,12 @@
     </script>
 
     
+    <script src="/src/script/lib/appframework.js"></script>
+    <script src="/src/script/lib/jqmobiui.js"></script>
+    <script src="/src/script/init.js"></script>
+    <script src="/src/script/third_part/cubiq-add-to-homescreen/src/add2home.js"></script>
+    
 
     
-    <script src="/build/script/all.js"></script>
-    
-
 </html>
 

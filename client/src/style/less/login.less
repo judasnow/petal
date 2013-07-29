@@ -2,14 +2,14 @@
     @height: 327px;
     max-height: @height;
     display: none;
-    margin-top: 64px;
+    margin-top: 8px;
     text-align: center;
     .title {
         text-rendering: optimizeLegibility;
         @font-size: 36px;
         font-size: @font-size;
         line-height: @font-size;
-        margin-bottom: 16px;
+        margin-bottom: 8px;
         font-weight: bold;
         color: #a7639e;
     }
@@ -27,6 +27,20 @@
     }
     .password {
         .input;
+    }
+    .oauth_list_box {
+        border-top: 1px dashed #ddd;
+        padding-top: 8px;
+        margin-top: 8px;
+        .oauth_list {
+            margin-bottom: 4px;
+        }
+        .item {
+            margin: 8px;
+            border: 2px solid #ddd;
+            border-radius: 3px;
+            padding: 2px;
+        }
     }
 }
 

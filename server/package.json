@@ -21,7 +21,8 @@
     "imagemagick": "",
     "node-smushit": "",
     "xmldom": "",
-    "alipay": ""
+    "alipay": "",
+    "weibo": ""
   },
   "repository": "git@git.oschina.net:judasnow/petal.git",
   "author": "judasnow@gmail.com",

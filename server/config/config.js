@@ -34,6 +34,13 @@ module.exports = {
             input_charset: "utf-8" ,
             trade_create_by_buyer_notify_url: "/alipay/notify_url" ,
             trade_create_by_buyer_return_url: "/alipay/return_url" 
+        },
+        oauth: {
+            weibo: {
+                appkey: "3460536411" ,
+                appsecret: "f1652f2aec69d0258372c3e019900a4e" ,
+                redirect_uri: "http://798bin.tk/oauth/redirect/weibo/" 
+            }
         }
     },
     prod: {
