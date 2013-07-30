@@ -40,5 +40,4 @@ module.exports = function( app , config ) {
     //oauth
     app.get( "/oauth/authorize/:type" , oauth.authorize );
     app.get( "/oauth/redirect/:type" , oauth.redirect );
-
 }

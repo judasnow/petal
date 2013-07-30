@@ -207,7 +207,7 @@ var init = function() {
             //尝试 wx 登录
             wx_login();
         } else {
-            var $loginEl = $( "#login" ).show();
+            var $loginEl = $( "#auth" ).show();
             var $usernameEl = $loginEl.find( ".username" );
             var $passwordEl = $loginEl.find( ".password" );
 

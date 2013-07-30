@@ -39,8 +39,32 @@ module.exports = {
             weibo: {
                 appkey: "3460536411" ,
                 appsecret: "f1652f2aec69d0258372c3e019900a4e" ,
-                redirect_uri: "http://798bin.tk/oauth/redirect/weibo/" 
+                authUrl: "https://api.weibo.com/oauth2/authorize?display=mobile&" ,
+                tokenUrl: "https://api.weibo.com/oauth2/access_token" ,
+                userInfoUrl: "https://api.weibo.com/2/users/show.json?" ,
+                //最后一个 segment 会被解释为 type 也就是接入网站的种类
+                redirect_uri: "http://798bin.tk/oauth/redirect/weibo/"
+            },
+            qq: {
+                appkey: "100491089" ,
+                appsecret: "24e2264ef3ab63c03921fcf2d9277f95" ,
+                authUrl: "https://graph.qq.com/oauth2.0/authorize?display=mobile&" ,
+                tokenUrl: "https://graph.qq.com/oauth2.0/token" ,
+                //参数 oauth_consumer_key(appid) & access_token & openid || format
+                userInfoUrl: "https://graph.qq.com/user/get_user_info?" ,
+                redirect_uri: "http://798bin.tk/oauth/redirect/qq/"
+            },
+            renren: {
+                appkey: "16fde6784b214a54b674d3c73bf925b2" ,
+                appsecret: "80bff71f6a3d40e09e08f2d2647d0fcd" ,
+                authUrl: "https://graph.renren.com/oauth/authorize?display=mobile&" ,
+                tokenUrl: "https://graph.renren.com/oauth/token?" ,
+                //参数为 access_token & userId 
+                userInfoUrl: "https://api.renren.com/v2/user/get?" ,
+                //最后一个 segment 会被解释为 type 也就是接入网站的种类
+                redirect_uri: "http://798bin.tk/oauth/redirect/renren/"
             }
+
         }
     },
     prod: {
