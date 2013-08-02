@@ -27,6 +27,7 @@
         <link rel="stylesheet" href="/src/style/css/icons.css" />
         <link rel="stylesheet" href="/src/style/css/jq.ui.css" />
         <link rel="stylesheet" href="/src/script/third_part/cubiq-add-to-homescreen/style/add2home.css">
+        <link rel="stylesheet" href="/src/style/css/font-awesome.css" >
 
         <link rel="stylesheet/less" href="/src/style/less/main.less">
         <script src="/src/script/lib/less-1.4.1.min.js"></script>
@@ -49,17 +50,17 @@
                 <div id="login">
                     <p>
                         <h1 class="title">花瓣网</h1>
-                        <h4 class="sub_title">邂逅出色男女，约会同城情人</h4>
+                        <h4 class="sub_title">邂逅出色男女 约会同城情人</h4>
                     </p>
                     <div>
-                        <input type="text" value="" name="username" class="username" placeholder="用户名"/>
+                        <input type="text" value="" name="email" class="email" placeholder="邮箱地址"/>
                     </div>
                     <div>
                         <input type="password" value="" name="password" class="password" placeholder="密码"/>
                     </div>
                     <p>
                         <span class="big_btn do_login">登录</span>
-                        <span class="big_btn do_reg">注册</span>
+                        <span class="big_btn go_to_reg">去注册</span>
                     </p>
                     <div class="oauth_list_box">
                         <h5 class="sub_title">其他登录方式</h5>
@@ -73,17 +74,19 @@
                 <div id="reg">
                     <p>
                         <h1 class="title">注册花瓣网帐号</h1>
+                        <h4 class="sub_title">邂逅出色男女 约会同城情人</h4>
                     </p>
-                    <div>
-                        <input type="text" value="" name="username" class="username" placeholder="邮箱地址"/>
-                    </div>
-                    <div>
-                        <input type="password" value="" name="password" class="password" placeholder="密码"/>
-                    </div>
                     <div>
                         <input type="text" value="" name="nickname" class="nickname" placeholder="昵称"/>
                     </div>
+                    <div>
+                        <input type="email" value="" name="email" class="email" placeholder="邮箱地址"/>
+                    </div>
+                    <div>
+                        <input type="password" value="" name="password" class="password" placeholder="登录密码"/>
+                    </div>
                     <p>
+                        <span class="big_btn go_to_login">去登录</span>
                         <span class="big_btn do_reg">注册</span>
                     </p>
                 </div>
@@ -112,6 +115,16 @@
             <img id="user_picture_{{uid}}" class="user_picture" src="{{image}}" alt="user picture" />
         </div>
     </script>
+
+    <script type="text/template" id="email_address_list">
+        <div class="email_address_list">
+        </div>
+    </script>
+
+    <script type="text/template" id="email_address_list_item">
+        <div class="item"></div>
+    </script>
+
 
     
     <script src="/src/script/lib/appframework.js"></script>

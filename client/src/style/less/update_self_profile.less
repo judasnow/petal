@@ -1,7 +1,15 @@
 #update_self_profile {
     @img_size: 96px;
+    @input_height: 28px;
     .item {
         .base_item;
+        .title {
+            font-weight: bold;
+            vertical-align: middle;
+            display: inline-block;
+            height: @input_height;
+            line-height: @input_height;
+        }
     }
     .do_update_box {
         text-align: center;
@@ -17,12 +25,8 @@
         input {
             display: none;
         }
-        border-radius: 4px;
         padding: 4px 8px;
-        margin: 8px;
-        background: #ddd;
         color: #333;
-        float: left;  
     }
     .label_active {
         color: #fff;
@@ -72,6 +76,26 @@
             top: 0;
             left: -9999px; 
         }
+    }
+    .info {
+        float: right;
+        height: @input_height;
+        line-height: @input_height;
+    }
+    input {
+        height: @input_height;
+        padding: 0 4px;
+        border-radius: 0;
+        border: none;
+        margin: 0;
+        background: #fff;
+        font-size: 18px;
+        border: 0;
+        color: #069;
+        width: 80%;
+        background: #ddd;
+        float: right;
+        vertical-align: middle;
     }
 }
 

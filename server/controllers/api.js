@@ -515,6 +515,30 @@ api.getNewVisitors = function( req , res ) {
     );
 }//}}}
 
+//检查 email 是否可用
+//检查 nickname 是否可用
+
+api.reg = function( req , res ) {
+    var username = req.param( "username" , "" );
+    var nickname = req.param( "nickname" , "" );
+    var password = req.param( "password" , "" );
+
+    var ok = function( dataObj ) {
+        if( dataObj.code === "200" ) {
+            res.json( {user_id: dataObj.user_id } );
+        }
+    };
+
+    helper.req2hb123(
+        "post" ,
+        "about=user&action=reg&username=" + username + 
+            "&nickname=" + nickname + 
+            "&password=" + password ,
+
+        ok
+    );
+};
+
 return api;
 
 }

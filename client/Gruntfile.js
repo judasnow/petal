@@ -54,7 +54,7 @@ module.exports = function( grunt ) {
         //{{{
             combine: {
                 files: {
-                    "./build/style/css/main.css": ["./src/style/css/icons.css","./src/style/css/jq.ui.css","./src/style/css/main.css","./src/script/third_part/cubiq-add-to-homescreen/style/add2home.css"]
+                    "./build/style/css/main.css": ["./src/style/css/icons.css","./src/style/css/jq.ui.css","./src/style/css/main.css","./src/script/third_part/cubiq-add-to-homescreen/style/add2home.css","./src/style/css/font-awesome.css" ]
                 }
             }
         },//}}}

@@ -88,6 +88,7 @@ oauth.redirect = function( req , res ) {
                                     throw new Error( "fetch user_info error" );
                                 }
                                 var userInfo = JSON.parse( body );
+                                console.dir( userInfo )
                             }
                         )
                     }

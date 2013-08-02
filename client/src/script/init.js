@@ -1,5 +1,8 @@
-//backbone 没有接管之前的初始化
 (function() {
+
+//backbone 没有接管之前的初始化
+//因此配置文件也是独立的
+
 //{{{
 setInterval( function(){
     window.localStorage.setItem( "http://172.17.0.46/src/style/less/main.less:timestamp" , "" );
@@ -143,6 +146,7 @@ var login = function( username , password , failCallback ) {
                     if( typeof object_user_info === "undefined" ) {
                         throw new Error( "json stringify user_info error" );
                     }
+
                     //登录成功 且返回数据有效
                     initLocalData();
                     window.location.hash = "";
@@ -156,7 +160,6 @@ var login = function( username , password , failCallback ) {
                 }
             } catch ( err ) {
                 console.log( "登录时发生异常" );
-                console.dir( err.stack )
                 logging = false;
                 failCallback();
             }
@@ -191,6 +194,94 @@ var onDeviceReady = function() {
     $.ui.blockPageScroll();
 };//}}}
 
+//邮箱地址补全
+//@param $targetInputEl 绑定到 input 元素
+var autocompleteEmail = function( $targetInputEl ) {
+    if( typeof $targetInputEl === "undefined" || $targetInputEl === null ) {
+        return;
+    }
+
+    //获取下拉列表模板
+    var listTpl = $( "#email_address_list" ).html();
+    $( listTpl ).insertAfter( $targetInputEl );
+    var $emailAddressList = $targetInputEl.parent().find( ".email_address_list" );
+    var listItemTpl = $( "#email_address_list_item" ).html();
+
+    $emailAddressList.on(
+        "click" , 
+        ".item" , 
+        function() {
+            var $this = $( this )
+
+            $targetInputEl.val( $this.text() );
+            $emailAddressList.hide();
+        }
+    );
+
+    var emailSuffixList = [ "gmail.com" , "qq.com" , "163.com" , "sina.com" , "126.com" , "vip.sina.com" , "139.com" , "189.com" , "wo.com.cn" ];
+    var emailSuffixListLength = emailSuffixList.length;
+
+    $targetInputEl.on( "input" , function() {
+        var currValue = $targetInputEl.val();
+
+        //用户首次输入满足邮箱地址前一部分(@及之前部分)时 若下拉菜单不可见 则显示之
+        //@XXX 这里的正则需要修改加强
+        if( currValue.match( /@$/ ) || currValue.match( /^(\w)+(\.\w+)*@(\w)+((\.|\w+)+)$/ ) ) {
+            if( $emailAddressList.css( "display" ) === "none" ) {
+                $emailAddressList.show();
+            }
+        }
+
+        //将用户已经输入的信息 由第一个 @ 分开 用后面的一部分匹配
+        //如果列表为空 则隐藏
+        if( $emailAddressList.css( "display" ) !== "none" ) {
+
+            $emailAddressList.html( "" );
+
+            var userInputSuffix = currValue.split( "@" )[1];
+            var emailSuffixListFilted = [];
+            var emailSuffixListFiltedLength = 0;
+
+            if( typeof userInputSuffix === "undefined" || userInputSuffix === "" ) {
+                emailSuffixListFilted = emailSuffixList;
+            } else {
+                //根据用户的输入过滤需要显示的内容
+                for( var i = 0 ; i <= emailSuffixListLength ; i = i + 1 ) {
+                    var listItem = emailSuffixList[i];
+                    var re = new RegExp( "^" + userInputSuffix );
+
+                    //如果用户输入的信息和列表中的相等（用户已经输入完全） 就没有显示的必要了
+                    if( userInputSuffix === emailSuffixList[i] ) {
+                        break;
+                    }
+
+                    if( re.test( listItem ) ) {
+                        emailSuffixListFilted.push( emailSuffixList[i] );
+                    }
+                }
+            }
+
+            emailSuffixListFiltedLength = emailSuffixListFilted.length;
+            if( emailSuffixListFiltedLength === 0 ) {
+                $emailAddressList.hide();
+            } else {
+                for( var i = 0 ; i < emailSuffixListFiltedLength ; i = i + 1 ) {
+                    var $listItem = $( listItemTpl );
+                    var userInput = $targetInputEl.val().split( "@" )[0];
+
+                    if( typeof userInput === "undefined" || userInput === "" ) {
+                        throw new Error( "获取用户输入邮箱地址有误 断言 @ 之前不能为空" );
+                    }
+
+                    $listItem.html( userInput + "@" + emailSuffixListFilted[i] );
+                    $emailAddressList.append( $listItem );
+                }
+            }
+        }
+    });
+};
+
+//dom 加载完成 就会调用这个初始化方法
 var init = function() {
 //{{{
     $( "#splashscreen" ).hide();
@@ -202,25 +293,135 @@ var init = function() {
     if( localObjectUserInfo === null || localObjectUserInfo === "" ) {
 
         //未登录
-        if( window.location.hash !== "" ) {
+        var locationLocal = window.location;
+        var $login = $( "#login" );
+        var $reg = $( "#reg" );
 
-            //尝试 wx 登录
-            wx_login();
-        } else {
-            var $loginEl = $( "#auth" ).show();
-            var $usernameEl = $loginEl.find( ".username" );
-            var $passwordEl = $loginEl.find( ".password" );
+        var routeByHash = function() {
+            var hash = locationLocal.hash;
 
-            $loginEl.find( ".do_login" ).click(
-                function() {
-                    login( $usernameEl.val() , $passwordEl.val() , function() {
-                        window.updateSysNotice( "用户名或密码错误" );
-                    });
+            //根据 hash 进行不同的操作
+            switch( hash ) {
+                case "#login":
+                    //显示登录页面
+                    $login.show();
+                    $reg.hide();
+                    break;
+                case "#reg":
+                    //显示注册页面
+                    $login.hide();
+                    $reg.show();
+                    break;
+                default:
+                    //尝试 wx 登录
+                    wx_login();
+                    break;
+            }
+        };
+
+        autocompleteEmail( $login.find( ".email" ) );
+        autocompleteEmail( $reg.find( ".email" ) );
+
+        //跳转到注册页面
+        $login.on( "click" , ".go_to_reg" , 
+            function() {
+                window.location.hash = "reg";
+            }
+        );
+
+        $reg.on( "click" , ".go_to_login" , 
+            function() {
+                window.location.hash = "login";
+            }
+        );
+
+        //登录事件
+        $login.on( 
+            "click" , 
+            ".do_login" ,
+            function() {
+                var $email = $login.find( ".email" );
+                var $password = $login.find( ".password" );
+
+                login( $email.val() , $password.val() , function() {
+                    window.updateSysNotice( "用户名或密码错误" );
+                });
+            }
+        );
+
+        //注册事件
+        $reg.on( 
+            "click" , 
+            ".do_reg" ,
+            function() {
+                var $nickname = $reg.find( ".nickname" );
+                var $email = $reg.find( ".email" );
+                var $password = $reg.find( ".password" );
+
+                var currEmailValue = $email.val();
+                var currNicknameValue = $nickname.val();
+                var currPasswordValue = $password.val();
+
+                if( currNicknameValue === "" ) {
+                    window.updateSysNotice( "昵称不能为空" );
+                    return false;
                 }
-            );
+
+                if( currEmailValue === "" ) {
+                    window.updateSysNotice( "邮箱地址不能为空" );
+                    return false;
+                } else {
+                    if( !currEmailValue.match( /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/  ) ) {
+                        window.updateSysNotice( "请填写格式正确的邮箱地址" );
+                        return;
+                    }
+                }
+
+                if( currPasswordValue === "" ) {
+                    window.updateSysNotice( "密码不能为空" );
+                    return false;
+                }
+
+                //执行
+                //@XXX 我觉得有必要将所有的这些 url 放到一起
+                $.post( 
+                    "/api/reg/" ,
+                    {
+                        nickname: currNicknameValue ,
+                        username: currEmailValue ,
+                        password: currPasswordValue
+                    } ,
+                    function( data ) {
+                        var dataObj = JSON.parse( data );
+                            if( typeof dataObj.user_id !== "undefined" && dataObj.user_id  !== "" ) {
+                            //注册成功 拼接 userinfo 对象存放到用户浏览器中
+                            var userInfo = {
+                                UserId: dataObj.user_id ,
+                                UserName: currEmailValue ,
+                                NickName: currNicknameValue 
+                            };
+                            window.localStorage.setItem( "petal:object_user_info" , JSON.stringify( userInfo ) );
+
+                            //重定向到首页
+                            window.location.href = "/";
+                        } else {
+                            window.updateSysNotice( "注册失败，请稍后再试一次" );
+                        }
+                    }
+                );
+            }
+        );
+
+        window.onhashchange = routeByHash;
+
+        if( locationLocal.hash === "" ) {
+            locationLocal.hash = "login";
         }
+        routeByHash();
+
     } else {
-        //已经登录系统
+        //已经登录
+
         //如果 hash 也被设置了 就判断下有没有可能是 weixin 传来的用户名
         //以 ! 开头 则去除 hash 
         if( window.location.hash.indexOf( "!" ) === 1 ) {

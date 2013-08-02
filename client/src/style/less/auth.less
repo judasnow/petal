@@ -1,28 +1,29 @@
 #auth {
     @height: 327px;
     max-height: @height;
-    display: none;
     margin-top: 8px;
     text-align: center;
     .title {
+        letter-spacing: 6px;
         text-rendering: optimizeLegibility;
-        @font-size: 36px;
+        @font-size: 32px;
         font-size: @font-size;
         line-height: @font-size;
-        margin-bottom: 8px;
+        margin-bottom: 12px;
         font-weight: bold;
         color: #a7639e;
     }
     .sub_title {
-        @font-size: 18px;
+        letter-spacing: 2px;
+        @font-size: 16px;
         font-size: @font-size;
         line-height: @font-size;
-        color: #a7639e;
+        color: #c194bc;
     }
     .input {
         width: 80%;
     }
-    .username {
+    .email {
         .input;
     }
     .password {
@@ -30,6 +31,10 @@
     }
     .nickname {
         .input;
+    }
+    .input_error {
+        color: #f33;
+        border: 1px solid #f99;
     }
     .oauth_list_box {
         border-top: 1px dashed #ddd;
@@ -45,5 +50,30 @@
             padding: 2px;
         }
     }
+    .email_address_list {
+        display: none;
+        position: absolute;
+        left: 126px;
+        background: #eee;
+        border: 1px solid #999;
+        border-radius: 6px;
+        padding: 1px;
+        width: 80%;
+        .item {
+            background: #eee;
+            padding: 8px 0;
+            width: 100%;
+            border-bottom: 1px solid #c5c5c5;
+            &:nth-last-child(1) {
+                border: none;
+            }
+        }
+    }
+}
+#login {
+    display: none;
+}
+#reg {
+    display: none;
 }
 

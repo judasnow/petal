@@ -13,10 +13,11 @@ module.exports = function( app , config ) {
     app.post( "/api/tweet_it/" , api.tweetIt );
     app.get( "/api/should_display_contact_info/" , api.shouldDisplayContactInfo );
     app.get( "/api/update_brower_status/" , api.updateBrowerStatus );
+    app.post( "/api/reg/" , api.reg );
 
     //gift
     app.get( "/api/gifts/" , api.getGiftList );
-    app.post( "/api/send_gift/" , api.sendGift );
+    app.get( "/api/send_gift/" , api.sendGift );
 
     //payment_recoreds
     app.get( "/api/payment_recoreds/" , api.getPaymentRecordList );
