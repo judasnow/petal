@@ -1,13 +1,26 @@
-define([
+define([],
+function() {
+    var getRangeArray = function( min , max ) {
+        var rangeObj = [];
 
-],
-function(
+        for( var i = min ; i <= max ; i = i + 1 ) {
+            rangeObj.push( {val: i} );
+        }
 
-){
+        return rangeObj;
+    };
+
     //用户资料的选项信息
     var userProfileBaseInfo = {
-        minAge: 18 ,
-        maxAge: 60 ,
+        //年龄
+        ageRange: getRangeArray( 18 , 60 ) ,
+
+        //身高范围
+        heightRange: getRangeArray( 150 , 200 ) ,
+
+        //体重范围
+        weightRange: getRangeArray( 70 , 220 ) ,
+
         areaListWithId: {
         //{{{
     "北京": 131,
@@ -427,6 +440,7 @@ function(
     "崇明": 689
     //}}}
         },
+
         areaList: [
         {
         //{{{
@@ -2165,6 +2179,25 @@ function(
         }
         ],//}}}
 
+        //用户修改省份信息之后更新相应的城市信息
+        //每次都删除全部 option 之后添加合适的新的元素
+        provinceChange: function( args ) {
+        //{{{
+            var $province = args["$province"];
+            var $cityname = args["$cityname"];
+            var $citylist = args["$citylist"];
+
+            var classname =
+                $( $province.find( "option" )[ $province.get(0).selectedIndex ] ).attr( "class" );
+            $cityname.find( "option" ).remove();
+
+            $cityname.html( $citylist.find( "." + classname ).html() );
+        } ,//}}}
+
+        getAreaIdFromCityName: function( cityName ) {
+            return typeof this.areaListWithId[cityName] !== "undefined" ? this.areaListWithId[cityName] : "";
+        } ,
+
         looks_male: { looks_items: [
         //{{{
             { value:"英俊", des:"英俊" }, 
@@ -2197,6 +2230,7 @@ function(
            // {"玉树临风":"玉树临风"},
             { value:"肌肉发达", des:"肌肉发达" }
         ]},//}}}
+
         looks_famale: { looks_items: [
         //{{{
             //{ vlaue: "美丽", des:"美丽"} ,
@@ -2208,25 +2242,9 @@ function(
             { value: "青春", des: "青春" } ,
             { value: "身材高挑", des: "身材高挑" } ,
             { value: "迷人双眼", des: "迷人双眼" }
-        ]},//}}}
-
-        //每次都删除全部 option 之后添加合适的新的元素
-        provinceChange: function() {
-        //{{{
-            var $province = this.$el.find( ".province" );
-            var classname =
-                $( $province.find( "option" )[ $province.get(0).selectedIndex ] ).attr( "class" );
-            this.$el.find( ".cityname option" ).remove();
-
-            this.$el.find( ".cityname" ).html( this.$el.find( ".citylist" ).find( "." + classname ).html() );
-        } ,//}}}
-
-        getAreaIdFromCityName: function( cityName ) {
-            return typeof this.areaListWithId[cityName] !== "undefined" ? this.areaListWithId[cityName] : "";
-        }
+        ]}//}}}
     };
 
     return userProfileBaseInfo;
 });
 
-            //{{{

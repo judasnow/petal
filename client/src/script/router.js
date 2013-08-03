@@ -7,7 +7,15 @@ define([
     "v/stream" ,
     "v/search" ,
     "v/user_detail" ,
+
     "v/update_self_profile" ,
+    "v/marital_status" ,
+    "v/career" ,
+    "v/offer" ,
+    "v/want" ,
+    "v/info_of_make_friends" ,
+    "v/upload_picture" ,
+
     "v/gift_list" ,
     "v/chat_list" ,
     "v/tweet" ,
@@ -31,6 +39,13 @@ function(
     SearchView ,
     UserDetailView ,
     UpdateSelfProfileView ,
+    MaritalStatusView ,
+    CareerView ,
+    OfferView ,
+    WantView ,
+    infoOfMakeFriendsView ,
+    uploadPictureView ,
+
     GiftListView ,
     ChatListView ,
     TweetView ,
@@ -62,7 +77,14 @@ function(
             "gift_list": "showGiftList" ,
 
             "user_detail/:userId": "showUserDetail" ,
+
             "update_self_profile": "showUpdateSelfProfile" ,
+            "marital_status": "showMaritalStatus" ,
+            "career": "showCareer" ,
+            "offer": "showOffer" ,
+            "want": "showWant" ,
+            "info_of_make_friends": "showInfoOfMakeFriends" ,
+            "upload_picture": "showUploadPicture" ,
 
             "tweet/self": "showSelfTweet" ,
 
@@ -74,7 +96,6 @@ function(
             "message/self": "showSelfMessage" ,
             "payment_record/self": "showSelfPaymentRecord" ,
             "coupons/self": "showSelfCoupons" ,
-
             "buy_coin": "showBuyCoin" ,
 
             "chat_list": "showChatList" ,
@@ -139,6 +160,30 @@ function(
         //{{{
             new UpdateSelfProfileView();
         } ,//}}}
+
+        showMaritalStatus: function() {
+            new MaritalStatusView();
+        } ,
+
+        showCareer: function() {
+            new CareerView();
+        } ,
+
+        showWant: function() {
+            new WantView();
+        } ,
+
+        showOffer: function() {
+            new OfferView();
+        } ,
+
+        showInfoOfMakeFriends: function() {
+            new infoOfMakeFriendsView();
+        } ,
+
+        showUploadPicture: function() {
+            new uploadPictureView();
+        } ,
 
         showSelfTweet: function() {
         //{{{
