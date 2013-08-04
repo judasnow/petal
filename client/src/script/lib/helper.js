@@ -6,8 +6,57 @@ function(){
 
     var helper = {};
 
+    //设置同级下的全部 check 为未选中状态
+    //注意 仅仅是看起来
+    helper.clearOtherCheck = function( $div ) {
+    //{{{
+        _.each(
+            $div.find( "i" ) , 
+            function( el ) { 
+                var $el = $( el );
+                if( $el.hasClass( "icon-check" ) ) {
+                    $el.removeClass( "icon-check" )
+                        .addClass( "icon-check-empty" );
+                }
+            } 
+        );
+    };//}}}
+
+    //反选当前 label 
+    helper.reverseCheck = function( $i ) {
+    //{{{
+        if( $i.hasClass( "icon-check" ) ) {
+            $i.removeClass( "icon-check" )
+                .addClass( "icon-check-empty" );
+        } else {
+            $i.removeClass( "icon-check-empty" )
+                .addClass( "icon-check" );
+        }
+    };//}}}
+
+    helper.setCheckByValue = function( $div , value ) {
+        if( typeof value === "undefined" ) {
+            return;
+        }
+
+        helper.clearOtherCheck( $div );
+        _.each(
+            $div.find( ".label" ) ,
+            function( label ) {
+                var $label = $( label );
+                var text = $label.find( ".text" ).text();
+                if(
+                    ( value === text ) ||
+                    ( ( value instanceof Array === true ) && _.indexOf( value , text ) !== -1 ) ) {
+                    helper.reverseCheck( $label.find( "i" ) );
+                }
+            }
+        );
+    };
+
     //调整时区 并格式化时间
     helper.resetTime = function( dateString ) {
+    //{{{
         //进行一个时区的转换 需要减去 8 小时
         //createAt.getTimezoneOffset() * 60000;
         var date = "";
@@ -19,7 +68,7 @@ function(){
             date.addMilliseconds( -28800000 );
         }
         return date.toFormat( "YYYY/MM/DD HH24:MI:SS" );
-    };
+    };//}}}
 
     helper.showImage = function( $imgs ) {
         var default_src = {

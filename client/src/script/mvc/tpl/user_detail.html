@@ -7,7 +7,14 @@
 </div>
 
 <div class="user_info item">
-    {{NickName}} , {{#Age}}{{Age}}岁 , {{/Age}} {{Sex}} , {{location}}
+    {{NickName}} , {{#Age}}{{Age}}岁 , {{/Age}} {{Sex}} , {{location}} , {{SG}}cm , {{TZ}}公斤 , {{HY}} , {{ZY}}
+</div>
+
+<div class="item">
+    <b class="title">期望获得</b> {{HD1}}
+</div>
+<div class="item">
+    <b class="title">我能提供</b> {{TG}}
 </div>
 
 {{^isSelfPage}}
@@ -20,60 +27,30 @@
 </div>
 {{/isSelfPage}}
 
-<div class="item twitte_box">
-    <b class="title">最新说说</b>
-    <p class="twitte">{{ToSay}}</p>
+<div class="item">
+    <b class="title">交友目的</b> <span class="text">{{MD}}</span>
 </div>
 
 <div class="item">
-    <b class="title">交友宣言</b>
-    <p>{{ZWMS}}</p>
+    <b class="title">我的外貌</b> <span class="text">{{WM}}</span>
 </div>
 
 <div class="item">
-    <b class="title">交友原因</b>
-    <p>{{YY}}</p>
+    <b class="title">我的个性</b> <span class="text">{{GX}}</span>
 </div>
 
 <div class="item">
-    <b class="title">我能提供</b>
-    <p>{{TG}}</p>
+    <b class="title">情爱观念</b> <span class="text">{{XA}}</span>
 </div>
 
 <div class="item">
-    <b class="title">期望获得</b>
-    <p>{{HD1}}</p>
-</div>
-
-<div class="item">
-    <b class="title">期望的情人</b>
-    <p>{{WXZ}}</p>
-</div>
-
-<div class="item">
-    <b class="title">情爱观念</b>
-    <p>{{XA}}</p>
-</div>
-
-<div class="item">
-    <b class="title">我的外貌</b>
-    <p>{{WM}}</p>
-</div>
-
-<div class="item">
-    <b class="title">我的个性</b>
-    <p>{{GX}}</p>
-</div>
-
-<div class="item">
-    <b class="title">我的兴趣</b>
-    <p>{{XQ}}</p>
+    <b class="title">兴趣爱好</b> <span class="text">{{XQ}}</span>
 </div>
 
 {{^isSelfPage}}
 <div class="item gift_list wanted_gift_list">
     <b class="title">期望收到的礼物</b>
-    <p>
+    <div>
     {{#wantedGiftList}}
     <div class="sub_item">
         <span class="gift_id">{{GId}}</span>
@@ -84,13 +61,13 @@
         <span class="price"><b>{{GPrice}}</b> 金币</span>
     </div>
     {{/wantedGiftList}}
-    </p>
+    </div>
 </div>
 {{/isSelfPage}}
 
 <div class="item gift_list received_gift_list">
     <b class="title">最近收到的礼物</b>
-    <p>
+    <div>
     {{#receivedGiftList}}
     <div class="sub_item">
         <div class="gravatar_box">
@@ -100,12 +77,12 @@
         <span class="price"><b>{{GPrice}}</b> 金币</span>
     </div>
     {{/receivedGiftList}}
-    </p>
+    </div>
 </div>
 
 <div class="item visitors_list">
     <b class="title">最近访客</b>
-    <p>
+    <div>
     {{#visitorsList}}
     <div class="sub_item">
         <div class="gravatar_box">
@@ -114,20 +91,22 @@
         <span data-user_id="{{UserId}}" class="nickname"></span>
     </div>
     {{/visitorsList}}
-    </p>
+    </div>
 </div>
 
-<div class="item user_album">
+<div class="item user_album_item">
     <b class="title">相册</b>
-    <p>
-    {{#pictureList}}
-    <div class="sub_item">
-        <div class="gravatar_box">
-        <img id="user_picture_{{Title}}" class="user_picture gravatar" origin_src="http://www.huaban123.com/UploadFiles/UPP/MIN/{{PicName}}" alt="{{photo}}" />
+    <div class="user_album_box">
+        <div class="user_album">
+        {{#pictureList}}
+        <div class="sub_item">
+            <div class="user_picture_box">
+            <img id="user_picture_{{Title}}" class="user_picture" origin_src="http://www.huaban123.com/UploadFiles/UPP/MIN/{{PicName}}" alt="{{photo}}" />
+            </div>
+        </div>
+        {{/pictureList}}
         </div>
     </div>
-    {{/pictureList}}
-    </p>
 </div>
 
 </div>

@@ -1,7 +1,23 @@
 <input name="user_id" type="hidden" class="user_id" value=""/>
 
-<div class="item">
-    <span class="title">上传照片</span>
+
+<div class="user_album_box">
+<div class="user_album">
+
+    {{#pictureList}}
+    <div class="user_picture_box">
+        <img id="user_picture_{{Title}}" class="user_picture" src="http://www.huaban123.com/UploadFiles/UPP/MIN/{{PicName}}" />
+    </div>
+    {{/pictureList}}
+
+    <div class="add_picture">
+        <span class="text">添加照片</span>
+    </div>
+
+    <input type="file" class="user_upload_picture_input" name="user_upload_picture" size="2"
+        accept="image/*" />
+
+</div>
 </div>
 
 <header>

@@ -9,10 +9,6 @@ define([
     "v/user_detail" ,
 
     "v/update_self_profile" ,
-    "v/marital_status" ,
-    "v/career" ,
-    "v/offer" ,
-    "v/want" ,
     "v/info_of_make_friends" ,
     "v/upload_picture" ,
 
@@ -39,10 +35,6 @@ function(
     SearchView ,
     UserDetailView ,
     UpdateSelfProfileView ,
-    MaritalStatusView ,
-    CareerView ,
-    OfferView ,
-    WantView ,
     infoOfMakeFriendsView ,
     uploadPictureView ,
 

@@ -1,20 +1,5 @@
 <input name="user_id" type="hidden" class="user_id" value=""/>
 
-<!--
-1、基本资料：
-昵称：（长度	控制在12个字符内，和以前一样，除了非法字符一切都可以）昵称用户不能修改，但是管理员可以修改。
-性别（按钮式选项）：性别一旦选定无法更改。提示：性别选定后无法更改，请慎重选择!
-地区：（省、市），如果能结合手机特性读到省市用户选择时候已经默认了最好。
-身高：150CM-200CM身高选择 下拉选择
-体重：70斤-220斤选择 下拉选择
-年龄：从18岁-60岁选择下拉选择
-婚姻状况：（按钮式选择） 未婚 已婚 分居 有对象但开放 保密 按钮选择
-职业：计算机/互联网/电子通信 工业制造/生产 艺术/表演/娱乐 教育/科研 个体/企业经营 学生 金融/银行/保险/会计 媒体/公关 党政机关/事业单位 律师/法务 医疗护卫/制药 创业者 待业者
-职业为下拉式菜单选择
-我愿提供：物质和精神帮助 关系资源 视情况而定 工作机会 其他帮助 不提供帮助  按钮选择
-期望获得：物质和精神帮助 视情况而定 关系资源 工作机会 不需要帮助 其他帮助  按钮选择
--->
-
 <div class="item nickname">
     <b class="title">昵称</b>
     <div class="info">
@@ -59,57 +44,59 @@
     </div>
 </div>
 
-<div class="item maritalStatus">
-    <b class="title">婚姻状况</b>
-    <div>
-        <span class="label"><i class="icon-check"></i> 未婚</span>
-        <span class="label"><i class="icon-check"></i> 已婚</span>
-        <span class="label"><i class="icon-check"></i> 分居</span>
-        <span class="label"><i class="icon-check"></i> 有对象但开放</span>
-        <span class="label"><i class="icon-check"></i> 保密</span>
+<div class="item career">
+    <b class="title">职业</b>
+    <div class="info">
+        <select class="career" name="">
+        <option >计算机/互联网/电子通信</option>
+        <option >工业制造/生产</option>
+        <option >艺术/表演/娱乐</option>
+        <option >教育/科研</option>
+        <option >个体/企业经营</option>
+        <option >学生</option>
+        <option >金融/银行/保险/会计</option>
+        <option >媒体/公关</option>
+        <option >党政机关/事业单位</option>
+        <option >律师/法务</option>
+        <option >医疗护卫/制药</option>
+        <option >创业者</option>
+        <option >待业者</option>
+        </select>
     </div>
 </div>
 
-<div class="item career">
-    <b class="title">职业</b>
+<div class="item marital_status">
+    <b class="title">婚姻状况</b>
     <div>
-        <span class="label"><i class="icon-check"></i> 计算机/互联网/电子通信</span>
-        <span class="label"><i class="icon-check"></i> 工业制造/生产</span>
-        <span class="label"><i class="icon-check"></i> 艺术/表演/娱乐</span>
-        <span class="label"><i class="icon-check"></i> 教育/科研</span>
-        <span class="label"><i class="icon-check"></i> 个体/企业经营</span>
-        <span class="label"><i class="icon-check"></i> 学生</span>
-        <span class="label"><i class="icon-check"></i> 金融/银行/保险/会计</span>
-        <span class="label"><i class="icon-check"></i> 媒体/公关</span>
-        <span class="label"><i class="icon-check"></i> 党政机关/事业单位</span>
-        <span class="label"><i class="icon-check"></i> 律师/法务</span>
-        <span class="label"><i class="icon-check"></i> 医疗护卫/制药</span>
-        <span class="label"><i class="icon-check"></i> 创业者</span>
-        <span class="label"><i class="icon-check"></i> 待业者</span>
+        <span class="label"><i class="icon-check-empty"></i> <span class="text">未婚</span></span>
+        <span class="label"><i class="icon-check-empty"></i> <span class="text">已婚</span></span>
+        <span class="label"><i class="icon-check-empty"></i> <span class="text">分居</span></span>
+        <span class="label"><i class="icon-check-empty"></i> <span class="text">有对象但开放</span></span>
+        <span class="label"><i class="icon-check-empty"></i> <span class="text">保密</span></span>
     </div>
 </div>
 
 <div class="item offer">
     <b class="title">我愿提供</b>
     <div>
-        <span class="label"><i class="icon-check"></i> 物质和精神帮助</span>
-        <span class="label"><i class="icon-check"></i> 视情况而定</span>
-        <span class="label"><i class="icon-check"></i> 关系资源</span>
-        <span class="label"><i class="icon-check"></i> 工作机会</span>
-        <span class="label"><i class="icon-check"></i> 不需要帮助</span>
-        <span class="label"><i class="icon-check"></i> 其他帮助</span>
+        <span class="label"><i class="icon-check-empty"></i> <span class="text">物质和精神帮助</span></span>
+        <span class="label"><i class="icon-check-empty"></i> <span class="text">视情况而定</span></span>
+        <span class="label"><i class="icon-check-empty"></i> <span class="text">关系资源</span></span>
+        <span class="label"><i class="icon-check-empty"></i> <span class="text">工作机会</span></span>
+        <span class="label"><i class="icon-check-empty"></i> <span class="text">不提供帮助 </span></span>
+        <span class="label"><i class="icon-check-empty"></i> <span class="text">其他帮助</span></span>
     </div>
 </div>
 
 <div class="item want">
-    <b class="title">期望获得</b>
+    <b class="title">我愿提供</b>
     <div>
-        <span class="label"><i class="icon-check"></i> 物质和精神帮助</span>
-        <span class="label"><i class="icon-check"></i> 视情况而定</span>
-        <span class="label"><i class="icon-check"></i> 关系资源</span>
-        <span class="label"><i class="icon-check"></i> 工作机会</span>
-        <span class="label"><i class="icon-check"></i> 不需要帮助</span>
-        <span class="label"><i class="icon-check"></i> 其他帮助</span>
+        <span class="label"><i class="icon-check-empty"></i> <span class="text">物质和精神帮助</span></span>
+        <span class="label"><i class="icon-check-empty"></i> <span class="text">视情况而定</span></span>
+        <span class="label"><i class="icon-check-empty"></i> <span class="text">关系资源</span></span>
+        <span class="label"><i class="icon-check-empty"></i> <span class="text">工作机会</span></span>
+        <span class="label"><i class="icon-check-empty"></i> <span class="text">不需要帮助</span></span>
+        <span class="label"><i class="icon-check-empty"></i> <span class="text">其他帮助</span></span>
     </div>
 </div>
 

@@ -7,20 +7,10 @@
 
 <div class="info">
     <span class="sub_item nickname color_by_sex {{#isFemale}}famale{{/isFemale}}">{{NickName}}</span>
-    <span class="sub_item">{{#age}}{{age}}岁{{/age}} {{Sex}}</span>
-    <span class="sub_item detail">{{location}}</span>
+    <span class="sub_item">{{#age}}{{age}}岁{{/age}} {{Sex}} {{location}}</span>
+    <span class="sub_item"><b>交友目的</b>: {{MD}}</span>
+    <span class="sub_item"><b>情爱观念</b>: {{XA}}</span>
     {{#visit_time}}<span class="sub_item">于 {{visit_time}} 访问过你</span>{{/visit_time}}
-    {{^visit_time}}
-    <span class="sub_item tosay">
-        <b>最近说说: </b>
-        {{#ToSay}}
-            {{ToSay}}
-        {{/ToSay}}
-        {{^ToSay}}
-            什么也没有
-        {{/ToSay}}
-    </span>
-    {{/visit_time}}
     {{#IsXS}}
         <span class="sub_item">QQ: {{QQ}}</span>
         <!--注意大小写-->

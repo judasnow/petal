@@ -1,5 +1,4 @@
 #update_self_profile {
-    @img_size: 96px;
     @input_height: 28px;
     .item {
         .base_item;
@@ -30,23 +29,67 @@
         display: inline-block;
         font-size: 14px;
     }
+    .info {
+        float: right;
+        height: @input_height;
+        line-height: @input_height;
+    }
+    input {
+        height: @input_height;
+        padding: 0 4px;
+        border-radius: 0;
+        border: none;
+        margin: 0;
+        background: #fff;
+        font-size: 18px;
+        border: 0;
+        color: #333;
+        width: 80%;
+        background: #e9e9e9;
+        float: right;
+        vertical-align: middle;
+    }
+}
+
+#marital_status , #info_of_make_friends , #want , #offer , #career {
+    @input_height: 28px;
+    .item {
+        #update_self_profile > .item;
+    }
+    .info {
+        #update_self_profile > .info;
+    }
+    .label {
+        #update_self_profile > .label;
+    }
+}
+
+#upload_picture {
+    @img_size: 94px;
+
+    .user_album_box {
+        background: #e9e9e9;
+        text-align: center;
+        width: 100%;
+    }
+
     //使用函数来处理不同的手机分辨率
     .user_album {
         @padding: 4px;
-        width: 100%;
+        width: 320px;
         display: inline-block;
-        height: auto;
         min-height: @img_size + (@padding * 2);
-        background: #eee;
-        border-bottom: 1px solid #999;
         padding: @padding;
+        text-align: center;
         .user_picture_box {
             text-align: center;
-            margin: 8px;
+            margin: 4px;
             float: left;
             width: @img_size + 2px;
             height: @img_size + 2px;
-            border: 1px solid #999;
+            border: 1px solid #aaa;
+            border-radius: 4px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
         }
         .user_picture {
             display: inline-block;
@@ -74,38 +117,5 @@
             top: 0;
             left: -9999px; 
         }
-    }
-    .info {
-        float: right;
-        height: @input_height;
-        line-height: @input_height;
-    }
-    input {
-        height: @input_height;
-        padding: 0 4px;
-        border-radius: 0;
-        border: none;
-        margin: 0;
-        background: #fff;
-        font-size: 18px;
-        border: 0;
-        color: #069;
-        width: 80%;
-        background: #ddd;
-        float: right;
-        vertical-align: middle;
-    }
-}
-
-#marital_status , #info_of_make_friends , #want , #offer , #career {
-    @input_height: 28px;
-    .item {
-        #update_self_profile > .item;
-    }
-    .info {
-        #update_self_profile > .info;
-    }
-    .label {
-        #update_self_profile > .label;
     }
 }

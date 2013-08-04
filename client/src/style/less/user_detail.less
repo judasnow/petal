@@ -1,5 +1,5 @@
 #user_detail {
-    @padding: 8px;
+    @padding: 16px;
     @image_size: 96px;
     //指的是头像那一栏
     .head_img {
@@ -9,21 +9,22 @@
     .item {
         display: inline-block;
         width: 100%;
-        padding: @padding;
-        border-bottom: 1px solid #c5c5c5;
-        font-size: 14px;
+        padding: @padding 2px;
+        border-bottom: 1px solid #ddd;
+        font-size: 16px;
         color: #666;
         .title {
-            font-size: 110%;
             color: #333;
-            font-weight: bolder;
+            font-weight: bold;
+            margin-right: 8px;
         }
         //说说
         .twitte {
             margin: 2px 0;
         }
-        p {
+        .text {
             color: #666;
+            word-break: all;
         }
     }
     .gravatar_box {
@@ -49,13 +50,22 @@
             margin-left: 8px;
         }
     }
-    .user_album {
-        //默认用的头像的 box
-        .sub_item {
-            float: left;
-            margin: 4px;
+
+    .user_album_item {
+        .title {
+            padding-left: 2px;
         }
+        padding: @padding 0;
     }
+    .user_album_box {
+        #upload_picture > .user_album_box;
+        background: #fff;
+    }
+
+    .user_album {
+        #upload_picture > .user_album;
+    }
+
     .visitors_list {
         .sub_item {
             float: left;
