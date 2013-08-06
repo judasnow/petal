@@ -30,7 +30,9 @@ function(
             "tap .looks .label": "editLooks" ,
             "tap .character .label": "editCharacter" ,
             "tap .sex_idea .label": "editSexIdea" ,
-            "tap .interest .label": "editInterest"
+            "tap .interest .label": "editInterest" ,
+
+            "tap .do_update": "doUpdate"
         } ,
  
         initialize: function() {
@@ -45,6 +47,31 @@ function(
                     user_id: window.objectUser.get( "UserId" )
                 }
             });
+        } ,
+
+        doUpdate: function() {
+            var purpose = helper.getCheckLabel( this.$purposeItem );
+            var looks = helper.getCheckLabel( this.$looksItem );
+            var character = helper.getCheckLabel( this.$characterItem );
+            var sexIdea = helper.getCheckLabel( this.$sexIdeaItem );
+            var interest = helper.getCheckLabel( this.$interestItem );
+            var zwms = this.$zwmsInput.val();
+
+            $.post(
+                "/api/user/" ,
+                {
+                    user_id: window.objectUser.get( "UserId" ) ,
+                    purpose: purpose ,
+                    looks: looks ,
+                    character: character ,
+                    sex_idea: sexIdea ,
+                    interest: interest ,
+                    zwms: zwms
+                } ,
+                function( data ) {
+                    console.dir( data )
+                }
+            );
         } ,
 
         editPurpose: function( event ) {
@@ -91,31 +118,39 @@ function(
             helper.reverseCheck( $i );
         } ,//}}}
 
+        //@XXX 重复需要修改
         _setDefaultAttr: function() {
             var $purposeItem = this.$el.find( ".purpose" );
-            var purposeArray = this.model.get( "MD" ).split( " " );
-            helper.setCheckByValue( $purposeItem , purposeArray );
+            this.$purposeItem = $purposeItem;
+            var purpose = this.model.get( "MD" );
+            helper.setCheckByValue( $purposeItem , purpose );
 
             var $looksItem = this.$el.find( ".looks" );
-            var looksArray = this.model.get( "WM" ).split( " " );
-            helper.setCheckByValue( $looksItem , looksArray );
+            this.$looksItem = $looksItem;
+            var looks = this.model.get( "WM" );
+            helper.setCheckByValue( $looksItem , looks );
 
             var $characterItem = this.$el.find( ".character" );
-            var characterArray = this.model.get( "GX" ).split( " " );
-            helper.setCheckByValue( $characterItem , characterArray );
+            this.$characterItem = $characterItem;
+            var character = this.model.get( "GX" );
+            helper.setCheckByValue( $characterItem , character );
 
             var $sexIdeaItem = this.$el.find( ".sex_idea" );
-            var sexIdeaArray = this.model.get( "XA" ).split( " " );
-            helper.setCheckByValue( $sexIdeaItem , sexIdeaArray );
+            this.$sexIdeaItem = $sexIdeaItem;
+            var sexIdea = this.model.get( "XA" );
+            helper.setCheckByValue( $sexIdeaItem , sexIdea );
 
             var $interestItem = this.$el.find( ".interest" );
-            var interestArray = this.model.get( "XQ" ).split( " " );
-            helper.setCheckByValue( $interestItem , interestArray );
+            this.$interestItem = $interestItem;
+            var interest = this.model.get( "XQ" );
+            helper.setCheckByValue( $interestItem , interest );
 
             var $zwmsItem = this.$el.find( ".zwms" );
+            var $zwmsInput = $zwmsItem.find( ".zwms_input" );
+            this.$zwmsInput = $zwmsInput;
             var zwms = this.model.get( "ZWMS" );
             if( typeof zwms !== "undefined" ) {
-                $zwmsItem.find( ".zwms_input" ).val( zwms );
+                $zwmsInput.val( zwms );
             }
         } ,
 

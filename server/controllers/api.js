@@ -154,9 +154,22 @@ api.updateUser = function( req , res ) {
 //{{{
     var userId = req.param( "user_id" , "" );
     var area_id = req.param( "area_id" , "" );
+    var nickName = req.param( "nickname" , "" );
     var birthday = req.param( "birthday" , "" );
     var zwms = req.param( "zwms" , "" );
     var looks = req.param( "looks" , "" );
+    var want = req.param( "want" , "" );
+    var offer = req.param( "offer" , "" );
+    var sex = req.param( "sex" , "" );
+    var height = req.param( "height" , "" );
+    var weight = req.param( "weight" , "" );
+    var marutal_status = req.param( "marital_status" , "123" );
+    var age = req.param( "age" , "" );
+    var career = req.param( "career" , "" );
+    var purpose = req.param( "purpose" , "" );
+    var character = req.param( "character" , "" );
+    var sexIdea = req.param( "sex_idea" , "" );
+    var interest = req.param( "interest" , "" );
 
     //保存其他信息
     var ok = function( dataObj ) {
@@ -173,9 +186,22 @@ api.updateUser = function( req , res ) {
         "post" , 
         "about=user&action=update_info&user_id=" + userId + 
         "&birthday=" + birthday + 
+        "&nickname=" + nickName +
         "&zwms=" + zwms + 
         "&looks=" + looks +
-        "&area_id=" + area_id ,
+        "&area_id=" + area_id +
+        "&age=" + age + 
+        "&height=" + height +
+        "&weight=" + weight +
+        "&marutal_status=" + marutal_status.trim() +
+        "&offer=" + offer.trim() +
+        "&career=" + career.trim() +
+        "&sex=" + sex.trim() + 
+        "&character=" + character.trim() +
+        "&purpose=" + purpose.trim() +
+        "&sex_idea=" + sexIdea.trim() +
+        "&interest=" + interest.trim() +
+        "&want=" + want.trim() ,
 
         ok ,
         error

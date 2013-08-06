@@ -1,12 +1,21 @@
-var User = function( args ) {
-    this.name = args.name;
-    this.sex = args.sex;
-}
+var async = require( "async" );
 
-User.prototype.getName = function() {
-    console.dir( this.name );
+async.eachSeries(
+    [1, 2, 3, 4, 5, 6, 7, 8, 9] , 
+    function( item ) {
+        setTimeout( function() {
+            console.dir( item );
+        }, item * 1000 );
+    } ,
+    function( error ) {
+        console.log( "error" );
+    }
+);
+
+var hello = function(name, callback){
+    setTimeout(function(){
+        callback(null, {hello: name});
+    }, 1000);
 };
 
-var ninja = new User({name: "ninga", sex: "male"});
-
-console.dir( ninja.constructor === User );
+async.dir( hello , "123" );

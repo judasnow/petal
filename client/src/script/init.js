@@ -4,11 +4,11 @@
 //因此配置文件也是独立的
 
 //{{{
-setInterval( function(){
-    window.localStorage.setItem( "http://172.17.0.46/src/style/less/main.less:timestamp" , "" );
-}, 3000 );
-less.env = "development";
-less.watch();
+//setInterval( function(){
+//    window.localStorage.setItem( "http://172.17.0.46/src/style/less/main.less:timestamp" , "" );
+//}, 3000 );
+//less.env = "development";
+//less.watch();
 //}}}
 
 //appCache

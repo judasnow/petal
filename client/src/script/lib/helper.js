@@ -18,7 +18,7 @@ function(){
                     $el.removeClass( "icon-check" )
                         .addClass( "icon-check-empty" );
                 }
-            } 
+            }
         );
     };//}}}
 
@@ -39,19 +39,27 @@ function(){
             return;
         }
 
+        valueArray = value.split( " " );
+
         helper.clearOtherCheck( $div );
         _.each(
             $div.find( ".label" ) ,
             function( label ) {
                 var $label = $( label );
                 var text = $label.find( ".text" ).text();
-                if(
-                    ( value === text ) ||
-                    ( ( value instanceof Array === true ) && _.indexOf( value , text ) !== -1 ) ) {
+                if( _.indexOf( valueArray , text ) !== -1 ) {
                     helper.reverseCheck( $label.find( "i" ) );
                 }
             }
         );
+    };
+    
+    helper.getCheckLabel = function( $div ) {
+        var checkLabelTexts = $div.find( ".icon-check" ).parent().find( ".text" );
+        return _.reduce( checkLabelTexts , function( memo , text  ) {
+            var $text = $( text );
+            return memo + " " + $text.text();
+        } , "" );
     };
 
     //调整时区 并格式化时间

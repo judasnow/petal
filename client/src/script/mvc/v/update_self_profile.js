@@ -70,7 +70,9 @@ function(
             "tap .info_of_make_friends": "goToInfoOfMakeFriends" ,
 
             //上传照片
-            "tap .uplodaPicture": "goToUploadPicture"
+            "tap .uplodaPicture": "goToUploadPicture" ,
+
+            "tap .do_update": "doUpdate"
         } ,//}}}
 
         initialize: function() {
@@ -79,7 +81,7 @@ function(
 
             _.bindAll(
                 this ,
-                "render" , "editMaritalStatus" , "_setDefaultAttr" );
+                "render" , "editMaritalStatus" , "_setDefaultAttr" , "doUpdate" );
 
             //每次渲染都需要更新用户信息
             this.model = new User();
@@ -92,6 +94,45 @@ function(
                     console.dir( "on #user_self_profile fetch user_info error" );
                 }
             });
+        } ,//}}}
+
+        doUpdate: function() {
+        //{{{
+            var nickname = this.$nicknameInput.val();
+            var province = this.$province.val();
+            var cityname = this.$cityname.val();
+            var height = this.$heightSelect.val();
+            var weight = this.$weightSelect.val();
+            var age = this.$ageSelect.val();
+            var career = this.$careerSelect.val();
+
+            var sex = helper.getCheckLabel( this.$sexItem );
+            var marital_status = helper.getCheckLabel( this.$maritalStatusItem );
+            var offer = helper.getCheckLabel( this.$offerItem );
+            var want = helper.getCheckLabel( this.$wantItem );
+
+            $.post(
+                "/api/user/" ,
+                {
+                    user_id: window.objectUser.get( "UserId" , "" ) ,
+                    nickname: nickname ,
+                    sex: sex ,
+                    area_id: UserProfileBaseInfo.getAreaIdFromCityName( this.$cityname.val() ) ,
+                    height: height ,
+                    weight: weight ,
+                    age: age ,
+                    marital_status: marital_status ,
+                    offer: offer ,
+                    want: want ,
+                    career: career
+                } ,
+                function( data ) {
+                    var dataObj = JSON.parse( data );
+                    if( dataObj.code === "200" ) {
+                        alert( "ok" );
+                    }
+                }
+            );
         } ,//}}}
 
         editNickname: function( event ) {
@@ -216,13 +257,19 @@ function(
 
         _setDefaultAttr: function() {
         //{{{
+            //nickname
+            //{{{
             var $nicknameInput = this.$el.find( "input[name='nickname']" );
             var nickname = this.model.get( "NickName" );
             //对于不存在的属性 Backbone.Model 返回 undefined
             if( typeof nickname !== "undefined" ) {
                 $nicknameInput.val( this.model.get( "NickName" ) );
             }
+            this.$nicknameInput = $nicknameInput;
+            //}}}
 
+            //sex
+            //{{{
             var $sexItem = this.$el.find( ".sex" );
             var sex = this.model.get( "sexInEnglish" );
             helper.clearOtherCheck( $sexItem );
@@ -231,7 +278,11 @@ function(
             } else {
                 helper.reverseCheck( $sexItem.find( ".male i" ) );
             }
+            this.$sexItem = $sexItem;
+            //}}}
 
+            //location
+            //{{{
             var $locationItem = this.$el.find( ".location" );
             var $province = $locationItem.find( ".province" );
             var $cityname = $locationItem.find( ".cityname" );
@@ -242,42 +293,77 @@ function(
                 $province.val( province ).trigger( "change" );
                 $cityname.val( cityname );
             }
+            this.$province = $province;
+            this.$cityname = $cityname;
+            //}}}
 
+            //height
+            //{{{
             var $heightItem = this.$el.find( ".height" );
+            var $heightSelect = $heightItem.find( ".height" );
             var height = this.model.get( "SG" );
             if( typeof height !== "undefined" ) {
-                $heightItem.find( ".height" ).val( height );
+               $heightSelect.val( height );
             }
+            this.$heightSelect = $heightSelect;
+            //}}}
 
+            //weight
+            //{{{
             var $weightItem = this.$el.find( ".weight" );
+            var $weightSelect = $weightItem.find( ".weight" );
             var weight = this.model.get( "weight" );
             if( typeof weight !== "undefined" ) {
-                $weightItem.find( ".weight" ).val( weight );
+                $weightInput.val( weight );
             }
+            this.$weightSelect = $weightSelect;
+            //}}}
 
+            //age
+            //{{{
             var $ageItem = this.$el.find( ".age" );
+            var $ageSelect = $ageItem.find( ".age" );
             var age = this.model.get( "age" );
             if( typeof age !== "undefined" ) {
-                $ageItem.find( ".age" ).val( age );
+                $ageSelect.val( age );
             }
+            this.$ageSelect = $ageSelect;
+            //}}}
 
+            //career
+            //{{{
             var $careerItem = this.$el.find( ".career" );
+            var $careerSelect = $careerItem.find( ".career" );
             var career = this.model.get( "ZY" );
             if( typeof career !== "undefined" ) {
-                $careerItem.find( ".career" ).val( career );
+                $careerSelect.val( career );
             }
+            this.$careerSelect = $careerSelect;
+            //}}}
 
+            //marital_status
+            //{{{
             var $maritalStatusItem = this.$el.find( ".marital_status" );
             var marital_status = this.model.get( "HY" );
             helper.setCheckByValue( $maritalStatusItem , marital_status );
+            this.$maritalStatusItem = $maritalStatusItem;
+            //}}}
 
+            //offer
+            //{{{
             var $offerItem = this.$el.find( ".offer" );
             var offer = this.model.get( "TG1" );
             helper.setCheckByValue( $offerItem , offer );
+            this.$offerItem = $offerItem;
+            //}}}
 
+            //want
+            //{{{
             var $wantItem = this.$el.find( ".want" );
             var want = this.model.get( "HD1" );
             helper.setCheckByValue( $wantItem , want );
+            this.$wantItem = $wantItem;
+            //}}}
 
         } ,//}}}
 
