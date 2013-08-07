@@ -51,14 +51,16 @@
         }
     }
     .email_address_list {
+        @width: (320px * 0.8);
         display: none;
         position: absolute;
-        left: 126px;
         background: #eee;
         border: 1px solid #999;
         border-radius: 6px;
         padding: 1px;
-        width: 80%;
+        width: @width;
+        left: 50%;
+        margin-left: -(@width/2);
         .item {
             background: #eee;
             padding: 8px 0;

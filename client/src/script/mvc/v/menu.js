@@ -56,57 +56,57 @@ function(
         } ,
 
         showObjectUserHome: function() {
-            window.router.navigate( "/#user_detail/" + window.objectUser.get( "UserId" ) , {trigger: true} );
+            window.router.navigate( "user_detail/" + window.objectUser.get( "UserId" ) , {trigger: true} );
         } ,
 
         showSearch: function() {
-            window.router.navigate( "/#search" , {trigger: true} );
+            window.router.navigate( "search" , {trigger: true} );
         } ,
 
         showSameCityStream: function() {
-            window.router.navigate( "/#stream" , {trigger: true} );
+            window.router.navigate( "stream" , {trigger: true} );
         } ,
 
         //发表今日说说
         showTweet: function() {
-            window.router.navigate( "/#tweet/self" , {trigger: true} );
+            window.router.navigate( "tweet/self" , {trigger: true} );
         } ,
 
         showGifts: function() {
             window.localStorage.setItem( "petal:new_gifts_count" , "0" );
-            window.router.navigate( "/#gifts/self/received" , {trigger: true} );
+            window.router.navigate( "gifts/self/received" , {trigger: true} );
         } ,
 
         showVisitors: function() {
             window.localStorage.setItem( "petal:new_visitors_count" , "0" );
-            window.router.navigate( "/#stream/visitors/self/" , {trigger: true} );
+            window.router.navigate( "stream/visitors/self/" , {trigger: true} );
         } ,
 
         showHadBoughtContactInfo: function() {
-            window.router.navigate( "/#stream/had_bought_contact_info/self" , {trigger: true} );
+            window.router.navigate( "stream/had_bought_contact_info/self" , {trigger: true} );
         },
 
         //消费记录
         showPatmentRecord: function() {
-            window.router.navigate( "/#payment_record/self" , {trigger: true}  );
+            window.router.navigate( "payment_record/self" , {trigger: true}  );
         },
 
         showCoupons: function() {
-            window.router.navigate( "/#coupons/self" , {trigger: true} );
+            window.router.navigate( "coupons/self" , {trigger: true} );
         },
 
         showBuyCoin: function() {
-            window.router.navigate( "/#buy_coin" , {trigger: true} );
+            window.router.navigate( "buy_coin" , {trigger: true} );
         },
 
         showMsgs: function() {
             //清空新消息的计数
             window.localStorage.setItem( "petal:new_msgs_count" , "0" );
-            window.router.navigate( "/#msgs" , {trigger: true} );
+            window.router.navigate( "msgs" , {trigger: true} );
         },
 
         showService: function() {
-            window.router.navigate( "/#service" , {trigger: true} );
+            window.router.navigate( "service" , {trigger: true} );
         },
 
         render: function() {

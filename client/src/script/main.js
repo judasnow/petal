@@ -45,6 +45,5 @@ require([
 ] ,
 function( app ) {
 
-    console.log( "call app" );
     app.initialize();
 });

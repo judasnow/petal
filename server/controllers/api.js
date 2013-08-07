@@ -541,10 +541,12 @@ api.getNewVisitors = function( req , res ) {
     );
 }//}}}
 
-//检查 email 是否可用
+//检查  email 是否可用
 //检查 nickname 是否可用
 
 api.reg = function( req , res ) {
+//{{{
+    var userId = req.param( "user_id" , "" );
     var username = req.param( "username" , "" );
     var nickname = req.param( "nickname" , "" );
     var password = req.param( "password" , "" );
@@ -557,13 +559,14 @@ api.reg = function( req , res ) {
 
     helper.req2hb123(
         "post" ,
-        "about=user&action=reg&username=" + username + 
-            "&nickname=" + nickname + 
-            "&password=" + password ,
+        "about=user&action=reg&username=" + username +
+            "&nickname=" + nickname +
+            "&password=" + password +
+            "&user_id=" + userId ,
 
         ok
     );
-};
+};//}}}
 
 return api;
 

@@ -153,10 +153,7 @@ function(
             //backbone router
             var router = new Router();
             window.router = router;
-            Backbone.history.start({
-                pushState: true, 
-                hashChange: true
-            });
+            Backbone.history.start();
 
             //到这里加载完成
             console.log( "after router" );

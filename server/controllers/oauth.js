@@ -88,7 +88,15 @@ oauth.redirect = function( req , res ) {
                                     throw new Error( "fetch user_info error" );
                                 }
                                 var userInfo = JSON.parse( body );
-                                console.dir( userInfo )
+
+                                _oauthLogin({
+                                    uid: openid ,
+                                    nickname: userInfo.nickname ,
+                                    access_token: accessToken ,
+                                    type: "qq" ,
+                                    res: res
+                                });
+
                             }
                         )
                     }
@@ -102,19 +110,75 @@ oauth.redirect = function( req , res ) {
                 needle.get(
                     oauthConfig.userInfoUrl + "access_token=" + accessToken + "&uid=" + userId , 
                     function( err , getRes , body ) {
-                       console.dir( body );
+                        var bodyObj = JSON.parse( body );
+                        var nickname = bodyObj.screen_name;
+
+                        //@weibo 内部的用户id
+                        var uid = userId;
+
+                        _oauthLogin({
+                            uid: userId ,
+                            nickname: nickname ,
+                            access_token: accessToken ,
+                            type: "weibo" ,
+                            res: res
+                        });
                     }
                 );
             }
 
             if( type === "renren" ) {
                 var postResObj = JSON.parse( body );
-                console.dir( postResObj )
-            }
+                var userInfo = postResObj.user;
+                var userId = userInfo.id;
+                var nickname = userInfo.name;
+                var accessToken = postResObj.access_token;
 
+                _oauthLogin({
+                    uid: userId ,
+                    nickname: nickname ,
+                    access_token: accessToken ,
+                    type: "renren" ,
+                    res: res
+                });
+            }
         }
     );
 };
+
+var _oauthLogin = function( args ) {
+    var uid = args.uid
+        , nickname = args.nickname 
+        , accessToken = args.access_token 
+        , type = args.type 
+        , res = args.res;
+
+    //提交到 huaban123.com 服务器 获取 user_id
+    var ok = function( dataObj ) {
+        if( dataObj.code === "200" ) {
+            var userId = dataObj.user_id;
+            if( dataObj.bind === "true" ) {
+                //已经绑定的 直接登录
+                res.redirect( "/#login/" + userId );
+            }
+            if( dataObj.bind === "false" ) {
+                //没有绑定的情况 跳转到 reg 页面
+                //@TODO 使用 base64 处理一下 url
+                res.redirect( "/#reg/" + userId + "/" + encodeURIComponent( nickname ) );
+            }
+        }
+    };
+
+    helper.req2hb123(
+        "post" ,
+        "about=user&action=oauth_login&uid=" + uid + 
+            "&nickname=" + nickname +
+            "&access_token=" + accessToken +
+            "&oauth_type=" + type ,
+
+        ok
+    );
+}
 
 return oauth;
 

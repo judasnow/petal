@@ -4,11 +4,11 @@
 //因此配置文件也是独立的
 
 //{{{
-//setInterval( function(){
-//    window.localStorage.setItem( "http://172.17.0.46/src/style/less/main.less:timestamp" , "" );
-//}, 3000 );
-//less.env = "development";
-//less.watch();
+setInterval( function(){
+    window.localStorage.setItem( "http://172.17.0.46/src/style/less/main.less:timestamp" , "" );
+}, 3000 );
+less.env = "development";
+less.watch();
 //}}}
 
 //appCache
@@ -171,7 +171,7 @@ var wx_login = function() {
 //{{{
     var username =  window.location.hash.replace( /^\#/ , "" ).replace( /^\!/ , "" );
     login( 
-        username , 
+        username ,
         "huaban123" , 
         function() {
 
@@ -300,22 +300,25 @@ var init = function() {
         var routeByHash = function() {
             var hash = locationLocal.hash;
 
-            //根据 hash 进行不同的操作
-            switch( hash ) {
-                case "#login":
-                    //显示登录页面
-                    $login.show();
-                    $reg.hide();
-                    break;
-                case "#reg":
-                    //显示注册页面
-                    $login.hide();
-                    $reg.show();
-                    break;
-                default:
-                    //尝试 wx 登录
-                    wx_login();
-                    break;
+            if( hash.match( /^#login.*/ ) ) {
+                //显示登录页面
+                $login.show();
+                $reg.hide();
+            } else if( hash.match( /^#reg.*/ ) ) {
+                if( hash !== "#reg" ) {
+                    var hashArray = hash.split( "/" );
+                    var userId = hashArray[1];
+                    var nickname = hashArray[2];
+                    $reg.find( ".user_id" ).val( userId );
+                    $reg.find( ".nickname" ).val( decodeURIComponent( nickname ) );
+                }
+
+                $login.hide();
+                $reg.show();
+
+            } else {
+                //尝试 wx 登录
+                wx_login();
             }
         };
 
