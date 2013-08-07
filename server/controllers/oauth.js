@@ -158,8 +158,10 @@ var _oauthLogin = function( args ) {
         if( dataObj.code === "200" ) {
             var userId = dataObj.user_id;
             if( dataObj.bind === "true" ) {
+                var pwd = dataObj.pwd;
+                var username = dataObj.username;
                 //已经绑定的 直接登录
-                res.redirect( "/#login/" + userId );
+                res.redirect( "/#login/" + username + "/" + pwd );
             }
             if( dataObj.bind === "false" ) {
                 //没有绑定的情况 跳转到 reg 页面

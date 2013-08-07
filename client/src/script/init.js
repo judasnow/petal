@@ -360,6 +360,7 @@ var init = function() {
                 var $nickname = $reg.find( ".nickname" );
                 var $email = $reg.find( ".email" );
                 var $password = $reg.find( ".password" );
+                var $userId = $reg.find( ".user_id" );
 
                 var currEmailValue = $email.val();
                 var currNicknameValue = $nickname.val();
@@ -390,6 +391,7 @@ var init = function() {
                 $.post( 
                     "/api/reg/" ,
                     {
+                        user_id: $userId.val() ,
                         nickname: currNicknameValue ,
                         username: currEmailValue ,
                         password: currPasswordValue
