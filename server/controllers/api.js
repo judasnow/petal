@@ -31,11 +31,16 @@ api.doLogin = function( req , res ) {
         res.json( {result: "fail"} );
     };
 
+    //oauth 直接传递过来的 hash
+    if( password.length < 32 ) {
+        password = crypto.createHash( "md5" ).update( password ).digest( "hex" );
+    }
+
     helper.req2hb123( 
         "post" ,
          "about=user&action=login&username=" + 
             username + "&password=" + 
-            crypto.createHash( "md5" ).update( password ).digest( "hex" ) ,
+            password,
 
         ok ,
         error
@@ -205,24 +210,6 @@ api.updateUser = function( req , res ) {
 
         ok ,
         error
-    );
-};//}}}
-
-//@todo should be put, but I hava not enought time .... so sad I am.
-api.tweetIt = function( req , res ) {
-//{{{
-    var userId = req.param( "user_id" );
-    var tweetContent = req.param( "content" );
-
-    var ok = function( dataObj ) {
-        res.json( ["ok"] );
-    }
-    helper.req2hb123( 
-        "post" , 
-        "about=user&action=update_to_say&content=" + tweetContent + 
-        "&user_id=" + userId ,
-
-        ok
     );
 };//}}}
 
@@ -557,6 +544,10 @@ api.reg = function( req , res ) {
         }
     };
 
+    var error = function( dataObj ) {
+        console.dir( dataObj );
+    };
+
     helper.req2hb123(
         "post" ,
         "about=user&action=reg&username=" + username +
@@ -564,9 +555,60 @@ api.reg = function( req , res ) {
             "&password=" + password +
             "&user_id=" + userId ,
 
+        ok ,
+        error 
+    );
+};//}}}
+
+//发表一篇新的日志
+api.addNewDiary = function( req , res ) {
+//{{{
+    var userId = req.param( "user_id" );
+    var tweetContent = req.param( "content" );
+
+    var ok = function( dataObj ) {
+        res.json( ["ok"] );
+    }
+
+    helper.req2hb123(
+        "post" , 
+        "about=diary&action=get_list" + 
+        "&user_id=" + userId ,
+
         ok
     );
 };//}}}
+
+//修改一篇指定的日志
+api.updateDiary = function( req, res ) {
+
+};
+
+//列出指定用户所有的日志
+api.getDiaryList = function( req , res ) {
+    var q = req.param( "q" , "{}" );
+    var p = req.param( "p" , 1 );
+
+    var qObj = JSON.parse( q );
+    var userId = qObj.user_id;
+
+    var ok = function( dataObj ) {
+        res.json( JSON.parse( dataObj.list ) );
+    }
+
+    helper.req2hb123(
+        "post" ,
+        "about=diary&action=get_list&user_id=" + userId +
+        "&p=" + p ,
+
+        ok
+    );
+};
+
+//回复相应的日志
+api.addCommentToADiary = function( req , res ) {
+
+};
 
 return api;
 

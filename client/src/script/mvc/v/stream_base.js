@@ -51,24 +51,26 @@ function(
             this.coll.bind( "reset" , this.addAll );
             this.fetchMore();
 
-            this.$fetchMore = this.$el.find( ".fetch_more" );
             this.listenTo( this.$fetchMore , "tap" , this.fetchMore );
         },//}}}
 
         addAll: function() {
+        //{{{
             this.coll.each( this.addOne );
-        },
+        },//}}}
 
         addOne: function( item ) {
+        //{{{
             var itemView = new this.ItemView({ model: item });
             this.$items.append( itemView.render().el );
-        },
+        },//}}}
 
         fetchOk: function( coll , res ) {
         //{{{
             if( coll.length > 0 ) {
                 this.isFetching = false;
                 this.firstFetch = false;
+                this.$fetchMore.addClass( "disable" ).html( "加载更多" );
             } else {
                 //如果是首次自动的加载 一条记录都没有 则
                 //提示用户
@@ -79,7 +81,7 @@ function(
                 } else {
                     window.updateSysNotice( "没有更多了" );
                     this.stopListening( this.$fetchMore , "tap" , this.fetchMore );
-                    this.$fetchMore.addClass( "disable" ).text( "没有更多了" );
+                    this.$fetchMore.addClass( "disable" ).html( "没有更多了" );
                 }
             }
         },//}}}
@@ -95,6 +97,8 @@ function(
             if( this.isFetching === true ) {
                 return false;
             }
+            this.$fetchMore = this.$el.find( ".fetch_more" );
+            this.$fetchMore.html( '<i class="icon-spinner icon-spin icon-large"></i>' );
             this.isFetching = true;
             this.coll.fetch({
                 data: {

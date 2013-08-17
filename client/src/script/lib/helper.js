@@ -35,6 +35,7 @@ function(){
     };//}}}
 
     helper.setCheckByValue = function( $div , value ) {
+    //{{{
         if( typeof value === "undefined" ) {
             return;
         }
@@ -52,7 +53,7 @@ function(){
                 }
             }
         );
-    };
+    };//}}}
     
     helper.getCheckLabel = function( $div ) {
         var checkLabelTexts = $div.find( ".icon-check" ).parent().find( ".text" );
@@ -112,6 +113,10 @@ function(){
                 $(el).attr( "src" , $img.attr( "origin_src" ) );
             }
         );
+    };
+
+    helper.removeHTMLTag = function( str ) {
+        return str.replace(/<\/?[^>]*>/g,'').replace(/[ | ]*\n/g,'\n').replace(/&nbsp;/ig,'');//去掉&nbsp;
     }
 
     return helper;

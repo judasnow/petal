@@ -23,6 +23,7 @@ function(
 
         events: {
             "tap .add_picture": "openFileSelectDialog" ,
+            "tap .do_upload": "doUpload" ,
             "change .user_upload_picture_input": "fileNameChanged"
         } ,
  
@@ -40,6 +41,25 @@ function(
 
             this.files = [];
             this.userPictureBoxTpl = $( "#user_picture_box_tpl" ).html();
+        } ,//}}}
+
+        doUpload: function() {
+        //{{{
+            var userId = window.objectUser.get( "UserId" );
+
+            //@todo 目前来说发送错误是没有提示的
+            if( typeof this.files !== "undefined" ) {
+                //没有找到一次发送全部文件的方法 只能一次发送一张
+                //base64 发送
+                for( var i = 0 ; i < this.files.length ; i++ ) {
+                    var xhr = new XMLHttpRequest();
+                    var formData = new FormData();
+                    formData.append( "user_upload_picture" , this.files[i] );
+                    formData.append( "user_id" , userId );
+                    xhr.open( "POST" , "/api/upload_files" );
+                    xhr.send( formData );
+                }
+            }
         } ,//}}}
 
         openFileSelectDialog: function() {

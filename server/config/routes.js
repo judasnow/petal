@@ -10,7 +10,6 @@ module.exports = function( app , config ) {
     app.post( "/api/upload_files" , api.uploadFiles );
     app.post( "/api/user/" , api.updateUser );
     app.get( "/api/user/" , api.getUser );
-    app.post( "/api/tweet_it/" , api.tweetIt );
     app.get( "/api/should_display_contact_info/" , api.shouldDisplayContactInfo );
     app.get( "/api/update_brower_status/" , api.updateBrowerStatus );
     app.post( "/api/reg/" , api.reg );
@@ -41,4 +40,7 @@ module.exports = function( app , config ) {
     //oauth
     app.get( "/oauth/authorize/:type" , oauth.authorize );
     app.get( "/oauth/redirect/:type" , oauth.redirect );
+
+    //diary
+    app.get( "/api/diaries" , api.getDiaryList );
 }

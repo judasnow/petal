@@ -301,9 +301,19 @@ var init = function() {
             var hash = locationLocal.hash;
 
             if( hash.match( /^#login.*/ ) ) {
-                //显示登录页面
-                $login.show();
-                $reg.hide();
+                if( hash === "#login" ) {
+                    //显示登录页面
+                    $login.show();
+                    $reg.hide();
+                } else {
+                    //直接登录之
+                    var hashArray = hash.split( "/" );
+                    var username = hashArray[1];
+                    var password = hashArray[2];
+                    login( username , password , function() {
+                        window.updateSysNotice( "用户名或密码错误" );
+                    });
+                }
             } else if( hash.match( /^#reg.*/ ) ) {
                 if( hash !== "#reg" ) {
                     var hashArray = hash.split( "/" );
@@ -398,7 +408,8 @@ var init = function() {
                     } ,
                     function( data ) {
                         var dataObj = JSON.parse( data );
-                            if( typeof dataObj.user_id !== "undefined" && dataObj.user_id  !== "" ) {
+                        if( typeof dataObj.user_id !== "undefined" && dataObj.user_id  !== "" ) {
+
                             //注册成功 拼接 userinfo 对象存放到用户浏览器中
                             var userInfo = {
                                 UserId: dataObj.user_id ,

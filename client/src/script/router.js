@@ -14,7 +14,6 @@ define([
 
     "v/gift_list" ,
     "v/chat_list" ,
-    "v/tweet" ,
     "v/gifts" ,
     "v/buy_coin" ,
     "v/payment_record" ,
@@ -23,6 +22,8 @@ define([
     "v/visitors" ,
     "v/msgs" ,
     "v/service" ,
+
+    "v/diaries" ,
 
     "text!tpl/error404.html"
 ] ,
@@ -35,12 +36,11 @@ function(
     SearchView ,
     UserDetailView ,
     UpdateSelfProfileView ,
-    infoOfMakeFriendsView ,
-    uploadPictureView ,
+    InfoOfMakeFriendsView ,
+    UploadPictureView ,
 
     GiftListView ,
     ChatListView ,
-    TweetView ,
     GiftsView ,
     BuyCoinView ,
     PaymentRecordView ,
@@ -49,6 +49,8 @@ function(
     VisitorsView ,
     MsgsView ,
     ServiceView ,
+
+    DiariesView ,
 
     error404Tpl
 ) {
@@ -78,7 +80,8 @@ function(
             "info_of_make_friends": "showInfoOfMakeFriends" ,
             "upload_picture": "showUploadPicture" ,
 
-            "tweet/self": "showSelfTweet" ,
+            "diaries/:user_id": "showDiaries" ,
+            "diaries": "showDiaries" ,
 
             "gifts/self/received": "showSelfReceivedGifts" ,
 
@@ -153,34 +156,47 @@ function(
             new UpdateSelfProfileView();
         } ,//}}}
 
+        //diary
+        showDiaries: function( userId ) {
+        //{{{
+            if( typeof userId === "undefined" || userId === "" ) {
+                userId = window.objectUser.get( "UserId" );
+            }
+            new DiariesView({
+                    q: JSON.stringify({ user_id: userId }) ,
+                    hash: "#diaries/" + userId
+            });
+        },//}}}
+
         showMaritalStatus: function() {
+        //{{{
             new MaritalStatusView();
-        } ,
+        } ,//}}}
 
         showCareer: function() {
+        //{{{
             new CareerView();
-        } ,
+        } ,//}}}
 
         showWant: function() {
+        //{{{
             new WantView();
-        } ,
+        } ,//}}}
 
         showOffer: function() {
+        //{{{
             new OfferView();
-        } ,
+        } ,//}}}
 
         showInfoOfMakeFriends: function() {
-            new infoOfMakeFriendsView();
-        } ,
+        //{{{
+            new InfoOfMakeFriendsView();
+        } ,//}}}
 
         showUploadPicture: function() {
-            new uploadPictureView();
-        } ,
-
-        showSelfTweet: function() {
         //{{{
-            new TweetView();
-        },//}}}
+            new UploadPictureView();
+        } ,//}}}
 
         showSelfReceivedGifts: function() {
         //{{{

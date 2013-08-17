@@ -17,7 +17,7 @@ function(
     Backbone ,
     Mustache ,
 
-    Msgs ,
+    msgs ,
 
     msgItemView ,
     StreamBase ,

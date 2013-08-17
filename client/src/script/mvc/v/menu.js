@@ -31,7 +31,7 @@ function(
             "tap #object_user_info": "showObjectUserHome" ,
             "tap .stream_same_city": "showSameCityStream" ,
             "tap .search": "showSearch" ,
-            "tap .tweet": "showTweet" ,
+            "tap .diary": "showDiary" ,
             "tap .gifts": "showGifts" ,
             "tap .had_bought_contact_info": "showHadBoughtContactInfo" ,
             "tap .msgs": "showMsgs" ,
@@ -67,9 +67,8 @@ function(
             window.router.navigate( "stream" , {trigger: true} );
         } ,
 
-        //发表今日说说
-        showTweet: function() {
-            window.router.navigate( "tweet/self" , {trigger: true} );
+        showDiary: function() {
+            window.router.navigate( "diaries" , {trigger: true} );
         } ,
 
         showGifts: function() {
@@ -114,7 +113,7 @@ function(
                 Mustache.to_html(
                     this.template ,
                     this.model.toJSON()
-                ) 
+                )
             );
             helper.showImage( this.$el.find( "img" ) );
             window.updateMenuNotice();
