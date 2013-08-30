@@ -9,11 +9,13 @@
     <span class="sub_item nickname color_by_sex {{#isFemale}}famale{{/isFemale}}">{{NickName}}</span>
     <div class="sub_item">
         <span class="title">{{Title}}</span>
-        <span class="summary">{{summary}}</span>
+        <span class="summary">{{summary}}({{commentCount}}/{{ClickCount}})</span>
     </div>
+    <div class="sub_item time"> {{time}}</div>
 </div>
 
+<span class="diary_id" >{{DId}}</span>
+
 <div class="func">
-    <span class="btn small_btn comment">评论</span>
     <span class="btn small_btn modify">修改</span>
 </div>

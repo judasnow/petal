@@ -20,16 +20,28 @@ function(
 
     var diaryView = Backbone.View.extend({
         className: "item" ,
+
         template: diaryTpl ,
 
         events: {
-        
+            "tap": "goToDetail"
         },
 
         initialize: function() {
+        //{{{
             
-        } ,
+        } ,//}}}
 
+        goToDetail: function() {
+        //{{{
+            var $diaryId = this.$el.find( ".diary_id" );
+            var diaryId = $diaryId.text();
+            if( isNaN( diaryId ) ) {
+                return;
+            } else {
+                window.router.navigate( "diary_detail/" + diaryId , {trigger: true} );
+            }
+        } ,//}}}
         
         render: function() {
         //{{{

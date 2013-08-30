@@ -10,12 +10,12 @@
 //{{{
 .btn {
     border-radius: 6px;
-    background: #b583b0;
+    background: lighten(#b583b0,10%);
     display: inline-block;
     padding: 2px 4px;
     font-weight: bolder;
     color: #eee;
-    box-shadow: 0px 2px 0px #96528d;
+    //box-shadow: 0px 2px 0px #96528d;
 }
 
 #jQUi .small_btn {
@@ -68,6 +68,26 @@
 //}}}
 
 
+.gravatar_box( @size ) {
+    overflow: hidden;
+    float: left;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    width: @size;
+    height: @size;
+    margin-right: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
+}
+
+.gravatar( @size , @addtion_size ) {
+    @img_real_size: @size + @addtion_size;
+    @margin: -( @addtion_size / 2 );
+    margin-left: @margin;
+    margin-top: @margin;
+    max-width: @img_real_size;
+    max-height: @img_real_size;
+}
+
 @import "stream_base";
 
 @import "menu";
@@ -86,6 +106,8 @@
 @import "service";
 @import "coupons";
 @import "diaries";
+@import "add_new_diary";
+@import "diary_detail";
     
 body{
     font-size: 13px;

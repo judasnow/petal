@@ -43,4 +43,8 @@ module.exports = function( app , config ) {
 
     //diary
     app.get( "/api/diaries" , api.getDiaryList );
+    app.get( "/api/diary" , api.getDiaryDetail );
+    app.post( "/api/diary" , api.addNewDiary );
+    app.get( "/api/diary_comments" , api.getCommentListByDiaryId );
+    app.post( "/api/add_new_comment" , api.addCommentToADiary );
 }

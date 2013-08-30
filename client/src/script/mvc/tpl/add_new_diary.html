@@ -1,8 +1,17 @@
-<div class="item {{role}}">
-    <img class="gravatar" origin_src="http://www.huaban123.com/UploadFiles/UHP/MIN/{{SrcHeadPic}}" alt="{{sexInEnglish}}"/>
-    <div class="chat_content">
-        {{Content}}
-        <span class="time">{{time}}</span>
-    </div>
+<div class="item">
+    <input type="text" class="title" placeholder="日志标题"/>
 </div>
+
+<div class="item">
+    <textarea name="diary" class="content" placeholder="日志内容"></textarea>
+</div>
+
+<p class="add_new_box">
+    <span class="btn big_btn add_new">发表</span>
+</p>
+
+<header>
+<h1>写新日志</h1>
+<a style="float:left;" onclick="$.ui.goBackWithDefault()" class="button">返回</a>
+</header>
 

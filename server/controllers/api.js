@@ -563,17 +563,20 @@ api.reg = function( req , res ) {
 //发表一篇新的日志
 api.addNewDiary = function( req , res ) {
 //{{{
-    var userId = req.param( "user_id" );
-    var tweetContent = req.param( "content" );
+    var userId = req.param( "user_id" , "" );
+    var title = req.param( "title" , "" );
+    var content= req.param( "content" , "" );
 
     var ok = function( dataObj ) {
-        res.json( ["ok"] );
+        res.json( {result: "ok"} );
     }
 
     helper.req2hb123(
         "post" , 
-        "about=diary&action=get_list" + 
-        "&user_id=" + userId ,
+        "about=diary&action=add_new" + 
+        "&user_id=" + userId + 
+        "&title=" + title + 
+        "&content=" + content ,
 
         ok
     );
@@ -581,11 +584,38 @@ api.addNewDiary = function( req , res ) {
 
 //修改一篇指定的日志
 api.updateDiary = function( req, res ) {
+//{{{
+    
+};//}}}
 
-};
+//获取一篇日志的信息
+api.getDiaryDetail = function( req , res ) {
+//{{{
+    var diaryId = req.param( "diary_id" , "" );
+
+    var ok = function( dataObj ) {
+        //这里需要将返回的信息进行一个整合 因为返回的信息之中有 user_info
+        var diaryInfo = JSON.parse( dataObj.detail );
+        var userInfo = JSON.parse( dataObj.user_info );
+
+        diaryInfo.HeadPic = userInfo.HeadPic;
+        diaryInfo.Sex = userInfo.Sex;
+
+        res.json( diaryInfo );
+    };
+
+    helper.req2hb123(
+        "post" ,
+        "about=diary&action=detail&diary_id=" + diaryId ,
+
+        ok
+    );
+
+};//}}}
 
 //列出指定用户所有的日志
 api.getDiaryList = function( req , res ) {
+//{{{
     var q = req.param( "q" , "{}" );
     var p = req.param( "p" , 1 );
 
@@ -603,12 +633,52 @@ api.getDiaryList = function( req , res ) {
 
         ok
     );
-};
+};//}}}
 
 //回复相应的日志
 api.addCommentToADiary = function( req , res ) {
+//{{{
+    var diaryId = req.param( "diary_id" , "" );
+    var comment = req.param( "comment" , "" );
+    var targetUserId = req.param( "target_user_id" , "" );
+    var userId = req.param( "user_id" , "" );
+    var nickname = req.param( "nickname" , "" );
 
-};
+    var ok = function( dataObj ) {
+        if( dataObj.code === "200" ) {
+            res.json( {result: "ok"} );
+        }
+    };
+
+    helper.req2hb123(
+        "get" ,
+        "about=diary&action=comment&diary_id=" + diaryId + 
+        "&user_id=" + userId + 
+        "&nickname=" + nickname +
+        "&comment=" + comment +
+        "&target_user_id=" + targetUserId ,
+
+        ok
+    );
+};//}}}
+
+api.getCommentListByDiaryId = function( req , res ) {
+//{{{
+    var diaryId = req.param( "diary_id" , "" );
+    var p = req.param( "p" , 1 );
+
+    var ok = function( dataObj ) {
+        res.json( JSON.parse( dataObj.list ) );
+    };
+
+    helper.req2hb123(
+        "get" ,
+        "about=diary&action=get_comments_list&diary_id=" + diaryId + 
+        "&p=" + p,
+
+        ok
+    );
+};//}}}
 
 return api;
 

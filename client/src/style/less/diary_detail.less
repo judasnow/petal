@@ -1,0 +1,87 @@
+#diary_detail {
+    .item {
+        .base_item;
+        font-size: 14px;
+        border-bottom: 1px solid #e2e2e2;
+        .sub_title {
+            color: #1b99d7;
+        }
+    }
+    .text {
+        line-height: 161.8%;
+    }
+    .title {
+        font-weight: bolder;
+    }
+    .content {
+        min-height: 120px;
+    }
+    .gravatar_box {
+        .stream_base > .gravatar_box;
+        margin: 0 8px 8px 0;
+        line-height: 161.8%;
+    }
+    .gravatar {
+        .stream_base > .gravatar;
+    }
+
+    .header {
+        .gravatar_box {
+            margin: 0 auto;
+            float: none;
+            background-clip: padding-box;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            -webkit-transition: opacity .4s ease-in-out;
+        }
+        text-align: center;
+        background: #efefef;
+        box-shadow: inset 0 1px 0 #e2e2e2;
+    }
+
+    .comments {
+        .sub_item {
+            @image_size: 48px;
+            .gravatar_box {
+                .gravatar_box( @image_size );
+                margin-right: 8px;
+            }
+            .gravatar {
+                .gravatar( @image_size , 24px );
+            }
+
+            margin-top: 4px;
+            border-bottom: 1px dashed #ddd;
+            display: inline-block;
+            width: 100%;
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            .text {
+                display: inline-block;
+                line-height: 161.8%;
+                float: left;
+                max-width: 240px;
+            }
+
+            .sub_item {
+                clear: both;
+                float: right;
+                display: inline-block;
+            }
+
+            .func {
+                .sub_item;
+                margin-bottom: 4px;
+            }
+
+            .time {
+                .sub_item;
+                color: #999;
+            }
+        }
+    }
+}
+

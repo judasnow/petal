@@ -56,14 +56,16 @@ function(){
     };//}}}
     
     helper.getCheckLabel = function( $div ) {
+    //{{{
         var checkLabelTexts = $div.find( ".icon-check" ).parent().find( ".text" );
         return _.reduce( checkLabelTexts , function( memo , text  ) {
             var $text = $( text );
             return memo + " " + $text.text();
         } , "" );
-    };
+    };//}}}
 
     //调整时区 并格式化时间
+    //传入的时间串为空时 会直接使用当前的本地时间
     helper.resetTime = function( dateString ) {
     //{{{
         //进行一个时区的转换 需要减去 8 小时

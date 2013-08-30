@@ -16,16 +16,20 @@ function(
         url: "/api/diary",
 
         initialize: function() {
-            this.set( "Content" , helper.removeHTMLTag( this.get( "Content" ) ) );
+            var content = this.get( "Content" );
 
-            this.set(
-                "summary" ,
-                (function( content ) {
-                    return content.length > 20 ?
-                        content.substring( 0 , 20 ) + "..." :
-                        content;
-                })( this.get( "Content" ) )
-            );
+            if( typeof content !== "undefined" && content !== "" ) {
+                this.set( "Content" , helper.removeHTMLTag( this.get( "Content" ) ) );
+
+                this.set(
+                    "summary" ,
+                    (function( content ) {
+                        return content.length > 20 ?
+                            content.substring( 0 , 20 ) + "..." :
+                            content;
+                    })( this.get( "Content" ) )
+                );
+            }
 
             this.set( "sexInEnglish" , this.get( "Sex" ) === "男" ? "male" : "female" );
 
@@ -34,6 +38,8 @@ function(
             } else {
                 this.set( "isFemale" , false );
             }
+
+            this.set( "time" , helper.resetTime( this.get( "CreatAt" ) ) );
         }
     });
 
