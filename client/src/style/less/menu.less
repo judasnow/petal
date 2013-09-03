@@ -4,18 +4,21 @@
     background: #342a33;
 }
 #object_user_info {
-    @gravatar_size: 48px;
     height: 96px;
     vertical-align: middle;
     padding-left: @panel_padding_left;
     padding-top: 18px;
     border-bottom: 1px solid #3a2e39;
-    .gravatar {
-        width: @gravatar_size;
-        height: @gravatar_size;
-        float: left;
-        border-radius: 4px;
+    
+    @image_size: 48px;
+    .gravatar_box {
+        .gravatar_box( @image_size );
+        border: 0;
     }
+    .gravatar {
+        .gravatar( @image_size , 32px );
+    }
+
     .nickname {
         @font_size: 16px;
         font-size: @font_size;

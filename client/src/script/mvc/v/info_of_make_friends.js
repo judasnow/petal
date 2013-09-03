@@ -51,6 +51,7 @@ function(
 
         doUpdate: function() {
         //{{{
+            var userId = window.objectUser.get( "UserId" );
             var purpose = helper.getCheckLabel( this.$purposeItem );
             var looks = helper.getCheckLabel( this.$looksItem );
             var character = helper.getCheckLabel( this.$characterItem );
@@ -61,7 +62,7 @@ function(
             $.post(
                 "/api/user/" ,
                 {
-                    user_id: window.objectUser.get( "UserId" ) ,
+                    user_id: userId ,
                     purpose: purpose ,
                     looks: looks ,
                     character: character ,
@@ -70,7 +71,15 @@ function(
                     zwms: zwms
                 } ,
                 function( data ) {
-                    console.dir( data )
+                    var dataObj = JSON.parse( data );
+                    var msg = "更新失败,请稍后再试一次";
+
+                    if( dataObj.result === "ok" ) {
+                        helper.reCalcInfoPercent( userId );
+                        msg = "更新成功";
+                    }
+                    
+                    window.updateSysNotice( msg );
                 }
             );
         } ,//}}}

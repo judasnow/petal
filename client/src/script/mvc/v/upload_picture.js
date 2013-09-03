@@ -56,6 +56,7 @@ function(
                     var formData = new FormData();
                     formData.append( "user_upload_picture" , this.files[i] );
                     formData.append( "user_id" , userId );
+                    xhr.onload = function() { window.updateSysNotice( "上传成功" ) };
                     xhr.open( "POST" , "/api/upload_files" );
                     xhr.send( formData );
                 }
@@ -85,7 +86,7 @@ function(
             if( files.length > 0 ) {
                 var file = files[0];
                 if( file.size > 2048000 ) {
-                    alert( "上传的图片太大了,图片大小不能超过 2M" );
+                    window.updateSysNotice( "上传的图片太大了,图片大小不能超过 2M" );
                     return;
                 }
 

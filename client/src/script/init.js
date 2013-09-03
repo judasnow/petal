@@ -64,6 +64,7 @@ var initLocalData = function() {
     window.localStorage.setItem( "petal:is_new_login" , "true" );
     window.localStorage.setItem( "petal:root_msg_id" , "0" );
     window.localStorage.setItem( "petal:send_msg_target_user_id" , "" );
+    window.localStorage.setItem( "petal:info_percent_fullfill" , 0 );
 };//}}}
 
 //系统通知
@@ -112,7 +113,7 @@ $.ui.addOrUpdateDiv = function( id , content , showFooter ) {
 $.ui.goBackWithDefault = function() {
 //{{{
     if( $.ui.history.length === 1 ) {
-        window.router.navigate( "/#stream" , {trigger: true} );
+        window.router.navigate( "stream" , {trigger: true} );
     } else {
         $.ui.goBack();
         //读取当前的 hash 并且 trigger it
@@ -409,8 +410,9 @@ var init = function() {
                     } ,
                     function( data ) {
                         var dataObj = JSON.parse( data );
-                        if( typeof dataObj.user_id !== "undefined" && dataObj.user_id  !== "" ) {
 
+                        if( typeof dataObj.user_id !== "undefined" && dataObj.user_id  !== "" ) {
+                            //oauth 注册
                             //注册成功 拼接 userinfo 对象存放到用户浏览器中
                             var userInfo = {
                                 UserId: dataObj.user_id ,
@@ -422,15 +424,18 @@ var init = function() {
                             //重定向到首页
                             window.location.href = "/";
                         } else {
+                            //没有返回 user_id 看作注册操作失败
                             var msg = "注册失败，请稍后再试一次";
+
                             switch( dataObj.msg ) {
-                                case "usename invalid":
+                                case "username invalid":
                                     msg = "用户名不可用,请重新输入";
                                     break;
                                 case "nickname invalid":
                                     msg = "昵称不可用,请重新输入";
                                     break;
                             }
+
                             window.updateSysNotice( msg );
                         }
                     }

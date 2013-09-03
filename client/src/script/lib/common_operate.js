@@ -120,7 +120,7 @@ function(
             return;
         } else {
             window.router.navigate(
-                "/#user_detail/" + userId,
+                "user_detail/" + userId,
                 {
                     trigger: true
                 }
@@ -132,7 +132,7 @@ function(
     commonOperate.insufficientCoinHandle = function() {
     //{{{
         window.updateSysNotice( "金币余额不足" );
-        window.router.navigate( "/#buy_coin" , { trigger: true } );
+        window.router.navigate( "buy_coin" , { trigger: true } );
     };//}}}
 
     //根据用户的信息初始化页面上的地址选项
@@ -163,7 +163,7 @@ function(
                      window.localStorage.setItem( "petal:root_msg_id" , dataObj.root_msg_id );
                      window.localStorage.setItem( "petal:send_msg_target_user_id" , objectUser.get( "UserId" ) );
 
-                     window.router.navigate( "/#chat_list" , {trigger: true} );
+                     window.router.navigate( "chat_list" , {trigger: true} );
                  }
              },
 
@@ -171,7 +171,7 @@ function(
                  window.localStorage.setItem( "petal:root_msg_id" , 0 );
                  window.localStorage.setItem( "petal:send_msg_target_user_id" , that.model.get( "UserId" ) );
 
-                 window.router.navigate( "/#chat_list" , {trigger: true} );
+                 window.router.navigate( "chat_list" , {trigger: true} );
              }
         );
     };//}}}

@@ -17,8 +17,7 @@ function(
         url: "/api/diary_comment",
 
         initialize: function() {
-            this.set( "time" , helper.resetTime( this.get( "CreatAt" ) ) );
-
+            this.set( "time" , helper.resetTime( this.get( "CreateAt" ) ) );
             this.set( "sexInEnglish" , this.get( "Sex" ) === "男" ? "male" : "female" );
         }
     });

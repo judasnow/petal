@@ -1,57 +1,61 @@
 .base_item {
   font-size: 18px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #b4bbc1;
   padding: 16px 8px;
   display: inline-block;
   width: 100%;
 }
 .btn {
-  border-radius: 8px;
-  background: #b6a1b5;
+  border-radius: 6px;
+  background: #c8a3c4;
   display: inline-block;
   padding: 2px 4px;
-  color: #fff;
+  font-weight: bolder;
+  color: #eee;
 }
 #jQUi .small_btn {
-  border-radius: 8px;
-  background: #b6a1b5;
+  border-radius: 6px;
+  background: #c8a3c4;
   display: inline-block;
   padding: 2px 4px;
-  color: #fff;
+  font-weight: bolder;
+  color: #eee;
 }
 #jQUi .big_btn {
-  border-radius: 8px;
-  background: #b6a1b5;
+  border-radius: 6px;
+  background: #c8a3c4;
   display: inline-block;
   padding: 2px 4px;
-  color: #fff;
-  font-size: 120%;
-  padding: 16px 32px;
+  font-weight: bolder;
+  color: #eee;
+  font-size: 110%;
+  padding: 9px 18px;
 }
 #jQUi .normal_btn {
-  border-radius: 8px;
-  background: #b6a1b5;
+  border-radius: 6px;
+  background: #c8a3c4;
   display: inline-block;
   padding: 2px 4px;
-  color: #fff;
+  font-weight: bolder;
+  color: #eee;
   padding: 8px 16px;
 }
 #jQUi .input {
   border: 0;
-  background: #ddd;
-  border-radius: 8px;
-  border: 1px solid #bbb;
-  font-size: 16px;
-  height: 32px;
+  background: #fafafa;
+  border-radius: 4px;
+  border: 1px solid #bbb9bf;
+  font-size: 14px;
+  height: 28px;
   width: 100%;
 }
 #jQUi select {
   border: 0;
-  background: #ddd;
-  border-radius: 8px;
-  border: 1px solid #bbb;
-  font-size: 16px;
-  height: 32px;
+  background: #fafafa;
+  border-radius: 4px;
+  border: 1px solid #bbb9bf;
+  font-size: 14px;
+  height: 28px;
   width: 100%;
   width: 96px;
   margin: 0 8px;
@@ -61,20 +65,20 @@
 #jQUi input {
   padding: 24px 8px;
   border: 0;
-  background: #ddd;
-  border-radius: 8px;
-  border: 1px solid #bbb;
-  font-size: 16px;
-  height: 32px;
+  background: #fafafa;
+  border-radius: 4px;
+  border: 1px solid #bbb9bf;
+  font-size: 14px;
+  height: 28px;
   width: 100%;
 }
 #jQUi textarea {
   border: 0;
-  background: #ddd;
-  border-radius: 8px;
-  border: 1px solid #bbb;
-  font-size: 16px;
-  height: 32px;
+  background: #fafafa;
+  border-radius: 4px;
+  border: 1px solid #bbb9bf;
+  font-size: 14px;
+  height: 28px;
   width: 100%;
   padding: 8px;
   resize: none;
@@ -94,20 +98,20 @@
 .stream_base .item {
   float: left;
   clear: both;
-  padding: 4px 2px;
+  padding: 12px 2px;
   width: 100%;
-  padding-top: 4px;
   min-height: 68px;
-  border-bottom: 1px solid #dbd3da;
+  border-bottom: 1px solid #e2e2e2;
 }
 .stream_base .gravatar_box {
   overflow: hidden;
   float: left;
   border-radius: 4px;
-  border: 1px solid #eee;
+  border: 1px solid #ddd;
   width: 64px;
   height: 64px;
   margin-right: 4px;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.07);
 }
 .stream_base .gravatar {
   margin-left: -16px;
@@ -177,11 +181,22 @@
   padding-top: 18px;
   border-bottom: 1px solid #3a2e39;
 }
-#object_user_info .gravatar {
-  width: 48px;
-  height: 48px;
+#object_user_info .gravatar_box {
+  overflow: hidden;
   float: left;
   border-radius: 4px;
+  border: 1px solid #ddd;
+  width: 48px;
+  height: 48px;
+  margin-right: 4px;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.07);
+  border: 0;
+}
+#object_user_info .gravatar {
+  margin-left: -16px;
+  margin-top: -16px;
+  max-width: 80px;
+  max-height: 80px;
 }
 #object_user_info .nickname {
   font-size: 16px;
@@ -207,33 +222,81 @@
   background: #212425;
   color: #ddd6dc;
 }
-#login {
+#auth {
   max-height: 327px;
-  display: none;
-  margin-top: 64px;
+  margin-top: 8px;
   text-align: center;
 }
-#login .title {
+#auth .title {
+  letter-spacing: 6px;
   text-rendering: optimizeLegibility;
-  font-size: 36px;
-  line-height: 36px;
-  margin-bottom: 16px;
+  font-size: 32px;
+  line-height: 32px;
+  margin-bottom: 12px;
   font-weight: bold;
   color: #a7639e;
 }
-#login .sub_title {
-  font-size: 18px;
-  line-height: 18px;
-  color: #a7639e;
+#auth .sub_title {
+  letter-spacing: 2px;
+  font-size: 16px;
+  line-height: 16px;
+  color: #c194bc;
 }
-#login .input {
+#auth .input {
   width: 80%;
 }
-#login .username {
+#auth .email {
   width: 80%;
 }
-#login .password {
+#auth .password {
   width: 80%;
+}
+#auth .nickname {
+  width: 80%;
+}
+#auth .input_error {
+  color: #f33;
+  border: 1px solid #f99;
+}
+#auth .oauth_list_box {
+  border-top: 1px dashed #ddd;
+  padding-top: 8px;
+  margin-top: 8px;
+}
+#auth .oauth_list_box .oauth_list {
+  margin-bottom: 4px;
+}
+#auth .oauth_list_box .item {
+  margin: 8px;
+  border: 2px solid #ddd;
+  border-radius: 3px;
+  padding: 2px;
+}
+#auth .email_address_list {
+  display: none;
+  position: absolute;
+  background: #eee;
+  border: 1px solid #999;
+  border-radius: 6px;
+  padding: 1px;
+  width: 256px;
+  left: 50%;
+  margin-left: -128px;
+}
+#auth .email_address_list .item {
+  background: #eee;
+  padding: 8px 0;
+  width: 100%;
+  border-bottom: 1px solid #c5c5c5;
+}
+#auth .email_address_list .item:nth-last-child(1) {
+  border: none;
+}
+#login {
+  display: none;
+}
+#reg {
+  display: none;
 }
 #stream {
   padding: 0;
@@ -249,20 +312,20 @@
 #stream .item {
   float: left;
   clear: both;
-  padding: 4px 2px;
+  padding: 12px 2px;
   width: 100%;
-  padding-top: 4px;
   min-height: 68px;
-  border-bottom: 1px solid #dbd3da;
+  border-bottom: 1px solid #e2e2e2;
 }
 #stream .gravatar_box {
   overflow: hidden;
   float: left;
   border-radius: 4px;
-  border: 1px solid #eee;
+  border: 1px solid #ddd;
   width: 64px;
   height: 64px;
   margin-right: 4px;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.07);
 }
 #stream .gravatar {
   margin-left: -16px;
@@ -381,20 +444,20 @@
 #gift_list .item {
   float: left;
   clear: both;
-  padding: 4px 2px;
+  padding: 12px 2px;
   width: 100%;
-  padding-top: 4px;
   min-height: 68px;
-  border-bottom: 1px solid #dbd3da;
+  border-bottom: 1px solid #e2e2e2;
 }
 #gift_list .gravatar_box {
   overflow: hidden;
   float: left;
   border-radius: 4px;
-  border: 1px solid #eee;
+  border: 1px solid #ddd;
   width: 64px;
   height: 64px;
   margin-right: 4px;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.07);
 }
 #gift_list .gravatar {
   margin-left: -16px;
@@ -512,7 +575,7 @@
 #input_area_box .input_area {
   height: 48px;
 }
-#input_area_box .chat_input {
+#input_area_box .input {
   float: left;
   height: 48px;
   width: 252px;
@@ -555,28 +618,185 @@
   height: 48px;
   width: 48px;
 }
+#update_self_profile .item {
+  font-size: 18px;
+  border-bottom: 1px solid #b4bbc1;
+  padding: 16px 8px;
+  display: inline-block;
+  width: 100%;
+}
+#update_self_profile .item .title {
+  font-weight: bold;
+  vertical-align: middle;
+  display: inline-block;
+  height: 28px;
+  line-height: 28px;
+}
+#update_self_profile .do_update_box {
+  text-align: center;
+}
+#update_self_profile .looks {
+  border-bottom: none;
+}
+#update_self_profile .label {
+  padding: 4px 8px;
+  color: #333;
+  background: #e9e9e9;
+  border-radius: 4px;
+  margin: 4px;
+  display: inline-block;
+  font-size: 14px;
+}
+#update_self_profile .info {
+  float: right;
+  height: 28px;
+  line-height: 28px;
+}
+#update_self_profile input {
+  height: 28px;
+  padding: 0 4px;
+  border-radius: 0;
+  border: none;
+  margin: 0;
+  background: #fff;
+  font-size: 18px;
+  border: 0;
+  color: #333;
+  width: 80%;
+  background: #e9e9e9;
+  float: right;
+  vertical-align: middle;
+}
+#marital_status .item,
+#info_of_make_friends .item,
+#want .item,
+#offer .item,
+#career .item {
+  font-size: 18px;
+  border-bottom: 1px solid #b4bbc1;
+  padding: 16px 8px;
+  display: inline-block;
+  width: 100%;
+}
+#marital_status .item .title,
+#info_of_make_friends .item .title,
+#want .item .title,
+#offer .item .title,
+#career .item .title {
+  font-weight: bold;
+  vertical-align: middle;
+  display: inline-block;
+  height: 28px;
+  line-height: 28px;
+}
+#marital_status .info,
+#info_of_make_friends .info,
+#want .info,
+#offer .info,
+#career .info {
+  float: right;
+  height: 28px;
+  line-height: 28px;
+}
+#marital_status .label,
+#info_of_make_friends .label,
+#want .label,
+#offer .label,
+#career .label {
+  padding: 4px 8px;
+  color: #333;
+  background: #e9e9e9;
+  border-radius: 4px;
+  margin: 4px;
+  display: inline-block;
+  font-size: 14px;
+}
+#marital_status .do_update_box,
+#info_of_make_friends .do_update_box,
+#want .do_update_box,
+#offer .do_update_box,
+#career .do_update_box {
+  text-align: center;
+}
+#upload_picture .user_album_box {
+  background: #e9e9e9;
+  text-align: center;
+  width: 100%;
+}
+#upload_picture .user_album {
+  width: 320px;
+  display: inline-block;
+  min-height: 102px;
+  padding: 4px;
+  text-align: center;
+}
+#upload_picture .user_album .user_picture_box {
+  text-align: center;
+  margin: 4px;
+  float: left;
+  width: 96px;
+  height: 96px;
+  border: 1px dashed #ddd;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
+}
+#upload_picture .user_album .user_picture {
+  display: inline-block;
+  max-width: 94px;
+  max-height: 94px;
+}
+#upload_picture .user_album .add_picture {
+  text-align: center;
+  margin: 4px;
+  float: left;
+  width: 96px;
+  height: 96px;
+  border: 1px dashed #ddd;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
+  border: 1px dashed #ccc;
+}
+#upload_picture .user_album .add_picture .text {
+  display: inline-block;
+  top: -7px;
+  position: relative;
+  margin-top: 50%;
+  font-size: 14px;
+  line-height: 14px;
+}
+#upload_picture .user_album .user_upload_picture_input {
+  z-index: -99999;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: -9999px;
+}
+#upload_picture .do_upload_box {
+  padding-bottom: 16px;
+}
 #user_detail .head_img {
-  min-height: 112px;
+  min-height: 128px;
   text-align: center;
 }
 #user_detail .item {
   display: inline-block;
   width: 100%;
-  padding: 8px;
-  border-bottom: 1px solid #c5c5c5;
-  font-size: 14px;
+  padding: 16px 2px;
+  border-bottom: 1px solid #ddd;
+  font-size: 16px;
   color: #666;
 }
 #user_detail .item .title {
-  font-size: 110%;
   color: #333;
-  font-weight: bolder;
+  font-weight: bold;
+  margin-right: 8px;
 }
 #user_detail .item .twitte {
   margin: 2px 0;
 }
-#user_detail .item p {
+#user_detail .item .text {
   color: #666;
+  word-break: all;
 }
 #user_detail .gravatar_box {
   overflow: hidden;
@@ -598,9 +818,65 @@
 #user_detail .func .btn {
   margin-left: 8px;
 }
-#user_detail .user_album .sub_item {
-  float: left;
+#user_detail .user_album_item {
+  padding: 16px 0;
+}
+#user_detail .user_album_item .title {
+  padding-left: 2px;
+}
+#user_detail .user_album_box {
+  background: #e9e9e9;
+  text-align: center;
+  width: 100%;
+  background: #fff;
+}
+#user_detail .user_album {
+  width: 320px;
+  display: inline-block;
+  min-height: 102px;
+  padding: 4px;
+  text-align: center;
+}
+#user_detail .user_album .user_picture_box {
+  text-align: center;
   margin: 4px;
+  float: left;
+  width: 96px;
+  height: 96px;
+  border: 1px dashed #ddd;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
+}
+#user_detail .user_album .user_picture {
+  display: inline-block;
+  max-width: 94px;
+  max-height: 94px;
+}
+#user_detail .user_album .add_picture {
+  text-align: center;
+  margin: 4px;
+  float: left;
+  width: 96px;
+  height: 96px;
+  border: 1px dashed #ddd;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
+  border: 1px dashed #ccc;
+}
+#user_detail .user_album .add_picture .text {
+  display: inline-block;
+  top: -7px;
+  position: relative;
+  margin-top: 50%;
+  font-size: 14px;
+  line-height: 14px;
+}
+#user_detail .user_album .user_upload_picture_input {
+  z-index: -99999;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: -9999px;
 }
 #user_detail .visitors_list .sub_item {
   float: left;
@@ -679,7 +955,7 @@
 }
 #search .item {
   font-size: 18px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #b4bbc1;
   padding: 16px 8px;
   display: inline-block;
   width: 100%;
@@ -688,99 +964,27 @@
   text-align: center;
 }
 #search .select_box {
-  border-radius: 8px;
-  background: #b6a1b5;
+  border-radius: 6px;
+  background: #c8a3c4;
   display: inline-block;
   padding: 2px 4px;
-  color: #fff;
+  font-weight: bolder;
+  color: #eee;
   padding: 8px;
   font-size: 18px;
   margin-right: 18px;
 }
 #search .select_box_action {
-  border-radius: 8px;
-  background: #b6a1b5;
+  border-radius: 6px;
+  background: #c8a3c4;
   display: inline-block;
   padding: 2px 4px;
-  color: #fff;
+  font-weight: bolder;
+  color: #eee;
   padding: 8px;
   font-size: 18px;
   margin-right: 18px;
   background: #a7639e;
-}
-#update_self_profile .item {
-  font-size: 18px;
-  border-bottom: 1px solid #ddd;
-  padding: 16px 8px;
-  display: inline-block;
-  width: 100%;
-}
-#update_self_profile .do_update_box {
-  text-align: center;
-}
-#update_self_profile .looks {
-  border-bottom: none;
-}
-#update_self_profile .label {
-  border-radius: 4px;
-  padding: 4px 8px;
-  margin: 8px;
-  background: #ddd;
-  color: #333;
-  float: left;
-}
-#update_self_profile .label input {
-  display: none;
-}
-#update_self_profile .label_active {
-  color: #fff;
-  background: #2f232e;
-}
-#update_self_profile .user_album {
-  width: 100%;
-  display: inline-block;
-  height: auto;
-  min-height: 104px;
-  background: #eee;
-  border-bottom: 1px solid #999;
-  padding: 4px;
-}
-#update_self_profile .user_album .user_picture_box {
-  text-align: center;
-  margin: 8px;
-  float: left;
-  width: 98px;
-  height: 98px;
-  border: 1px solid #999;
-}
-#update_self_profile .user_album .user_picture {
-  display: inline-block;
-  max-width: 96px;
-  max-height: 96px;
-}
-#update_self_profile .user_album .add_picture {
-  text-align: center;
-  margin: 8px;
-  float: left;
-  width: 98px;
-  height: 98px;
-  border: 1px solid #999;
-  background: #efefef;
-}
-#update_self_profile .user_album .add_picture .text {
-  display: inline-block;
-  top: -7px;
-  position: relative;
-  margin-top: 50%;
-  font-size: 14px;
-  line-height: 14px;
-}
-#update_self_profile .user_album .user_upload_picture_input {
-  z-index: -99999;
-  display: block;
-  position: absolute;
-  top: 0;
-  left: -9999px;
 }
 #tweet .tweet_input {
   display: block;
@@ -812,20 +1016,20 @@
 #msgs .item {
   float: left;
   clear: both;
-  padding: 4px 2px;
+  padding: 12px 2px;
   width: 100%;
-  padding-top: 4px;
   min-height: 68px;
-  border-bottom: 1px solid #dbd3da;
+  border-bottom: 1px solid #e2e2e2;
 }
 #msgs .gravatar_box {
   overflow: hidden;
   float: left;
   border-radius: 4px;
-  border: 1px solid #eee;
+  border: 1px solid #ddd;
   width: 64px;
   height: 64px;
   margin-right: 4px;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.07);
 }
 #msgs .gravatar {
   margin-left: -16px;
@@ -899,20 +1103,20 @@
 #gifts .item {
   float: left;
   clear: both;
-  padding: 4px 2px;
+  padding: 12px 2px;
   width: 100%;
-  padding-top: 4px;
   min-height: 68px;
-  border-bottom: 1px solid #dbd3da;
+  border-bottom: 1px solid #e2e2e2;
 }
 #gifts .gravatar_box {
   overflow: hidden;
   float: left;
   border-radius: 4px;
-  border: 1px solid #eee;
+  border: 1px solid #ddd;
   width: 64px;
   height: 64px;
   margin-right: 4px;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.07);
 }
 #gifts .gravatar {
   margin-left: -16px;
@@ -986,20 +1190,20 @@
 #payment_record .item {
   float: left;
   clear: both;
-  padding: 4px 2px;
+  padding: 12px 2px;
   width: 100%;
-  padding-top: 4px;
   min-height: 68px;
-  border-bottom: 1px solid #dbd3da;
+  border-bottom: 1px solid #e2e2e2;
 }
 #payment_record .gravatar_box {
   overflow: hidden;
   float: left;
   border-radius: 4px;
-  border: 1px solid #eee;
+  border: 1px solid #ddd;
   width: 64px;
   height: 64px;
   margin-right: 4px;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.07);
 }
 #payment_record .gravatar {
   margin-left: -16px;
@@ -1084,12 +1288,17 @@
   color: #ef6cd1;
   font-weight: bolder;
 }
+#service {
+  background: #fff;
+}
 #service .text {
   font-size: 18px;
+  border-bottom: 1px solid #dedcdc;
+  padding: 16px 4px;
 }
 #coupons .item {
   font-size: 18px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #b4bbc1;
   padding: 16px 8px;
   display: inline-block;
   width: 100%;
@@ -1097,11 +1306,245 @@
 #coupons .btn_box {
   text-align: center;
 }
+#diaries {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  overflow: auto;
+}
+#diaries .items {
+  padding-top: 4px;
+  width: 100%;
+  display: inline-block;
+}
+#diaries .item {
+  float: left;
+  clear: both;
+  padding: 12px 2px;
+  width: 100%;
+  min-height: 68px;
+  border-bottom: 1px solid #e2e2e2;
+}
+#diaries .gravatar_box {
+  overflow: hidden;
+  float: left;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  width: 64px;
+  height: 64px;
+  margin-right: 4px;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.07);
+}
+#diaries .gravatar {
+  margin-left: -16px;
+  margin-top: -16px;
+  max-width: 96px;
+  max-height: 96px;
+}
+#diaries .vip {
+  background: url(data:image/gif;base64,R0lGODlhLQAQAOYAAP7+/v39/fz7/Pv6+/v5+vr5+vn4+fv4+vr4+vn3+fn3+Pn2+Pj29/j09/j19/fz9vf09vby9fXx9PTw8/Pv8v//M/Tv8/Pu8vLt8f/8MvHs8PLr8PDr7/Dq7//4MPDo7+3m6v/vK+3e7ubd4+va4uva4e3Y8OTa4ezW7uTZ4OrX3+PY3+LX3+HW3v/cIefQ2ubP2evL8ObN2P/VHtvN1trN1eTJ1OPI0+HG0eHE0Oq98//MGt/CztTEz9PEzua64+a54dG/y//DFdC+yuey8Oey6P+7EeCt3N+r2OCp3OGp3+Ch4d+i3v6pKv2oKv2nKf+pCPynKd+a5uKZ6tCjtd+a4uGX6s6hs9abyuCU6dmZ1M2esf+gBNSWxdSVx/+cAtSUxcuYrN2N5/+ZAMqXq9KRw9CSv8mUqdqH4dKLx9mE3dmE3tKIxtiC3diA3NCDxc2AwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAHAP8ALAAAAAAtABAAAAf/gBojIyuFhoeIiYqLiCAjCQABkpOUlZaXmJQMNSkCAgOgoaKjpKWmoz4sBQUKra6vsLGys7BDLAsLELoQYjAwPDwvPGu7TWPHTcbHy8zMTbu6troS1GpsWEdeXkhdb2jUY1AVUMchIUYhFRUh4h7mFVxj1PO2EREX+FJARVpwaUpFfmTBF25cuRDHKuwoSG6MuTH4ItqiQIGDRQ5TSOA4Q6VECSsXGR5MuFBcw4cXLU6k0KFlBxRLbpAhY6OKCJdjuGQQcszDDJIF3T2M4rKlrQkTNChVGiPJli1MTCzV8CRchh0hXCxTKPLYk6lK60WgSJYCETNmdJSl6CRnBa1jU9CpY2dwbVlpEObpdeNGr962x5wAbjbGiV+9tnA9WMy4sePHkCM7toUAAa7LmDNr3sxZs60HBA6IHk26tOnTqElvGAKCRo8gsGPLnk27tu3ZLQIBADs=) no-repeat left;
+  position: absolute;
+  height: 18px;
+  width: 46px;
+  margin-left: 17px;
+  margin-top: 44px;
+  opacity: 0.8;
+}
+#diaries .info {
+  word-wrap: break-word;
+  overflow: hidden;
+  max-width: 240px;
+  float: left;
+  padding: 0 8px;
+}
+#diaries .sub_item {
+  display: inline-block;
+  clear: both;
+  float: left;
+  color: #666;
+}
+#diaries .stream_show_more {
+  margin: 7px;
+  padding: 7px 0;
+  background: #f7f6ed;
+  color: #696969;
+  border-radius: 6px;
+  border: 1px solid #c9c9c9;
+  line-height: 28px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bolder;
+}
+#diaries .stream_show_more:active {
+  background: #d7d3c4;
+}
+#diaries .fetch_more {
+  text-align: center;
+  width: 90%;
+  background: #eee;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #333;
+  height: 48px;
+  line-height: 48px;
+  margin: 8px auto;
+}
+#diaries .disable {
+  background: # ccc;
+  color: #999;
+}
+#diaries .title {
+  color: #333;
+  font-weight: bolder;
+}
+#diaries .summary {
+  color: #797979;
+  font-weight: 100;
+}
+#diaries .func {
+  margin-top: 4px;
+  width: 100%;
+  float: right;
+  height: 100%;
+}
+#diaries .func .btn {
+  float: right;
+  margin-left: 8px;
+}
+#diaries .nickname {
+  font-weight: bolder;
+  font-size: 120%;
+  color: #000;
+  margin-bottom: 8px;
+}
+#diaries .female {
+  color: #f487da;
+}
+#diaries .color_by_sex {
+  color: #65b4f1;
+}
+#diaries .time {
+  color: #999;
+}
+#add_new_diary .item {
+  font-size: 18px;
+  border-bottom: 1px solid #b4bbc1;
+  padding: 16px 8px;
+  display: inline-block;
+  width: 100%;
+  border: none;
+}
+#add_new_diary .add_new_box {
+  text-align: center;
+}
+#add_new_diary .content {
+  min-height: 120px;
+}
+#diary_detail .item {
+  font-size: 18px;
+  border-bottom: 1px solid #b4bbc1;
+  padding: 16px 8px;
+  display: inline-block;
+  width: 100%;
+  font-size: 14px;
+  border-bottom: 1px solid #e2e2e2;
+}
+#diary_detail .item .sub_title {
+  color: #1b99d7;
+}
+#diary_detail .text {
+  line-height: 161.8%;
+}
+#diary_detail .title {
+  font-weight: bolder;
+}
+#diary_detail .content {
+  min-height: 120px;
+}
+#diary_detail .gravatar_box {
+  overflow: hidden;
+  float: left;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  width: 64px;
+  height: 64px;
+  margin-right: 4px;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.07);
+  margin: 0 8px 8px 0;
+  line-height: 161.8%;
+}
+#diary_detail .gravatar {
+  margin-left: -16px;
+  margin-top: -16px;
+  max-width: 96px;
+  max-height: 96px;
+}
+#diary_detail .header {
+  text-align: center;
+  background: #efefef;
+  box-shadow: inset 0 1px 0 #e2e2e2;
+}
+#diary_detail .header .gravatar_box {
+  margin: 0 auto;
+  float: none;
+  background-clip: padding-box;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  -webkit-transition: opacity 0.4s ease-in-out;
+}
+#diary_detail .comments .sub_item {
+  margin-top: 4px;
+  border-bottom: 1px dashed #ddd;
+  display: inline-block;
+  width: 100%;
+}
+#diary_detail .comments .sub_item .gravatar_box {
+  overflow: hidden;
+  float: left;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  width: 48px;
+  height: 48px;
+  margin-right: 4px;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.07);
+  margin-right: 8px;
+}
+#diary_detail .comments .sub_item .gravatar {
+  margin-left: -12px;
+  margin-top: -12px;
+  max-width: 72px;
+  max-height: 72px;
+}
+#diary_detail .comments .sub_item:last-child {
+  border-bottom: none;
+}
+#diary_detail .comments .sub_item .text {
+  display: inline-block;
+  line-height: 161.8%;
+  float: left;
+  max-width: 240px;
+}
+#diary_detail .comments .sub_item .sub_item {
+  clear: both;
+  float: right;
+  display: inline-block;
+}
+#diary_detail .comments .sub_item .func {
+  clear: both;
+  float: right;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+#diary_detail .comments .sub_item .time {
+  clear: both;
+  float: right;
+  display: inline-block;
+  color: #999;
+}
 body {
   font-size: 13px;
   font-family: 'Helvetica Neue', Arial, 'Liberation Sans', FreeSans, 'Hiragino Sans GB', sans-serif;
   -webkit-font-smoothing: antialiased;
-  background: #ececec;
 }
 .none_padding {
   padding: 0;

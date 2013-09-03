@@ -66,9 +66,12 @@ function(
                 } ,
                 function( data ) {
                     var dataObj = JSON.parse( data );
-                    console.dir( data )
-                    if( dataObj.code === "200" ) {
-                        alert( "ok" )
+
+                    if( dataObj.result === "ok" ) {
+                        window.updateSysNotice( "发表日志成功" );
+                        setTimeout( function() {
+                            window.router.navigate( 'diaries' , {trigger: true});
+                        }, 1000)
                     }
                 }
             );

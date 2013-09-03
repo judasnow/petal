@@ -134,20 +134,9 @@ function(
 
                     if( dataObj.result === "ok" ) {
                         window.updateSysNotice( "保存成功" );
-                        //更新本地用户信息
-                        window.objectUser.fetch({
-                            data: {
-                                user_id: userId
-                            } ,
-                            success: function( model ) {
-                                var userInfo = model.toJSON();
-                                window.localStorage.setItem( "petal:object_user_info" , JSON.stringify( userInfo ) );
-
-                                helper.reCalcInfoPercent( userInfo );
-                            }
-                        });
+                        helper.reCalcInfoPercent( userId );
                     } else {
-                        window.updateSysNotice( "保存失败请稍后再试" );
+                        window.updateSysNotice( "保存失败,请稍后再试" );
                     }
                 } 
             );

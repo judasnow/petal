@@ -39,7 +39,6 @@ require.config({
     }
 });
 
-
 require([
     "app"
 ] ,

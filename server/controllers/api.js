@@ -168,7 +168,7 @@ api.updateUser = function( req , res ) {
     var sex = req.param( "sex" , "" );
     var height = req.param( "height" , "" );
     var weight = req.param( "weight" , "" );
-    var marutal_status = req.param( "marital_status" , "" );
+    var marutal_status = req.param( "marital_status" , "123" );
     var age = req.param( "age" , "" );
     var career = req.param( "career" , "" );
     var purpose = req.param( "purpose" , "" );
@@ -188,11 +188,11 @@ api.updateUser = function( req , res ) {
     };
 
     helper.req2hb123(
-        "post" ,
+        "post" , 
         "about=user&action=update_info&user_id=" + userId + 
         "&birthday=" + birthday + 
         "&nickname=" + nickName +
-        "&zwms=" + zwms +
+        "&zwms=" + zwms + 
         "&looks=" + looks +
         "&area_id=" + area_id +
         "&age=" + age + 
@@ -201,7 +201,7 @@ api.updateUser = function( req , res ) {
         "&marutal_status=" + marutal_status.trim() +
         "&offer=" + offer.trim() +
         "&career=" + career.trim() +
-        "&sex=" + sex.trim() +
+        "&sex=" + sex.trim() + 
         "&character=" + character.trim() +
         "&purpose=" + purpose.trim() +
         "&sex_idea=" + sexIdea.trim() +
@@ -539,11 +539,15 @@ api.reg = function( req , res ) {
     var password = req.param( "password" , "" );
 
     var ok = function( dataObj ) {
-        res.json( {user_id: dataObj.user_id } );
-    }
+        if( dataObj.code === "200" ) {
+            res.json( {result: "ok", user_id: dataObj.user_id } );
+        } else {
+            res.json( {result: "fail", msg: dataObj.msg} );
+        }
+    };
 
     var error = function( dataObj ) {
-        res.json( dataObj );
+        res.json( { result: "fail" , msg: dataObj.msg } );
     };
 
     helper.req2hb123(

@@ -90,7 +90,7 @@ function(
             //保存本用户信息 到本地 
             var userId = this.model.get( "UserId" );
             window.router.navigate(
-                "/#user_detail/" + userId,
+                "user_detail/" + userId,
                 {
                     trigger: true
                 }

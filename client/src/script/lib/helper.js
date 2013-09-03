@@ -126,7 +126,7 @@ function( _ ) {
 
     helper.isInfoPercentFullfill = function() {
     //{{{
-        var percentRequire = 100;
+        var percentRequire = "100";
 
         //关于这个百分比存放的位置
         if( percentRequire !== window.localStorage.getItem( "petal:info_percent_fullfill" ) ) {
@@ -145,7 +145,7 @@ function( _ ) {
 
     //重新计算百分比
     //@param userInfo 是需要计算的用户信息 json 对象
-    helper.reCalcInfoPercent = function( userInfo ) {
+    helper._doReCalcInfoPercent = function( userInfo ) {
     //{{{
         //用户基本信息
         var basisInfoList = [ "NickName" , "Sex" , "AreaDes" , "SG" , "TZ" , "Age" , "ZY" , "HY" , "TG1" , "HD1" ];
@@ -171,7 +171,23 @@ function( _ ) {
         window.localStorage.setItem( 
             "petal:info_percent_fullfill" , 
             ( fullfillCount / infoListLength ).toFixed( 2 ) * 100 );
-    }//}}}
+    };//}}}
+
+    helper.reCalcInfoPercent = function( userId ) {
+    //{{{
+        //更新本地用户信息
+        window.objectUser.fetch({
+            data: {
+                user_id: userId
+            } ,
+            success: function( model ) {
+                var userInfo = model.toJSON();
+                window.localStorage.setItem( "petal:object_user_info" , JSON.stringify( userInfo ) );
+
+                helper._doReCalcInfoPercent( userInfo );
+            }
+        });
+    };//}}}
 
     return helper;
 });
