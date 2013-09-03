@@ -35,7 +35,7 @@ function(
             "tap .send_gift": "sendGift" ,
             "tap .send_msg": "sendMsg" ,
             "tap .wanted_gift_list .gravatar": "sendThatGift" ,
-            "tap .visitors_list>.sub_item": "goDetailPage" ,
+            "tap .visitors_list .sub_item": "goDetailPage" ,
             "tap .user_picture": "showAlbum"
         } ,
 
@@ -69,11 +69,21 @@ function(
 
         sendMsg: function() {
         //{{{
+            if( !helper.isInfoPercentFullfill() ) {
+                helper.goToFillInfo();
+                return false;
+            }
+
             commonOperate.goChatListPage( this.model );
         } ,//}}}
 
         sendGift: function() {
         //{{{
+            if( !helper.isInfoPercentFullfill() ) {
+                helper.goToFillInfo();
+                return false;
+            }
+
             window.localStorage.setItem( "petal:send_gift_target_user_id" , this.model.get( "UserId" ) );
             window.router.navigate( "/#gift_list" , {trigger: true} );
         } ,//}}}
@@ -81,6 +91,11 @@ function(
         //赠送其想收到的礼物
         sendThatGift: function( event ) {
         //{{{
+            if( !helper.isInfoPercentFullfill() ) {
+                helper.goToFillInfo();
+                return false;
+            }
+
             var $subItem = $( event.target ).parent().parent();
             var giftId = $subItem.find( ".gift_id" ).text();
             var price = $subItem.find( ".price b" ).text();
@@ -91,17 +106,23 @@ function(
 
         getContacesInfo: function() {
         //{{{
+            if( !helper.isInfoPercentFullfill() ) {
+                helper.goToFillInfo();
+                return false;
+            }
+
             commonOperate.getUserContactInfo( this.model );
         } ,//}}}
 
         goDetailPage: function( event ) {
+        //{{{
             event.stopImmediatePropagation();
 
             var userId = $( event.target ).attr( "data-user_id" );
             if( !isNaN( userId ) ) {
                 window.router.navigate( "/#user_detail/" + userId , {trigger: true} );
             }
-        } ,
+        } ,//}}}
 
         //相当于一个相册的插件 每次只需要传递
         //给该插件一个相片地址的数组 并将其设置为

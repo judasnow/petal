@@ -1,8 +1,9 @@
 define( [
+    "underscore" ,
     "date_utils"
 ] , 
 
-function(){
+function( _ ) {
 
     var helper = {};
 
@@ -82,6 +83,7 @@ function(){
     };//}}}
 
     helper.showImage = function( $imgs ) {
+    //{{{
         var default_src = {
             male:
             //{{{
@@ -115,11 +117,61 @@ function(){
                 $(el).attr( "src" , $img.attr( "origin_src" ) );
             }
         );
-    };
+    };//}}}
 
     helper.removeHTMLTag = function( str ) {
+    //{{{
         return str.replace(/<\/?[^>]*>/g,'').replace(/[ | ]*\n/g,'\n').replace(/&nbsp;/ig,'');//去掉&nbsp;
-    }
+    };//}}}
+
+    helper.isInfoPercentFullfill = function() {
+    //{{{
+        var percentRequire = 100;
+
+        //关于这个百分比存放的位置
+        if( percentRequire !== window.localStorage.getItem( "petal:info_percent_fullfill" ) ) {
+            return false;
+        } else {
+            return true;
+        }
+    };//}}}
+
+    helper.goToFillInfo = function() {
+    //{{{
+        //@加上一个判断 如果用户交友信息没有完善也要给予提示
+        window.updateSysNotice( "请先完善您的信息" );
+        window.router.navigate( "update_self_profile" , {trigger: true} );
+    };//}}}
+
+    //重新计算百分比
+    //@param userInfo 是需要计算的用户信息 json 对象
+    helper.reCalcInfoPercent = function( userInfo ) {
+    //{{{
+        //用户基本信息
+        var basisInfoList = [ "NickName" , "Sex" , "AreaDes" , "SG" , "TZ" , "Age" , "ZY" , "HY" , "TG1" , "HD1" ];
+
+        //交友信息
+        var makeFriendsInfoList = [ "MD" , "WM" , "GX" , "XA" , "XQ" , "ZWMS" ];
+
+        //头像
+        var avatar = [ "HeadPic" ];
+
+        var infoList = basisInfoList.concat( makeFriendsInfoList.concat( avatar ) );
+        var infoListLength = infoList.length;
+        var fullfillCount = 0;
+
+        //统计出用户已经完成的信息
+        for( var key in userInfo ) {
+            if( _.indexOf( infoList , key ) !== -1 && userInfo[key] !== "" ) {
+                console.log( userInfo[key]  )
+                fullfillCount += 1;
+            }
+        }
+
+        window.localStorage.setItem( 
+            "petal:info_percent_fullfill" , 
+            ( fullfillCount / infoListLength ).toFixed( 2 ) * 100 );
+    }//}}}
 
     return helper;
 });

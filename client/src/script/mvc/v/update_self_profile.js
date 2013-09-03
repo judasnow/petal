@@ -1,7 +1,9 @@
-//用户个人资料修改页面
-//需要注意的是 用户更新的信息中
-//图片信息 以及 其他文本信息是分开发送
-//到 服务器的 
+//
+// 用户个人资料修改页面
+// 需要注意的是 用户更新的信息中
+// 图片信息 以及 其他文本信息是分开发送
+// 到 服务器的 
+//
 define([
     "underscore" ,
     "backbone" ,
@@ -98,6 +100,7 @@ function(
 
         doUpdate: function() {
         //{{{
+            var userId = window.objectUser.get( "UserId" );
             var nickname = this.$nicknameInput.val();
             var province = this.$province.val();
             var cityname = this.$cityname.val();
@@ -128,12 +131,27 @@ function(
                 } ,
                 function( data ) {
                     var dataObj = JSON.parse( data );
-                    if( dataObj.code === "200" ) {
-                        alert( "ok" );
+
+                    if( dataObj.result === "ok" ) {
+                        window.updateSysNotice( "保存成功" );
+                        //更新本地用户信息
+                        window.objectUser.fetch({
+                            data: {
+                                user_id: userId
+                            } ,
+                            success: function( model ) {
+                                var userInfo = model.toJSON();
+                                window.localStorage.setItem( "petal:object_user_info" , JSON.stringify( userInfo ) );
+
+                                helper.reCalcInfoPercent( userInfo );
+                            }
+                        });
+                    } else {
+                        window.updateSysNotice( "保存失败请稍后再试" );
                     }
-                }
+                } 
             );
-        } ,//}}}
+        },//}}}
 
         editNickname: function( event ) {
         //{{{

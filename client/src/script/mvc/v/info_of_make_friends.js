@@ -50,6 +50,7 @@ function(
         } ,
 
         doUpdate: function() {
+        //{{{
             var purpose = helper.getCheckLabel( this.$purposeItem );
             var looks = helper.getCheckLabel( this.$looksItem );
             var character = helper.getCheckLabel( this.$characterItem );
@@ -72,15 +73,16 @@ function(
                     console.dir( data )
                 }
             );
-        } ,
+        } ,//}}}
 
         editPurpose: function( event ) {
+        //{{{
             var $label = $( event.currentTarget );
             var $i = $label.find( "i" );
             var $div = $label.parent();
 
             helper.reverseCheck( $i );
-        } ,
+        } ,//}}}
 
         editLooks: function( event ) {
         //{{{

@@ -197,6 +197,7 @@ var onDeviceReady = function() {
 //邮箱地址补全
 //@param $targetInputEl 绑定到 input 元素
 var autocompleteEmail = function( $targetInputEl ) {
+//{{{
     if( typeof $targetInputEl === "undefined" || $targetInputEl === null ) {
         return;
     }
@@ -279,7 +280,7 @@ var autocompleteEmail = function( $targetInputEl ) {
             }
         }
     });
-};
+};//}}}
 
 //dom 加载完成 就会调用这个初始化方法
 var init = function() {
@@ -421,7 +422,16 @@ var init = function() {
                             //重定向到首页
                             window.location.href = "/";
                         } else {
-                            window.updateSysNotice( "注册失败，请稍后再试一次" );
+                            var msg = "注册失败，请稍后再试一次";
+                            switch( dataObj.msg ) {
+                                case "usename invalid":
+                                    msg = "用户名不可用,请重新输入";
+                                    break;
+                                case "nickname invalid":
+                                    msg = "昵称不可用,请重新输入";
+                                    break;
+                            }
+                            window.updateSysNotice( msg );
                         }
                     }
                 );
