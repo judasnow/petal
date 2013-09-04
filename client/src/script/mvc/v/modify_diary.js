@@ -10,10 +10,10 @@ define([
     "m/diary" ,
     "v/menu" ,
 
-    "text!tpl/edit_diary.html" ,
-    "text!tpl/add_new_diary.html" ,
+    "text!tpl/modify_diary.html" ,
 
-    "lib/helper"
+    "lib/helper" ,
+    "lib/common_operate"
 ] ,
 function(
     _ ,
@@ -23,29 +23,33 @@ function(
     Diary ,
     MenuView ,
 
-    editDiaryTpl ,
-    addNewDiaryTpl ,
+    modifyDiaryTpl ,
 
-    helper
+    helper ,
+    commonOperate
 ) {
     "use strict";
 
-    var EditDiaryView = Backbone.View.extend({
+    var ModifyDiaryView = Backbone.View.extend({
+        template: modifyDiaryTpl ,
+
         events: {
-        
+            "tap .save": "doSave"
         },
 
         initialize: function( args ) {
             new MenuView();
+
+            _.bindAll( this , "doSave" , "render" );
 
             this.model = new Diary();
             this.listenTo( this.model , "change" , this.render );
 
             //@XXX 这里使用 yeild 可能会更优雅一点
             if( typeof args !== "undefined" && !isNaN( args.diary_id ) ) {
+
                 //修改
                 var diaryId = args.diary_id;
-                this.template = editDiaryTpl;
                 this.divIdName = "edit_diary";
 
                 this.model.fetch({
@@ -53,16 +57,25 @@ function(
                         diary_id: diaryId
                     }
                 });
-                this.$el = $.ui.addOrUpdateDiv( this.divIdName , "" );
-            } else {
-                //新日志
-                this.template = addNewDiaryTpl;
-                this.divIdName = "add_new_diary";
-                this.$el = $.ui.addOrUpdateDiv( this.divIdName , "" );
 
-                this.render();
+                this.$el = $.ui.addOrUpdateDiv( "modify_diary" ,  "" );
+            } else {
+                //没有提供 diaryId 跳转到 add_new_diary
+                window.router.navigate( "add_new_diary" , {trigger: true} );
             }
         } ,
+
+        doSave: function() {
+        //{{{
+            var title = this.$title.val();
+            var content = this.$content.val();
+
+            commonOperate.addOrUpdateDiaryInfo({
+                diary_id: this.model.get( "DId" ) ,
+                title: title ,
+                content: content
+            });
+        } ,//}}}
 
         render: function() {
         //{{{
@@ -70,20 +83,25 @@ function(
                 Mustache.to_html( 
                     this.template , 
                     this.model.toJSON() 
-                ) 
+                )
             );
+
             $.ui.loadContent( 
-                "#" + this.divIdName ,
+                "#modify_diary",
                 false ,
                 false , 
 
                 "none" 
             );
+
+            this.$title = this.$el.find( ".title" );
+            this.$content = this.$el.find( ".content" );
+
             return this;
         }//}}}
 
     });
 
-    return EditDiaryView;
+    return ModifyDiaryView;
 });
 

@@ -94,6 +94,7 @@ function(
             if( msg !== "" ) {
                 var targetUserId = window.localStorage.getItem( "petal:send_msg_target_user_id" );
                 var rootMsgId = window.localStorage.getItem( "petal:root_msg_id" );
+
                 $.post(
                     "/api/send_msg" ,
                     {

@@ -8,7 +8,8 @@ define([
 
     "text!tpl/add_new_diary.html" ,
 
-    "lib/helper"
+    "lib/helper" ,
+    "lib/common_operate"
 ] ,
 function(
     _ ,
@@ -20,7 +21,8 @@ function(
 
     addNewDiaryTpl ,
 
-    helper
+    helper ,
+    commonOperate
 ) {
     "use strict";
 
@@ -47,34 +49,10 @@ function(
             var title = this.$title.val();
             var content = this.$content.val();
 
-            if( typeof title === "undefined" || title === "" ) {
-                window.updateSysNotice( "标题不能是空" );
-                return;
-            }
-
-            if( typeof content === "undefined" || content === "" ) {
-                window.updateSysNotice( "日志内容不能是空" );
-                return;
-            }
-
-            $.post(
-                "/api/diary" ,
-                {
-                    user_id: window.objectUser.get( "UserId" ) ,
-                    title: title ,
-                    content: content 
-                } ,
-                function( data ) {
-                    var dataObj = JSON.parse( data );
-
-                    if( dataObj.result === "ok" ) {
-                        window.updateSysNotice( "发表日志成功" );
-                        setTimeout( function() {
-                            window.router.navigate( 'diaries' , {trigger: true});
-                        }, 1000)
-                    }
-                }
-            );
+            commonOperate.addOrUpdateDiaryInfo({
+                title: title ,
+                content: content
+            });
         } ,
 
         render: function() {

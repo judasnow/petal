@@ -176,6 +176,87 @@ function(
         );
     };//}}}
 
+    var _addNewDiary = function( diaryInfo ) {
+    //{{{
+        var diary_id = diaryInfo.diary_id;
+        var title = diaryInfo.title;
+        var content = diaryInfo.content;
+
+        $.post(
+            "/api/diary" ,
+            {
+                user_id: window.objectUser.get( "UserId" ) ,
+                title: title ,
+                content: content 
+            } ,
+            function( data ) {
+                var dataObj = JSON.parse( data );
+
+                if( dataObj.result === "ok" ) {
+                    window.updateSysNotice( "发表日志成功" );
+
+                    setTimeout( function() {
+                        window.router.navigate( 'diaries' , {trigger: true});
+                    }, 1000)
+                }
+            }
+        );
+    };//}}}
+
+    var _updateDiary = function( diaryInfo ) {
+    //{{{
+        var diary_id = diaryInfo.diary_id;
+        var title = diaryInfo.title;
+        var content = diaryInfo.content;
+
+        $.post(
+            "/api/update_diary" ,
+            {
+                diary_id: diary_id ,
+                user_id: window.objectUser.get( "UserId" ) ,
+                title: title ,
+                content: content 
+            } ,
+            function( data ) {
+                var dataObj = JSON.parse( data );
+
+                if( dataObj.result === "ok" ) {
+                    window.updateSysNotice( "发表日志成功" );
+                    setTimeout( function() {
+                        window.router.navigate( 'diaries' , {trigger: true});
+                    }, 1000)
+                }
+            }
+        );
+    };//}}}
+
+    //提交日志信息
+    commonOperate.addOrUpdateDiaryInfo = function( diaryInfo ) {
+        //{{{
+        var diary_id = diaryInfo.diary_id;
+        var title = diaryInfo.title;
+        var content = diaryInfo.content;
+
+        if( typeof title === "undefined" || title === "" ) {
+            window.updateSysNotice( "标题不能是空" );
+            return;
+        }
+
+        if( typeof content === "undefined" || content === "" ) {
+            window.updateSysNotice( "日志内容不能是空" );
+            return;
+        }
+
+        if( typeof diary_id !== "undefined" ) {
+            //修改
+            _updateDiary( diaryInfo );
+        } else {
+            //提交新的日志信息
+            _addNewDiary( diaryInfo );
+        }
+
+    };//}}}
+
     return commonOperate;
 
 });

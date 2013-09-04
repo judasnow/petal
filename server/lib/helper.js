@@ -75,10 +75,12 @@ var addExtraUserProp = function( rawUserInfoObj ) {
     rawUserInfoObj.isFemale = ( rawUserInfoObj.sexInEnglish === "female" ? true : false );
 
     var areaDes = rawUserInfoObj.AreaDes;
-    if( typeof areaDes !== "undefined" && areaDes !== null ) {
-        rawUserInfoObj.location = (function( areaDesArray ) {
+    if( typeof areaDes !== "undefined" && areaDes !== "" ) {
+        rawUserInfoObj["location"] = (function( areaDesArray ) {
             return areaDesArray[0] + " " + areaDesArray[1];
         })( areaDes.replace( /\-/g , "," ).split( "," ) );
+    } else {
+        rawUserInfoObj["location"] = "";
     }
 
     return rawUserInfoObj;

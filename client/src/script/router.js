@@ -26,6 +26,7 @@ define([
     "v/diaries" ,
     "v/add_new_diary" ,
     "v/diary_detail" ,
+    "v/modify_diary",
 
     "text!tpl/error404.html"
 ] ,
@@ -55,6 +56,7 @@ function(
     DiariesView ,
     AddNewDiaryView ,
     DiaryDetailView ,
+    ModifyDiaryView ,
 
     error404Tpl
 ) {
@@ -87,6 +89,7 @@ function(
             "diaries/:user_id": "showDiaries" ,
             "diaries": "showDiaries" ,
             "add_new_diary": "showAddNewDiary" ,
+            "modify_diary/:id": "showModifyDiary" ,
             "diary_detail/:id": "showDiaryDetail" ,
 
             "gifts/self/received": "showSelfReceivedGifts" ,
@@ -177,6 +180,11 @@ function(
         showAddNewDiary: function() {
         //{{{
             new AddNewDiaryView();  
+        },//}}}
+
+        showModifyDiary: function( id ) {
+        //{{{
+            new ModifyDiaryView({ diary_id: id });
         },//}}}
 
         showDiaryDetail: function( id ) {

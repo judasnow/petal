@@ -10,7 +10,8 @@ define([
 
     "v/menu" ,
 
-    "text!tpl/stream.html"
+    "text!tpl/stream.html",
+    "lib/helper"
 ],
 function( 
     _ ,
@@ -24,7 +25,8 @@ function(
 
     MenuView ,
 
-    streamTpl
+    streamTpl,
+    helper
 ){
     "use strict";
 
@@ -38,7 +40,8 @@ function(
             //除非之前的一个页面已经渲染了他
             var users = new Users();
 
-            //@todo 对于其他页面上的用户流 这个名字可能会冲突
+            helper.reCalcInfoPercent( window.objectUser.get( "UserId" ) );
+
             this.baseInitialize( "stream" , streamTpl , ScreamItemView , users , args.q , args.hash );
             if( window.localStorage.getItem( "petal:is_new_login" ) === "true" ){
                 window.localStorage.setItem( "petal:is_new_login" , "false" );

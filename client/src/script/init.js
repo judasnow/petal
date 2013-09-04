@@ -301,7 +301,6 @@ var init = function() {
 
         var routeByHash = function() {
             var hash = locationLocal.hash;
-
             if( hash.match( /^#login.*/ ) ) {
                 if( hash === "#login" ) {
                     //显示登录页面

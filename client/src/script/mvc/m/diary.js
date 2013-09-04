@@ -39,7 +39,7 @@ function(
                 this.set( "isFemale" , false );
             }
 
-            this.set( "time" , helper.resetTime( this.get( "CreatAt" ) ) );
+            this.set( "time" , helper.resetTime( this.get( "CreateAt" ) ) );
         }
     });
 

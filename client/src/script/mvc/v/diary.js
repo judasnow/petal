@@ -24,23 +24,25 @@ function(
         template: diaryTpl ,
 
         events: {
+            "tap .modify": "goToModify",
             "tap": "goToDetail"
         },
 
         initialize: function() {
         //{{{
-            
+            _.bindAll( this , "goToDetail" , "goToModify" );
         } ,//}}}
 
         goToDetail: function() {
         //{{{
-            var $diaryId = this.$el.find( ".diary_id" );
-            var diaryId = $diaryId.text();
-            if( isNaN( diaryId ) ) {
-                return;
-            } else {
-                window.router.navigate( "diary_detail/" + diaryId , {trigger: true} );
-            }
+            window.router.navigate( "diary_detail/" + this.model.get( "DId" ) , {trigger: true} );
+        } ,//}}}
+
+        goToModify: function() {
+        //{{{
+            event.stopImmediatePropagation();
+
+            window.router.navigate( "modify_diary/" + this.model.get( "DId" ) , {trigger: true} );
         } ,//}}}
         
         render: function() {

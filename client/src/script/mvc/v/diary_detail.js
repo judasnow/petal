@@ -174,11 +174,12 @@ function(
         render: function() {
         //{{{
             this.$el.html( 
-                Mustache.to_html( 
-                    this.template , 
+                Mustache.to_html(
+                    this.template ,
                     this.model.toJSON() 
-                ) 
+                )
             );
+
             $.ui.loadContent(
                 "#diary_detail" ,
                 false ,
@@ -186,6 +187,7 @@ function(
 
                 "none" 
             );
+
             helper.showImage( this.$el.find( "img" ) );
 
             //注意顺序

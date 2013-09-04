@@ -104,6 +104,7 @@ api.getUser = function( req , res ) {
             userInfoObj.wantedGiftList = JSON.parse( dataObj.wanted_gift_list );
             userInfoObj.pictureList = JSON.parse( dataObj.picture_list );
             userInfoObj.receivedGiftList = JSON.parse( dataObj.received_gift_list );
+            userInfoObj.diariesList = JSON.parse( dataObj.diaries_list );
 
         } catch( err ) {
             console.log( "fetch user info with user_id:" + userId + " error" );
@@ -587,7 +588,26 @@ api.addNewDiary = function( req , res ) {
 //修改一篇指定的日志
 api.updateDiary = function( req, res ) {
 //{{{
-    
+    var userId = req.param( "user_id" , "" );
+    var diaryId = req.param( "diary_id" , "" );
+    var title = req.param( "title" , "" );
+    var content= req.param( "content" , "" );
+
+    var ok = function( dataObj ) {
+        res.json( {result: "ok"} );
+    }
+
+    helper.req2hb123(
+        "post" , 
+        "about=diary&action=update" + 
+        "&diary_id=" + diaryId +
+        "&user_id=" + userId + 
+        "&title=" + title + 
+        "&content=" + content ,
+
+        ok
+    );
+
 };//}}}
 
 //获取一篇日志的信息

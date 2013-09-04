@@ -3,6 +3,7 @@ function() {
     var getRangeArray = function( min , max ) {
         var rangeObj = [];
 
+        rangeObj.push( {val: ""} );
         for( var i = min ; i <= max ; i = i + 1 ) {
             rangeObj.push( {val: i} );
         }

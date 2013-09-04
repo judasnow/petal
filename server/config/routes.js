@@ -16,7 +16,7 @@ module.exports = function( app , config ) {
 
     //gift
     app.get( "/api/gifts/" , api.getGiftList );
-    app.get( "/api/send_gift/" , api.sendGift );
+    app.post( "/api/send_gift/" , api.sendGift );
 
     //payment_recoreds
     app.get( "/api/payment_recoreds/" , api.getPaymentRecordList );
@@ -45,6 +45,7 @@ module.exports = function( app , config ) {
     app.get( "/api/diaries" , api.getDiaryList );
     app.get( "/api/diary" , api.getDiaryDetail );
     app.post( "/api/diary" , api.addNewDiary );
+    app.post( "/api/update_diary" , api.updateDiary );
     app.get( "/api/diary_comments" , api.getCommentListByDiaryId );
     app.post( "/api/add_new_comment" , api.addCommentToADiary );
 }

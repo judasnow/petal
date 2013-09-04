@@ -5,7 +5,8 @@ define([
 
     "m/user" ,
 
-    "text!tpl/upload_picture.html"
+    "text!tpl/upload_picture.html",
+    "lib/helper"
 ],
 function( 
     _ ,
@@ -14,7 +15,8 @@ function(
 
     User ,
 
-    uploadPictureTpl
+    uploadPictureTpl,
+    helper
 ){
     "use strict";
 
@@ -56,7 +58,10 @@ function(
                     var formData = new FormData();
                     formData.append( "user_upload_picture" , this.files[i] );
                     formData.append( "user_id" , userId );
-                    xhr.onload = function() { window.updateSysNotice( "上传成功" ) };
+                    xhr.onload = function() { 
+                        window.updateSysNotice( "上传成功" ) 
+                        helper.reCalcInfoPercent( userId );
+                    };
                     xhr.open( "POST" , "/api/upload_files" );
                     xhr.send( formData );
                 }

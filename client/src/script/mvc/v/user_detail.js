@@ -30,13 +30,15 @@ function(
 
     var UserDetail = Backbone.View.extend({
         template: userDetailTpl ,
+
         events: {
             "tap .get_contaces_info": "getContacesInfo" ,
             "tap .send_gift": "sendGift" ,
             "tap .send_msg": "sendMsg" ,
             "tap .wanted_gift_list .gravatar": "sendThatGift" ,
             "tap .visitors_list .sub_item": "goDetailPage" ,
-            "tap .user_picture": "showAlbum"
+            "tap .user_picture": "showAlbum" ,
+            "tap .diaries_list .sub_item": "goToDiaryDetail"
         } ,
 
         initialize: function( data ) {
@@ -56,13 +58,16 @@ function(
 
             _.bindAll(
                 this , 
-                "sendMsg" , "sendGift" , "getContacesInfo" , "sendThatGift" , "showAlbum" , "render" );
+                "sendMsg" , "sendGift" , "getContacesInfo" , "sendThatGift" , "showAlbum" , "goToDiaryDetail" , "render" );
 
             this.model = new User();
             this.listenTo( this.model , "change" , this.render );
             this.model.fetch({
                 data: {
                     user_id: this.subjectUserId
+                },
+                success: function( m ) {
+                    console.dir( m )
                 }
             });
         } ,//}}}
@@ -120,7 +125,16 @@ function(
 
             var userId = $( event.target ).attr( "data-user_id" );
             if( !isNaN( userId ) ) {
-                window.router.navigate( "/#user_detail/" + userId , {trigger: true} );
+                window.router.navigate( "user_detail/" + userId , {trigger: true} );
+            }
+        } ,//}}}
+
+        goToDiaryDetail: function( event ) {
+        //{{{
+            var diaryId = $( event.target ).find( ".diary_id" ).text();
+
+            if( !isNaN( diaryId ) ) {
+                window.router.navigate( "diary_detail/" + diaryId , {trigger: true} );
             }
         } ,//}}}
 
@@ -203,6 +217,7 @@ function(
 
         render: function() {
         //{{{
+            console.dir( this.model.toJSON() )
             if( this.isSelfPage === true ) {
                 this.model.set( "isSelfPage" , true );
             }

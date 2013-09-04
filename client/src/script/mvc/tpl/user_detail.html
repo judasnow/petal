@@ -7,7 +7,14 @@
 </div>
 
 <div class="user_info item">
-    {{NickName}} , {{#Age}}{{Age}}岁 , {{/Age}} {{Sex}} , {{location}} , {{SG}}cm , {{TZ}}公斤 , {{HY}} , {{ZY}}
+    {{#NickName}}{{NickName}} {{/NickName}}
+    {{#Age}} , {{Age}}岁{{/Age}} 
+    {{#Sex}} , {{Sex}}{{/Sex}}
+    {{#location}} , {{location}}{{/location}} 
+    {{#SG}} , {{SG}}cm{{/SG}} 
+    {{#TZ}} , {{TZ}}公斤{{/TZ}}
+    {{#HY}} , {{HY}}{{/HY}} 
+    {{#ZY}} , {{ZY}}{{/ZY}}
 </div>
 
 <div class="item">
@@ -91,6 +98,20 @@
         <span data-user_id="{{UserId}}" class="nickname"></span>
     </div>
     {{/visitorsList}}
+    </div>
+</div>
+
+<div class="item diaries_list">
+    <b class="title">最新日志</b>
+    <div>
+        {{#diariesList}}
+            <div class="sub_item">
+                <span class="diary_id" >{{DId}}</span>
+                <span class="title">{{Title}}</span>
+                <span class="summary">{{summary}}({{commentCount}}/{{ClickCount}})</span>
+                <span class="time">{{time}}</span>
+            </div>
+        {{/diariesList}}
     </div>
 </div>
 
