@@ -902,6 +902,22 @@
   width: 48px;
   text-align: center;
 }
+#user_detail .diaries_list .sub_item {
+  padding: 8px 0;
+  border-bottom: 1px dashed #ccc;
+}
+#user_detail .diaries_list .sub_item:nth-last-child( 1 ) {
+  border: none;
+}
+#user_detail .diaries_list .sub_item .title {
+  color: #333;
+}
+#user_detail .diaries_list .sub_item .summary {
+  color: #999;
+}
+#user_detail .diaries_list .sub_item .diary_id {
+  display: none;
+}
 #user_detail .gift_list .sub_item {
   float: left;
   width: 48px;
@@ -1426,6 +1442,9 @@
 #diaries .time {
   color: #999;
 }
+#diaries .diary_id {
+  display: none;
+}
 #add_new_diary .item {
   font-size: 18px;
   border-bottom: 1px solid #b4bbc1;
@@ -1438,6 +1457,20 @@
   text-align: center;
 }
 #add_new_diary .content {
+  min-height: 120px;
+}
+#modify_diary .item {
+  font-size: 18px;
+  border-bottom: 1px solid #b4bbc1;
+  padding: 16px 8px;
+  display: inline-block;
+  width: 100%;
+  border: none;
+}
+#modify_diary .add_new_box {
+  text-align: center;
+}
+#modify_diary .content {
   min-height: 120px;
 }
 #diary_detail .item {

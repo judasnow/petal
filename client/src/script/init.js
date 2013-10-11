@@ -4,11 +4,11 @@
 //因此配置文件也是独立的
 
 //{{{
-setInterval( function(){
-    window.localStorage.setItem( "http://172.17.0.46/src/style/less/main.less:timestamp" , "" );
-}, 3000 );
-less.env = "development";
-less.watch();
+//setInterval( function(){
+//    window.localStorage.setItem( "http://172.17.0.46/src/style/less/main.less:timestamp" , "" );
+//}, 3000 );
+//less.env = "development";
+//less.watch();
 //}}}
 
 //appCache
@@ -48,10 +48,10 @@ var addRequirejs = function() {
 //{{{
     var oHead = document.getElementsByTagName( "HEAD" ).item( 0 ); 
     var oScript= document.createElement( "script" );
-    //oScript.setAttribute( "data-main" , "/build/script/rquirejs_main_build.js" );
-    //oScript.src = "/build/script/lib/require.js";
-    oScript.setAttribute( "data-main" , "/src/script/main.js" );
-    oScript.src = "/src/script/lib/require.js";
+    oScript.setAttribute( "data-main" , "/build/script/rquirejs_main_build.js" );
+    oScript.src = "/build/script/lib/require.js";
+    //oScript.setAttribute( "data-main" , "/src/script/main.js" );
+    //oScript.src = "/src/script/lib/require.js";
     oHead.appendChild( oScript );
 
     $.ui.showMask();

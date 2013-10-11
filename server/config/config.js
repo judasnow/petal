@@ -7,16 +7,16 @@ module.exports = {
         qiniuACCESS_KEY: "TE_-Yqi7633MjIo3haNx4uF-WJaLqatk1SjduHcY" ,
         qiniuSECRET_KEY: "tygGSrdMLIpgTie26eqYH41aKd9Rd3S6CRac92Uz" ,
         redisServer: { 
-            address: "172.17.0.46" ,
+            address: "172.17.0.202" ,
             port: "6379"
         } ,
-        mongodServer: "mongodb://172.17.0.46/petal" ,
+        mongodServer: "mongodb://172.17.0.202/petal" ,
         wxRedisServer: {
-            address: "172.17.0.46" ,
+            address: "172.17.0.202" ,
             port: "6380"
         } ,
-        hb123Server: "http://172.17.0.20:1979/Mobile/Api.aspx?" ,
-        hb123WxServer: "http://172.17.0.20:1979/action/weixinmpapi.aspx?" ,
+        hb123Server: "http://172.17.0.232:1979/Mobile/Api.aspx?" ,
+        hb123WxServer: "http://172.17.0.232:1979/action/weixinmpapi.aspx?" ,
         appPort: 8800 ,
         alipay: {
             //合作身份者id，以2088开头的16位纯数字
