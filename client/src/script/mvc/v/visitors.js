@@ -11,7 +11,7 @@ define([
 
     "text!tpl/vistitor.html"
 ],
-function( 
+function(
     _ ,
     Backbone ,
     Mustache ,

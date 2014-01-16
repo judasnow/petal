@@ -4,8 +4,8 @@ var path = require( "path" )
 module.exports = {
     dev: {
         rootPath: rootPath ,
-        qiniuACCESS_KEY: "TE_-Yqi7633MjIo3haNx4uF-WJaLqatk1SjduHcY" ,
-        qiniuSECRET_KEY: "tygGSrdMLIpgTie26eqYH41aKd9Rd3S6CRac92Uz" ,
+        qiniuACCESS_KEY: "" ,
+        qiniuSECRET_KEY: "" ,
         redisServer: { 
             address: "172.17.0.202" ,
             port: "6379"
@@ -20,11 +20,11 @@ module.exports = {
         appPort: 8800 ,
         alipay: {
             //合作身份者id，以2088开头的16位纯数字
-            partner: "2088302808428418", 
+            partner: "", 
             //安全检验码，以数字和字母组成的32位字符
-            key: "luzyp6klpga6yijpyt8aq2pnhwnupc42",
+            key: "",
             //卖家支付宝帐户 必填
-            seller_email: "huaban1989@163.com" ,
+            seller_email: "" ,
             host: "http://221.10.10.2",
             //ca证书路径地址，用于curl中ssl校验 
             cacert: rootPath + "/config/cacert.pem",
@@ -74,8 +74,8 @@ module.exports = {
             port: "6379"
         } ,
         mongodServer: "mongodb://127.0.0.1/petal" ,
-        qiniuACCESS_KEY: "TE_-Yqi7633MjIo3haNx4uF-WJaLqatk1SjduHcY" ,
-        qiniuSECRET_KEY: "tygGSrdMLIpgTie26eqYH41aKd9Rd3S6CRac92Uz" ,
+        qiniuACCESS_KEY: "" ,
+        qiniuSECRET_KEY: "" ,
         wxRedisServer: {
             address: "127.0.0.1" ,
             port: "6379"
@@ -83,14 +83,14 @@ module.exports = {
         hb123Server: "http://test.huaban123.com/Mobile/Api.aspx?" ,
         hb123WxServer: "http://www.huaban123.com/action/weixinmpapi.aspx?" ,
         appPort: 8800 ,
-                alipay: {
+            alipay: {
             //合作身份者id，以2088开头的16位纯数字
-            partner: "2088302808428418", 
+            partner: "", 
             //安全检验码，以数字和字母组成的32位字符
-            key: "luzyp6klpga6yijpyt8aq2pnhwnupc42",
+            key: "",
             //卖家支付宝帐户 必填
-            seller_email: "huaban1989@163.com" ,
-            host: "http://m.huaban123.com",
+            seller_email: "" ,
+            host: "",
             //ca证书路径地址，用于curl中ssl校验 
             cacert: rootPath + "/config/cacert.pem",
             //访问模式,根据自己的服务器是否支持ssl访问，若支持请选择https；若不支持请选择http
@@ -102,3 +102,4 @@ module.exports = {
         }
     }
 }
+
